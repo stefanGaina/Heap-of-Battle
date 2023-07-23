@@ -1,37 +1,31 @@
-# Prerequisites
-*.d
+# VSCode settings
+.vscode
 
-# Compiled Object files
-*.slo
-*.lo
+# Objects
+obj
 *.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# Libraries
+hob-Game/lib
+hob-Server/lib
 
 # Executables
-*.exe
-*.out
-*.app
+hob/bin
 
-bin
-lib
-obj
-.vs
+# Unit-test
+coverage_report
+*.gcno
+*.gcda
+*.gcov
+*.info
+
+# Logs
+Heap-of-Battle/messages
+Heap-of-Battle/plog_level
+
+# TODO-REMOVE
+temp
+hob-Server
+hob-Installer
+hob-Game
+hob-Server-Instance
