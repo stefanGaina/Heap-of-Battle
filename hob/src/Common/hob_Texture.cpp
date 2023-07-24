@@ -2,6 +2,7 @@
  * @file hob_Texture.cpp                                                                              *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * @details This file implements the class defined in hob_Texture.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -68,7 +69,7 @@ void Texture::load(const std::string& filePath) noexcept
 		return;
 	}
 
-	m_rawTexture = SDL_CreateTextureFromSurface(Renderer::get(), temporarySurface);
+	m_rawTexture = SDL_CreateTextureFromSurface(Renderer::getInstance().get(), temporarySurface);
 	if (NULL == m_rawTexture)
 	{
 		plog_error("Texture failed to be created! (file path: %s) (SDL error message: %s)", filePath.c_str(), SDL_GetError());
@@ -101,7 +102,7 @@ Coordinate Texture::create(std::string text, TTF_Font* font, SDL_Color color) no
 		return dimension;
 	}
 
-	m_rawTexture = SDL_CreateTextureFromSurface(Renderer::get(), temporarySurface);
+	m_rawTexture = SDL_CreateTextureFromSurface(Renderer::getInstance().get(), temporarySurface);
 	if (NULL == m_rawTexture)
 	{
 		plog_error("Text texture failed to be created! (TTF error message: %s)", TTF_GetError());

@@ -2,6 +2,7 @@
  * @file hob_Window.cpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * @details This file implements the class defined in hob_Window.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -61,7 +62,7 @@ void Window::create(void) noexcept(false)
 
 		throw std::exception();
 	}
-	Renderer::set(renderer);
+	Renderer::getInstance().set(renderer);
 
 	errorCode = SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	if (0L != errorCode)
@@ -80,7 +81,7 @@ void Window::create(void) noexcept(false)
 void Window::destroy(void) noexcept
 {
 	plog_debug("Window is being destroyed.");
-	Renderer::reset();
+	Renderer::getInstance().reset();
 
 	SDL_DestroyWindow(m_window);
 	m_window = NULL;
@@ -118,7 +119,7 @@ void Window::logInfo(void) const noexcept
 
 	plog_trace("Information is being logged.");
 
-	errorCode = SDL_GetRendererInfo(Renderer::get(), &rendererInfo);
+	errorCode = SDL_GetRendererInfo(Renderer::getInstance().get(), &rendererInfo);
 	if (0L != errorCode)
 	{
 		plog_warn("Failed to get renderer information! (error message: %s)", SDL_GetError());

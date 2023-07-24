@@ -2,6 +2,7 @@
  * @file hob_Loop.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Remove frames per second.                                   *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -86,11 +87,6 @@ private:
 	void render(void) noexcept(false);
 
 private:
-	/**
-	 * @brief The frames counter. Is static to persist in between scenes.
-	*/
-	static FramesPerSecond s_framesPerSecond;
-
 	/**
 	 * @brief Flag indicating if the loop is running or is stopped.
 	*/

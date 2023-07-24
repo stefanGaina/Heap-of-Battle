@@ -2,6 +2,7 @@
  * @file hob_Renderer.cpp                                                                             *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Changed it into a singleton.                                *
  * @details This file implements the class defined in hob_Renderer.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -22,9 +23,16 @@
 namespace hob
 {
 
-SDL_Renderer* Renderer::s_renderer = NULL;
+Renderer& Renderer::getInstance(void) noexcept
+{
+	static Renderer rendererInstance = {};
 
-void Renderer::set(SDL_Renderer* renderer)
+	plog_verbose("Renderer instance is being got.");
+
+	return rendererInstance;
+}
+
+void Renderer::set(SDL_Renderer* renderer) noexcept
 {
 	plog_info("Renderer is being set! (renderer: %p)", renderer);
 	if (NULL == renderer)
@@ -32,20 +40,20 @@ void Renderer::set(SDL_Renderer* renderer)
 		plog_error("Invalid renderer!");
 		return;
 	}
-	s_renderer = renderer;
+	m_renderer = renderer;
 }
 
-SDL_Renderer* Renderer::get(void)
+SDL_Renderer* Renderer::get(void) const noexcept
 {
-	plog_verbose("Renderer is being got. (renderer: %p)", s_renderer);
-	return s_renderer;
+	plog_verbose("Renderer is being got. (renderer: %p)", m_renderer);
+	return m_renderer;
 }
 
-void Renderer::reset(void)
+void Renderer::reset(void) noexcept
 {
-	plog_info("Renderer is being reseted! (renderer: %p)", s_renderer);
-	SDL_DestroyRenderer(s_renderer);
-	s_renderer = NULL;
+	plog_info("Renderer is being reseted! (renderer: %p)", m_renderer);
+	SDL_DestroyRenderer(m_renderer);
+	m_renderer = NULL;
 }
 
 } /*< namespace hob */

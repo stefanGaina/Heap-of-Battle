@@ -1,5 +1,6 @@
 # VSCode settings
 .vscode
+.vs
 
 # Objects
 obj
@@ -24,7 +25,6 @@ Heap-of-Battle/messages
 Heap-of-Battle/plog_level
 
 # TODO-REMOVE
-temp
 hob-Server
 hob-Installer
 hob-Game

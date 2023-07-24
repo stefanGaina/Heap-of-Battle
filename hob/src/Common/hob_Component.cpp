@@ -2,6 +2,7 @@
  * @file hob_Component.cpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * @details This file implements the class defined in hob_Component.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -41,7 +42,7 @@ void Component::draw(void) noexcept
 		return;
 	}
 
-	errorCode = SDL_RenderCopy(Renderer::get(), m_texture, NULL, &m_destination);
+	errorCode = SDL_RenderCopy(Renderer::getInstance.get(), m_texture, NULL, &m_destination);
 	if (0L != errorCode)
 	{
 		plog_warn("Renderer failed to copy texture! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());

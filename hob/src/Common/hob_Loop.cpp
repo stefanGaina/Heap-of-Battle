@@ -2,6 +2,7 @@
  * @file hob_Loop.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 24.07.2023  Gaina Stefan               Move frames per second in render.                           *
  * @details This file implements the class defined in hob_Loop.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -24,8 +25,6 @@
 
 namespace hob
 {
-
-FramesPerSecond Loop::s_framesPerSecond = {};
 
 Loop::Loop(void) noexcept
 	: m_isRunning      { false }
@@ -112,11 +111,13 @@ void Loop::handleEvents(void) noexcept
 
 void Loop::render(void) noexcept(false)
 {
+	static FramesPerSecond framesPerSecond = {};
+
 	int32_t errorCode = 0L;
 
 	plog_verbose("Scene is being rendered.");
 
-	errorCode = SDL_RenderClear(Renderer::get());
+	errorCode = SDL_RenderClear(Renderer::getInstance().get());
 	if (0L != errorCode)
 	{
 		plog_error("Renderer failed to be cleared! (error code: %" PRId32 ") (error message: %s)", errorCode, SDL_GetError());
@@ -125,9 +126,9 @@ void Loop::render(void) noexcept(false)
 
 	draw();
 	Cursor::getInstance().draw();
-	s_framesPerSecond.draw();
+	framesPerSecond.draw();
 
-	SDL_RenderPresent(Renderer::get());
+	SDL_RenderPresent(Renderer::getInstance().get());
 }
 
 } /*< namespace hob */
