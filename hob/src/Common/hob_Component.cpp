@@ -42,7 +42,7 @@ void Component::draw(void) noexcept
 		return;
 	}
 
-	errorCode = SDL_RenderCopy(Renderer::getInstance.get(), m_texture, NULL, &m_destination);
+	errorCode = SDL_RenderCopy(Renderer::getInstance().get(), m_texture, NULL, &m_destination);
 	if (0L != errorCode)
 	{
 		plog_warn("Renderer failed to copy texture! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());

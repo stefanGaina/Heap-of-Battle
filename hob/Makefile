@@ -2,6 +2,7 @@
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
+#   24.07.2023  Gaina Stefan               Add winsock linking.                                       #
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
@@ -9,12 +10,14 @@ CXXFLAGS = -Wall -Werror
 LDFLAGS  = -Wl,-rpath='.' -L../vendor/SDL2/lib/       -lSDL2       \
 		   -Wl,-rpath='.' -L../vendor/SDL2_image/lib/ -lSDL2_image \
 		   -Wl,-rpath='.' -L../vendor/SDL2_mixer/lib/ -lSDL2_mixer \
-		   -Wl,-rpath='.' -L../vendor/SDL2_ttf/lib/   -lSDL2_ttf
+		   -Wl,-rpath='.' -L../vendor/SDL2_ttf/lib/   -lSDL2_ttf   \
+		   -lws2_32
 
 INCLUDES = -Iinclude/                      \
 		   -Iinclude/Common/               \
 		   -Iinclude/Main/                 \
 		   -Iinclude/Menu/                 \
+		   -I../hob-Server/include/        \
 		   -I../vendor/Plog/include/       \
 		   -I../vendor/SDL2/include/       \
 		   -I../vendor/SDL2_image/include/ \

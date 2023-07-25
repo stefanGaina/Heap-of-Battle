@@ -1,10 +1,10 @@
 /******************************************************************************************************
- * @file hobM_Renderer.hpp                                                                            *
+ * @file hob_Renderer.hpp                                                                             *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Changed it into a singleton.                                *
  * @details This file defines the class and method prototypes of the renderer.                        *
- * @todo Make it a singleton.                                                                         *
+ * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
