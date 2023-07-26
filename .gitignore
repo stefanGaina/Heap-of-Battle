@@ -21,11 +21,11 @@ coverage_report
 *.info
 
 # Logs
-Heap-of-Battle/messages
+Heap-of-Battle/hob_logs.txt
+Heap-of-Battle/hob_server_logs.txt
 Heap-of-Battle/plog_level
 
 # TODO-REMOVE
 hob-Installer
 hob-Game
-hob-Server-Instance
 hob-AI
