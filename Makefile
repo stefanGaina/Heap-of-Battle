@@ -2,6 +2,7 @@
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
+#   27.07.2023  Gaina Stefan               Added compilation of server.                               #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -24,13 +25,16 @@ INFO_FILES = $(COVERAGE_REPORT)/plog.info
 
 ### MAKE SUBDIRECTORIES ###
 all:
+	$(MAKE) -C hob-Server
 	$(MAKE) -C hob
 
 release:
+	$(MAKE) release -C hob-Server
 	$(MAKE) release -C hob
 
 ### CLEAN SUBDIRECTORIES ###
 clean:
+	$(MAKE) clean -C hob-Server
 	$(MAKE) clean -C hob
 
 ### MAKE UNIT-TESTS ###

@@ -25,7 +25,7 @@ Heap-of-Battle/messages
 Heap-of-Battle/plog_level
 
 # TODO-REMOVE
-hob-Server
 hob-Installer
 hob-Game
 hob-Server-Instance
+hob-AI
