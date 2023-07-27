@@ -75,7 +75,7 @@ private:
 	 * @brief Does not create a renderer implicitly.
 	 * @param void
 	*/
-	Renderer(void) = default;
+	Renderer(void) noexcept;
 
 	/**
 	 * @brief Does not destroy the renderer.

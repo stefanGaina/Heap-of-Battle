@@ -47,7 +47,7 @@ public:
 		std::array<SDL_Rect, COMPONENTS_COUNT> destinations) noexcept;
 
 	/**
-	 * @brief Frees the loaded textures.
+	 * @brief Destroys the loaded textures.
 	 * @param void
 	*/
 	virtual ~TextureInitializer(void) = default;

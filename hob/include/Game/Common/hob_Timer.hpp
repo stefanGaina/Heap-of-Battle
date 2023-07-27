@@ -1,20 +1,20 @@
 /******************************************************************************************************
- * @file hob_Game.hpp                                                                                 *
+ * @file hob_Timer.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
- * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * @details This file defines the function that runs the game.                                        *
+ * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
-#ifndef HOB_GAME_HPP_
-#define HOB_GAME_HPP_
+#ifndef HOB_TIMER_HPP_
+#define HOB_TIMER_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include "hob_Types.hpp"
+#include "hob_TextureInitializer.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -24,43 +24,32 @@ namespace hob
 {
 
 /**
- * @brief Static class that initializes subsystems and run the scene loop of the game.
+ * @brief Graphical representation of the time left.
 */
-class Game final
+class Timer final : public TextureInitializer<22ULL, 4ULL>
 {
 public:
 	/**
-	 * @brief Initializes all subsystems and runs the scenes of the game.
+	 * @brief Loads the textures needed for drawing the timer.
 	 * @param void
-	 * @return void
 	*/
-	static void run(void) noexcept(false);
-
-private:
-	/**
-	 * @brief Checks for loaded libraries versions and initializes SDL, SDL image, SDL mixer, SDL ttf,
-	 * Winsock and Plog in case of development builds.
-	 * @param void
-	 * @return void
-	*/
-	static void init(void) noexcept(false);
+	Timer(void) noexcept;
 
 	/**
-	 * @brief Deinitializes SDL, SDL image, SDL mixer, SDL ttff, Winsock and deinitializes Plog in case
-	 * of development builds.
+	 * @brief Destroys the loaded textures.
 	 * @param void
-	 * @return void
 	*/
-	static void deinit(void) noexcept;
+	~Timer(void) = default;
 
 	/**
-	 * @brief Runs the game loop for the current scene.
-	 * @param void
+	 * @brief Draws the time left.
+	 * @param seconds: How many seconds are left.
+	 * @param isAlliance: Whose turn is it to use the specific textures.
 	 * @return void
 	*/
-	static void sceneLoop(void) noexcept;
+	void update(uint16_t seconds, bool isAlliance) noexcept;
 };
 
 } /*< namespace hob */
 
-#endif /*< HOB_GAME_HPP_ */
+#endif /*< HOB_TIMER_HPP_ */

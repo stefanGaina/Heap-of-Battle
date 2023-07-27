@@ -57,20 +57,6 @@ protected:
 	*/
 	void stop(Scene nextScene) noexcept;
 
-	/**
-	 * @brief Abstract method, handling an event.
-	 * @param void
-	 * @return void
-	*/
-	virtual void handleEvent(const SDL_Event& event) noexcept = 0;
-
-	/**
-	 * @brief Abstract method drawing to the renderer the updated scene.
-	 * @param void
-	 * @return void
-	*/
-	virtual void draw(void) noexcept = 0;
-
 private:
 	/**
 	 * @brief Handles all pending events.
@@ -85,6 +71,20 @@ private:
 	 * @return void
 	*/
 	void render(void) noexcept(false);
+
+	/**
+	 * @brief Abstract method, handling an event.
+	 * @param void
+	 * @return void
+	*/
+	virtual void handleEvent(const SDL_Event& event) noexcept = 0;
+
+	/**
+	 * @brief Abstract method drawing to the renderer the updated scene.
+	 * @param void
+	 * @return void
+	*/
+	virtual void draw(void) noexcept = 0;
 
 private:
 	/**

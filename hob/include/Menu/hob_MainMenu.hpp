@@ -76,6 +76,12 @@ public:
 	*/
 	MainMenu(void) noexcept;
 
+	/**
+	 * @brief Destroys the loaded textures and sound needed for this scene.
+	 * @param void
+	*/
+	~MainMenu(void) = default;
+
 private:
 	/**
 	 * @brief Handles an event.
@@ -89,7 +95,7 @@ private:
 	 * @param void
 	 * @return void
 	*/
-	virtual void draw(void) noexcept;
+	void draw(void) noexcept override;
 
 private:
 	/**

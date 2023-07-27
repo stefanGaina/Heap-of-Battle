@@ -66,7 +66,8 @@ enum class Scene
 	QUIT        = 0, /**< The game is closing.             */
 	MAIN_MENU   = 1, /**< The game is in main menu.        */
 	SETTINGS    = 2, /**< The game is in settings menu.    */
-	MULTIPLAYER = 3  /**< The game is in multiplayer menu. */
+	MULTIPLAYER = 3, /**< The game is in multiplayer menu. */
+	MAP_1       = 4  /**< The game is in map 1.            */
 };
 
 /**

@@ -2,6 +2,7 @@
  * @file hob_Socket.cpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.07.2023  Gaina Stefan               Removed WSA.                                                *
  * @details This file implements the class defined in hob_Socket.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -28,7 +29,7 @@ namespace hob
 /**
  * @brief 
 */
-static constexpr uint16_t PORT = 8887U;
+static constexpr uint16_t PORT = 8787U;
 
 Socket& Socket::getInstance(void) noexcept
 {
@@ -42,36 +43,13 @@ Socket& Socket::getInstance(void) noexcept
 Socket::Socket(void) noexcept
 	: m_socket{ INVALID_SOCKET }
 {
-	WORD    versionRequested = MAKEWORD(2, 2);
-	WSADATA wsaData          = {};
-	int32_t errorCode        = ERROR_SUCCESS;
-
-	plog_debug("Socket is being constructed.");
-
-	errorCode = WSAStartup(versionRequested, &wsaData);
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_error("WSA failed to be started! (error code: %" PRId32 ")", WSAGetLastError());
-	}
-
-	if (2 != LOBYTE(wsaData.wVersion) || 2 != HIBYTE(wsaData.wVersion))
-	{
-		plog_error("Could not find a usable version of Winsock.dll!");
-	}
+	plog_trace("Socket is being constructed.");
 }
 
 Socket::~Socket(void) noexcept
 {
-	int32_t errorCode = ERROR_SUCCESS;
-
-	plog_debug("Socket is being deconstructed.");
+	plog_trace("Socket is being destructed.");
 	close();
-
-	errorCode = WSACleanup();
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_error("WSA failed to be cleaned! (error code: %" PRId32 ")", errorCode);
-	}
 }
 
 void Socket::create(std::string ipAddress) noexcept(false)
@@ -97,7 +75,7 @@ void Socket::create(std::string ipAddress) noexcept(false)
 	}
 
 	m_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (0ULL == m_socket)
+	if (INVALID_SOCKET == m_socket)
 	{
 		plog_error("Client socket failed to be created! (error code: %" PRId32 ")", WSAGetLastError());
 		throw std::exception();
@@ -121,9 +99,9 @@ void Socket::create(std::string ipAddress) noexcept(false)
 	server.sin_port   = htons(PORT);
 
 	errorCode = connect(m_socket, (sockaddr*)&server, sizeof(server));
-	if (ERROR_SUCCESS > errorCode)
+	if (ERROR_SUCCESS != errorCode)
 	{
-		plog_error("Client failed to connect to server! (error code: %" PRId32 ")", errorCode);
+		plog_error("Failed to connect to server! (error code: %" PRId32 ")", errorCode);
 		goto CLOSE;
 	}
 
@@ -178,7 +156,7 @@ void Socket::receiveUpdate(hobServer::Message& updateMessage) const noexcept
 	plog_verbose("Querrying for updates.");
 	if (INVALID_SOCKET == m_socket)
 	{
-		plog_fatal("Connection is not established");
+		plog_fatal("Connection is not established!");
 		return;
 	}
 	plog_debug("Waiting for updates to arrive.");

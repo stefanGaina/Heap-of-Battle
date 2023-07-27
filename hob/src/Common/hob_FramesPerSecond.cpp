@@ -43,7 +43,7 @@ FramesPerSecond::FramesPerSecond(void) noexcept
 
 FramesPerSecond::~FramesPerSecond(void) noexcept
 {
-	plog_trace("Frames per second is being deconstructed.");
+	plog_trace("Frames per second is being destructed.");
 	TTF_CloseFont(m_font);
 }
 

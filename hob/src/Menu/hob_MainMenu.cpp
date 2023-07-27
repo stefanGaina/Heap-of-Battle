@@ -90,12 +90,10 @@ MainMenu::MainMenu(void) noexcept
 	, SoundInitializer  { s_soundFilePaths }
 	, m_clickDownIndex  { 0ULL }
 {
-	Cursor& cursor = Cursor::getInstance();
-
 	plog_trace("Main menu is being constructed.");
 	Music::getInstance().start(Song::MAIN_MENU);
-	cursor.setFaction(true);
-	cursor.setTexture(CursorType::IDLE);
+	Cursor::getInstance().setFaction(true);
+	Cursor::getInstance().setTexture(CursorType::IDLE);
 }
 
 void MainMenu::draw(void) noexcept

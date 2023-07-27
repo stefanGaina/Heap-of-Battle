@@ -32,6 +32,12 @@ Renderer& Renderer::getInstance(void) noexcept
 	return rendererInstance;
 }
 
+Renderer::Renderer(void) noexcept
+	: m_renderer{ NULL }
+{
+	plog_trace("Renderer is being constructed.");
+}
+
 void Renderer::set(SDL_Renderer* renderer) noexcept
 {
 	plog_info("Renderer is being set! (renderer: %p)", renderer);

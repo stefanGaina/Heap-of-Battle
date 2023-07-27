@@ -2,6 +2,7 @@
  * @file hob_Game.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.07.2023  Gaina Stefan               Added WSA.                                                  *
  * @details This file implements the class defined in hob_Game.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -13,6 +14,7 @@
 
 #include <iostream>
 #include <memory>
+#include <winsock2.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
@@ -22,6 +24,13 @@
 #include "hob_Version.hpp"
 #include "hob_Window.hpp"
 #include "hob_MainMenu.hpp"
+#include "hob_Map1.hpp"
+#include "hobServer_Version.hpp"
+
+#ifdef DEVEL_BUILD
+#include "hob_Socket.hpp"
+#include "hobServer_Server.hpp"
+#endif /*< TODO: REMOVE */
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -67,11 +76,14 @@ void Game::run(void) noexcept(false)
 void Game::init(void) noexcept(false)
 {
 #ifdef DEVEL_BUILD
-	plog_Version_t     plogVersion   = {};
+	plog_Version_t     plogVersion      = {};
 #endif /*< DEVEL_BUILD */
-	SDL_version        sdlVersion    = {};
-	const SDL_version* sdlVersionRef = NULL;
-	int32_t            errorCode     = 0L;
+	SDL_version        sdlVersion       = {};
+	const SDL_version* sdlVersionRef    = NULL;
+	hobServer::Version serverVersion    = {};
+	WORD               versionRequested = MAKEWORD(2, 2);
+	WSADATA            wsaData          = {};
+	int32_t            errorCode        = 0L;
 
 #ifdef DEVEL_BUILD
 	plogVersion = plog_get_version();
@@ -82,7 +94,7 @@ void Game::init(void) noexcept(false)
 		std::cout << "Plog version mismatch! (compiled version: " << PLOG_VERSION_MAJOR << "." << PLOG_VERSION_MINOR << "." << PLOG_VERSION_PATCH << ")" << std::endl;
 		throw std::exception();
 	}
-	plog_init(NULL);
+	plog_init("hob_logs.txt");
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 #endif /*< DEVEL_BUILD */
 
@@ -127,10 +139,33 @@ void Game::init(void) noexcept(false)
 		throw std::exception();
 	}
 
+	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
+	if (hobServer::VERSION_MAJOR != serverVersion.getMajor()
+	 || hobServer::VERSION_MINOR != serverVersion.getMinor()
+	 || hobServer::VERSION_PATCH != serverVersion.getPatch())
+	{
+		plog_fatal("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
+		throw std::exception();
+	}
+
+	errorCode = WSAStartup(versionRequested, &wsaData);
+	if (ERROR_SUCCESS != errorCode)
+	{
+		plog_error("WSA failed to be started! (error code: %" PRId32 ")", errorCode);
+		throw std::exception();
+	}
+
+	if (2 != LOBYTE(wsaData.wVersion) || 2 != HIBYTE(wsaData.wVersion))
+	{
+		plog_error("Could not find a usable version of Winsock.dll!");
+		throw std::exception();
+	}
+
 	errorCode = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	if (0L != errorCode)
 	{
 		plog_fatal("SDL failed to be initialized! (error code: %" PRId32 ") (error message: %s)", errorCode, SDL_GetError());
+		(void)WSACleanup();
 		throw std::exception();
 	}
 
@@ -138,6 +173,7 @@ void Game::init(void) noexcept(false)
 	if (IMG_INIT_PNG != errorCode)
 	{
 		plog_fatal("SDL image failed to be initializzed! (error code: %" PRId32 ") (error message: %s)", errorCode, IMG_GetError());
+		(void)WSACleanup();
 		SDL_Quit();
 
 		throw std::exception();
@@ -147,6 +183,7 @@ void Game::init(void) noexcept(false)
 	if (0L > errorCode)
 	{
 		plog_fatal("Mixer failed to be opened! (error code: %" PRId32 ") (error message: %s)", errorCode, Mix_GetError());
+		(void)WSACleanup();
 		IMG_Quit();
 		SDL_Quit();
 
@@ -157,6 +194,7 @@ void Game::init(void) noexcept(false)
 	if (0L != errorCode)
 	{
 		plog_error("TTF failed to be initialized! (error code: %" PRId32 ") (error message: %s)", errorCode, TTF_GetError());
+		(void)WSACleanup();
 		Mix_Quit();
 		IMG_Quit();
 		SDL_Quit();
@@ -168,6 +206,14 @@ void Game::init(void) noexcept(false)
 
 void Game::deinit(void) noexcept
 {
+	int32_t errorCode = ERROR_SUCCESS;
+
+	errorCode = WSACleanup();
+	if (ERROR_SUCCESS != errorCode)
+	{
+		plog_warn("WSA failed to be cleaned! (error code: %" PRId32 ")", errorCode);
+	}
+
 	TTF_Quit();
 	plog_info("SDL TTF was cleaned up!");
 
@@ -191,6 +237,21 @@ void Game::sceneLoop(void) noexcept
 	Scene                 nextScene = Scene::MAIN_MENU;
 	std::shared_ptr<Loop> sceneLoop = nullptr;
 
+#ifdef DEVEL_BUILD
+	nextScene = Scene::MAP_1;
+
+	try
+	{
+		Socket::getInstance().create("127.0.0.1");
+	}
+	catch (const std::exception& exception)
+	{
+		return;
+	}
+
+	SDL_Delay(5000);
+#endif /*< TODO: REMOVE */
+
 	plog_debug("Starting scene loop!");
 	while (true)
 	{
@@ -205,6 +266,19 @@ void Game::sceneLoop(void) noexcept
 				catch (const std::bad_alloc& exception)
 				{
 					plog_fatal("Unable to allocate memory for main menu scene!");
+					return;
+				}
+				break;
+			}
+			case Scene::MAP_1:
+			{
+				try
+				{
+					sceneLoop = std::make_shared<Map1>();
+				}
+				catch (const std::bad_alloc& exception)
+				{
+					plog_fatal("Unable to allocate memory for map 1!");
 					return;
 				}
 				break;

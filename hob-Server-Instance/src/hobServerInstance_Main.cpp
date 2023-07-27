@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
 {
 	uint16_t port = DEFAULT_PORT;
 
-	std::cout << "Running Heap-of-Battle server " << hobServerInstance::VERSION_MAJOR << "." <<
-		  hobServerInstance::VERSION_MINOR << "." << hobServerInstance::VERSION_PATCH << "!" << std::endl;
+	std::cout << "Running Heap-of-Battle server "                      << static_cast<uint16_t>(hobServerInstance::VERSION_MAJOR) << "." <<
+		static_cast<uint16_t>(hobServerInstance::VERSION_MINOR) << "." << static_cast<uint16_t>(hobServerInstance::VERSION_PATCH) << "!" << std::endl;
 
 	if (1L == argc)
 	{

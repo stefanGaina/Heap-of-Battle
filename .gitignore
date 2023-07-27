@@ -30,3 +30,5 @@ Heap-of-Battle/plog_level
 hob-Installer
 hob-Game
 hob-AI
+*.hppa
+*.cppa

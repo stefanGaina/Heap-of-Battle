@@ -42,7 +42,7 @@ void Server::run(uint16_t port) noexcept(false)
 
 		while (0L != stop)
 		{
-			std::cout << "Input \"0\" to stop server: ";
+			std::cout << std::endl << "Input \"0\" to stop server: ";
 			std::cin >> stop;
 		}
 		server.stop();

@@ -59,8 +59,8 @@ public:
 	void close(void) noexcept;
 
 	/**
-	 * @brief TODO
-	 * @param updateMessage 
+	 * @brief Waits until the server sends a message.
+	 * @param updateMessage: Message received from the server.
 	 * @return void
 	*/
 	void receiveUpdate(hobServer::Message& updateMessage) const noexcept;
