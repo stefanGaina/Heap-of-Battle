@@ -12,6 +12,7 @@ hob-Server/lib
 
 # Executables
 hob/bin
+hob-Server-Instance/bin
 
 # Unit-test
 coverage_report
