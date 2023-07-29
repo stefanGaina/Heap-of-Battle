@@ -17,10 +17,10 @@
 #include <thread>
 
 #include "hob_Loop.hpp"
-// #include "hob_Menu.hpp"
+#include "hob_Menu.hpp"
 // #include "hob_Chat.hpp"
-// #include "hob_Tiles1.hpp"
-// #include "hob_Buildings1.hpp"
+#include "hob_Tiles1.hpp"
+#include "hob_Buildings1.hpp"
 #include "hob_Grid1.hpp"
 #include "hob_Timer.hpp"
 
@@ -31,17 +31,20 @@
 namespace hob
 {
 
+/**
+ * @brief Main class of the scenario 1.
+*/
 class Map1 final : public Loop
 {
 public:
 	/**
-	 * @brief
+	 * @brief Creates the receiving thread and changes the cursor.
 	 * @param void
 	*/
 	Map1(void);
 
 	/**
-	 * @brief
+	 * @brief Closes the socket and resets the cursor.
 	 * @param void
 	*/
 	~Map1(void);
@@ -62,57 +65,50 @@ private:
 	void draw(void) noexcept override;
 
 	/**
-	 * @brief
+	 * @brief Receives updates from the server.
 	 * @param void
 	 * @return void
 	*/
 	void receivingFunction(void) noexcept;
 
-	// /**
-	//  * @brief
-	//  * @param void
-	//  * @return void
-	// */
-	// void onTimesUp(void) noexcept;
-
 private:
-	// /**
-	//  * @brief
-	// */
-	// Menu menu;
+	/**
+	 * @brief Menu background.
+	*/
+	Menu m_menu;
 
 	// /**
 	//  * @brief
 	// */
 	// Chat chat;
 
-	// /**
-	//  * @brief
-	// */
-	// Tiles1 tiles;
-
-	// /**
-	//  * @brief
-	// */
-	// Buildings1 m_buildings;
+	/**
+	 * @brief Playing board background.
+	*/
+	Tiles1 m_tiles;
 
 	/**
-	 * @brief
+	 * @brief Graphical representation of the buildings.
+	*/
+	Buildings1 m_buildings;
+
+	/**
+	 * @brief Lines between tiles and buildings.
 	*/
 	Grid1 m_grid;
 
 	/**
-	 * @brief
+	 * @brief Graphical representation of the time left.
 	*/
 	Timer m_timer;
 
 	/**
-	 * @brief
+	 * @brief Thread for receiving updates from the server.
 	*/
 	std::thread receivingThread;
 
 	/**
-	 * @brief
+	 * @brief Flag indicating if the receiving thread should still execute.
 	*/
 	bool receivingUpdates;
 };

@@ -28,15 +28,16 @@ namespace hob
 
 Map1::Map1(void)
 	: Loop            {}
+	, m_menu          {}
 	// , chat            {}
-	// , tiles           {}
-	, m_grid            {}
-	, m_timer           {}
+	, m_tiles         {}
+	, m_buildings     {}
+	, m_grid          {}
+	, m_timer         {}
 	, receivingThread { std::bind(&Map1::receivingFunction, this) }
 	, receivingUpdates{ true }
 {
 	plog_trace("Map1 is being constructed.");
-//	Cursor::getInstance().setFaction(Faction::getFaction());
 	Cursor::getInstance().setFaction(Faction::getInstance().getFaction());
 	Cursor::getInstance().setTexture(CursorType::IDLE);
 }
@@ -62,10 +63,10 @@ Map1::~Map1(void)
 void Map1::draw(void) noexcept
 {
 	plog_verbose("Map1 is being drawn.");
-	// menu.draw();
+	m_menu.draw();
 	// chat.draw();
-	// tiles.draw();
-	// m_buildings.draw();
+	m_tiles.draw();
+	m_buildings.draw();
 	m_grid.draw();
 	m_timer.draw();
 }
