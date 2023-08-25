@@ -2,6 +2,7 @@
  * @file hobServer_Server.hpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added receivePlayerUpdates method.                          *
  * @details This file defines the class and method prototypes of the server.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,6 +16,7 @@
  *****************************************************************************************************/
 
 #include <thread>
+#include <atomic>
 
 #include "hobServer_Socket.hpp"
 #include "hobServer_Timer.hpp"
@@ -67,6 +69,13 @@ private:
 	void runSync(uint16_t port) noexcept;
 
 	/**
+	 * @brief Receives updates from a player and sends them to the other.
+	 * @param clientType: Which player the updates come from.
+	 * @return void
+	*/
+	void receivePlayerUpdates(ClientType clientType) noexcept;
+
+	/**
 	 * @brief Sends an update message with how much time is left in the turn.
 	 * @param timeLeft: How many seconds are left in the turn.
 	 * @return void
@@ -75,10 +84,10 @@ private:
 
 	/**
 	 * @brief Sends an update message that the turn has ended due to time.
-	 * @param void
+	 * @param[out] timeLeft: The time allowed for the next turn.
 	 * @return void
 	*/
-	void onTimesUp(void) noexcept override;
+	void onTimesUp(uint16_t& timeLeft) const noexcept override;
 
 private:
 	/**
@@ -94,7 +103,7 @@ private:
 	/**
 	 * @brief Flag indicating the server is still running after the connections are closed/lost.
 	*/
-	bool m_createAgain;
+	std::atomic_bool m_createAgain;
 };
 
 } /*< namespace hobServer */

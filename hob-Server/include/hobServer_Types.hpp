@@ -36,7 +36,7 @@ enum class MessageType
 };
 
 /**
- * @brief S prefix to differentiate from the class counterpart. Example: 2.13.7.
+ * @brief S prefix to differentiate from the class counterpart (example: 2.13.7).
 */
 struct SVersion
 {
@@ -50,8 +50,9 @@ struct SVersion
 */
 union MessagePayload
 {
-	SVersion version;  /**< TODO */
-	uint16_t timeLeft; /**< TODO */
+	char     text[128]; /**< Text message.                          */
+	SVersion version;   /**< The version of the game.               */
+	uint16_t timeLeft;  /**< How many seconds are left in the turn. */
 };
 
 /**

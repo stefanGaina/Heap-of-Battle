@@ -2,6 +2,7 @@
  * @file hobServer_Socket.cpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added exception handling for waitConnectionFunction.        *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -40,13 +41,13 @@ Socket::~Socket(void) noexcept
 	close();
 }
 
-void Socket::create(uint16_t port, Callback callback) noexcept(false)
+void Socket::create(const uint16_t port, const Callback callback) noexcept(false)
 {
 	static constexpr const u_long BLOCKING = 0U;
 
-	sockaddr_in server     = {};
-	int32_t     errorCode  = ERROR_SUCCESS;
-	u_long      socketMode = BLOCKING;
+	sockaddr_in server          = {};
+	int32_t     errorCode       = ERROR_SUCCESS;
+	u_long      socketMode      = BLOCKING;
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
 	if (INVALID_SOCKET != m_serverSocket || INVALID_SOCKET != m_clientSockets[0] || INVALID_SOCKET != m_clientSockets[1])
@@ -83,7 +84,15 @@ void Socket::create(uint16_t port, Callback callback) noexcept(false)
 	if (nullptr == callback)
 	{
 		plog_warn(LOG_PREFIX "Callback is invalid, function is blocking!");
-		waitConnectionFunction(nullptr);
+		try
+		{
+			waitConnectionFunction();
+		}
+		catch (const std::exception& exception)
+		{
+			plog_error(LOG_PREFIX "Server failed to establish connections!");
+			throw exception;
+		}
 		return;
 	}
 
@@ -134,12 +143,12 @@ void Socket::close(void) noexcept
 	}
 }
 
-void Socket::receiveUpdate(Message& updateMessage, ClientType clientType) const noexcept
+void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) const noexcept
 {
 	int32_t receivedBytes = 0L;
 	size_t  index         = 0ULL;
 
-	plog_verbose(LOG_PREFIX "Querrying for updates.");
+	plog_verbose(LOG_PREFIX "Querrying for updates. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
@@ -154,7 +163,7 @@ void Socket::receiveUpdate(Message& updateMessage, ClientType clientType) const 
 		}
 		default:
 		{
-			plog_error(LOG_PREFIX "Invalid client type! (%" PRId32 ")", static_cast<int32_t>(clientType));
+			plog_error(LOG_PREFIX "Invalid client type! (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 			break;
 		}
 	}
@@ -164,7 +173,7 @@ void Socket::receiveUpdate(Message& updateMessage, ClientType clientType) const 
 		plog_fatal(LOG_PREFIX "Connection is not established!");
 		return;
 	}
-	plog_debug(LOG_PREFIX "Waiting for updates to arrive.");
+	plog_debug(LOG_PREFIX "Waiting for updates to arrive. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 
 	receivedBytes = recv(m_clientSockets[index], reinterpret_cast<char*>(&updateMessage), sizeof(Message), 0L);
 	if (0L == receivedBytes)
@@ -179,15 +188,15 @@ void Socket::receiveUpdate(Message& updateMessage, ClientType clientType) const 
 	}
 	else
 	{
-		plog_debug(LOG_PREFIX "Received an updated! (bytes: %" PRId32 ")", receivedBytes);
+		plog_debug(LOG_PREFIX "Received an updated! (type: %" PRId32 ") (bytes: %" PRId32 ")", static_cast<int32_t>(updateMessage.type), receivedBytes);
 	}
 }
 
-void Socket::sendUpdate(const Message& updateMessage, ClientType clientType) const noexcept
+void Socket::sendUpdate(const Message& updateMessage, const ClientType clientType) const noexcept
 {
 	size_t index = 0ULL;
 
-	plog_trace(LOG_PREFIX "Update is being sent.");
+	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")", static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
@@ -202,7 +211,7 @@ void Socket::sendUpdate(const Message& updateMessage, ClientType clientType) con
 		}
 		default:
 		{
-			plog_error(LOG_PREFIX "Invalid client type! (%" PRId32 ")", static_cast<int32_t>(clientType));
+			plog_error(LOG_PREFIX "Invalid client type! (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 			break;
 		}
 	}
@@ -212,10 +221,14 @@ void Socket::sendUpdate(const Message& updateMessage, ClientType clientType) con
 		plog_fatal(LOG_PREFIX "Connection is not established!");
 		return;
 	}
-	send(m_clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0L);
+	if (SOCKET_ERROR == send(m_clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0L))
+	{
+		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (error code: %" PRId32 ")",
+			static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType), WSAGetLastError());
+	}
 }
 
-void Socket::waitConnectionFunction(Callback callback) noexcept
+void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
 {
 	int32_t     errorCode      = ERROR_SUCCESS;
 	size_t      index          = 0ULL;
@@ -238,11 +251,18 @@ WAIT_FOR_CONNECTION:
 	m_clientSockets[index] = accept(m_serverSocket, reinterpret_cast<sockaddr*>(&client), &addressLength);
 	if (INVALID_SOCKET == m_serverSocket)
 	{
-		plog_warn(LOG_PREFIX "Server socket was closed!");
+		plog_warn(LOG_PREFIX "Server socket has been closed!");
 		if (1ULL == index)
 		{
 			closeClient(clientTypes[index]);
 		}
+
+		if (nullptr == callback)
+		{
+			throw std::exception();
+		}
+
+		(*callback)(false);
 		return;
 	}
 
@@ -278,7 +298,7 @@ WAIT_FOR_CONNECTION:
 
 	if (nullptr != callback)
 	{
-		(*callback)();
+		(*callback)(true);
 	}
 	return;
 
@@ -292,7 +312,7 @@ ABORT_CONNECTION:
 	goto WAIT_FOR_CONNECTION;
 }
 
-void Socket::closeClient(ClientType clientType) noexcept
+void Socket::closeClient(const ClientType clientType) noexcept
 {
 	size_t  index     = 0ULL;
 	int32_t errorCode = ERROR_SUCCESS;

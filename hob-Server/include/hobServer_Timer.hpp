@@ -2,6 +2,7 @@
  * @file hobServer_Timer.hpp                                                                          *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Extended onTimesUp method with timeLeft parameter.          *
  * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -75,10 +76,10 @@ private:
 
 	/**
 	 * @brief Abstract method called when there is no time left.
-	 * @param void
+	 * @param[out] timeLeft: The time allowed for the next turn.
 	 * @return void
 	*/
-	virtual void onTimesUp(void) noexcept = 0;
+	virtual void onTimesUp(uint16_t& timeLeft) const noexcept = 0;
 
 private:
 	/**

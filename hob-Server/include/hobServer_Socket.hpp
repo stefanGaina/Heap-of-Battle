@@ -2,6 +2,7 @@
  * @file hobServer_Socket.hpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Made waitConnectionFunction throwable.                      *
  * @details This file defines the class and method prototypes of the socket.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -48,7 +49,7 @@ public:
 	/**
 	 * @brief Function prototype of the callback when the connections are done.
 	*/
-	using CallbackFunction = std::function<void(void)>;
+	using CallbackFunction = std::function<void(bool)>;
 
 	/**
 	 * @brief Pointer to the callback when the connections are done
@@ -102,12 +103,12 @@ public:
 
 private:
 	/**
-	 * @brief Waits connections to server from 2 clients.
-	 * @param[in] callback: Function that will be called at the end if on another thread
-	 * (null - otherwise).
+	 * @brief Waits connections to server from 2 clients. Throws exceptions only when not called with a callback.
+	 * @param[in] callback: Function that will be called at the end if on another thread (null - otherwise).
+	 * Parameter is true if the connection has been established successfully and false otherwise.
 	 * @return void
 	*/
-	void waitConnectionFunction(Callback callback) noexcept;
+	void waitConnectionFunction(Callback callback = nullptr) noexcept(false);
 
 	/**
 	 * @brief Closes the client socket.
