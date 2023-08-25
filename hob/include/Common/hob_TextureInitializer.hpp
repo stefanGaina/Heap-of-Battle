@@ -2,6 +2,7 @@
  * @file hob_TextureInitializer.hpp                                                                   *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.06.2023  Gaina Stefan               Add const keywords.                                         *
  * @details This file defines the class and method prototypes and method implementation of the        *
  * texture initializer.                                                                               *
  * @todo N/A.                                                                                         *
@@ -76,8 +77,8 @@ protected:
  **********************************************************************************************************************/
 
 template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
-TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths,
-	std::array<size_t, COMPONENTS_COUNT> textureIndexes, std::array<SDL_Rect, COMPONENTS_COUNT> destinations) noexcept
+TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const std::array<std::string, TEXTURES_COUNT> filePaths,
+	const std::array<size_t, COMPONENTS_COUNT> textureIndexes, const std::array<SDL_Rect, COMPONENTS_COUNT> destinations) noexcept
 {
 	size_t index = 0ULL;
 

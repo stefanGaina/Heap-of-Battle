@@ -2,6 +2,7 @@
  * @file hob_SoundInitializer.hpp                                                                     *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Add const keyword.                                          *
  * @details This file defines the class and method prototypes and method implementation of the sound  *
  * initializer.                                                                                       *
  * @todo N/A.                                                                                         *
@@ -58,7 +59,7 @@ protected:
  **********************************************************************************************************************/
 
 template<size_t SOUNDS_COUNT>
-SoundInitializer<SOUNDS_COUNT>::SoundInitializer(std::array<std::string, SOUNDS_COUNT> filePaths) noexcept
+SoundInitializer<SOUNDS_COUNT>::SoundInitializer(const std::array<std::string, SOUNDS_COUNT> filePaths) noexcept
 {
 	size_t index = 0ULL;
 
