@@ -2,6 +2,7 @@
  * @file hob_Cursor.cpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -115,13 +116,13 @@ void Cursor::draw(void) noexcept
 	}
 }
 
-void Cursor::setFaction(bool isAlliance) noexcept
+void Cursor::setFaction(const bool isAlliance) noexcept
 {
 	plog_info("Cursor's faction is being set! (faction: %" PRId16 ")", static_cast<int16_t>(isAlliance));
 	m_textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
 }
 
-void Cursor::setTexture(CursorType type) noexcept
+void Cursor::setTexture(const CursorType type) noexcept
 {
 	plog_verbose("Cursor's texture is being set. (type: %" PRId32 ")", static_cast<int32_t>(type));
 	switch (type)

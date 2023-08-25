@@ -2,6 +2,7 @@
  * @file hob_Tile.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Tile.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -32,7 +33,8 @@ Tile::Tile(void) noexcept
 	plog_trace("Tile is being default constructed."); 
 }
 
-void Tile::init(SDL_Texture* summerTexture, SDL_Texture* autumnTexture, SDL_Texture* winterTexture, SDL_Texture* springTexture, Coordinate position) noexcept
+void Tile::init(SDL_Texture* const summerTexture, SDL_Texture* const autumnTexture, SDL_Texture* const winterTexture,
+	SDL_Texture* const springTexture, const Coordinate position) noexcept
 {
 	plog_trace("Initializing tile. (position: %" PRId32 ", %" PRId32 ")", position.x, position.y);
 	if (NULL == summerTexture || NULL == autumnTexture
@@ -62,7 +64,7 @@ void Tile::draw(void) noexcept
 	m_component.draw();
 }
 
-void Tile::changeTexture(Season season) noexcept
+void Tile::changeTexture(const Season season) noexcept
 {
 	plog_trace("Tile texture is being changed. (season: %" PRId32 ")", static_cast<int32_t>(season));
 	switch (season)

@@ -2,6 +2,7 @@
  * @file hob_Buildings1.cpp                                                                           *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * @details This file implements the class defined in hob_Buildings1.hpp.                             *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -196,7 +197,7 @@ void Buildings1::draw(void) noexcept
 	BuildingInitializer::draw();
 }
 
-void Buildings1::changeWeather(bool isWinter) noexcept
+void Buildings1::changeWeather(const bool isWinter) noexcept
 {
 	size_t index = 0ULL;
 

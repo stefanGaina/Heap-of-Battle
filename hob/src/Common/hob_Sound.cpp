@@ -2,6 +2,7 @@
  * @file hob_Sound.cpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Sound.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -30,7 +31,7 @@ Sound::Sound(void) noexcept
 	plog_trace("Sound is being default constructed.");
 }
 
-Sound::Sound(std::string filePath) noexcept
+Sound::Sound(const std::string filePath) noexcept
 	: m_chunk{ NULL }
 {
 	plog_trace("Sound is being constructed.");
@@ -81,7 +82,7 @@ void Sound::play(void) const noexcept
 	Mix_Volume(channel, s_volume);
 }
 
-void Sound::setVolume(Volume volume) noexcept
+void Sound::setVolume(const Volume volume) noexcept
 {
 	plog_trace("Setting sound volume. (volume: %" PRId32 ")", static_cast<int32_t>(volume));
 	switch (volume)

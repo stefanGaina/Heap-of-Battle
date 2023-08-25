@@ -2,6 +2,7 @@
  * @file hob_Music.cpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -46,7 +47,7 @@ Music::~Music(void) noexcept
 	stop();
 }
 
-void Music::start(Song song)
+void Music::start(const Song song)
 {
 	int32_t errorCode = 0L;
 
@@ -114,7 +115,7 @@ void Music::resume(void)
 	Mix_ResumeMusic();
 }
 
-void Music::setVolume(Volume volume)
+void Music::setVolume(const Volume volume)
 {
 	plog_debug("Setting music volume. (volume: %" PRId32 ")", static_cast<int32_t>(volume));
 	switch (volume)

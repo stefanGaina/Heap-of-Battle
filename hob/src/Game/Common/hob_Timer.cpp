@@ -2,6 +2,7 @@
  * @file hob_Timer.cpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Timer.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -74,7 +75,7 @@ Timer::Timer(void) noexcept
 	plog_trace("Timer is being constructed.");
 }
 
-void Timer::update(uint16_t seconds, bool isAlliance) noexcept
+void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
 	size_t modifier = 0ULL;
 

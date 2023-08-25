@@ -2,6 +2,7 @@
  * @file hob_Building.cpp                                                                             *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Building.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -22,8 +23,8 @@
 namespace hob
 {
 
-void Building::init(SDL_Texture* summerTexture, SDL_Texture* winterTexture, SDL_Texture* alternativeSummerTexture,
-		SDL_Texture* alternativeWinterTexture, SDL_Rect destination) noexcept
+void Building::init(SDL_Texture* const summerTexture, SDL_Texture* const winterTexture, SDL_Texture* const alternativeSummerTexture,
+		SDL_Texture* const alternativeWinterTexture, const SDL_Rect destination) noexcept
 {
 	plog_trace("Building is being initialized. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		destination.x, destination.y, destination.w, destination.h);
@@ -49,7 +50,7 @@ void Building::draw(void) noexcept
 	m_component.draw();
 }
 
-void Building::changeWeather(bool isWinter) noexcept
+void Building::changeWeather(const bool isWinter) noexcept
 {
 	SDL_Texture* currentTexture = m_component.getRawTexture();
 
@@ -120,7 +121,7 @@ void Building::changeWeather(bool isWinter) noexcept
 	}
 }
 
-void Building::switchTexture(bool isAlternative) noexcept
+void Building::switchTexture(const bool isAlternative) noexcept
 {
 	SDL_Texture* currentTexture = m_component.getRawTexture();
 

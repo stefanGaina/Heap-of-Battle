@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hob_Component.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -24,7 +25,7 @@
 namespace hob
 {
 
-Component::Component(SDL_Texture* texture, SDL_Rect destination) noexcept
+Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noexcept
 	: m_texture    { texture }
 	, m_destination{ destination }
 {
@@ -49,20 +50,20 @@ void Component::draw(void) noexcept
 	}
 }
 
-void Component::updateTexture(SDL_Texture* texture) noexcept
+void Component::updateTexture(SDL_Texture* const texture) noexcept
 {
 	plog_verbose("Component's texture is being updated. (texture: %p)", texture);
 	m_texture = texture;
 }
 
-void Component::updatePosition(SDL_Rect destination) noexcept
+void Component::updatePosition(const SDL_Rect destination) noexcept
 {
 	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		destination.x, destination.y, destination.w, destination.h);
 	m_destination = destination;
 }
 
-void Component::correctPosition(SDL_Rect corrections) noexcept
+void Component::correctPosition(const SDL_Rect corrections) noexcept
 {
 	plog_verbose("Component is being corrected. (corrections: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		corrections.x, corrections.y, corrections.w, corrections.h);
@@ -73,7 +74,7 @@ void Component::correctPosition(SDL_Rect corrections) noexcept
 	m_destination.h += corrections.h;
 }
 
-bool Component::isMouseInside(hob::Coordinate mouse, SDL_Rect corrections) const noexcept
+bool Component::isMouseInside(const hob::Coordinate mouse, const SDL_Rect corrections) const noexcept
 {
 	int32_t verticalBeginning   = m_destination.y                   + corrections.y;
 	int32_t verticalEnding      = m_destination.y + m_destination.h + corrections.h;

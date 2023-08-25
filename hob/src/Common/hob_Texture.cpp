@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
+ * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * @details This file implements the class defined in hob_Texture.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -77,7 +78,7 @@ void Texture::load(const std::string& filePath) noexcept
 	SDL_FreeSurface(temporarySurface);
 }
 
-Coordinate Texture::create(std::string text, TTF_Font* font, SDL_Color color) noexcept
+Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color) noexcept
 {
 	SDL_Surface* temporarySurface = NULL;
 	Coordinate   dimension        = {};

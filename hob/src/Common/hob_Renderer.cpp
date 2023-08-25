@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Changed it into a singleton.                                *
+ * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * @details This file implements the class defined in hob_Renderer.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -38,7 +39,7 @@ Renderer::Renderer(void) noexcept
 	plog_trace("Renderer is being constructed.");
 }
 
-void Renderer::set(SDL_Renderer* renderer) noexcept
+void Renderer::set(SDL_Renderer* const renderer) noexcept
 {
 	plog_info("Renderer is being set! (renderer: %p)", renderer);
 	if (NULL == renderer)
