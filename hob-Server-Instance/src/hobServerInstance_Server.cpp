@@ -2,6 +2,7 @@
  * @file hobServerInstance_Server.cpp                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * @details This file implements the class defined in hobServerInstance_Server.hpp.                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -28,13 +29,12 @@
 namespace hobServerInstance
 {
 
-void Server::run(uint16_t port) noexcept(false)
+void Server::run(const uint16_t port) noexcept(false)
 {
 	hobServer::Server server = {};
 	int32_t           stop   = 1L;
 
 	plog_trace("Server instance is being ran.");
-
 	try
 	{
 		init();
@@ -47,7 +47,7 @@ void Server::run(uint16_t port) noexcept(false)
 		}
 		server.stop();
 	}
-	catch(const std::exception& exception)
+	catch (const std::exception& exception)
 	{
 		deinit();
 		throw exception;
@@ -59,15 +59,14 @@ void Server::run(uint16_t port) noexcept(false)
 void Server::init(void) noexcept(false)
 {
 #ifdef DEVEL_BUILD
-	plog_Version_t     plogVersion      = {};
+	const plog_Version_t plogVersion      = plog_get_version();
 #endif /*< DEVEL_BUILD */
-	hobServer::Version serverVersion    = {};
-	WORD               versionRequested = MAKEWORD(2, 2);
-	WSADATA            wsaData          = {};
-	int32_t            errorCode        = ERROR_SUCCESS;
+	hobServer::Version   serverVersion    = {};
+	const WORD           versionRequested = MAKEWORD(2, 2);
+	WSADATA              wsaData          = {};
+	int32_t              errorCode        = ERROR_SUCCESS;
 
 #ifdef DEVEL_BUILD
-	plogVersion = plog_get_version();
 	if (PLOG_VERSION_MAJOR != plogVersion.major
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
