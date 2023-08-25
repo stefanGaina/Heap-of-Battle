@@ -2,6 +2,7 @@
  * @file hob_Faction.hpp                                                                              *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added direct getters for color.                             *
  * @details This file defines the class and method prototypes of the faction.                         *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -70,6 +71,20 @@ public:
 	 * @return Color used for horde related text.
 	*/
 	SDL_Color getHordeColor(void) const noexcept;
+
+	/**
+	 * @brief Gets the color associated to the user.
+	 * @param void
+	 * @return Color associated to the user.
+	*/
+	SDL_Color getFriendlyColor(void) const noexcept;
+
+	/**
+	 * @brief Gets the color associated to the opponent.
+	 * @param void
+	 * @return Color associated to the opponent.
+	*/
+	SDL_Color getOpponentColor(void) const noexcept;
 
 	/**
 	 * @brief Prevents the creation of another object.

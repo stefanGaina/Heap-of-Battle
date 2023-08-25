@@ -2,6 +2,7 @@
  * @file hob_Faction.cpp                                                                              *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 25.08.2023  Gaina Stefan               Added direct getters for color.                             *
  * @details This file implements the class defined in hob_Faction.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -37,7 +38,7 @@ Faction::Faction(void) noexcept
 	plog_trace("Faction is being constructed.");
 }
 
-void Faction::setFaction(bool isAlliance) noexcept
+void Faction::setFaction(const bool isAlliance) noexcept
 {
 	plog_info("Faction is being set! (flag: %" PRId8 ")", static_cast<int8_t>(isAlliance));
 	m_isAlliance = isAlliance;
@@ -65,6 +66,16 @@ SDL_Color Faction::getHordeColor(void) const noexcept
 {
 	plog_verbose("Horde color is being got.");
 	return { 0xFFU, 0x31U, 0x31U, 0xFFU }; /*< Neon red. */
+}
+
+SDL_Color Faction::getFriendlyColor(void) const noexcept
+{
+	return true == m_isAlliance ? getAllianceColor() : getHordeColor();
+}
+
+SDL_Color Faction::getOpponentColor(void) const noexcept
+{
+	return true == m_isAlliance ? getHordeColor() : getAllianceColor();
 }
 
 } /*< namespace hob */
