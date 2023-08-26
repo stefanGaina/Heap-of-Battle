@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Texture.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -29,13 +30,13 @@ namespace hob
 Texture::Texture(void) noexcept
 	: m_rawTexture{ NULL }
 {
-	plog_trace("Texture is being default constructed.");
+	plog_trace("Texture is being default constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_rawTexture));
 }
 
 Texture::Texture(std::string filePath) noexcept
 	: m_rawTexture{ NULL }
 {
-	plog_trace("Texture is being constructed. (file path: %s)", filePath.c_str());
+	plog_trace("Texture is being constructed. (file path: %s) (size: %" PRIu64 ") (1: %" PRIu64 ")", filePath.c_str(), sizeof(*this), sizeof(m_rawTexture));
 	load(filePath);
 }
 
@@ -50,7 +51,6 @@ void Texture::load(const std::string& filePath) noexcept
 	SDL_Surface* temporarySurface = NULL;
 
 	plog_trace("Texture is being loaded. (file path: %s)", filePath.c_str());
-
 	if (NULL != m_rawTexture)
 	{
 		plog_warn("Texture was already loaded!");

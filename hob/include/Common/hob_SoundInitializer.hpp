@@ -2,7 +2,8 @@
  * @file hob_SoundInitializer.hpp                                                                     *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 25.08.2023  Gaina Stefan               Add const keyword.                                          *
+ * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file defines the class and method prototypes and method implementation of the sound  *
  * initializer.                                                                                       *
  * @todo N/A.                                                                                         *
@@ -63,7 +64,7 @@ SoundInitializer<SOUNDS_COUNT>::SoundInitializer(const std::array<std::string, S
 {
 	size_t index = 0ULL;
 
-	plog_trace("SoundInitializer is being constructed.");
+	plog_trace("SoundInitializer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_soundContainer));
 	for (index = 0ULL; index < SOUNDS_COUNT; ++index)
 	{
 		m_soundContainer[index].load(filePaths[index]);

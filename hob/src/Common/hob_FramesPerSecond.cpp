@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_FramesPerSecond.hpp.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -25,14 +26,16 @@ namespace hob
 {
 
 FramesPerSecond::FramesPerSecond(void) noexcept
-	: m_FrameStartTime     { SDL_GetTicks64() }
+	: m_component          {}
+	, m_texture            {}
+	, m_font               { NULL }
+	, m_FrameStartTime     { SDL_GetTicks64() }
 	, m_framesCount        { 0U }
 	, m_previousFramesCount{ 10000U }
-	, m_texture            {}
-	, m_component          {}
-	, m_font               { NULL }
 {
-	plog_trace("Frames per second is being constructed.");
+	plog_trace("Frames per second is being constructed. (size: %" PRIu64") (1: %" PRIu64") (2: %" PRIu64 ") (3: %" PRIu64 ")"
+		"(4: %" PRIu64 ") (5: %" PRIu64 ") (6: %" PRIu64 ")", sizeof(*this), sizeof(m_component), sizeof(m_texture), sizeof(m_font),
+		sizeof(m_FrameStartTime), sizeof(m_framesCount), sizeof(m_previousFramesCount));
 
 	m_font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12L);
 	if (NULL == m_font)

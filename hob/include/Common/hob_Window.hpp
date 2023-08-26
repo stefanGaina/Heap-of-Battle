@@ -2,6 +2,7 @@
  * @file hob_Window.hpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Added constructor and destructor.                           *
  * @details This file defines the class and method prototypes of the window.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -35,6 +36,18 @@ public:
 	 * @return void
 	*/
 	static void hideTerminal(void) noexcept;
+
+	/**
+	 * @brief Does not create the window implicitly.
+	 * @param void
+	*/
+	Window(void) noexcept;
+
+	/**
+	 * @brief Does not destroy the window implicitly.
+	 * @param void
+	*/
+	~Window(void) = default;
 
 	/**
 	 * @brief Creates the window where the textures will be renderer.

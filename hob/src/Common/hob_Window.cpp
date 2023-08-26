@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Window.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -39,6 +40,12 @@ void Window::hideTerminal(void) noexcept
 	}
 }
 
+Window::Window(void) noexcept
+	: m_window{ NULL }
+{
+	plog_trace("Window is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_window));
+}
+
 void Window::create(void) noexcept(false)
 {
 	SDL_Renderer* renderer  = NULL;
@@ -49,14 +56,14 @@ void Window::create(void) noexcept(false)
 	m_window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, hob::SCREEN_WIDTH, hob::SCREEN_HEIGHT, 0UL);
 	if (NULL == m_window)
 	{
-		plog_fatal("Window failed to be created! (error message: %s)", SDL_GetError());
+		plog_fatal("Window failed to be created! (SDL error message: %s)", SDL_GetError());
 		throw std::exception();
 	}
 
 	renderer = SDL_CreateRenderer(m_window, -1L, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	if (NULL == renderer)
 	{
-		plog_fatal("Renderer failed to be created! (error message: %s)", SDL_GetError());
+		plog_fatal("Renderer failed to be created! (SDL error message: %s)", SDL_GetError());
 		SDL_DestroyWindow(m_window);
 		m_window = NULL;
 
@@ -99,7 +106,7 @@ void Window::setIcon(void) const noexcept
 	iconSurface = IMG_Load(ICON_FILE_PATH);
 	if (NULL == iconSurface)
 	{
-		plog_error("Failed to load icon! (file path: %s) (error message: %s)", ICON_FILE_PATH, SDL_GetError());
+		plog_error("Failed to load icon! (file path: %s) (SDL error message: %s)", ICON_FILE_PATH, SDL_GetError());
 		return;
 	}
 	plog_info("Window icon has been set successfully!");
@@ -122,14 +129,13 @@ void Window::logInfo(void) const noexcept
 	errorCode = SDL_GetRendererInfo(Renderer::getInstance().get(), &rendererInfo);
 	if (0L != errorCode)
 	{
-		plog_warn("Failed to get renderer information! (error message: %s)", SDL_GetError());
+		plog_warn("Failed to get renderer information! (SDL error message: %s)", SDL_GetError());
 	}
 	else
 	{
 		plog_info("Renderer information! (name: %s, flags: %" PRIu32 ", max width: %" PRId32 ", max height: %" PRId32 ")",
 			rendererInfo.name, rendererInfo.flags, rendererInfo.max_texture_width, rendererInfo.max_texture_height);
 	}
-
 	powerState = SDL_GetPowerInfo(&secondsLeft, &batteryPercent);
 	plog_info("Power information! (state: %" PRId32 ", seconds left: %" PRId32 ", battery: %" PRId32 "%%)", powerState, secondsLeft, batteryPercent);
 }

@@ -2,7 +2,8 @@
  * @file hob_TextureInitializer.hpp                                                                   *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 25.06.2023  Gaina Stefan               Add const keywords.                                         *
+ * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file defines the class and method prototypes and method implementation of the        *
  * texture initializer.                                                                               *
  * @todo N/A.                                                                                         *
@@ -62,14 +63,14 @@ public:
 
 protected:
 	/**
-	 * @brief Holds all the textures needed.
-	*/
-	std::array<Texture, TEXTURES_COUNT> m_textureContainer;
-
-	/**
 	 * @brief Holds all the components needed.
 	*/
 	std::array<Component, COMPONENTS_COUNT> m_componentContainer;
+
+	/**
+	 * @brief Holds all the textures needed.
+	*/
+	std::array<Texture, TEXTURES_COUNT> m_textureContainer;
 };
 
 /***********************************************************************************************************************
@@ -82,7 +83,8 @@ TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const s
 {
 	size_t index = 0ULL;
 
-	plog_trace("TextureInitializer is being constructed.");
+	plog_trace("TextureInitializer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_componentContainer), sizeof(m_textureContainer));
 	for (index = 0ULL; index < TEXTURES_COUNT; ++index)
 	{
 		m_textureContainer[index].load(filePaths[index]);

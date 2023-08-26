@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Updated the use of onTimesUp.                               *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hobServer_Timer.hpp.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -31,7 +32,8 @@ Timer::Timer(void) noexcept
 	, m_waitTime   {}
 	, m_waitMutex  {}
 {
-	plog_trace(LOG_PREFIX "Timer is being constructed.");
+	plog_trace(LOG_PREFIX "Timer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_timerThread), sizeof(m_waitTime), sizeof(m_waitMutex));
 }
 
 Timer::~Timer(void) noexcept
@@ -63,7 +65,7 @@ void Timer::stopTimer(void) noexcept
 	{
 		plog_debug(LOG_PREFIX "Timer thread is being joined.");
 		m_timerThread.join();
-		plog_debug(LOG_PREFIX "Timer thread is has joined.");
+		plog_debug(LOG_PREFIX "Timer thread has joined.");
 	}
 }
 
@@ -77,7 +79,7 @@ void Timer::timerFunction(uint16_t timeLeft) noexcept
 		onTimeUpdate(timeLeft);
 
 		plog_verbose(LOG_PREFIX "Waiting 1 second.");
-		m_waitTime.wait_for(lockWait, std::chrono::milliseconds(1000), [] { return s_interruptWait; });
+		m_waitTime.wait_for(lockWait, std::chrono::milliseconds(1000LL), [] { return s_interruptWait; });
 
 		if (true == s_interruptWait)
 		{
@@ -91,7 +93,7 @@ void Timer::timerFunction(uint16_t timeLeft) noexcept
 			continue;
 		}
 		--timeLeft;
-		plog_trace(LOG_PREFIX "One second passed! (time left: %" PRIu16 ")", timeLeft);
+		plog_trace(LOG_PREFIX "One second passed. (time left: %" PRIu16 ")", timeLeft);
 	}
 }
 

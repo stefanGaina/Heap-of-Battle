@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Component.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -26,10 +27,11 @@ namespace hob
 {
 
 Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noexcept
-	: m_texture    { texture }
-	, m_destination{ destination }
+	: m_destination{ destination }
+	, m_texture    { texture }
 {
-	plog_trace("Component is being constructed.");
+	plog_trace("Component is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_destination), sizeof(m_texture));
 }
 
 void Component::draw(void) noexcept
@@ -52,7 +54,7 @@ void Component::draw(void) noexcept
 
 void Component::updateTexture(SDL_Texture* const texture) noexcept
 {
-	plog_verbose("Component's texture is being updated. (texture: %p)", texture);
+	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture);
 	m_texture = texture;
 }
 

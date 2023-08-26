@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -59,12 +60,12 @@ Cursor::Cursor(void) noexcept
 			{ hob::SCREEN_WIDTH, hob::SCREEN_HEIGHT, hob::SCALE / 3L, hob::SCALE / 3L }
 		}
 	}
-	, m_enabled           { false }
 	, m_textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
+	, m_enabled           { false }
 {
 	int32_t errorCode = 0L;
 
-	plog_trace("Cursor is being constructed.");
+	plog_trace("Cursor is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_textureIndexOffset), sizeof(m_enabled));
 
 	errorCode = SDL_ShowCursor(SDL_QUERY);
 	if (0L > errorCode)

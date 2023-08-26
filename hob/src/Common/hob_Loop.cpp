@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Move frames per second in render.                           *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Loop.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug The execution is blocked when the window is being moved. This is a SDL limitation on Windows. *
@@ -36,7 +37,7 @@ Loop::Loop(void) noexcept
 	SDL_Event event     = {};
 	int32_t   errorCode = 0L;
 
-	plog_trace("Loop is being constructed. (size: %" PRIu64 ")", sizeof(*this));
+	plog_trace("Loop is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_nextScene), sizeof(m_isRunning));
 	event.type = SDL_MOUSEMOTION;
 
 	errorCode = SDL_PushEvent(&event);

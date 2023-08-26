@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Sound.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -28,13 +29,13 @@ int32_t Sound::s_volume = MIX_MAX_VOLUME;
 Sound::Sound(void) noexcept
 	: m_chunk{ NULL }
 {
-	plog_trace("Sound is being default constructed.");
+	plog_trace("Sound is being default constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_chunk));
 }
 
 Sound::Sound(const std::string filePath) noexcept
 	: m_chunk{ NULL }
 {
-	plog_trace("Sound is being constructed.");
+	plog_trace("Sound is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_chunk));
 	load(filePath);
 }
 

@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added communication to clients.                             *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hobServer_Server.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -39,7 +40,8 @@ Server::Server(void) noexcept
 	, m_runThread  {}
 	, m_createAgain{ false }
 {
-	plog_trace(LOG_PREFIX "Server is being constructed.");
+	plog_trace(LOG_PREFIX "Server is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_runThread), sizeof(m_createAgain));
 }
 
 Server::~Server(void) noexcept
@@ -127,6 +129,12 @@ void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 		m_socket.receiveUpdate(message, clientType);
 		switch (message.type)
 		{
+			case MessageType::PING:
+			{
+				plog_trace(LOG_PREFIX "Ping message is being sent.");
+				m_socket.sendUpdate(message, clientType);
+				break;
+			}
 			case MessageType::TEXT:
 			{
 				plog_trace(LOG_PREFIX "Text message is being sent. (message: %s)", message.payload.text);

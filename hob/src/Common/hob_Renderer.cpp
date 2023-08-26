@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Changed it into a singleton.                                *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Renderer.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -36,12 +37,12 @@ Renderer& Renderer::getInstance(void) noexcept
 Renderer::Renderer(void) noexcept
 	: m_renderer{ NULL }
 {
-	plog_trace("Renderer is being constructed.");
+	plog_trace("Renderer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_renderer));
 }
 
 void Renderer::set(SDL_Renderer* const renderer) noexcept
 {
-	plog_info("Renderer is being set! (renderer: %p)", renderer);
+	plog_info("Renderer is being set! (renderer: 0x%p)", renderer);
 	if (NULL == renderer)
 	{
 		plog_error("Invalid renderer!");
@@ -52,13 +53,13 @@ void Renderer::set(SDL_Renderer* const renderer) noexcept
 
 SDL_Renderer* Renderer::get(void) const noexcept
 {
-	plog_verbose("Renderer is being got. (renderer: %p)", m_renderer);
+	plog_verbose("Renderer is being got. (renderer: 0x%p)", m_renderer);
 	return m_renderer;
 }
 
 void Renderer::reset(void) noexcept
 {
-	plog_info("Renderer is being reseted! (renderer: %p)", m_renderer);
+	plog_info("Renderer is being reseted! (renderer: 0x%p)", m_renderer);
 	SDL_DestroyRenderer(m_renderer);
 	m_renderer = NULL;
 }

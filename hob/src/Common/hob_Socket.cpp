@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.07.2023  Gaina Stefan               Removed WSA.                                                *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Socket.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -29,7 +30,7 @@ namespace hob
 /**
  * @brief 
 */
-static constexpr uint16_t PORT = 8787U;
+static constexpr const uint16_t PORT = 8787U;
 
 Socket& Socket::getInstance(void) noexcept
 {
@@ -43,7 +44,7 @@ Socket& Socket::getInstance(void) noexcept
 Socket::Socket(void) noexcept
 	: m_socket{ INVALID_SOCKET }
 {
-	plog_trace("Socket is being constructed.");
+	plog_trace("Socket is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_socket));
 }
 
 Socket::~Socket(void) noexcept
@@ -52,7 +53,7 @@ Socket::~Socket(void) noexcept
 	close();
 }
 
-void Socket::create(std::string ipAddress) noexcept(false)
+void Socket::create(const std::string ipAddress) noexcept(false)
 {
 	static constexpr uint32_t BLOCKING = 0UL;
 
@@ -77,7 +78,7 @@ void Socket::create(std::string ipAddress) noexcept(false)
 	m_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (INVALID_SOCKET == m_socket)
 	{
-		plog_error("Client socket failed to be created! (error code: %" PRId32 ")", WSAGetLastError());
+		plog_error("Client socket failed to be created! (WSA error code: %" PRId32 ")", WSAGetLastError());
 		throw std::exception();
 	}
 
@@ -91,7 +92,7 @@ void Socket::create(std::string ipAddress) noexcept(false)
 	errorCode = InetPton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr); /*< TODO: Change address. */
 	if (1L != errorCode)
 	{
-		plog_error("Failed to convert ip address to binary! (error code: % " PRId32 ")", WSAGetLastError());
+		plog_error("Failed to convert ip address to binary! (WSA error code: % " PRId32 ")", WSAGetLastError());
 		goto CLOSE;
 	}
 
@@ -146,7 +147,11 @@ void Socket::sendUpdate(const hobServer::Message& updateMessage) const noexcept
 		plog_fatal("Connection is not established!");
 		return;
 	}
-	send(m_socket, reinterpret_cast<const char*>(&updateMessage), sizeof(hobServer::Message), 0L);
+
+	if (SOCKET_ERROR == send(m_socket, reinterpret_cast<const char*>(&updateMessage), sizeof(hobServer::Message), 0L))
+	{
+		plog_error("Message failed to be sent! (type: %" PRId32 ") (WSA error code: %" PRId32 ")", static_cast<int32_t>(updateMessage.type), WSAGetLastError());
+	}
 }
 
 void Socket::receiveUpdate(hobServer::Message& updateMessage) const noexcept

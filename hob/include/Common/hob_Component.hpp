@@ -2,6 +2,7 @@
  * @file hob_Component.hpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Change order of members.                                    *
  * @details This file defines the class and method prototypes of the component.                       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -88,14 +89,14 @@ public:
 
 private:
 	/**
-	 * @brief Texture that will be drawn. This class does not have ownership over it.
-	*/
-	SDL_Texture* m_texture;
-
-	/**
 	 * @brief Position on the screen and dimension of the texture.
 	*/
 	SDL_Rect m_destination;
+
+	/**
+	 * @brief Texture that will be drawn. This class does not have ownership over it.
+	*/
+	SDL_Texture* m_texture;
 };
 
 } /*< namespace hob */

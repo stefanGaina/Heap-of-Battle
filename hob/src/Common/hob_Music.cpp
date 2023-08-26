@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -38,7 +39,8 @@ Music::Music(void) noexcept
 	, m_playingSong{ Song::MAIN_MENU }
 	, m_volume     { MIX_MAX_VOLUME }
 {
-	plog_trace("Music is being constructed.");
+	plog_trace("Music is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_song), sizeof(m_playingSong), sizeof(m_volume));
 }
 
 Music::~Music(void) noexcept

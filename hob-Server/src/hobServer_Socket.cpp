@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added exception handling for waitConnectionFunction.        *
+ * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -32,7 +33,8 @@ Socket::Socket(void) noexcept
 	, m_clientSockets       { INVALID_SOCKET, INVALID_SOCKET }
 	, m_waitConnectionThread{}
 {
-	plog_debug(LOG_PREFIX "Socket is being constructed.");
+	plog_debug(LOG_PREFIX "Socket is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
+		sizeof(*this), sizeof(m_serverSocket), sizeof(m_clientSockets), sizeof(m_waitConnectionThread));
 }
 
 Socket::~Socket(void) noexcept
@@ -59,7 +61,7 @@ void Socket::create(const uint16_t port, const Callback callback) noexcept(false
 	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (INVALID_SOCKET == m_serverSocket)
 	{
-		plog_error(LOG_PREFIX "Server socket failed to be created! (error code: %" PRId32 ")", WSAGetLastError());
+		plog_error(LOG_PREFIX "Server socket failed to be created! (WSA error code: %" PRId32 ")", WSAGetLastError());
 		throw std::exception();
 	}
 
@@ -77,7 +79,7 @@ void Socket::create(const uint16_t port, const Callback callback) noexcept(false
 	errorCode = ::bind(m_serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server));
 	if (SOCKET_ERROR == errorCode)
 	{
-		plog_error(LOG_PREFIX "Socket failed to be binded! (error code: %" PRId32 ")", WSAGetLastError());
+		plog_error(LOG_PREFIX "Socket failed to be binded! (WSA error code: %" PRId32 ")", WSAGetLastError());
 		goto CLEAN_SOCKET;
 	}
 
@@ -223,7 +225,7 @@ void Socket::sendUpdate(const Message& updateMessage, const ClientType clientTyp
 	}
 	if (SOCKET_ERROR == send(m_clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0L))
 	{
-		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (error code: %" PRId32 ")",
+		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (WSA error code: %" PRId32 ")",
 			static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType), WSAGetLastError());
 	}
 }
@@ -235,7 +237,7 @@ void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
 	ClientType  clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
 	sockaddr_in client         = {};
 	int32_t     addressLength  = sizeof(client);
-	Message     versionMessage = {};
+	Message     message        = {};
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
 
@@ -273,18 +275,18 @@ WAIT_FOR_CONNECTION:
 	}
 	plog_info(LOG_PREFIX "Connection accepted successfully!");
 
-	receiveUpdate(versionMessage, clientTypes[index]);
-	if (MessageType::VERSION != versionMessage.type)
+	receiveUpdate(message, clientTypes[index]);
+	if (MessageType::VERSION != message.type)
 	{
-		plog_error(LOG_PREFIX "First message received is not checking to match versions! (message type: %" PRId32 ")", static_cast<int32_t>(versionMessage.type));
+		plog_error(LOG_PREFIX "First message received is not checking to match versions! (type: %" PRId32 ")", static_cast<int32_t>(message.type));
 		goto ABORT_CONNECTION;
 	}
 
-	plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", versionMessage.payload.version.major,
-		versionMessage.payload.version.minor, versionMessage.payload.version.patch);
-	if (hob::VERSION_MAJOR != versionMessage.payload.version.major
-	 || hob::VERSION_MINOR != versionMessage.payload.version.minor
-	 || hob::VERSION_PATCH != versionMessage.payload.version.patch)
+	plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", message.payload.version.major,
+		message.payload.version.minor, message.payload.version.patch);
+	if (hob::VERSION_MAJOR != message.payload.version.major
+	 || hob::VERSION_MINOR != message.payload.version.minor
+	 || hob::VERSION_PATCH != message.payload.version.patch)
 	{
 		plog_error(LOG_PREFIX "Versions are not matching!");
 		goto ABORT_CONNECTION;
@@ -300,12 +302,17 @@ WAIT_FOR_CONNECTION:
 	{
 		(*callback)(true);
 	}
+
+	message.type = MessageType::PING;
+	sendUpdate(message, ClientType::PLAYER_1);
+	sendUpdate(message, ClientType::PLAYER_2);
+
 	return;
 
 ABORT_CONNECTION:
 
-	versionMessage.type = MessageType::END_COMMUNICATION;
-	sendUpdate(versionMessage, clientTypes[index]);
+	message.type = MessageType::END_COMMUNICATION;
+	sendUpdate(message, clientTypes[index]);
 
 	closeClient(clientTypes[index]);
 

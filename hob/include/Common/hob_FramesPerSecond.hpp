@@ -2,6 +2,7 @@
  * @file hob_FramesPerSecond.hpp                                                                      *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Change order of members.                                    *
  * @details This file defines the class and method prototypes of the frames per second.               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -39,7 +40,7 @@ public:
 
 	/**
 	 * @brief Destroys the textures and closes the font.
-	 * @param
+	 * @param void
 	*/
 	~FramesPerSecond(void) noexcept;
 
@@ -53,12 +54,27 @@ public:
 private:
 	/**
 	 * @brief If the frame rate changed destroy the texture and create a new updated one.
-	 * @param framesPerSecond:
+	 * @param framesPerSecond: How many frames were in the second.
 	 * @return void
 	*/
 	void update(uint16_t framesPerSecond) noexcept;
 
 private:
+	/**
+	 * @brief The component of the text display in top right corner.
+	*/
+	Component m_component;
+
+	/**
+	 * @brief The texture of the displayed text.
+	*/
+	Texture m_texture;
+
+	/**
+	 * @brief The font of the text written in the texture.
+	*/
+	TTF_Font* m_font;
+
 	/**
 	 * @brief The time when the first counted frame started.
 	*/
@@ -73,21 +89,6 @@ private:
 	 * @brief The previous frames count to not recreate the same texture.
 	*/
 	uint16_t m_previousFramesCount;
-
-	/**
-	 * @brief The texture of the displayed text.
-	*/
-	Texture m_texture;
-
-	/**
-	 * @brief The component of the text display in top right corner.
-	*/
-	Component m_component;
-
-	/**
-	 * @brief The font of the text written in the texture.
-	*/
-	TTF_Font* m_font;
 };
 
 } /*< namespace hob */

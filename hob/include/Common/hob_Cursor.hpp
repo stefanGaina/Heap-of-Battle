@@ -2,6 +2,7 @@
  * @file hob_Cursor.hpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Change order of members.                                    *
  * @details This file defines the class and method prototypes of the cursor.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -127,14 +128,14 @@ private:
 
 private:
 	/**
-	 * @brief Flag indicating if cursor's functionalities are enabled or disabled.
-	*/
-	bool m_enabled;
-
-	/**
 	 * @brief Index of the current active texture of the cursor.
 	*/
 	size_t m_textureIndexOffset;
+
+	/**
+	 * @brief Flag indicating if cursor's functionalities are enabled or disabled.
+	*/
+	bool m_enabled;
 };
 
 } /*< namespace hob */
