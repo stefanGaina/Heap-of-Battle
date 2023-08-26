@@ -5,7 +5,7 @@
  * 24.07.2023  Gaina Stefan               Move frames per second in render.                           *
  * @details This file implements the class defined in hob_Loop.hpp.                                   *
  * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+ * @bug The execution is blocked when the window is being moved. This is a SDL limitation on Windows. *
  *****************************************************************************************************/
 
 /******************************************************************************************************
@@ -18,6 +18,7 @@
 #include "hob_Loop.hpp"
 #include "hob_Renderer.hpp"
 #include "hob_Cursor.hpp"
+#include "hob_FramesPerSecond.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -26,15 +27,16 @@
 namespace hob
 {
 
+Ping Loop::s_ping = {};
+
 Loop::Loop(void) noexcept
-	: m_isRunning      { false }
-	, m_nextScene      { hob::Scene::QUIT }
+	: m_nextScene{ hob::Scene::QUIT }
+	, m_isRunning{ false }
 {
 	SDL_Event event     = {};
 	int32_t   errorCode = 0L;
 
-	plog_trace("Loop is being constructed.");
-
+	plog_trace("Loop is being constructed. (size: %" PRIu64 ")", sizeof(*this));
 	event.type = SDL_MOUSEMOTION;
 
 	errorCode = SDL_PushEvent(&event);
@@ -85,7 +87,7 @@ SKIP_HANDLE_EVENTS:
 	return m_nextScene;
 }
 
-void Loop::stop(Scene nextScene) noexcept
+void Loop::stop(const Scene nextScene) noexcept
 {
 	plog_debug("Loop is being stopped.");
 	if (false == m_isRunning)
@@ -95,6 +97,16 @@ void Loop::stop(Scene nextScene) noexcept
 	}
 	m_nextScene = nextScene;
 	m_isRunning = false;
+}
+
+void Loop::pingReceived(void) const noexcept
+{
+	s_ping.update();
+}
+
+void Loop::pingStop(void) const noexcept
+{
+	s_ping.clean();
 }
 
 void Loop::handleEvents(void) noexcept
@@ -127,6 +139,7 @@ void Loop::render(void) noexcept(false)
 	draw();
 	Cursor::getInstance().draw();
 	framesPerSecond.draw();
+	s_ping.draw();
 
 	SDL_RenderPresent(Renderer::getInstance().get());
 }

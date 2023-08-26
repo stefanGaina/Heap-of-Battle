@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Remove frames per second.                                   *
+ * 25.08.2023  Gaina Stefan               Added ping monitoring functionality.                        *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,7 +16,7 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include "hob_FramesPerSecond.hpp"
+#include "hob_Ping.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -57,6 +58,20 @@ protected:
 	*/
 	void stop(Scene nextScene) noexcept;
 
+	/**
+	 * @brief Ping from the server has been received.
+	 * @param void
+	 * @return void
+	*/
+	void pingReceived(void) const noexcept;
+
+	/**
+	 * @brief Hide the latency for scenes that do not involve multiplayer.
+	 * @param void
+	 * @return void
+	*/
+	void pingStop(void) const noexcept;
+
 private:
 	/**
 	 * @brief Handles all pending events.
@@ -88,14 +103,19 @@ private:
 
 private:
 	/**
-	 * @brief Flag indicating if the loop is running or is stopped.
+	 * @brief Displays the latency for multiplayer scenes.
 	*/
-	bool m_isRunning;
+	static Ping s_ping;
 
 	/**
 	 * @brief The scene that will follow after the current one is finished.
 	*/
 	Scene m_nextScene;
+
+	/**
+	 * @brief Flag indicating if the loop is running or is stopped.
+	*/
+	bool m_isRunning;
 };
 
 } /*< namespace hob */
