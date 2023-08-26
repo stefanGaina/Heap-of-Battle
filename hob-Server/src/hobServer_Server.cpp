@@ -41,7 +41,7 @@ Server::Server(void) noexcept
 	, m_createAgain{ false }
 {
 	plog_trace(LOG_PREFIX "Server is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_runThread), sizeof(m_createAgain));
+		sizeof(*this), sizeof(m_socket), sizeof(m_runThread), sizeof(m_createAgain));
 }
 
 Server::~Server(void) noexcept

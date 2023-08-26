@@ -35,7 +35,7 @@ Ping::Ping(void) noexcept
 	, m_messageStartTime{ 0ULL }
 	, m_previousLatency { 1000U }
 {
-	plog_trace("Ping is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ")"
+	plog_trace("Ping is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
 		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ")", sizeof(*this), sizeof(m_component), sizeof(m_texture),
 		sizeof(m_font), sizeof(m_pingThread), sizeof(m_waitTime), sizeof(m_waitMutex), sizeof(m_messageStartTime), sizeof(m_previousLatency));
 }

@@ -2,6 +2,7 @@
  * @file hobServer_Types.hpp                                                                          *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Added ping.                                                 *
  * @details This file defines common data types and macros.                                           *
  * @todo Fix doxygens.                                                                                *
  * @bug No known bugs.                                                                                *
@@ -33,6 +34,7 @@ enum class MessageType
 	TEXT              = 2, /**< TODO */
 	END_TURN          = 3, /**< TODO */
 	TIME              = 4, /**< TODO */
+	PING              = 5, /**< TODO */
 };
 
 /**

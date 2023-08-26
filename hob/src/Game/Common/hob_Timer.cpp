@@ -80,7 +80,6 @@ void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 	size_t modifier = 0ULL;
 
 	plog_verbose("Enemy timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-
 	if (false == isAlliance)
 	{
 		modifier = 11ULL;

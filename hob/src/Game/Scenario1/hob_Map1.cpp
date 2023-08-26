@@ -2,6 +2,7 @@
  * @file hob_Map1.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Added chat.                                                 *
  * @details This file implements the class defined in hob_Map1.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -26,33 +27,37 @@
 namespace hob
 {
 
-Map1::Map1(void)
-	: Loop            {}
-	, m_menu          {}
-	// , chat            {}
-	, m_tiles         {}
-	, m_buildings     {}
-	, m_grid          {}
-	, m_timer         {}
-	, receivingThread { std::bind(&Map1::receivingFunction, this) }
-	, receivingUpdates{ true }
+Map1::Map1(void) noexcept
+	: Loop              {}
+	, m_tiles           {}
+	, m_menu            {}
+	, m_buildings       {}
+	, m_chat            {}
+	, m_timer           {}
+	, m_grid            {}
+	, m_receivingThread { std::bind(&Map1::receivingFunction, this) }
+	, m_receivingUpdates{ true }
 {
-	plog_trace("Map1 is being constructed.");
+	plog_trace("Map1 is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
+		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ")", sizeof(*this), sizeof(m_tiles), sizeof(m_menu), sizeof(m_buildings),
+		sizeof(m_chat), sizeof(m_timer), sizeof(m_grid), sizeof(m_receivingThread), sizeof(m_receivingUpdates));
+
 	Cursor::getInstance().setFaction(Faction::getInstance().getFaction());
 	Cursor::getInstance().setTexture(CursorType::IDLE);
 }
 
-Map1::~Map1(void)
+Map1::~Map1(void) noexcept
 {
 	plog_trace("Map1 is being destructed.");
 
-	receivingUpdates = false;
+	m_receivingUpdates.store(false);
 	Socket::getInstance().close();
+	pingStop();
 
-	if (true == receivingThread.joinable())
+	if (true == m_receivingThread.joinable())
 	{
 		plog_debug("Receiving updates thread is being joined.");
-		receivingThread.join();
+		m_receivingThread.join();
 		plog_debug("Receiving updates thread has joined.");
 	}
 
@@ -64,7 +69,7 @@ void Map1::draw(void) noexcept
 {
 	plog_verbose("Map1 is being drawn.");
 	m_menu.draw();
-	// chat.draw();
+	m_chat.draw();
 	m_tiles.draw();
 	m_buildings.draw();
 	m_grid.draw();
@@ -73,10 +78,9 @@ void Map1::draw(void) noexcept
 
 void Map1::handleEvent(const SDL_Event& event) noexcept
 {
-	Coordinate       click      = {};
+	Coordinate         click      = {};
 	hobServer::Message message    = {};
-	uint32_t         mouseState = 0UL;
-	//size_t           index      = 0ULL;
+	uint32_t           mouseState = 0UL;
 
 	plog_verbose("Event is being handled.");
 	switch (event.type)
@@ -92,7 +96,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 				return;
 			}
 
-			//chat.handleClick(click);
+			m_chat.handleClick(click);
 			break;
 		}
 		case SDL_MOUSEBUTTONUP:
@@ -117,36 +121,36 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 		}
 		case SDL_KEYDOWN:
 		{
-			//chat.handleButtonPress(event);
+			m_chat.handleButtonPress(event);
 
 			// TODO: remove this
-			// switch (event.key.keysym.sym)
-			// {
-			// 	case SDLK_a:
-			// 	{
-			// 		tiles.changeTexture(Season::SUMMER);
-			// 		m_buildings.changeWeather(false);
-			// 		break;
-			// 	}
-			// 	case SDLK_s:
-			// 	{
-			// 		tiles.changeTexture(Season::AUTUMN);
-			// 		m_buildings.changeWeather(false);
-			// 		break;
-			// 	}
-			// 	case SDLK_d:
-			// 	{
-			// 		tiles.changeTexture(Season::WINTER);
-			// 		m_buildings.changeWeather(true);
-			// 		break;
-			// 	}
-			// 	case SDLK_f:
-			// 	{
-			// 		tiles.changeTexture(Season::SPRING);
-			// 		m_buildings.changeWeather(false);
-			// 		break;
-			// 	}
-			// }
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_a:
+				{
+					m_tiles.changeTexture(Season::SUMMER);
+					m_buildings.changeWeather(false);
+					break;
+				}
+				case SDLK_s:
+				{
+					m_tiles.changeTexture(Season::AUTUMN);
+					m_buildings.changeWeather(false);
+					break;
+				}
+				case SDLK_d:
+				{
+					m_tiles.changeTexture(Season::WINTER);
+					m_buildings.changeWeather(true);
+					break;
+				}
+				case SDLK_f:
+				{
+					m_tiles.changeTexture(Season::SPRING);
+					m_buildings.changeWeather(false);
+					break;
+				}
+			}
 			break;
 		}
 		case SDL_WINDOWEVENT:
@@ -172,7 +176,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 		}
 		default:
 		{
-			plog_verbose("Event received but not handled.");
+			plog_verbose("Event received but not handled. (type: %" PRIu32 ")", event.type);
 			break;
 		}
 	}
@@ -182,21 +186,27 @@ void Map1::receivingFunction(void) noexcept
 {
 	hobServer::Message receivedMessage = {};
 
-	while (true == receivingUpdates)
+	while (true == m_receivingUpdates.load())
 	{
 		Socket::getInstance().receiveUpdate(receivedMessage);
 		switch (receivedMessage.type)
 		{
-			case hobServer::MessageType::TEXT:
+			case hobServer::MessageType::PING:
 			{
-				//plog_trace("Text message received! (message: %s)", receivedMessage.payload.text);
-				//chat.receivedMessage(receivedMessage.payload.text);
+				plog_trace("Ping message received.");
+				pingReceived();
 				break;
 			}
 			case hobServer::MessageType::TIME:
 			{
-				plog_verbose("Time update message received! (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
+				plog_verbose("Time update message received. (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
 				m_timer.update(receivedMessage.payload.timeLeft, false);
+				break;
+			}
+			case hobServer::MessageType::TEXT:
+			{
+				plog_trace("Text message received. (message: %s)", receivedMessage.payload.text);
+				m_chat.receivedMessage(receivedMessage.payload.text);
 				break;
 			}
 			case hobServer::MessageType::END_TURN:
@@ -207,13 +217,13 @@ void Map1::receivingFunction(void) noexcept
 			case hobServer::MessageType::END_COMMUNICATION:
 			{
 				plog_info("End communication message received!");
-				receivingUpdates = false;
 				stop(Scene::MAIN_MENU);
 				break;
 			}
 			case hobServer::MessageType::VERSION:
 			{
-				//plog_error("Version message type received! (opponent version: %s)", receivedMessage.payload.version);
+				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
+					receivedMessage.payload.version.major, receivedMessage.payload.version.minor, receivedMessage.payload.version.patch);
 				break;
 			}
 			default:

@@ -25,11 +25,11 @@ namespace hob
 
 void Grid1::draw(void) noexcept
 {
-	static constexpr uint8_t ALPHA_OPAQUE = 0xA0U;
+	static constexpr const uint8_t ALPHA_OPAQUE = 0xA0U;
 
-	SDL_Renderer* renderer  = Renderer::getInstance().get();
-	SDL_Color     color     = {};
-	int32_t       errorCode = 0L;
+	SDL_Renderer* const renderer  = Renderer::getInstance().get();
+	SDL_Color           color     = {};
+	int32_t             errorCode = 0L;
 
 	plog_verbose("Grid1 is being drawn.");
 
@@ -76,9 +76,9 @@ void Grid1::draw(void) noexcept
 
 void Grid1::drawHorizontalNeutralLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       row      = 0L * HSCALE;
-	int32_t       modifier = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             row      = 0L * HSCALE;
+	int32_t             modifier = 0L * HSCALE;
 
 	plog_verbose("Horizontal neutral lines are being drawn.");
 	for (modifier = 1L * HSCALE, row = 0L; modifier > -2L * HSCALE; modifier -= 2L * HSCALE, row = 15L * HSCALE)
@@ -123,9 +123,9 @@ void Grid1::drawHorizontalNeutralLines(void) const noexcept
 
 void Grid1::drawVerticalNeutralLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       column   = 0L * HSCALE;
-	int32_t       modifier = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             column   = 0L * HSCALE;
+	int32_t             modifier = 0L * HSCALE;
 
 	plog_verbose("Vertical neutral lines are being drawn.");
 	for (modifier = 1L * HSCALE, column = 6L * HSCALE; modifier > -2L * HSCALE; modifier -= 2L * HSCALE, column = 32L * HSCALE)
@@ -206,8 +206,8 @@ void Grid1::drawVerticalNeutralLines(void) const noexcept
 
 void Grid1::drawHorizontalAllianceLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       row      = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             row      = 0L * HSCALE;
 
 	plog_verbose("Horizontal alliance lines are being drawn.");
 
@@ -251,8 +251,8 @@ void Grid1::drawHorizontalAllianceLines(void) const noexcept
 
 void Grid1::drawVerticalAllianceLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       column   = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             column   = 0L * HSCALE;
 
 	plog_verbose("Vertical alliance lines are being drawn.");
 
@@ -314,8 +314,8 @@ void Grid1::drawVerticalAllianceLines(void) const noexcept
 
 void Grid1::drawHorizontalHordeLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       row      = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             row      = 0L * HSCALE;
 
 	plog_verbose("Horizontal horde lines are being drawn.");
 
@@ -359,8 +359,8 @@ void Grid1::drawHorizontalHordeLines(void) const noexcept
 
 void Grid1::drawVerticalHordeLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       column   = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             column   = 0L * HSCALE;
 
 	plog_verbose("Vertical horde lines are being drawn.");
 
@@ -422,8 +422,8 @@ void Grid1::drawVerticalHordeLines(void) const noexcept
 
 void Grid1::drawHorizontalObjectiveLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       row      = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             row      = 0L * HSCALE;
 
 	plog_verbose("Horizontal objective lines are being drawn.");
 
@@ -454,8 +454,8 @@ void Grid1::drawHorizontalObjectiveLines(void) const noexcept
 
 void Grid1::drawVerticalObjectiveLines(void) const noexcept
 {
-	SDL_Renderer* renderer = Renderer::getInstance().get();
-	int32_t       column   = 0L * HSCALE;
+	SDL_Renderer* const renderer = Renderer::getInstance().get();
+	int32_t             column   = 0L * HSCALE;
 
 	plog_verbose("Vertical objective lines are being drawn.");
 

@@ -76,17 +76,16 @@ void Game::run(void) noexcept(false)
 void Game::init(void) noexcept(false)
 {
 #ifdef DEVEL_BUILD
-	plog_Version_t     plogVersion      = {};
+	plog_Version_t     plogVersion      = plog_get_version();
 #endif /*< DEVEL_BUILD */
 	SDL_version        sdlVersion       = {};
-	const SDL_version* sdlVersionRef    = NULL;
+	const SDL_version* sdlVersionRef    = IMG_Linked_Version();
 	hobServer::Version serverVersion    = {};
 	WORD               versionRequested = MAKEWORD(2, 2);
 	WSADATA            wsaData          = {};
 	int32_t            errorCode        = 0L;
 
 #ifdef DEVEL_BUILD
-	plogVersion = plog_get_version();
 	if (PLOG_VERSION_MAJOR != plogVersion.major
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
@@ -110,7 +109,6 @@ void Game::init(void) noexcept(false)
 		throw std::exception();
 	}
 
-	sdlVersionRef = IMG_Linked_Version();
 	plog_info("Using SDL image %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersionRef->major, sdlVersionRef->minor, sdlVersionRef->patch);
 	if (SDL_IMAGE_MAJOR_VERSION != sdlVersionRef->major
 	 || SDL_IMAGE_MINOR_VERSION != sdlVersionRef->minor
@@ -242,14 +240,14 @@ void Game::sceneLoop(void) noexcept
 
 	try
 	{
-		Socket::getInstance().create("127.0.0.1");
+		Socket::getInstance().create("25.20.35.65");
 	}
 	catch (const std::exception& exception)
 	{
 		return;
 	}
 
-	SDL_Delay(5000);
+	SDL_Delay(2000);
 #endif /*< TODO: REMOVE */
 
 	plog_debug("Starting scene loop!");
@@ -265,7 +263,7 @@ void Game::sceneLoop(void) noexcept
 				}
 				catch (const std::bad_alloc& exception)
 				{
-					plog_fatal("Unable to allocate memory for main menu scene!");
+					plog_fatal("Unable to allocate memory for main menu scene! (bytes: %" PRIu64 ")", sizeof(MainMenu));
 					return;
 				}
 				break;
@@ -278,8 +276,8 @@ void Game::sceneLoop(void) noexcept
 				}
 				catch (const std::bad_alloc& exception)
 				{
-					plog_fatal("Unable to allocate memory for map 1!");
-					return;
+					plog_fatal("Unable to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
+					nextScene = Scene::MAIN_MENU;
 				}
 				break;
 			}

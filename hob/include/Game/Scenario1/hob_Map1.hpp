@@ -2,6 +2,7 @@
  * @file hob_Map1.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 26.08.2023  Gaina Stefan               Added chat.                                                 *
  * @details This file defines the class and method prototypes of the map of the first scenario.       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,10 +16,11 @@
  *****************************************************************************************************/
 
 #include <thread>
+#include <atomic>
 
 #include "hob_Loop.hpp"
 #include "hob_Menu.hpp"
-// #include "hob_Chat.hpp"
+#include "hob_Chat.hpp"
 #include "hob_Tiles1.hpp"
 #include "hob_Buildings1.hpp"
 #include "hob_Grid1.hpp"
@@ -41,13 +43,13 @@ public:
 	 * @brief Creates the receiving thread and changes the cursor.
 	 * @param void
 	*/
-	Map1(void);
+	Map1(void) noexcept;
 
 	/**
 	 * @brief Closes the socket and resets the cursor.
 	 * @param void
 	*/
-	~Map1(void);
+	~Map1(void) noexcept;
 
 private:
 	/**
@@ -73,19 +75,14 @@ private:
 
 private:
 	/**
-	 * @brief Menu background.
-	*/
-	Menu m_menu;
-
-	// /**
-	//  * @brief
-	// */
-	// Chat chat;
-
-	/**
 	 * @brief Playing board background.
 	*/
 	Tiles1 m_tiles;
+
+	/**
+	 * @brief Menu background.
+	*/
+	Menu m_menu;
 
 	/**
 	 * @brief Graphical representation of the buildings.
@@ -93,9 +90,9 @@ private:
 	Buildings1 m_buildings;
 
 	/**
-	 * @brief Lines between tiles and buildings.
+	 * @brief Visual representation of chat box and messages.
 	*/
-	Grid1 m_grid;
+	Chat m_chat;
 
 	/**
 	 * @brief Graphical representation of the time left.
@@ -103,14 +100,19 @@ private:
 	Timer m_timer;
 
 	/**
+	 * @brief Lines between tiles and buildings.
+	*/
+	Grid1 m_grid;
+
+	/**
 	 * @brief Thread for receiving updates from the server.
 	*/
-	std::thread receivingThread;
+	std::thread m_receivingThread;
 
 	/**
 	 * @brief Flag indicating if the receiving thread should still execute.
 	*/
-	bool receivingUpdates;
+	std::atomic_bool m_receivingUpdates;
 };
 
 } /*< namespace hob */

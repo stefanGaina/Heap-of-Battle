@@ -33,7 +33,7 @@ FramesPerSecond::FramesPerSecond(void) noexcept
 	, m_framesCount        { 0U }
 	, m_previousFramesCount{ 10000U }
 {
-	plog_trace("Frames per second is being constructed. (size: %" PRIu64") (1: %" PRIu64") (2: %" PRIu64 ") (3: %" PRIu64 ")"
+	plog_trace("Frames per second is being constructed. (size: %" PRIu64") (1: %" PRIu64") (2: %" PRIu64 ") (3: %" PRIu64 ") "
 		"(4: %" PRIu64 ") (5: %" PRIu64 ") (6: %" PRIu64 ")", sizeof(*this), sizeof(m_component), sizeof(m_texture), sizeof(m_font),
 		sizeof(m_FrameStartTime), sizeof(m_framesCount), sizeof(m_previousFramesCount));
 

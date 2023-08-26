@@ -3,16 +3,21 @@
 #   Date:       Author:                    Reason:                                                    #
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
 #   27.07.2023  Gaina Stefan               Added winsock linking.                                     #
+#   26.08.2023  Gaina Stefan               Fix gcc depedencies.                                       #
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
 CXXFLAGS = -Wall -Werror
-LDFLAGS  = -Wl,-rpath='.' -L../hob-Server/lib/        -lHOB_server \
-		   -Wl,-rpath='.' -L../vendor/SDL2/lib/       -lSDL2       \
-		   -Wl,-rpath='.' -L../vendor/SDL2_image/lib/ -lSDL2_image \
-		   -Wl,-rpath='.' -L../vendor/SDL2_mixer/lib/ -lSDL2_mixer \
-		   -Wl,-rpath='.' -L../vendor/SDL2_ttf/lib/   -lSDL2_ttf   \
-		   -lws2_32
+LDFLAGS  = -Wl,-Bdynamic,-rpath='.' -L../hob-Server/lib/        -lHOB_server \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/Obfuscator/lib/ -lObfuscator \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2/lib/       -lSDL2       \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2_image/lib/ -lSDL2_image \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2_mixer/lib/ -lSDL2_mixer \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2_ttf/lib/   -lSDL2_ttf   \
+		   -Wl,-Bstatic -lws2_32                                             \
+		   -Wl,-Bstatic -lwinpthread                                         \
+		   -static -static-libgcc                                            \
+		   -static-libstdc++
 
 INCLUDES = -Iinclude/                      \
 		   -Iinclude/Common/               \
@@ -21,6 +26,7 @@ INCLUDES = -Iinclude/                      \
 		   -Iinclude/Main/                 \
 		   -Iinclude/Menu/                 \
 		   -I../hob-Server/include/        \
+		   -I../vendor/Obfuscator/include/ \
 		   -I../vendor/Plog/include/       \
 		   -I../vendor/SDL2/include/       \
 		   -I../vendor/SDL2_image/include/ \
@@ -37,7 +43,7 @@ all: devel_flags build
 ### DEVELOPMENT FLAGS ###
 devel_flags:
 override CXXFLAGS += -DDEVEL_BUILD
-override LDFLAGS  += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lPlog
+override LDFLAGS  += -Wl,-Bdynamic,-rpath='.' -L../vendor/Plog/lib/ -lPlog
 
 ### PRODUCTION ###
 release: prod_flags build
