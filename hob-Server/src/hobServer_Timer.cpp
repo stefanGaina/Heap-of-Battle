@@ -4,6 +4,7 @@
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Updated the use of onTimesUp.                               *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Changed the way mutex is locked.                            *
  * @details This file implements the class defined in hobServer_Timer.hpp.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -55,10 +56,10 @@ void Timer::stopTimer(void) noexcept
 {
 	plog_info(LOG_PREFIX "Timer is being stopped!");
 
-	{
-		std::unique_lock<std::mutex> lock(m_waitMutex);
-		s_interruptWait = true;
-	}
+	m_waitMutex.lock();
+	s_interruptWait = true;
+	m_waitMutex.unlock();
+
 	m_waitTime.notify_all();
 
 	if (true == m_timerThread.joinable())

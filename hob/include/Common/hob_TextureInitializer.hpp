@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Fixed comment.                                              *
  * @details This file defines the class and method prototypes and method implementation of the        *
  * texture initializer.                                                                               *
  * @todo N/A.                                                                                         *
@@ -73,9 +74,9 @@ protected:
 	std::array<Texture, TEXTURES_COUNT> m_textureContainer;
 };
 
-/***********************************************************************************************************************
- * METHOD DEFINITIONS                                                                                                  *
- **********************************************************************************************************************/
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const std::array<std::string, TEXTURES_COUNT> filePaths,

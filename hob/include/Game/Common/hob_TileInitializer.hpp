@@ -2,6 +2,7 @@
  * @file hob_TileInitializer.hpp                                                                      *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Added comment.                                              *
  * @details This file defines the class and method prototypes of the tile initializer.                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -72,6 +73,10 @@ private:
 	*/
 	std::array<Tile, TILES_COUNT> m_tileContainer;
 };
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 template<size_t TEXTURES_SET_COUNT>
 TileInitializer<TEXTURES_SET_COUNT>::TileInitializer(std::array<SDL_Texture*, 4ULL * TEXTURES_SET_COUNT> textures, std::array<size_t, TILES_COUNT> textureIndexes) noexcept

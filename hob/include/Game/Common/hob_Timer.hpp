@@ -2,6 +2,7 @@
  * @file hob_Timer.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,6 +16,7 @@
  *****************************************************************************************************/
 
 #include "hob_TextureInitializer.hpp"
+#include "hob_AsyncQueue.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -22,6 +24,15 @@
 
 namespace hob
 {
+
+/**
+ * @brief Encapsulates information about the time.
+*/
+struct TimeFormat
+{
+	uint16_t seconds;    /**< How many seconds are left. */
+	bool     isAlliance; /**< Whose turn is it.          */
+};
 
 /**
  * @brief Graphical representation of the time left.
@@ -43,11 +54,24 @@ public:
 
 	/**
 	 * @brief Draws the time left.
+	 * @param void
+	 * @return void
+	*/
+	void draw(void) noexcept override;
+
+	/**
+	 * @brief Updates the time left. This method is safe to be called from other thread than rendering thread.
 	 * @param seconds: How many seconds are left.
 	 * @param isAlliance: Whose turn is it to use the specific textures.
 	 * @return void
 	*/
 	void update(uint16_t seconds, bool isAlliance) noexcept;
+
+private:
+	/**
+	 * @brief Thread safe queue for buffering updates.
+	*/
+	AsyncQueue<TimeFormat> m_queue;
 };
 
 } /*< namespace hob */

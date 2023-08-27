@@ -2,6 +2,7 @@
  * @file hob_Socket.hpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Removed unnecessary headers.                                *
  * @details This file defines the class and method prototypes of the client socket.                   *
  * @todo Add port to create.                                                                          *
  * @bug No known bugs.                                                                                *
@@ -16,9 +17,6 @@
 
 #define WIN32_LEAN_AND_MEAN  /*< For winsock to not have linkage issues. */
 #include <string>
-#include <thread>
-#include <memory>
-#include <functional>
 #include <winsock2.h>
 
 #include "hob_Types.hpp"

@@ -5,6 +5,7 @@
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Added comment.                                              *
  * @details This file implements the class defined in hob_Texture.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -84,6 +85,8 @@ Coordinate Texture::create(const std::string text, TTF_Font* const font, const S
 	Coordinate   dimension        = {};
 
 	plog_verbose("Text texture is being created. (text: %s)", text.c_str());
+	// if (NULL != m_rawTexture) <- It is okay not to check for that
+
 	if ("" == text)
 	{
 		plog_error("Invalid texture text!");

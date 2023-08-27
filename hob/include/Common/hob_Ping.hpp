@@ -2,6 +2,7 @@
  * @file hob_Ping.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * @details This file defines the class and method prototypes of the ping.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -21,6 +22,7 @@
 #include "hob_IDrawable.hpp"
 #include "hob_Texture.hpp"
 #include "hob_Component.hpp"
+#include "hob_AsyncQueue.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -81,6 +83,11 @@ private:
 	 * @brief It is static because it is used in a lambda function.
 	*/
 	static bool s_interruptWait;
+
+	/**
+	 * @brief Thread safe queue for buffering updates.
+	*/
+	AsyncQueue<uint64_t> m_queue;
 
 	/**
 	 * @brief The component of the text display in top right corner.

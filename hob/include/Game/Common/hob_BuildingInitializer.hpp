@@ -2,6 +2,7 @@
  * @file hob_BuildingInitializer.hpp                                                                  *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Added comment.                                              *
  * @details This file defines the class and method prototypes of the building initializer.            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -60,6 +61,10 @@ protected:
 	*/
 	std::array<Building, BUILDINGS_COUNT> m_buildingContainer;
 };
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 template<size_t BUILDINGS_COUNT>
 BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture*, 4ULL * BUILDINGS_COUNT> textures, std::array<SDL_Rect, BUILDINGS_COUNT> destinations) noexcept

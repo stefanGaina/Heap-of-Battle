@@ -4,6 +4,7 @@
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added exception handling for waitConnectionFunction.        *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -178,12 +179,7 @@ void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) 
 	plog_debug(LOG_PREFIX "Waiting for updates to arrive. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 
 	receivedBytes = recv(m_clientSockets[index], reinterpret_cast<char*>(&updateMessage), sizeof(Message), 0L);
-	if (0L == receivedBytes)
-	{
-		plog_info(LOG_PREFIX "Connection was lost!");
-		updateMessage.type = MessageType::END_COMMUNICATION;
-	}
-	else if (0L > receivedBytes)
+	if (0L >= receivedBytes)
 	{
 		plog_fatal(LOG_PREFIX "Invalid number of bytes received! (bytes: %" PRId32 ")", receivedBytes);
 		updateMessage.type = MessageType::END_COMMUNICATION;

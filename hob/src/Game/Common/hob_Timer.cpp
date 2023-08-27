@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * @details This file implements the class defined in hob_Timer.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -71,24 +72,45 @@ Timer::Timer(void) noexcept
 			}
 		}
 	}
+	, m_queue{}
 {
-	plog_trace("Timer is being constructed.");
+	plog_trace("Timer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_queue));
+}
+
+void Timer::draw(void) noexcept
+{
+	TimeFormat timeFormat = {};
+	size_t     modifier   = 0ULL;
+
+	if (true == m_queue.isEmpty())
+	{
+		goto DRAW;
+	}
+
+	do
+	{
+		timeFormat = m_queue.get();
+	}
+	while (false == m_queue.isEmpty());
+
+	if (false == timeFormat.isAlliance)
+	{
+		modifier = 11ULL;
+	}
+	m_componentContainer[0ULL].updateTexture(m_textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60ULL          + modifier].getRawTexture());
+	m_componentContainer[1ULL].updateTexture(m_textureContainer[10ULL                                                     + modifier].getRawTexture());
+	m_componentContainer[2ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) / 10ULL + modifier].getRawTexture());
+	m_componentContainer[3ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) % 10ULL + modifier].getRawTexture());
+
+DRAW:
+
+	TextureInitializer::draw();
 }
 
 void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
-	size_t modifier = 0ULL;
-
 	plog_verbose("Enemy timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-	if (false == isAlliance)
-	{
-		modifier = 11ULL;
-	}
-
-	m_componentContainer[0ULL].updateTexture(m_textureContainer[ static_cast<size_t>(seconds) / 60ULL          + modifier].getRawTexture());
-	m_componentContainer[1ULL].updateTexture(m_textureContainer[10ULL                                          + modifier].getRawTexture());
-	m_componentContainer[2ULL].updateTexture(m_textureContainer[(static_cast<size_t>(seconds) % 60ULL) / 10ULL + modifier].getRawTexture());
-	m_componentContainer[3ULL].updateTexture(m_textureContainer[(static_cast<size_t>(seconds) % 60ULL) % 10ULL + modifier].getRawTexture());
+	m_queue.put((TimeFormat){ .seconds = seconds, .isAlliance = isAlliance });
 }
 
 } /*< namespace hob */

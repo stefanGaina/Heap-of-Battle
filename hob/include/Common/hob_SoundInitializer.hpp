@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Fixed comment.                                              *
  * @details This file defines the class and method prototypes and method implementation of the sound  *
  * initializer.                                                                                       *
  * @todo N/A.                                                                                         *
@@ -55,9 +56,9 @@ protected:
 	std::array<Sound, SOUNDS_COUNT> m_soundContainer;
 };
 
-/***********************************************************************************************************************
- * METHOD DEFINITIONS                                                                                                  *
- **********************************************************************************************************************/
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 template<size_t SOUNDS_COUNT>
 SoundInitializer<SOUNDS_COUNT>::SoundInitializer(const std::array<std::string, SOUNDS_COUNT> filePaths) noexcept

@@ -4,6 +4,7 @@
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.07.2023  Gaina Stefan               Removed WSA.                                                *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
  * @details This file implements the class defined in hob_Socket.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -14,6 +15,7 @@
  *****************************************************************************************************/
 
 #include <exception>
+#include <functional>
 #include <WS2tcpip.h>
 #include <plog.h>
 
@@ -167,12 +169,7 @@ void Socket::receiveUpdate(hobServer::Message& updateMessage) const noexcept
 	plog_debug("Waiting for updates to arrive.");
 
 	receivedBytes = recv(m_socket, reinterpret_cast<char*>(&updateMessage), sizeof(hobServer::Message), 0L);
-	if (0L == receivedBytes)
-	{
-		plog_info("Connection was lost!");
-		updateMessage.type = hobServer::MessageType::END_COMMUNICATION;
-	}
-	else if (0L > receivedBytes)
+	if (0L >= receivedBytes)
 	{
 		plog_fatal("Invalid number of bytes received! (bytes: %" PRId32 ")", receivedBytes);
 		updateMessage.type = hobServer::MessageType::END_COMMUNICATION;

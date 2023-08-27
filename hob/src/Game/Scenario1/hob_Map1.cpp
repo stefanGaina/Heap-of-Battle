@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added chat.                                                 *
+ * 27.08.2023  Gaina Stefan               Fixed compilation error due to removal of header.           *
  * @details This file implements the class defined in hob_Map1.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -13,6 +14,7 @@
  *****************************************************************************************************/
 
 #include <memory>
+#include <functional>
 #include <plog.h>
 
 #include "hob_Map1.hpp"
@@ -186,6 +188,7 @@ void Map1::receivingFunction(void) noexcept
 {
 	hobServer::Message receivedMessage = {};
 
+	plog_trace("Update messages are being received.");
 	while (true == m_receivingUpdates.load())
 	{
 		Socket::getInstance().receiveUpdate(receivedMessage);
@@ -218,6 +221,7 @@ void Map1::receivingFunction(void) noexcept
 			{
 				plog_info("End communication message received!");
 				stop(Scene::MAIN_MENU);
+				m_receivingUpdates.store(false);
 				break;
 			}
 			case hobServer::MessageType::VERSION:

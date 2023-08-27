@@ -2,6 +2,7 @@
  * @file hob_Chat.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
+ * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -45,6 +46,7 @@ Chat::Chat(void) noexcept
 	, m_chatFrame            {}
 	, m_textures             {}
 	, m_components           {}
+	, m_messageQueue         {}
 	, m_font                 { NULL }
 	, m_enteringMessage      { "" }
 	, m_enteringMessageLength{ 0L }
@@ -55,8 +57,9 @@ Chat::Chat(void) noexcept
 	Coordinate dimension = {};
 
 	plog_trace("Chat is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
-		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ") (9: %" PRIu64 ")", sizeof(*this), sizeof(m_chatFrame), sizeof(m_textures),
-		sizeof(m_components), sizeof(m_font), sizeof(m_enteringMessage), sizeof(m_enteringMessageLength), sizeof(m_barTicks), sizeof(m_isActive), sizeof(m_isMuted));
+		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ") (9: %" PRIu64 ") (10: %" PRIu64 ")", sizeof(*this), sizeof(m_chatFrame),
+		sizeof(m_textures), sizeof(m_components), sizeof(m_messageQueue), sizeof(m_font), sizeof(m_enteringMessage), sizeof(m_enteringMessageLength),
+		sizeof(m_barTicks), sizeof(m_isActive), sizeof(m_isMuted));
 
 	m_font = TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12L);
 	if (NULL == m_font)
@@ -83,9 +86,15 @@ void Chat::draw(void) noexcept
 {
 	static constexpr const uint8_t BAR_FREQUENCY = 40U;
 
-	size_t index = 0ULL;
+	size_t      index           = 0ULL;
+	std::string opponentMessage = {};
 
 	plog_verbose("Chat is being drawn.");
+	while (false == m_messageQueue.isEmpty())
+	{
+		opponentMessage = m_messageQueue.get();
+		enterMessage(opponentMessage, Faction::getInstance().getOpponentColor());
+	}
 
 	m_chatFrame.draw();
 	for (index = 0ULL; index < CHAT_TEXTURE_INDEX_BAR; ++index)
@@ -114,7 +123,9 @@ void Chat::draw(void) noexcept
 
 void Chat::receivedMessage(char* const message) noexcept
 {
-	plog_debug("Message from opponent is being received.");
+	std::string messageCopy = {};
+
+	plog_debug("Message from opponent is being received. (message: %s)", message);
 	if (NULL == message)
 	{
 		plog_error("Message from opponent is invalid!");
@@ -128,8 +139,17 @@ void Chat::receivedMessage(char* const message) noexcept
 		return;
 	}
 
+	try
+	{
+		messageCopy = message;
+	}
+	catch (const std::exception& exception)
+	{
+		plog_error("Failed to copy message from opponent! (message length: %" PRIu64 ")", strlen(message));
+		return;
+	}
+	m_messageQueue.put(messageCopy);
 	m_soundContainer[CHAT_SOUND_INDEX_MESSAGE_RECEIVED].play();
-	enterMessage(message, Faction::getInstance().getOpponentColor());
 }
 
 void Chat::handleClick(const Coordinate click) noexcept
@@ -384,7 +404,7 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color) noexc
 		{
 			continue;
 		}
-		m_textures[index]   = m_textures[index - 1ULL];
+		m_textures  [index] = m_textures[index - 1ULL];
 		m_components[index] = m_components[index - 1ULL];
 		m_components[index].correctPosition({ 0L, -10L, 0L, 0L });
 	}
