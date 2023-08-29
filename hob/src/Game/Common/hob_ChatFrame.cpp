@@ -2,6 +2,7 @@
  * @file hob_ChatFrame.cpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
+ * 29.08.2023  Gaina Stefan               Updated the use of HOB_TEXTURES_FILE_PATH.                  *
  * @details This file implements the class defined in hob_ChatFrame.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -21,8 +22,9 @@
 
 /**
  * @brief Full file path of an image used by the chat.
+ * @param name: The name of the image (without extension).
 */
-#define TEXTURE_FILE_PATH(name) "assets/textures/chat/" name ".png"
+#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("chat/" name)
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *

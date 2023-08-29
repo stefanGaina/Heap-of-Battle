@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
+ * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -30,12 +31,12 @@ namespace hob
 /**
  * @brief Default hour used for obfuscator key.
 */
-constexpr const uint8_t OBFUSCATE_HOUR = 7U;
+static constexpr const uint8_t OBFUSCATE_HOUR = 7U;
 
 /**
  * @brief Default minute used for obfuscator key.
 */
-constexpr const uint8_t OBFUSCATE_MINUTE = 8U;
+static constexpr const uint8_t OBFUSCATE_MINUTE = 8U;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -68,11 +69,11 @@ Chat::Chat(void) noexcept
 	}
 
 	dimension = m_textures[CHAT_TEXTURE_INDEX_BAR].create("|", m_font, Faction::getInstance().getFriendlyColor());
-	m_components[CHAT_TEXTURE_INDEX_BAR].updateTexture(m_textures[CHAT_TEXTURE_INDEX_BAR].getRawTexture());
+	m_components[CHAT_TEXTURE_INDEX_BAR].updateTexture(m_textures[CHAT_TEXTURE_INDEX_BAR]);
 	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ 8L, 7L * SCALE / 3L, dimension.x, dimension.y });
 
 	dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Commands: ./mute | ./unmute", m_font, Faction::getInstance().getNeutralColor());
-	m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL].getRawTexture());
+	m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
 	m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ 8L, 7L * SCALE - 190L, dimension.x, dimension.y });
 }
 
@@ -315,7 +316,7 @@ void Chat::updateEnteringMessage(void) noexcept
 		plog_debug("Entering message is being cleared.");
 	}
 
-	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updateTexture(m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].getRawTexture());
+	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updateTexture(m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE]);
 	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updatePosition({ 8L, 6L * SCALE + SCALE / 2L + 2 * SCALE / 3L + 1L, dimension.x, dimension.y });
 	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ dimension.x + 8L, 6L * SCALE + SCALE / 2L + 2 * SCALE / 3L + 1L, 4L, 15L });
 	m_enteringMessageLength = dimension.x;
@@ -344,7 +345,7 @@ void Chat::sendMessage(void) noexcept
 			m_isMuted = false;
 
 			m_textures[CHAT_TEXTURES_COUNT - 2ULL].destroy();
-			m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL].getRawTexture());
+			m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
 		}
 		goto CLEAN_ENTERING_MESSAGE;
 	}
@@ -361,14 +362,14 @@ void Chat::sendMessage(void) noexcept
 		m_isMuted = true;
 
 		dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Chat is muted: ./unmute", m_font, Faction::getInstance().getNeutralColor());
-		m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL].getRawTexture());
+		m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
 		m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ 8L, 7L * SCALE - 190L, dimension.x, dimension.y });
 		for (index = 1ULL; index < CHAT_TEXTURES_COUNT - 2ULL; ++index)
 		{
 			if (NULL != m_textures[index].getRawTexture())
 			{
 				m_textures[index].destroy();
-				m_components[index].updateTexture(m_textures[index].getRawTexture());
+				m_components[index].updateTexture(m_textures[index]);
 			}
 		}
 		goto CLEAN_ENTERING_MESSAGE;
@@ -409,7 +410,7 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color) noexc
 		m_components[index].correctPosition({ 0L, -10L, 0L, 0L });
 	}
 	dimension = m_textures[1ULL].create(message, m_font, color);
-	m_components[1ULL].updateTexture(m_textures[1ULL].getRawTexture());
+	m_components[1ULL].updateTexture(m_textures[1ULL]);
 	m_components[1ULL].updatePosition({ 8L, 7L * SCALE - 18L, dimension.x, dimension.y });
 }
 

@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
+ * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
  * @details This file implements the class defined in hob_Ping.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -58,33 +59,23 @@ void Ping::draw(void) noexcept
 	uint64_t    latency          = 0ULL;
 
 	plog_verbose("Ping is being drawn.");
-	if (true == m_queue.isEmpty())
-	{
-		goto DRAW;
-	}
-
-	do
+	while (false == m_queue.isEmpty())
 	{
 		latency = m_queue.get();
+		if (latency == m_previousLatency)
+		{
+			plog_verbose("Ping does not need to be updated.");
+			continue;
+		}
+		m_previousLatency = latency;
+		text              = std::to_string(latency) + " ms";
+
+		m_texture.destroy();
+		textureDimension = m_texture.create(text, m_font, YELLOW);
+
+		m_component.updateTexture(m_texture);
+		m_component.updatePosition({ 15L * SCALE - SCALE / 2L + 7L, 0L, textureDimension.x, textureDimension.y });
 	}
-	while (false == m_queue.isEmpty());
-
-	if (latency == m_previousLatency)
-	{
-		plog_verbose("Ping does not need to be updated.");
-		goto DRAW;
-	}
-	m_previousLatency = latency;
-	text              = std::to_string(latency) + " ms";
-
-	m_texture.destroy();
-	textureDimension = m_texture.create(text, m_font, YELLOW);
-
-	m_component.updateTexture(m_texture.getRawTexture());
-	m_component.updatePosition({ 15L * SCALE - SCALE / 2L + 7L, 0L, textureDimension.x, textureDimension.y });
-
-DRAW:
-
 	m_component.draw();
 }
 

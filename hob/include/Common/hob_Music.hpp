@@ -2,6 +2,7 @@
  * @file hob_Music.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
  * @details This file defines the class and method prototypes of the music.                           *
  * @todo N/A.                                                                                         *
  * @bug Mix_Quit() is called in game's deinit method and music's destructor is called after so stop   *
@@ -90,7 +91,7 @@ public:
 	 * @brief Prevents the creation of another object.
 	 * @param music: Instance to be copied.
 	*/
-	void operator=(const Music& music) = delete;
+	void operator =(const Music& music) = delete;
 
 private:
 	/**

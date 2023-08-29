@@ -4,6 +4,7 @@
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
+ * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
  * @details This file implements the class defined in hob_Timer.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -23,6 +24,7 @@
 
 /**
  * @brief Full file path of an image used by the timer.
+ * @param name: The name of the image (without extension).
 */
 #define TEXTURE_FILE_PATH(name) "assets/textures/timer/" name ".png"
 
@@ -82,28 +84,18 @@ void Timer::draw(void) noexcept
 	TimeFormat timeFormat = {};
 	size_t     modifier   = 0ULL;
 
-	if (true == m_queue.isEmpty())
-	{
-		goto DRAW;
-	}
-
-	do
+	while (false == m_queue.isEmpty())
 	{
 		timeFormat = m_queue.get();
+		if (false == timeFormat.isAlliance)
+		{
+			modifier = 11ULL;
+		}
+		m_componentContainer[0ULL].updateTexture(m_textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60ULL          + modifier]);
+		m_componentContainer[1ULL].updateTexture(m_textureContainer[10ULL                                                     + modifier]);
+		m_componentContainer[2ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) / 10ULL + modifier]);
+		m_componentContainer[3ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) % 10ULL + modifier]);
 	}
-	while (false == m_queue.isEmpty());
-
-	if (false == timeFormat.isAlliance)
-	{
-		modifier = 11ULL;
-	}
-	m_componentContainer[0ULL].updateTexture(m_textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60ULL          + modifier].getRawTexture());
-	m_componentContainer[1ULL].updateTexture(m_textureContainer[10ULL                                                     + modifier].getRawTexture());
-	m_componentContainer[2ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) / 10ULL + modifier].getRawTexture());
-	m_componentContainer[3ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) % 10ULL + modifier].getRawTexture());
-
-DRAW:
-
 	TextureInitializer::draw();
 }
 

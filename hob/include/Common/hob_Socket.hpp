@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Removed unnecessary headers.                                *
+ * 29.08.2023  Gaina Stefan               Fixed comment.                                              *
  * @details This file defines the class and method prototypes of the client socket.                   *
  * @todo Add port to create.                                                                          *
  * @bug No known bugs.                                                                                *
@@ -43,7 +44,7 @@ public:
 	static Socket& getInstance(void) noexcept;
 
 	/**
-	 * @brief Creates a clinet socket.
+	 * @brief Creates a client socket.
 	 * @param ipAddress: IP address of the server.
 	 * @return void
 	*/
@@ -80,17 +81,17 @@ public:
 	 * @brief Prevents the creation of another object.
 	 * @param socket: Instance to be copied.
 	*/
-	void operator=(const Socket& socket) = delete;
+	void operator =(const Socket& socket) = delete;
 
 private:
 	/**
-	 * @brief Initializes the Windows Socket API, but does not create the socket implicitly.
+	 * @brief Does not create the socket implicitly.
 	 * @param void
 	*/
 	Socket(void) noexcept;
 
 	/**
-	 * @brief Deinitializes the Windows Socket API and cleans the socket if it was not already.
+	 * @brief Cleans the socket if it was not already.
 	 * @param void
 	*/
 	~Socket(void) noexcept;

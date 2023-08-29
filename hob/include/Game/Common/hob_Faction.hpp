@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added direct getters for color.                             *
+ * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
  * @details This file defines the class and method prototypes of the faction.                         *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -96,7 +97,7 @@ public:
 	 * @brief Prevents the creation of another object.
 	 * @param faction: Instance to be copied.
 	*/
-	void operator=(const Faction& faction) = delete;
+	void operator =(const Faction& faction) = delete;
 
 private:
 	/**

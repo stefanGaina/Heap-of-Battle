@@ -38,21 +38,19 @@ void Server::run(const uint16_t port) noexcept(false)
 	try
 	{
 		init();
-		server.runAsync(port);
-
-		while (0L != stop)
-		{
-			std::cout << std::endl << "Input \"0\" to stop server: ";
-			std::cin >> stop;
-		}
-		server.stop();
 	}
 	catch (const std::exception& exception)
 	{
-		deinit();
 		throw exception;
 	}
 
+	server.runAsync(port);
+	while (0L != stop)
+	{
+		std::cout << std::endl << "Input \"0\" to stop server: ";
+		std::cin >> stop;
+	}
+	server.stop();
 	deinit();
 }
 

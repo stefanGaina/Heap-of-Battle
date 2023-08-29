@@ -2,8 +2,9 @@
  * @file hob_Loop.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 24.07.2023  Gaina Stefan               Remove frames per second.                                   *
+ * 24.07.2023  Gaina Stefan               Removeed frames per second.                                 *
  * 25.08.2023  Gaina Stefan               Added ping monitoring functionality.                        *
+ * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,6 +16,8 @@
 /******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
+
+#include <atomic>
 
 #include "hob_Ping.hpp"
 
@@ -115,7 +118,7 @@ private:
 	/**
 	 * @brief Flag indicating if the loop is running or is stopped.
 	*/
-	bool m_isRunning;
+	std::atomic_bool m_isRunning;
 };
 
 } /*< namespace hob */

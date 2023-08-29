@@ -51,7 +51,7 @@ public:
 	 * @param port: Port on which the server socket will be opened.
 	 * @return void
 	*/
-	void runAsync(uint16_t port = 8787U) noexcept;
+	void runAsync(uint16_t port) noexcept;
 
 	/**
 	 * @brief Stops the server.

@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.07.2023  Gaina Stefan               Added WSA.                                                  *
+ * 29.08.2023  Gaina Stefan               Added LAN menu.                                             *
  * @details This file implements the class defined in hob_Game.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -24,13 +25,9 @@
 #include "hob_Version.hpp"
 #include "hob_Window.hpp"
 #include "hob_MainMenu.hpp"
+#include "hob_LocalMenu.hpp"
 #include "hob_Map1.hpp"
 #include "hobServer_Version.hpp"
-
-#ifdef DEVEL_BUILD
-#include "hob_Socket.hpp"
-#include "hobServer_Server.hpp"
-#endif /*< TODO: REMOVE */
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -97,7 +94,7 @@ void Game::init(void) noexcept(false)
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 #endif /*< DEVEL_BUILD */
 
-	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", hob::VERSION_MAJOR, hob::VERSION_MINOR, hob::VERSION_PATCH);
+	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 	SDL_GetVersion(&sdlVersion);
 	plog_info("Using SDL %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersion.major, sdlVersion.minor, sdlVersion.patch);
@@ -233,22 +230,7 @@ void Game::deinit(void) noexcept
 void Game::sceneLoop(void) noexcept
 {
 	Scene                 nextScene = Scene::MAIN_MENU;
-	std::shared_ptr<Loop> sceneLoop = nullptr;
-
-#ifdef DEVEL_BUILD
-	nextScene = Scene::MAP_1;
-
-	try
-	{
-		Socket::getInstance().create("25.20.35.65");
-	}
-	catch (const std::exception& exception)
-	{
-		return;
-	}
-
-	SDL_Delay(2000);
-#endif /*< TODO: REMOVE */
+	std::unique_ptr<Loop> sceneLoop = nullptr;
 
 	plog_debug("Starting scene loop!");
 	while (true)
@@ -259,7 +241,7 @@ void Game::sceneLoop(void) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_shared<MainMenu>();
+					sceneLoop = std::make_unique<MainMenu>();
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -268,11 +250,24 @@ void Game::sceneLoop(void) noexcept
 				}
 				break;
 			}
+			case Scene::LOCAL_MENU:
+			{
+				try
+				{
+					sceneLoop = std::make_unique<LocalMenu>();
+				}
+				catch (const std::bad_alloc& exception)
+				{
+					plog_fatal("Unable to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
+					nextScene = Scene::MAIN_MENU;
+				}
+				break;
+			}
 			case Scene::MAP_1:
 			{
 				try
 				{
-					sceneLoop = std::make_shared<Map1>();
+					sceneLoop = std::make_unique<Map1>();
 				}
 				catch (const std::bad_alloc& exception)
 				{

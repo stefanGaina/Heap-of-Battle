@@ -2,7 +2,8 @@
  * @file hob_Component.hpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 26.08.2023  Gaina Stefan               Change order of members.                                    *
+ * 26.08.2023  Gaina Stefan               Changed order of members.                                   *
+ * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
  * @details This file defines the class and method prototypes of the component.                       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -16,7 +17,7 @@
  *****************************************************************************************************/
 
 #include "hob_IDrawable.hpp"
-#include "hob_Types.hpp"
+#include "hob_Texture.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -59,6 +60,13 @@ public:
 	void updateTexture(SDL_Texture* texture) noexcept;
 
 	/**
+	 * @brief Changes the texture of the component or sets it if not already. Does not destroy the old one.
+	 * @param[in] texture: Texture of the component.
+	 * @return void
+	*/
+	void updateTexture(const Texture& texture) noexcept;
+
+	/**
 	 * @brief Changes the destination of the component or sets it if not already.
 	 * @param destination: Position on the screen and dimension of the texture.
 	 * @return void
@@ -86,6 +94,13 @@ public:
 	 * @return Texture that is being drawn.
 	*/
 	SDL_Texture* getRawTexture(void) const noexcept;
+
+	/**
+	 * @brief Checks if the raw textures are the same.
+	 * @param texture: A texture object.
+	 * @return true - the objects have the same raw texture | false - otherwise.
+	*/
+	bool operator ==(const Texture& texture) const noexcept;
 
 private:
 	/**

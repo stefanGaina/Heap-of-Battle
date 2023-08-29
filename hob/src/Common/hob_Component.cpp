@@ -5,6 +5,7 @@
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
  * @details This file implements the class defined in hob_Component.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -58,6 +59,12 @@ void Component::updateTexture(SDL_Texture* const texture) noexcept
 	m_texture = texture;
 }
 
+void Component::updateTexture(const Texture& texture) noexcept
+{
+	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture.getRawTexture());
+	m_texture = texture.getRawTexture();
+}
+
 void Component::updatePosition(const SDL_Rect destination) noexcept
 {
 	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
@@ -76,7 +83,7 @@ void Component::correctPosition(const SDL_Rect corrections) noexcept
 	m_destination.h += corrections.h;
 }
 
-bool Component::isMouseInside(const hob::Coordinate mouse, const SDL_Rect corrections) const noexcept
+bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections) const noexcept
 {
 	int32_t verticalBeginning   = m_destination.y                   + corrections.y;
 	int32_t verticalEnding      = m_destination.y + m_destination.h + corrections.h;
@@ -94,6 +101,11 @@ SDL_Texture* Component::getRawTexture(void) const noexcept
 {
 	plog_verbose("Texture is being got.");
 	return m_texture;
+}
+
+bool Component::operator ==(const Texture& texture) const noexcept
+{
+	return texture.getRawTexture() == m_texture;
 }
 
 } /*< namespace hob */

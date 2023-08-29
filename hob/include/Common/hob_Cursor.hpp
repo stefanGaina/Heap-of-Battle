@@ -2,7 +2,8 @@
  * @file hob_Cursor.hpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 26.08.2023  Gaina Stefan               Change order of members.                                    *
+ * 26.08.2023  Gaina Stefan               Changed order of members.                                   *
+ * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
  * @details This file defines the class and method prototypes of the cursor.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -111,7 +112,7 @@ public:
 	 * @brief Prevents the creation of another object.
 	 * @param cursor: Instance to be copied.
 	*/
-	void operator=(const Cursor& cursor) = delete;
+	void operator =(const Cursor& cursor) = delete;
 
 private:
 	/**

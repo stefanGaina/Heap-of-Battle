@@ -53,7 +53,7 @@ void Window::create(void) noexcept(false)
 
 	plog_debug("Window is being created.");
 
-	m_window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, hob::SCREEN_WIDTH, hob::SCREEN_HEIGHT, 0UL);
+	m_window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0UL);
 	if (NULL == m_window)
 	{
 		plog_fatal("Window failed to be created! (SDL error message: %s)", SDL_GetError());
@@ -97,7 +97,7 @@ void Window::destroy(void) noexcept
 
 void Window::setIcon(void) const noexcept
 {
-	static const char* const ICON_FILE_PATH = HOB_TEXTURES_FILE_PATH "miscellaneous/icon.png";
+	static const char* const ICON_FILE_PATH = HOB_TEXTURES_FILE_PATH("miscellaneous/icon");
 
 	SDL_Surface* iconSurface = NULL;
 
@@ -118,26 +118,26 @@ void Window::setIcon(void) const noexcept
 #ifdef DEVEL_BUILD
 void Window::logInfo(void) const noexcept
 {
-	// SDL_RendererInfo rendererInfo   = {};
-	// int32_t          errorCode      = 0L;
-	// SDL_PowerState   powerState     = SDL_POWERSTATE_UNKNOWN;
-	// int32_t          secondsLeft    = 0L;
-	// int32_t          batteryPercent = 0L;
+	SDL_RendererInfo rendererInfo   = {};
+	int32_t          errorCode      = 0L;
+	SDL_PowerState   powerState     = SDL_POWERSTATE_UNKNOWN;
+	int32_t          secondsLeft    = 0L;
+	int32_t          batteryPercent = 0L;
 
-	// plog_trace("Information is being logged.");
+	plog_trace("Information is being logged.");
 
-	// errorCode = SDL_GetRendererInfo(Renderer::getInstance().get(), &rendererInfo);
-	// if (0L != errorCode)
-	// {
-	// 	plog_warn("Failed to get renderer information! (SDL error message: %s)", SDL_GetError());
-	// }
-	// else
-	// {
-	// 	plog_info("Renderer information! (name: %s, flags: %" PRIu32 ", max width: %" PRId32 ", max height: %" PRId32 ")",
-	// 		rendererInfo.name, rendererInfo.flags, rendererInfo.max_texture_width, rendererInfo.max_texture_height);
-	// }
-	// powerState = SDL_GetPowerInfo(&secondsLeft, &batteryPercent);
-	// plog_info("Power information! (state: %" PRId32 ", seconds left: %" PRId32 ", battery: %" PRId32 "%%)", powerState, secondsLeft, batteryPercent);
+	errorCode = SDL_GetRendererInfo(Renderer::getInstance().get(), &rendererInfo);
+	if (0L != errorCode)
+	{
+		plog_warn("Failed to get renderer information! (SDL error message: %s)", SDL_GetError());
+	}
+	else
+	{
+		plog_info("Renderer information! (name: %s, flags: %" PRIu32 ", max width: %" PRId32 ", max height: %" PRId32 ")",
+			rendererInfo.name, rendererInfo.flags, rendererInfo.max_texture_width, rendererInfo.max_texture_height);
+	}
+	powerState = SDL_GetPowerInfo(&secondsLeft, &batteryPercent);
+	plog_info("Power information! (state: %" PRId32 ", seconds left: %" PRId32 ", battery: %" PRId32 "%%)", powerState, secondsLeft, batteryPercent);
 }
 #endif /*< DEVEL_BUILD */
 

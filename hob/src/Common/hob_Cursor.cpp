@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 29.08.2023  Gaina Stefan               Removed the use of hob:: and getRawTexture().               *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -24,8 +25,9 @@
 
 /**
  * @brief Full file path of an image used by the cursor.
+ * @param name: The name of the image (without extension).
 */
-#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH "cursor/" name ".png"
+#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("cursor/" name)
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -57,7 +59,7 @@ Cursor::Cursor(void) noexcept
 		},
 		{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE },
 		{
-			{ hob::SCREEN_WIDTH, hob::SCREEN_HEIGHT, hob::SCALE / 3L, hob::SCALE / 3L }
+			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3L, SCALE / 3L }
 		}
 	}
 	, m_textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
@@ -90,15 +92,15 @@ Cursor::Cursor(void) noexcept
 	m_enabled = true;
 }
 
-void Cursor::updatePosition(const hob::Coordinate& mouse) noexcept
+void Cursor::updatePosition(const Coordinate& mouse) noexcept
 {
-	SDL_Rect destination = { 0L, 0L, hob::SCALE / 3L, hob::SCALE / 3L };
+	SDL_Rect destination = { 0L, 0L, SCALE / 3L, SCALE / 3L };
 
 	plog_verbose("Cursor position is being updated. (coordinates: %" PRId32 ", %" PRId32 ")", mouse.x, mouse.y);
 	if (0L >= mouse.x || 0L >= mouse.y)
 	{
-		destination.x = hob::SCREEN_WIDTH;
-		destination.y = hob::SCREEN_HEIGHT;
+		destination.x = SCREEN_WIDTH;
+		destination.y = SCREEN_HEIGHT;
 	}
 	else
 	{
@@ -130,22 +132,22 @@ void Cursor::setTexture(const CursorType type) noexcept
 	{
 		case CursorType::IDLE:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE + m_textureIndexOffset].getRawTexture());
+			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE + m_textureIndexOffset]);
 			break;
 		}
 		case CursorType::SELECT:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT + m_textureIndexOffset].getRawTexture());
+			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT + m_textureIndexOffset]);
 			break;
 		}
 		case CursorType::MOVE:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE + m_textureIndexOffset].getRawTexture());
+			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE + m_textureIndexOffset]);
 			break;
 		}
 		case CursorType::ATTACK:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK + m_textureIndexOffset].getRawTexture());
+			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK + m_textureIndexOffset]);
 			break;
 		}
 		default:

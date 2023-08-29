@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Move frames per second in render.                           *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
  * @details This file implements the class defined in hob_Loop.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug The execution is blocked when the window is being moved. This is a SDL limitation on Windows. *
@@ -31,7 +32,7 @@ namespace hob
 Ping Loop::s_ping = {};
 
 Loop::Loop(void) noexcept
-	: m_nextScene{ hob::Scene::QUIT }
+	: m_nextScene{ Scene::QUIT }
 	, m_isRunning{ false }
 {
 	SDL_Event event     = {};
@@ -47,19 +48,19 @@ Loop::Loop(void) noexcept
 	}
 }
 
-hob::Scene Loop::start(void) noexcept
+Scene Loop::start(void) noexcept
 {
 	uint8_t failedRenderCount = 0U;
 
 	plog_debug("Loop is being started.");
-	if (true == m_isRunning)
+	if (true == m_isRunning.load())
 	{
 		plog_warn("Loop is already started!");
-		return m_nextScene;
+		return Scene::QUIT;
 	}
 
-	m_isRunning = true;
-	while (true == m_isRunning)
+	m_isRunning.store(true);
+	while (true == m_isRunning.load())
 	{
 		handleEvents();
 
@@ -77,7 +78,7 @@ SKIP_HANDLE_EVENTS:
 			if (UINT8_MAX == failedRenderCount)
 			{
 				plog_fatal("Maximum retry attempts reached! (failed count: %" PRIu16 ")", static_cast<uint16_t>(failedRenderCount));
-				return hob::Scene::QUIT;
+				return Scene::QUIT;
 			}
 
 			goto SKIP_HANDLE_EVENTS;
@@ -91,22 +92,24 @@ SKIP_HANDLE_EVENTS:
 void Loop::stop(const Scene nextScene) noexcept
 {
 	plog_debug("Loop is being stopped.");
-	if (false == m_isRunning)
+	if (false == m_isRunning.load())
 	{
 		plog_warn("Loop is already stopped!");
 		return;
 	}
 	m_nextScene = nextScene;
-	m_isRunning = false;
+	m_isRunning.store(false);
 }
 
 void Loop::pingReceived(void) const noexcept
 {
+	plog_verbose("Ping has been received.");
 	s_ping.update();
 }
 
 void Loop::pingStop(void) const noexcept
 {
+	plog_verbose("Ping is being stopped.");
 	s_ping.clean();
 }
 

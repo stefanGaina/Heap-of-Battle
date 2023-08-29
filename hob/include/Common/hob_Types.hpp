@@ -2,6 +2,7 @@
  * @file hob_Types.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 29.08.2023  Gaina Stefan               Added local menu.                                           *
  * @details This file defines common data types and macros.                                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -46,13 +47,21 @@ static constexpr const int32_t SCREEN_HEIGHT = 9L * SCALE;
 
 /**
  * @brief String of common path to the textures folder to be appended at the beginning of the file paths.
+ * @param path: TODO
 */
-#define HOB_TEXTURES_FILE_PATH "assets/textures/"
+#define HOB_TEXTURES_FILE_PATH(path) "assets/textures/" path ".png"
 
 /**
  * @brief String of common path to the sounds folder to be appended at the beginning of the file paths.
+ * @param path: TODO
 */
-#define HOB_SOUNDS_FILE_PATH "assets/sounds/"
+#define HOB_SOUNDS_FILE_PATH(path) "assets/sounds/" path ".wav"
+
+/**
+ * @brief
+ * @param path: TODO
+*/
+#define HOB_MUSIC_FILE_PATH(path) "assets/sounds/" path ".mp3"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -65,9 +74,10 @@ enum class Scene
 {
 	QUIT        = 0, /**< The game is closing.             */
 	MAIN_MENU   = 1, /**< The game is in main menu.        */
-	SETTINGS    = 2, /**< The game is in settings menu.    */
-	MULTIPLAYER = 3, /**< The game is in multiplayer menu. */
-	MAP_1       = 4  /**< The game is in map 1.            */
+	LOCAL_MENU  = 2, /**< The game is in LAN menu.         */
+	SETTINGS    = 3, /**< The game is in settings menu.    */
+	MULTIPLAYER = 4, /**< The game is in multiplayer menu. */
+	MAP_1       = 5  /**< The game is in map 1.            */
 };
 
 /**

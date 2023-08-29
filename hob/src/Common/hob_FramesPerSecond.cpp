@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * @details This file implements the class defined in hob_FramesPerSecond.hpp.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -89,7 +90,7 @@ void FramesPerSecond::update(const uint16_t framesPerSecond) noexcept
 	m_texture.destroy();
 	textureDimension = m_texture.create(text, m_font, YELLOW);
 
-	m_component.updateTexture(m_texture.getRawTexture());
+	m_component.updateTexture(m_texture);
 	m_component.updatePosition({ 15L * SCALE + SCALE / 4L, 0L, textureDimension.x, textureDimension.y });
 }
 

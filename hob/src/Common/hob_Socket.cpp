@@ -4,7 +4,8 @@
  * 25.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.07.2023  Gaina Stefan               Removed WSA.                                                *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
+ * 27.08.2023  Gaina Stefan               Simplified recv() error case.                               *
+ * 29.08.2023  Gaina Stefan               Solved todo.                                                *
  * @details This file implements the class defined in hob_Socket.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -28,11 +29,6 @@
 
 namespace hob
 {
-
-/**
- * @brief 
-*/
-static constexpr const uint16_t PORT = 8787U;
 
 Socket& Socket::getInstance(void) noexcept
 {
@@ -91,7 +87,7 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 		goto CLOSE;
 	}
 
-	errorCode = InetPton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr); /*< TODO: Change address. */
+	errorCode = InetPton(AF_INET, ipAddress.c_str(), &server.sin_addr.s_addr);
 	if (1L != errorCode)
 	{
 		plog_error("Failed to convert ip address to binary! (WSA error code: % " PRId32 ")", WSAGetLastError());
@@ -99,7 +95,7 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 	}
 
 	server.sin_family = AF_INET;
-	server.sin_port   = htons(PORT);
+	server.sin_port   = htons(8787U);
 
 	errorCode = connect(m_socket, (sockaddr*)&server, sizeof(server));
 	if (ERROR_SUCCESS != errorCode)
@@ -113,7 +109,7 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 	sendUpdate(versionMessage);
 
 	return;
-	
+
 CLOSE:
 
 	close();

@@ -3,6 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added chat.                                                 *
+ * 29.08.2023  Gaina Stefan               Fixed comment.                                              *
  * @details This file defines the class and method prototypes of the map of the first scenario.       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -54,7 +55,7 @@ public:
 private:
 	/**
 	 * @brief Handles an event.
-	 * @param event: event to be handled.
+	 * @param event: Event to be handled.
 	 * @return void
 	*/
 	void handleEvent(const SDL_Event& event) noexcept override;

@@ -4,6 +4,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 29.08.2023  Gaina Stefan               Added use of HOB_MUSIC_FILE_PATH.                           *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -65,7 +66,7 @@ void Music::start(const Song song)
 		case Song::MAIN_MENU:
 		{
 			stop();
-			m_song        = Mix_LoadMUS(HOB_SOUNDS_FILE_PATH "main_menu_music.mp3");
+			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("main_menu_music"));
 			m_playingSong = song;
 			break;
 		}

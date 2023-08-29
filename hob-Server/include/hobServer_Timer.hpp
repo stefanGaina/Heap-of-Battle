@@ -45,6 +45,7 @@ public:
 	*/
 	virtual ~Timer(void) noexcept;
 
+protected:
 	/**
 	 * @brief Calls onTimeUpdate each second asynchronically.
 	 * @param seconds: How many seconds will pass until onTimesUp is called.

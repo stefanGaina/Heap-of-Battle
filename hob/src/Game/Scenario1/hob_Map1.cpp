@@ -220,8 +220,8 @@ void Map1::receivingFunction(void) noexcept
 			case hobServer::MessageType::END_COMMUNICATION:
 			{
 				plog_info("End communication message received!");
-				stop(Scene::MAIN_MENU);
 				m_receivingUpdates.store(false);
+				stop(Scene::MAIN_MENU);
 				break;
 			}
 			case hobServer::MessageType::VERSION:

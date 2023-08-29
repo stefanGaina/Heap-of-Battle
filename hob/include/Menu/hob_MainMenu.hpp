@@ -2,6 +2,7 @@
  * @file hob_MainMenu.hpp                                                                             *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
+ * 29.08.2023  Gaina Stefan               Fixed comments.                                             *
  * @details This file defines the class and method prototypes of the main menu scene.                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -25,7 +26,7 @@
 namespace hob
 {
 
-/*
+/**
  * @brief Enumerates main menu's textures index.
  */
 enum MainMenuTextureIndex
@@ -45,7 +46,7 @@ enum MainMenuTextureIndex
 	MAIN_MENU_TEXTURES_COUNT                = 12  /**< How many textures main menu loads.                  */
 };
 
-/*
+/**
  * @brief Enumerates main menu's changeable components index.
  */
 enum MainMenuComponentIndex
@@ -65,6 +66,9 @@ enum MainMenuSoundIndex
 	MAIN_MENU_SOUNDS_COUNT      = 1  /**< How many sounds the main menu loads.  */
 };
 
+/**
+ * @brief Main menu scene.
+*/
 class MainMenu final : public Loop
 					 , public TextureInitializer<MAIN_MENU_TEXTURES_COUNT, MAIN_MENU_COMPONENTS_COUNT>
 					 , public SoundInitializer<MAIN_MENU_SOUNDS_COUNT>
@@ -85,7 +89,7 @@ public:
 private:
 	/**
 	 * @brief Handles an event.
-	 * @param event: event to be handled.
+	 * @param event: Event to be handled.
 	 * @return void
 	*/
 	void handleEvent(const SDL_Event& event) noexcept override;
