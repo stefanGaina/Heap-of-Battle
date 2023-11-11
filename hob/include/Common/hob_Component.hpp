@@ -86,7 +86,7 @@ public:
 	 * @param corrections: Values added for textures that are loaded from images with blank space.
 	 * @return true - it is inside area | false - it is not inside area.
 	*/
-	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { 0L, 0L, 0L, 0L }) const noexcept;
+	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0L, .y = 0L, .w = 0L, .h = 0L }) const noexcept;
 
 	/**
 	 * @brief Queries for the texture that is used for the drawing.

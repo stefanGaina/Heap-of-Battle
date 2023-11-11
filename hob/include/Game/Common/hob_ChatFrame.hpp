@@ -25,7 +25,7 @@ namespace hob
 
 /**
  * @brief Enumerates chat frame's textures index.
- */
+*/
 enum ChatFrameTextureIndex
 {
 	CHAT_FRAME_TEXTURE_INDEX_FRAME_INPUT  = 0, /**< Index to the chat frame's input box texture.       */
@@ -39,7 +39,7 @@ enum ChatFrameTextureIndex
 
 /**
  * @brief Enumerates chat frame's components index.
- */
+*/
 enum ChatFrameComponentIndex
 {
 	CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE   = 0, /**< Index to the chat frame's input box component.       */

@@ -17,6 +17,7 @@
  *****************************************************************************************************/
 
 #include "hob_TextureInitializer.hpp"
+#include "hobGame_Game.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -26,19 +27,8 @@ namespace hob
 {
 
 /**
- * @brief Supported actions of the cursor.
-*/
-enum class CursorType
-{
-	IDLE   = 0, /**< Default type, does not indicate anything. */
-	SELECT = 1, /**< Indicates a selection can be done.        */
-	MOVE   = 2, /**< Indicates a move is possible.             */
-	ATTACK = 3  /**< Indicates an attack is possible.          */
-};
-
-/*
  * @brief Enumerates cursor's textures index.
- */
+*/
 enum CursorTextureIndex
 {
 	CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE   = 0, /**< Index to the cursor's alliance idle texture.        */
@@ -52,9 +42,9 @@ enum CursorTextureIndex
 	CURSOR_TEXTURES_COUNT                = 8  /**< How many textures cursor loads.                     */
 };
 
-/*
+/**
  * @brief Enumerates cursor's changeable components index.
- */
+*/
 enum CursorComponentIndex
 {
 	CURSOR_COMPONENT_INDEX  = 0, /**< Index to the cursor's component.     */
@@ -100,7 +90,7 @@ public:
 	 * @param type: Action represented by the cursor.
 	 * @return void
 	*/
-	void setTexture(CursorType type) noexcept;
+	void setTexture(hobGame::CursorType type) noexcept;
 
 	/**
 	 * @brief Prevents the creation of another object.

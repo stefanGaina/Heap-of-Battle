@@ -30,7 +30,9 @@ namespace hob
 */
 enum class Song
 {
-	MAIN_MENU = 0, /**< Song associated to the main menu. */
+	MAIN_MENU         = 0, /**< Song associated to the main menu. */
+	SCENARIO_ALLIANCE = 1,
+	SCENARIO_HORDE    = 2
 };
 
 /**

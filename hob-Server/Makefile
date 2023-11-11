@@ -17,19 +17,14 @@ SOURCES := $(wildcard $(SRC)/*.cpp)
 OBJECTS := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 LIBRARY := HOB_server.dll
 
-all: devel_flags build
-
-### DEVELOPMENT FLAGS ###
-devel_flags:
-override CXXFLAGS += -DDEVEL_BUILD
-override LDFLAGS  += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lPlog
+### DEVELOPMENT ###
+all: CFLAGS  += -DDEVEL_BUILD
+all: LDFLAGS += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lplog
+all: build
 
 ### PRODUCTION ###
-release: prod_flags build
-
-### PRODUCTION FLAGS ###
-prod_flags:
-#override CXXFLAGS += -DPLOG_STRIP_ALL
+release: CFLAGS += -O3 -DPLOG_STRIP_ALL
+release: build
 
 ### BUILD ###
 build: | create_dirs $(LIBRARY) copy_library

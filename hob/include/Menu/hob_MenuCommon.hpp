@@ -26,27 +26,27 @@ namespace hob
 
 /**
  * @brief Menu's bar width (pixels).
- */
+*/
 constexpr const int32_t BAR_WIDTH = 4L * SCALE;
 
 /**
  * @brief Menu's bar height (pixels).
- */
+*/
 constexpr const int32_t BAR_HEIGHT = 2L * SCALE;
 
 /**
  * @brief Menu's bar horizontal centered position (pixels).
- */
+*/
 constexpr const int32_t BAR_HORIZONTAL_CENTERED = 6L * SCALE;
 
 /**
  * @brief Menu's bar text width (pixels).
- */
+*/
 constexpr const int32_t BAR_TEXT_WIDTH = 2L * SCALE;
 
 /**
  * @brief Menu's bar text height (pixels).
- */
+*/
 constexpr const int32_t BAR_TEXT_HEIGHT = SCALE / 2L;
 
 /**

@@ -33,7 +33,7 @@ void Grid1::draw(void) noexcept
 
 	plog_verbose("Grid1 is being drawn.");
 
-	errorCode = SDL_SetRenderDrawColor(renderer, 0x00U, 0x00U, 0x00U, ALPHA_OPAQUE); /*< Black. */
+	errorCode = SDL_SetRenderDrawColor(renderer, 0x00U, 0x00U, 0x00U, ALPHA_OPAQUE); /*< black */
 	if (0L != errorCode)
 	{
 		plog_error("Failed to set renderer draw color to black! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
@@ -67,7 +67,7 @@ void Grid1::draw(void) noexcept
 	drawHorizontalObjectiveLines();
 	drawVerticalObjectiveLines();
 
-	errorCode = SDL_SetRenderDrawColor(renderer, 0xFFU, 0xFFU, 0xFFU, 0xFFU); /*< White. */
+	errorCode = SDL_SetRenderDrawColor(renderer, 0x00U, 0x00U, 0x00U, 0xFFU); /*< black */
 	if (0L != errorCode)
 	{
 		plog_error("Failed to set renderer draw color to default! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());

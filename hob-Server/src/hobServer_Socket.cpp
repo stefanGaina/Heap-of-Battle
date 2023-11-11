@@ -48,9 +48,9 @@ void Socket::create(const uint16_t port, const Callback callback) noexcept(false
 {
 	static constexpr const u_long BLOCKING = 0U;
 
-	sockaddr_in server          = {};
-	int32_t     errorCode       = ERROR_SUCCESS;
-	u_long      socketMode      = BLOCKING;
+	sockaddr_in server     = {};
+	int32_t     errorCode  = ERROR_SUCCESS;
+	u_long      socketMode = BLOCKING;
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
 	if (INVALID_SOCKET != m_serverSocket || INVALID_SOCKET != m_clientSockets[0] || INVALID_SOCKET != m_clientSockets[1])

@@ -28,7 +28,7 @@ namespace hob
 
 /**
  * @brief Enumerates main menu's textures index.
- */
+*/
 enum MainMenuTextureIndex
 {
 	MAIN_MENU_TEXTURE_INDEX_BACKGROUND      = 0,  /**< Index to the main menu's background texture.        */
@@ -48,7 +48,7 @@ enum MainMenuTextureIndex
 
 /**
  * @brief Enumerates main menu's changeable components index.
- */
+*/
 enum MainMenuComponentIndex
 {
 	MAIN_MENU_COMPONENT_INDEX_BUTTON_START_GAME = 6, /**< Index to the main menu's start game button component. */

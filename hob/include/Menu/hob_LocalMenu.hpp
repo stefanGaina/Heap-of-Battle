@@ -28,7 +28,7 @@ namespace hob
 
 /**
  * @brief Enumerates local menu's textures index.
- */
+*/
 enum LocalMenuTextureIndex
 {
 	LOCAL_MENU_TEXTURE_INDEX_BACKGROUND      = 0, /**< Index to the local menu's background texture.           */
@@ -45,7 +45,7 @@ enum LocalMenuTextureIndex
 
 /**
  * @brief Enumerates local menu's changeable components index.
- */
+*/
 enum LocalMenuComponentIndex
 {
 	LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME = 1, /**< Index to the local menu's host game button component. */

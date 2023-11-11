@@ -5,7 +5,7 @@
 # Description: This Makefile is used to generate the server instance.                                 #
 #######################################################################################################
 
-CXXFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror
 LDFLAGS  = -Wl,-rpath='.' -L../hob-Server/lib/ -lHOB_server \
 		   -lws2_32
 
@@ -18,19 +18,13 @@ OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := HOB-Server.exe
 
 ### DEVELOPMENT ###
-all: devel_flags build
-
-### DEVELOPMENT FLAGS ###
-devel_flags:
-override CXXFLAGS += -DDEVEL_BUILD
-override LDFLAGS  += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lPlog
+all: CFLAGS  += -DDEVEL_BUILD
+all: LDFLAGS += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lplog
+all: build
 
 ### PRODUCTION ###
-release: prod_flags build
-
-### PRODUCTION FLAGS ###
-prod_flags:
-#override CXXFLAGS += -DPLOG_STRIP_ALL
+release: CFLAGS += -O3 -DPLOG_STRIP_ALL -fno-ident
+release: build
 
 ### BUILD ###
 build: | create_dirs $(EXECUTABLE) copy_executable
@@ -42,11 +36,11 @@ create_dirs:
 
 ### BINARIES ###
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -o $(BIN)/$@ $^ $(LDFLAGS)
 
 ### OBJECTS ###
 $(OBJ)/%.o: $(SRC)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	$(CXX) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 ### COPY EXECUTABLE ###
 copy_executable:

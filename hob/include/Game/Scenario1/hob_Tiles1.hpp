@@ -24,27 +24,27 @@
 namespace hob
 {
 
-/*
+/**
  * @brief How many times of tiles are being used.
- */
-static constexpr const size_t TILES1_COUNT = 13ULL;
+*/
+constexpr const size_t TILES1_COUNT = 13ULL;
 
 /**
  * @brief How many textures scenario 1 tiles loads.
 */
-static constexpr const size_t TILES1_TEXTURES_COUNT = 34ULL;
+constexpr const size_t TILES1_TEXTURES_COUNT = 34ULL;
 
 /**
  * @brief How many components the tiles of scenario 1 uses.
 */
-static constexpr const size_t TILES1_COMPONENTS_COUNT = 0ULL;
+constexpr const size_t TILES1_COMPONENTS_COUNT = 0ULL;
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
  *****************************************************************************************************/
 
 /**
- * @brief
+ * @brief Tiles of the scenario 1.
 */
 class Tiles1 final : public TextureInitializer<TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT>
 				   , public TileInitializer<TILES1_COUNT>

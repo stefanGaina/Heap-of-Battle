@@ -82,7 +82,7 @@ enum class Scene
 
 /**
  * @brief Coordinates of an object on the screen (0, 0 <-> top left corner).
- */
+*/
 struct Coordinate
 {
 	int32_t x; /**< The coordinate on the X axis. */

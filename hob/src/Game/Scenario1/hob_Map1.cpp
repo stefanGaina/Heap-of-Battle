@@ -18,8 +18,10 @@
 #include <plog.h>
 
 #include "hob_Map1.hpp"
+#include "hob_Music.hpp"
 #include "hob_Cursor.hpp"
 #include "hob_Socket.hpp"
+#include "hob_Server.hpp"
 #include "hob_Faction.hpp"
 
 /******************************************************************************************************
@@ -31,21 +33,24 @@ namespace hob
 
 Map1::Map1(void) noexcept
 	: Loop              {}
+	, m_game            { Faction::getInstance().getFaction() }
 	, m_tiles           {}
-	, m_menu            {}
+	, m_menu            { m_game.getGold() }
 	, m_buildings       {}
 	, m_chat            {}
-	, m_timer           {}
 	, m_grid            {}
+	, m_units           {}
 	, m_receivingThread { std::bind(&Map1::receivingFunction, this) }
 	, m_receivingUpdates{ true }
 {
 	plog_trace("Map1 is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
-		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ")", sizeof(*this), sizeof(m_tiles), sizeof(m_menu), sizeof(m_buildings),
-		sizeof(m_chat), sizeof(m_timer), sizeof(m_grid), sizeof(m_receivingThread), sizeof(m_receivingUpdates));
+		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ")", sizeof(*this), sizeof(m_game), sizeof(m_tiles), sizeof(m_menu),
+		 sizeof(m_buildings), sizeof(m_chat), sizeof(m_grid), sizeof(m_receivingThread), sizeof(m_receivingUpdates));
+
+	Music::getInstance().start(true == Faction::getInstance().getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 
 	Cursor::getInstance().setFaction(Faction::getInstance().getFaction());
-	Cursor::getInstance().setTexture(CursorType::IDLE);
+	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
 }
 
 Map1::~Map1(void) noexcept
@@ -53,6 +58,7 @@ Map1::~Map1(void) noexcept
 	plog_trace("Map1 is being destructed.");
 
 	m_receivingUpdates.store(false);
+	Server::getInstance().close();
 	Socket::getInstance().close();
 	pingStop();
 
@@ -64,7 +70,7 @@ Map1::~Map1(void) noexcept
 	}
 
 	Cursor::getInstance().setFaction(true);
-	Cursor::getInstance().setTexture(CursorType::IDLE);
+	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
 }
 
 void Map1::draw(void) noexcept
@@ -74,8 +80,8 @@ void Map1::draw(void) noexcept
 	m_chat.draw();
 	m_tiles.draw();
 	m_buildings.draw();
+	m_units.draw();
 	m_grid.draw();
-	m_timer.draw();
 }
 
 void Map1::handleEvent(const SDL_Event& event) noexcept
@@ -83,6 +89,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 	Coordinate         click      = {};
 	hobServer::Message message    = {};
 	uint32_t           mouseState = 0UL;
+	Action             action     = Action::NOTHING;
 
 	plog_verbose("Event is being handled.");
 	switch (event.type)
@@ -99,6 +106,27 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			}
 
 			m_chat.handleClick(click);
+
+			action = m_menu.handleClick(click, m_game.getMenuMode(click.x, click.y));
+			switch (action)
+			{
+				case Action::NOTHING:
+				{
+					break;
+				}
+				case Action::RECRUIT_INFANTRY:
+				{
+					if (true == m_game.recruit(hobGame::Unit::INFANTRY))
+					{
+						m_units.add(hobGame::Unit::INFANTRY);
+					}
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
 			break;
 		}
 		case SDL_MOUSEBUTTONUP:
@@ -113,12 +141,8 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 
 			Cursor::getInstance().updatePosition(click);
-
-			if (1 == SDL_BUTTON(mouseState))
-			{
-				plog_verbose("Mouse left click is pressed.");
-				return;
-			}
+			Cursor::getInstance().setTexture(m_game.getCursorType(click.x, click.y));
+			m_menu.handleHover(click);
 			break;
 		}
 		case SDL_KEYDOWN:
@@ -157,12 +181,13 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 		}
 		case SDL_WINDOWEVENT:
 		{
+			plog_verbose("Window event received.");
 			if (SDL_WINDOWEVENT_FOCUS_LOST == event.window.event)
 			{
-				plog_debug("Window lost focus.");
-				click.x = -1L;
-				click.y = -1L;
+				plog_trace("Window lost focus.");
+				click = { .x = -1L, .y = -1L };
 				Cursor::getInstance().updatePosition(click);
+				m_menu.handleHover(click);
 			}
 			break;
 		}
@@ -203,7 +228,12 @@ void Map1::receivingFunction(void) noexcept
 			case hobServer::MessageType::TIME:
 			{
 				plog_verbose("Time update message received. (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
-				m_timer.update(receivedMessage.payload.timeLeft, false);
+				if (false == Faction::getInstance().getFaction() && false == m_game.getTurn())
+				{
+					m_menu.updateTimer(receivedMessage.payload.timeLeft, true);
+					break;
+				}
+				m_menu.updateTimer(receivedMessage.payload.timeLeft, Faction::getInstance().getFaction() && m_game.getTurn());
 				break;
 			}
 			case hobServer::MessageType::TEXT:
@@ -214,7 +244,9 @@ void Map1::receivingFunction(void) noexcept
 			}
 			case hobServer::MessageType::END_TURN:
 			{
-				plog_info("Opponent turn ended!");
+				plog_info("End turn message received!");
+				m_game.endTurn();
+				m_menu.updateGold(m_game.getGold());
 				break;
 			}
 			case hobServer::MessageType::END_COMMUNICATION:

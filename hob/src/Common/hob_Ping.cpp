@@ -74,7 +74,7 @@ void Ping::draw(void) noexcept
 		textureDimension = m_texture.create(text, m_font, YELLOW);
 
 		m_component.updateTexture(m_texture);
-		m_component.updatePosition({ 15L * SCALE - SCALE / 2L + 7L, 0L, textureDimension.x, textureDimension.y });
+		m_component.updatePosition({ .x = 30L * HSCALE - HSCALE + 7L, .y = 0L, .w = textureDimension.x, .h = textureDimension.y });
 	}
 	m_component.draw();
 }

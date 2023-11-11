@@ -43,7 +43,7 @@ static constexpr const uint8_t OBFUSCATE_MINUTE = 8U;
  *****************************************************************************************************/
 
 Chat::Chat(void) noexcept
-	: SoundInitializer       { { "assets/sounds/message_received.wav" } }
+	: SoundInitializer       { { HOB_SOUNDS_FILE_PATH("message_received") } }
 	, m_chatFrame            {}
 	, m_textures             {}
 	, m_components           {}
@@ -70,11 +70,11 @@ Chat::Chat(void) noexcept
 
 	dimension = m_textures[CHAT_TEXTURE_INDEX_BAR].create("|", m_font, Faction::getInstance().getFriendlyColor());
 	m_components[CHAT_TEXTURE_INDEX_BAR].updateTexture(m_textures[CHAT_TEXTURE_INDEX_BAR]);
-	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ 8L, 7L * SCALE / 3L, dimension.x, dimension.y });
+	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = 4L, .h = 15L });
 
 	dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Commands: ./mute | ./unmute", m_font, Faction::getInstance().getNeutralColor());
 	m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
-	m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ 8L, 7L * SCALE - 190L, dimension.x, dimension.y });
+	m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ .x = 8L, .y = 9L * HSCALE + 10L, .w = dimension.x, .h = dimension.y });
 }
 
 Chat::~Chat(void) noexcept
@@ -293,7 +293,7 @@ void Chat::handleButtonPress(const SDL_Event& event) noexcept
 			}
 		}
 	}
-	if ('\0' != showedKey[0ULL] && 3 * SCALE - 24L > m_enteringMessageLength)
+	if ('\0' != showedKey[0ULL] && 6 * HSCALE - 24L > m_enteringMessageLength)
 	{
 		m_enteringMessage.append(showedKey);
 		updateEnteringMessage();
@@ -317,8 +317,8 @@ void Chat::updateEnteringMessage(void) noexcept
 	}
 
 	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updateTexture(m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE]);
-	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updatePosition({ 8L, 6L * SCALE + SCALE / 2L + 2 * SCALE / 3L + 1L, dimension.x, dimension.y });
-	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ dimension.x + 8L, 6L * SCALE + SCALE / 2L + 2 * SCALE / 3L + 1L, 4L, 15L });
+	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updatePosition({ .x = 8L, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = dimension.x, .h = dimension.y });
+	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x + 8L, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = 4L, .h = 15L });
 	m_enteringMessageLength = dimension.x;
 
 	m_barTicks = 0U;
@@ -363,7 +363,7 @@ void Chat::sendMessage(void) noexcept
 
 		dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Chat is muted: ./unmute", m_font, Faction::getInstance().getNeutralColor());
 		m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
-		m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ 8L, 7L * SCALE - 190L, dimension.x, dimension.y });
+		m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ .x = 8L, .y = 9L * HSCALE + 10L, .w = dimension.x, .h = dimension.y });
 		for (index = 1ULL; index < CHAT_TEXTURES_COUNT - 2ULL; ++index)
 		{
 			if (NULL != m_textures[index].getRawTexture())
@@ -407,11 +407,11 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color) noexc
 		}
 		m_textures  [index] = m_textures[index - 1ULL];
 		m_components[index] = m_components[index - 1ULL];
-		m_components[index].correctPosition({ 0L, -10L, 0L, 0L });
+		m_components[index].correctPosition({ .x = 0L, .y = -10L, .w = 0L, .h = 0L });
 	}
 	dimension = m_textures[1ULL].create(message, m_font, color);
 	m_components[1ULL].updateTexture(m_textures[1ULL]);
-	m_components[1ULL].updatePosition({ 8L, 7L * SCALE - 18L, dimension.x, dimension.y });
+	m_components[1ULL].updatePosition({ .x = 8L, .y = 14L * HSCALE - 18L, .w = dimension.x, .h = dimension.y });
 }
 
 void Chat::activate(void) noexcept

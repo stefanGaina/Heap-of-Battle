@@ -91,7 +91,7 @@ void FramesPerSecond::update(const uint16_t framesPerSecond) noexcept
 	textureDimension = m_texture.create(text, m_font, YELLOW);
 
 	m_component.updateTexture(m_texture);
-	m_component.updatePosition({ 15L * SCALE + SCALE / 4L, 0L, textureDimension.x, textureDimension.y });
+	m_component.updatePosition({.x =  30L * HSCALE + HSCALE / 2L, .y = 0L, .w = textureDimension.x, .h = textureDimension.y });
 }
 
 } /*< namespace hob */

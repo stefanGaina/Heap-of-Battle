@@ -7,9 +7,10 @@
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
-CXXFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror
 LDFLAGS  = -Wl,-Bdynamic,-rpath='.' -L../hob-Server/lib/        -lHOB_server \
-		   -Wl,-Bdynamic,-rpath='.' -L../vendor/Obfuscator/lib/ -lObfuscator \
+		   -Wl,-Bdynamic,-rpath='.' -L../hob-Game/lib/          -lHOB_game   \
+		   -Wl,-Bdynamic,-rpath='.' -L../vendor/Obfuscator/lib/ -lobfuscator \
 		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2/lib/       -lSDL2       \
 		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2_image/lib/ -lSDL2_image \
 		   -Wl,-Bdynamic,-rpath='.' -L../vendor/SDL2_mixer/lib/ -lSDL2_mixer \
@@ -26,6 +27,7 @@ INCLUDES = -Iinclude/                      \
 		   -Iinclude/Main/                 \
 		   -Iinclude/Menu/                 \
 		   -I../hob-Server/include/        \
+		   -I../hob-Game/include/          \
 		   -I../vendor/Obfuscator/include/ \
 		   -I../vendor/Plog/include/       \
 		   -I../vendor/SDL2/include/       \
@@ -38,23 +40,13 @@ OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := Heap-of-Battle.exe
 
 ### DEVELOPMENT ###
-all: devel_flags build
-
-### DEVELOPMENT FLAGS ###
-devel_flags:
-override CXXFLAGS += -DDEVEL_BUILD
-override LDFLAGS  += -Wl,-Bdynamic,-rpath='.' -L../vendor/Plog/lib/ -lPlog
+all: CFLAGS  += -DDEVEL_BUILD
+all: LDFLAGS += -Wl,-Bdynamic,-rpath='.' -L../vendor/Plog/lib/ -lplog
+all: build
 
 ### PRODUCTION ###
-release: prod_flags build
-
-### PRODUCTION FLAGS ###
-prod_flags:
-#override CXXFLAGS += -DPLOG_STRIP_ALL
-
-### CHANGE EXECUTABLE ICON ###
-change_executable_icon:
-	../vendor/Icon-Changer/bin/icon-changer.exe ../vendor/Icon-Changer/icon/icon.ico ../Heap-of-Battle/Heap-of-Battle.exe
+release: CFLAGS += -DPLOG_STRIP_ALL
+release: build
 
 ### BUILD ###
 build: | create_dirs $(EXECUTABLE) copy_executable change_executable_icon
@@ -72,15 +64,19 @@ create_dirs:
 
 ### BINARIES ###
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -o $(BIN)/$@ $^ $(LDFLAGS)
 
 ### OBJECTS ###
 $(OBJ)/%.o: $(SRC)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	$(CXX) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 ### COPY EXECUTABLE ###
 copy_executable:
 	copy $(BIN)\$(EXECUTABLE) ..\Heap-of-Battle
+
+### CHANGE EXECUTABLE ICON ###
+change_executable_icon:
+	../vendor/Icon-Changer/bin/icon-changer.exe ../vendor/Icon-Changer/icon/icon.ico ../Heap-of-Battle/$(EXECUTABLE)
 
 ### CLEAN ###
 clean:

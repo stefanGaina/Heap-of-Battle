@@ -5,6 +5,7 @@
  * 22.06.2023  Gaina Stefan               Add plog_get_version.                                       *
  * 22.06.2023  Gaina Stefan               Fixed the stripping of logging from compilation.            *
  * 29.06.2023  Gaina Stefan               Moved version to plog_version.h.                            *
+ * 10.09.2023  Gaina Stefan               Added terminal mode.                                        *
  * @details This file defines the type definitions and public interface of Plog.                      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -86,7 +87,7 @@
 
 /**
  * @brief Fatal error messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_fatal(...)
 
@@ -104,7 +105,7 @@
 
 /**
  * @brief Error messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_error(...)
 
@@ -122,7 +123,7 @@
 
 /**
  * @brief Warning messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_warn(...)
 
@@ -140,7 +141,7 @@
 
 /**
  * @brief Information messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_info(...)
 
@@ -158,7 +159,7 @@
 
 /**
  * @brief Debug messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_debug(...)
 
@@ -176,7 +177,7 @@
 
 /**
  * @brief Trace messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_trace(...)
 
@@ -194,7 +195,7 @@
 
 /**
  * @brief Verbose messages are stripped from compilation.
- * @param __VA_ARGS__: Do not matter.
+ * @param __VA_ARGS__: Does not matter.
 */
 #define plog_verbose(...)
 
@@ -230,9 +231,11 @@ extern "C" {
  * @brief Initializes the plog library, opening the file where the logs will be written. Logging before
  * calling this will not have any effect.
  * @param file_name: Name/path of the existing/to be created file.
+ * @param terminal_mode: true - the logs will also be printed the terminal | false - the logs will
+ * only be printed in the file.
  * @return void
 */
-extern void plog_init(const char* file_name);
+extern void plog_init(const char* file_name, bool terminal_mode);
 
 /**
  * @brief Deinitializes the plog library, closing the file where the logs were written. Logging after
@@ -255,6 +258,22 @@ extern void plog_set_severity_level(uint8_t severity_level_mask);
  * @return The current severity level.
 */
 extern uint8_t plog_get_severity_level(void);
+
+/**
+ * @brief Sets a new terminal mode.
+ * @param terminal_mode: true - the logs will also be printed the terminal | false - the logs will
+ * only be printed in the file.
+ * @return void
+*/
+extern void plog_set_terminal_mode(bool terminal_mode);
+
+/**
+ * @brief Querries the terminal mode.
+ * @param void
+ * @return true - the logs are also be printed the terminal | false - the logs are only printed in
+ * the file.
+*/
+extern bool plog_get_terminal_mode(void);
 
 #ifdef __cplusplus
 }

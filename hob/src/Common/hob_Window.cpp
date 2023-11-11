@@ -77,7 +77,7 @@ void Window::create(void) noexcept(false)
 		plog_warn("Renderer failed to be set in draw blend mode! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
 	}
 
-	errorCode = SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF); /*< white */
+	errorCode = SDL_SetRenderDrawColor(renderer, 0x00U, 0x00U, 0x00U, 0xFFU); /*< black */
 	if (0L != errorCode)
 	{
 		plog_warn("Renderer failed to set draw color to white! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());

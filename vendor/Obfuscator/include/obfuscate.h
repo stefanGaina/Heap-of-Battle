@@ -30,7 +30,7 @@ extern "C" {
  * @param hour: hour when the message will be sent.
  * @param minute: minute when the message will be sent.
  * @return void
- */
+*/
 extern void obfuscate_string(char* out_message, uint8_t hour, uint8_t minute);
 
 /**
@@ -39,7 +39,7 @@ extern void obfuscate_string(char* out_message, uint8_t hour, uint8_t minute);
  * @param hour: hour when the message was sent.
  * @param minute: minute when the message was sent.
  * @return void
- */
+*/
 extern void deobfuscate_string(char* out_message, uint8_t hour, uint8_t minute);
 
 #ifdef __cplusplus

@@ -26,17 +26,20 @@ INFO_FILES = $(COVERAGE_REPORT)/plog.info
 ### MAKE SUBDIRECTORIES ###
 all:
 	$(MAKE) -C hob-Server
+	$(MAKE) -C hob-Game
 	$(MAKE) -C hob
 	$(MAKE) -C hob-Server-Instance
 
 release:
 	$(MAKE) release -C hob-Server
+	$(MAKE) release -C hob-Game
 	$(MAKE) release -C hob
 	$(MAKE) release -C hob-Server-Instance
 
 ### CLEAN SUBDIRECTORIES ###
 clean:
 	$(MAKE) clean -C hob-Server
+	$(MAKE) clean -C hob-Game
 	$(MAKE) clean -C hob
 	$(MAKE) clean -C hob-Server-Instance
 

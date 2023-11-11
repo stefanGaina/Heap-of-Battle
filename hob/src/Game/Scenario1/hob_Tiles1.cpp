@@ -23,7 +23,7 @@
  * @brief Full file path of tiles textures.
  * @param name: The name of the image (without extension).
 */
-#define TEXTURE_FILE_PATH(name) "assets/textures/tiles/" name ".png"
+#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("tiles/" name)
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *

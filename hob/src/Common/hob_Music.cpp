@@ -70,17 +70,33 @@ void Music::start(const Song song)
 			m_playingSong = song;
 			break;
 		}
+		case Song::SCENARIO_ALLIANCE:
+		{
+			stop();
+			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_alliance"));
+			m_playingSong = song;
+			break;
+		}
+		case Song::SCENARIO_HORDE:
+		{
+			stop();
+			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_horde"));
+			m_playingSong = song;
+			break;
+		}
 		default:
 		{
 			plog_error("Invalid music! (song: %" PRId32 ")", static_cast<int32_t>(song));
 			return;
 		}
 	}
+
 	errorCode = Mix_PlayMusic(m_song, -1L);
 	if (0L != errorCode)
 	{
 		plog_error("Failed to play music! (error code: %" PRId32 ")", errorCode);
 	}
+
 	(void)Mix_VolumeMusic(m_volume);
 }
 

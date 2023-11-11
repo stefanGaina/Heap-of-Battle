@@ -26,7 +26,7 @@ namespace hob
 
 /**
  * @brief Enumerates the possible volumes.
- */
+*/
 enum class Volume
 {
 	MUTED     = 0, /**< Muted volume.           */

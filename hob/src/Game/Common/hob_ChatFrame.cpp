@@ -54,12 +54,12 @@ ChatFrame::ChatFrame(void) noexcept
 		},
 		{
 			{
-				{ 8L             , 4L * SCALE + SCALE / 2L + 8L, 3L * SCALE - 16L, 3L * SCALE - SCALE / 2L },
-				{ 0L             , 7L * SCALE - 1L             , 3L * SCALE      , 8L                      },
-				{ 0L             , 4L * SCALE + SCALE / 2L     , 8L              , 3L * SCALE - SCALE / 2L },
-				{ 0L             , 4L * SCALE + SCALE / 2L     , 3L * SCALE      , 8L                      },
-				{ 3L * SCALE - 8L, 4L * SCALE + SCALE / 2L     , 8L              , 3L * SCALE - SCALE / 2L },
-				{ 0L             , 0L                          , 0L              , 0L                      }
+				{ 8L              , 9L  * HSCALE + 8L, 6L * HSCALE - 16L, 5L * HSCALE },
+				{ 0L              , 14L * HSCALE - 1L, 6L * HSCALE      , 8L          },
+				{ 0L              , 9L  * HSCALE     , 8L               , 5L * HSCALE },
+				{ 0L              , 9L  * HSCALE     , 6L * HSCALE      , 8L          },
+				{ 6L * HSCALE - 8L, 9L  * HSCALE     , 8L               , 5L * HSCALE },
+				{ 0L              , 0L               , 0L               , 0L          }
 			}
 		}
 	}
@@ -70,19 +70,19 @@ ChatFrame::ChatFrame(void) noexcept
 bool ChatFrame::isClickInside(const Coordinate click) const noexcept
 {
 	plog_verbose("Checking if click is inside chat frame. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
-	return m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE].isMouseInside(click, { 0L, 0L, 0L, SCALE / 2L - 8L });
+	return m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE].isMouseInside(click, { .x = 0L, .y = 0L, .w = 0L, .h = HSCALE - 8L });
 }
 
 void ChatFrame::showInputBox(void) noexcept
 {
 	plog_trace("Input box is being shown.");
-	m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ 0L, 7L * SCALE, 3L * SCALE, SCALE / 2L });
+	m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ .x = 0L, .y = 14L * HSCALE, .w = 6L * HSCALE, .h = HSCALE });
 }
 
 void ChatFrame::hideInputBox(void) noexcept
 {
 	plog_trace("Input box is being hidden.");
-	m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ 0L, 0L, 0L, 0L });
+	m_componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ .x = 0L, .y = 0L, .w = 0L, .h = 0L });
 }
 
 } /*< namespace hob */

@@ -94,7 +94,7 @@ Cursor::Cursor(void) noexcept
 
 void Cursor::updatePosition(const Coordinate& mouse) noexcept
 {
-	SDL_Rect destination = { 0L, 0L, SCALE / 3L, SCALE / 3L };
+	SDL_Rect destination = { .x = 0L, .y = 0L, .w = SCALE / 3L, .h = SCALE / 3L };
 
 	plog_verbose("Cursor position is being updated. (coordinates: %" PRId32 ", %" PRId32 ")", mouse.x, mouse.y);
 	if (0L >= mouse.x || 0L >= mouse.y)
@@ -125,27 +125,27 @@ void Cursor::setFaction(const bool isAlliance) noexcept
 	m_textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
 }
 
-void Cursor::setTexture(const CursorType type) noexcept
+void Cursor::setTexture(const hobGame::CursorType type) noexcept
 {
 	plog_verbose("Cursor's texture is being set. (type: %" PRId32 ")", static_cast<int32_t>(type));
 	switch (type)
 	{
-		case CursorType::IDLE:
+		case hobGame::CursorType::IDLE:
 		{
 			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE + m_textureIndexOffset]);
 			break;
 		}
-		case CursorType::SELECT:
+		case hobGame::CursorType::SELECT:
 		{
 			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT + m_textureIndexOffset]);
 			break;
 		}
-		case CursorType::MOVE:
+		case hobGame::CursorType::MOVE:
 		{
 			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE + m_textureIndexOffset]);
 			break;
 		}
-		case CursorType::ATTACK:
+		case hobGame::CursorType::ATTACK:
 		{
 			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK + m_textureIndexOffset]);
 			break;

@@ -40,7 +40,10 @@ void Game::run(void) noexcept(false)
 {
 	Window window = {};
 
+#ifndef DEVEL_BUILD
 	Window::hideTerminal();
+#endif /*< DEVEL_BUILD */
+
 	try
 	{
 		init();
@@ -72,9 +75,9 @@ void Game::run(void) noexcept(false)
 
 void Game::init(void) noexcept(false)
 {
-#ifdef DEVEL_BUILD
+#ifndef PLOG_STRIP_ALL
 	plog_Version_t     plogVersion      = plog_get_version();
-#endif /*< DEVEL_BUILD */
+#endif /*< PLOG_STRIP_ALL */
 	SDL_version        sdlVersion       = {};
 	const SDL_version* sdlVersionRef    = IMG_Linked_Version();
 	hobServer::Version serverVersion    = {};
@@ -82,19 +85,23 @@ void Game::init(void) noexcept(false)
 	WSADATA            wsaData          = {};
 	int32_t            errorCode        = 0L;
 
-#ifdef DEVEL_BUILD
+#ifndef PLOG_STRIP_ALL
 	if (PLOG_VERSION_MAJOR != plogVersion.major
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
 	{
-		std::cout << "Plog version mismatch! (compiled version: " << PLOG_VERSION_MAJOR << "." << PLOG_VERSION_MINOR << "." << PLOG_VERSION_PATCH << ")" << std::endl;
+		(void)fprintf(stdout, "Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 		throw std::exception();
 	}
-	plog_init("hob_logs.txt");
-	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
+#ifdef DEVEL_BUILD
+	plog_init("hob_logs.txt", true);
+// #else
+// 	plog_init("hob_logs.txt", false);
 #endif /*< DEVEL_BUILD */
+	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 
 	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+#endif /*< PLOG_STRIP_ALL */
 
 	SDL_GetVersion(&sdlVersion);
 	plog_info("Using SDL %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersion.major, sdlVersion.minor, sdlVersion.patch);
@@ -221,10 +228,10 @@ void Game::deinit(void) noexcept
 	SDL_Quit();
 	plog_info("SDL was cleaned up!");
 
-#ifdef DEVEL_BUILD
+#ifndef PLOG_STRIP_ALL
 	// plog_info("Plog is being deinitialized!");
 	// plog_deinit(); <- Calling this is optional, commented for logs in destructors to appear in file.
-#endif /*< DEVEL_BUILD */
+#endif /*< PLOG_STRIP_ALL */
 }
 
 void Game::sceneLoop(void) noexcept

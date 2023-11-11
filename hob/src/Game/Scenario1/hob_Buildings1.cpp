@@ -24,7 +24,7 @@
  * @brief Full file path of an image of a building.
  * @param name: The name of the image (without extension).
 */
-#define TEXTURE_FILE_PATH(name) "assets/textures/buildings/" name ".png"
+#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("buildings/" name)
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -165,24 +165,24 @@ Buildings1::Buildings1(void) noexcept
 		},
 		{
 			{
-				{ 8L  * SCALE , 2L * HSCALE + SCALE / 3L + 6L, 3L * SCALE , 3L * HSCALE + 1L * HSCALE / 3L },
-				{ 8L  * SCALE , 9L * HSCALE + SCALE / 3L + 6L, 3L * SCALE , 3L * HSCALE + 1L * HSCALE / 3L },
-				{ 3L  * SCALE , 11L * HSCALE                 , 4L * HSCALE, 4L * HSCALE },
-				{ 3L  * SCALE , 0L                           , 4L * HSCALE, 4L * HSCALE },
-				{ 3L  * SCALE , 3L* SCALE                    , 3L * HSCALE, 3L * HSCALE },
-				{ 13L * HSCALE, 3L* SCALE                    , 3L * HSCALE, 3L * HSCALE },
-				{ 22L * HSCALE, 3L* SCALE                    , 3L * HSCALE, 3L * HSCALE },
-				{ 29L * HSCALE, 3L* SCALE                    , 3L * HSCALE, 3L * HSCALE },
-				{ 29L * HSCALE, 6L * SCALE                   , 3L * HSCALE, 3L * HSCALE },
-				{ 29L * HSCALE, 0L                           , 3L * HSCALE, 3L * HSCALE },
-				{ 7L  * SCALE , 13L * HSCALE                 , 1L * SCALE , 1L * SCALE  },
-				{ 11L * SCALE , 13L * HSCALE                 , 1L * SCALE , 1L * SCALE  },
-				{ 7L  * SCALE , 0L                           , 1L * SCALE , 1L * SCALE  },
-				{ 11L * SCALE , 0L                           , 1L * SCALE , 1L * SCALE  },
-				{ 11L * HSCALE, 10L * HSCALE                 , 1L * SCALE , 1L * SCALE  },
-				{ 25L * HSCALE, 10L * HSCALE                 , 1L * SCALE , 1L * SCALE  },
-				{ 11L * HSCALE, 3L * HSCALE                  , 1L * SCALE , 1L * SCALE  },
-				{ 25L * HSCALE, 3L * HSCALE                  , 1L * SCALE , 1L * SCALE  },
+				{ 16L * HSCALE, 2L  * HSCALE + SCALE / 3L + 6L, 6L * HSCALE, 3L * HSCALE + HSCALE / 3L },
+				{ 16L * HSCALE, 9L  * HSCALE + SCALE / 3L + 6L, 6L * HSCALE, 3L * HSCALE + HSCALE / 3L },
+				{ 6L  * HSCALE, 11L * HSCALE                  , 4L * HSCALE, 4L * HSCALE               },
+				{ 6L  * HSCALE, 0L                            , 4L * HSCALE, 4L * HSCALE               },
+				{ 6L  * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
+				{ 13L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
+				{ 22L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
+				{ 29L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
+				{ 29L * HSCALE, 12L * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
+				{ 29L * HSCALE, 0L                            , 3L * HSCALE, 3L * HSCALE               },
+				{ 14L * HSCALE, 13L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 22L * HSCALE, 13L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 14L * HSCALE, 0L                            , 2L * HSCALE, 2L * HSCALE               },
+				{ 22L * HSCALE, 0L                            , 2L * HSCALE, 2L * HSCALE               },
+				{ 11L * HSCALE, 10L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 25L * HSCALE, 10L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 11L * HSCALE, 3L  * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 25L * HSCALE, 3L  * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
 			}
 		}
 	}

@@ -97,7 +97,7 @@ MainMenu::MainMenu(void) noexcept
 
 	Music::getInstance().start(Song::MAIN_MENU);
 	Cursor::getInstance().setFaction(true);
-	Cursor::getInstance().setTexture(CursorType::IDLE);
+	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
 }
 
 void MainMenu::draw(void) noexcept

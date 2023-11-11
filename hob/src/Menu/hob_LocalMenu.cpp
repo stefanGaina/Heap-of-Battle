@@ -21,6 +21,7 @@
 #include "hob_Music.hpp"
 #include "hob_Socket.hpp"
 #include "hob_Server.hpp"
+#include "hob_faction.hpp"
 
 /******************************************************************************************************
  * MACROS                                                                                             *
@@ -93,7 +94,7 @@ LocalMenu::LocalMenu(void) noexcept
 
 	Music::getInstance().start(Song::MAIN_MENU);
 	Cursor::getInstance().setFaction(true);
-	Cursor::getInstance().setTexture(CursorType::IDLE);
+	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
 }
 
 LocalMenu::~LocalMenu(void) noexcept
@@ -103,6 +104,15 @@ LocalMenu::~LocalMenu(void) noexcept
 	m_receivingUpdates.store(false);
 	joinReceivingThread();
 	joinWaitConnectionThread();
+
+	if (m_componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == m_textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
+	{
+		Faction::getInstance().setFaction(true);
+	}
+	else if (m_componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == m_textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
+	{
+		Faction::getInstance().setFaction(false);
+	}
 }
 
 void LocalMenu::draw(void) noexcept

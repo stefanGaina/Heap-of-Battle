@@ -72,7 +72,7 @@ void Server::init(void) noexcept(false)
 		std::cout << "Plog version mismatch! (compiled version: " << PLOG_VERSION_MAJOR << "." << PLOG_VERSION_MINOR << "." << PLOG_VERSION_PATCH << ")" << std::endl;
 		throw std::exception();
 	}
-	plog_init("hob_server_logs.txt");
+	plog_init("hob_server_logs.txt", false);
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 #endif /*< DEVEL_BUILD */
 

@@ -3,7 +3,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added getExecutableName function.                           *
- * @details This file provides an entry point for the Heap-of-Battle server instance.                 *
+ * @details This file provides the entry point for the Heap-of-Battle server instance.                *
  * @todo Support running multiple servers at the same time.                                           *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/

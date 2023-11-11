@@ -41,7 +41,7 @@ public:
 	Loop(void) noexcept;
 
 	/**
-	 * @brief Default destructor.
+	 * @brief Default destructor to avoid polymorphically delete undefined behavior
 	 * @param void
 	*/
 	virtual ~Loop(void) = default;

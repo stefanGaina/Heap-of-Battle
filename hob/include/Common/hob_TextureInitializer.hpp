@@ -93,7 +93,7 @@ TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const s
 
 	for (index = 0ULL; index < COMPONENTS_COUNT; ++index)
 	{
-		m_componentContainer[index].updateTexture(m_textureContainer[textureIndexes[index]].getRawTexture());
+		m_componentContainer[index].updateTexture(m_textureContainer[textureIndexes[index]]);
 		m_componentContainer[index].updatePosition(destinations[index]);
 	}
 }

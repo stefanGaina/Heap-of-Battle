@@ -26,7 +26,7 @@
  * @brief Full file path of an image used by the timer.
  * @param name: The name of the image (without extension).
 */
-#define TEXTURE_FILE_PATH(name) "assets/textures/timer/" name ".png"
+#define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/timer/" name)
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -67,10 +67,10 @@ Timer::Timer(void) noexcept
 		},
 		{
 			{
-				{ 2L * SCALE                   - 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 2L * SCALE + SCALE / 4L      - 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 2L * SCALE + 2L * SCALE / 4L - 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 2L * SCALE + 3L * SCALE / 4L - 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L }
+				{ 3L * HSCALE                  + 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
+				{ 3L * HSCALE + HSCALE / 2L    + 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
+				{ 4L * HSCALE + 5L                 , SCALE / 9L, SCALE / 3L, SCALE / 3L },
+				{ 4L * HSCALE + HSCALE / 2L + 5L   , SCALE / 9L, SCALE / 3L, SCALE / 3L }
 			}
 		}
 	}
@@ -84,6 +84,7 @@ void Timer::draw(void) noexcept
 	TimeFormat timeFormat = {};
 	size_t     modifier   = 0ULL;
 
+	plog_verbose("Timer is being drawn.");
 	while (false == m_queue.isEmpty())
 	{
 		timeFormat = m_queue.get();
@@ -101,8 +102,8 @@ void Timer::draw(void) noexcept
 
 void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
-	plog_verbose("Enemy timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-	m_queue.put((TimeFormat){ .seconds = seconds, .isAlliance = isAlliance });
+	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
+	m_queue.put({ .seconds = seconds, .isAlliance = isAlliance });
 }
 
 } /*< namespace hob */

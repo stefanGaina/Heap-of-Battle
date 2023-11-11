@@ -55,7 +55,7 @@ void Tile::init(SDL_Texture* const summerTexture, SDL_Texture* const autumnTextu
 	m_springTexture = springTexture;
 
 	m_component.updateTexture(m_summerTexture);
-	m_component.updatePosition({ (position.x + 6L) * (SCALE / 2L), position.y * (SCALE / 2L), SCALE / 2L, SCALE / 2L });
+	m_component.updatePosition({ .x = (position.x + 6L) * HSCALE, .y = position.y * HSCALE, .w = HSCALE, .h = HSCALE });
 }
 
 void Tile::draw(void) noexcept

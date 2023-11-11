@@ -25,7 +25,8 @@
 #include "hob_Tiles1.hpp"
 #include "hob_Buildings1.hpp"
 #include "hob_Grid1.hpp"
-#include "hob_Timer.hpp"
+#include "hob_Units.hpp"
+#include "hobGame_Game.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -75,6 +76,8 @@ private:
 	void receivingFunction(void) noexcept;
 
 private:
+	hobGame::Game m_game;
+
 	/**
 	 * @brief Playing board background.
 	*/
@@ -96,14 +99,11 @@ private:
 	Chat m_chat;
 
 	/**
-	 * @brief Graphical representation of the time left.
-	*/
-	Timer m_timer;
-
-	/**
 	 * @brief Lines between tiles and buildings.
 	*/
 	Grid1 m_grid;
+
+	Units m_units;
 
 	/**
 	 * @brief Thread for receiving updates from the server.
