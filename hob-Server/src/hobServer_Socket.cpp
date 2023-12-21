@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hobServer_Socket.cpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added exception handling for waitConnectionFunction.        *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
+ * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,7 +33,8 @@
  *****************************************************************************************************/
 
 #include <exception>
-#include <WS2tcpip.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <plog.h>
 
 #include "hobServer_Socket.hpp"
@@ -30,12 +49,11 @@ namespace hobServer
 {
 
 Socket::Socket(void) noexcept
-	: m_serverSocket        { INVALID_SOCKET }
-	, m_clientSockets       { INVALID_SOCKET, INVALID_SOCKET }
-	, m_waitConnectionThread{}
+	: serverSocket        { SOCKET_INVALID }
+	, clientSockets       { SOCKET_INVALID, SOCKET_INVALID }
+	, waitConnectionThread{}
 {
-	plog_debug(LOG_PREFIX "Socket is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_serverSocket), sizeof(m_clientSockets), sizeof(m_waitConnectionThread));
+	plog_debug(LOG_PREFIX "Socket is being constructed.");
 }
 
 Socket::~Socket(void) noexcept
@@ -46,42 +64,32 @@ Socket::~Socket(void) noexcept
 
 void Socket::create(const uint16_t port, const Callback callback) noexcept(false)
 {
-	static constexpr const u_long BLOCKING = 0U;
-
-	sockaddr_in server     = {};
-	int32_t     errorCode  = ERROR_SUCCESS;
-	u_long      socketMode = BLOCKING;
+	sockaddr_in server = {};
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
-	if (INVALID_SOCKET != m_serverSocket || INVALID_SOCKET != m_clientSockets[0] || INVALID_SOCKET != m_clientSockets[1])
+	if (SOCKET_INVALID != serverSocket || SOCKET_INVALID != clientSockets[0] || SOCKET_INVALID != clientSockets[1])
 	{
 		plog_error(LOG_PREFIX "Socket is already created!");
 		throw std::exception();
 	}
 
-	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (INVALID_SOCKET == m_serverSocket)
+	serverSocket = ::socket(AF_INET, SOCK_STREAM, 0);
+	if (SOCKET_INVALID == serverSocket)
 	{
-		plog_error(LOG_PREFIX "Server socket failed to be created! (WSA error code: %" PRId32 ")", WSAGetLastError());
+		plog_error(LOG_PREFIX "Server socket failed to be created! (error message: %s)", strerror(errno));
 		throw std::exception();
-	}
-
-	errorCode = ioctlsocket(m_serverSocket, FIONBIO, &socketMode);
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_error(LOG_PREFIX "Failed to set socket to blocking mode! error code: %" PRId32 ")", errorCode);
-		goto CLEAN_SOCKET;
 	}
 
 	server.sin_family      = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port        = htons(port);
 
-	errorCode = ::bind(m_serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server));
-	if (SOCKET_ERROR == errorCode)
+	if (-1 == bind(serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server)))
 	{
-		plog_error(LOG_PREFIX "Socket failed to be binded! (WSA error code: %" PRId32 ")", WSAGetLastError());
-		goto CLEAN_SOCKET;
+		plog_error(LOG_PREFIX "Socket failed to be binded! (error message: %s)", strerror(errno));
+		close();
+
+		throw std::exception();
 	}
 
 	if (nullptr == callback)
@@ -99,36 +107,25 @@ void Socket::create(const uint16_t port, const Callback callback) noexcept(false
 		return;
 	}
 
-	if (true == m_waitConnectionThread.joinable())
+	if (true == waitConnectionThread.joinable())
 	{
 		plog_debug(LOG_PREFIX "Wait connection thread is being joined.");
-		m_waitConnectionThread.join();
+		waitConnectionThread.join();
 		plog_debug(LOG_PREFIX "Wait connection thread has joined.");
 	}
-	m_waitConnectionThread = std::thread{ std::bind(&Socket::waitConnectionFunction, this, callback) };
-
-	return;
-
-CLEAN_SOCKET:
-
-	close();
-
-	throw std::exception();
+	waitConnectionThread = std::thread{ std::bind(&Socket::waitConnectionFunction, this, callback) };
 }
 
 void Socket::close(void) noexcept
 {
-	int32_t errorCode = ERROR_SUCCESS;
-
 	plog_trace(LOG_PREFIX "Server socket is being closed.");
-	if (INVALID_SOCKET != m_serverSocket)
+	if (SOCKET_INVALID != serverSocket)
 	{
-		errorCode = closesocket(m_serverSocket);
-		if (ERROR_SUCCESS != errorCode)
+		if (0 != shutdown(serverSocket, SHUT_RDWR))
 		{
-			plog_error(LOG_PREFIX "Server socket failed to be closed! (error code: %" PRId32 ")", errorCode);
+			plog_error(LOG_PREFIX "Server socket failed to be closed! (error message: %s)", strerror(errno));
 		}
-		m_serverSocket = INVALID_SOCKET;
+		serverSocket = SOCKET_INVALID;
 	}
 	else
 	{
@@ -138,30 +135,30 @@ void Socket::close(void) noexcept
 	closeClient(ClientType::PLAYER_1);
 	closeClient(ClientType::PLAYER_2);
 
-	if (true == m_waitConnectionThread.joinable())
+	if (true == waitConnectionThread.joinable())
 	{
 		plog_debug(LOG_PREFIX "Wait connection thread is being joined.");
-		m_waitConnectionThread.join();
+		waitConnectionThread.join();
 		plog_debug(LOG_PREFIX "Wait connection thread has joined.");
 	}
 }
 
 void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) const noexcept
 {
-	int32_t receivedBytes = 0L;
-	size_t  index         = 0ULL;
+	ssize_t receivedBytes = 0L;
+	size_t  index         = 0UL;
 
 	plog_verbose(LOG_PREFIX "Querrying for updates. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
 		{
-			index = 0ULL;
+			index = 0UL;
 			break;
 		}
 		case ClientType::PLAYER_2:
 		{
-			index = 1ULL;
+			index = 1UL;
 			break;
 		}
 		default:
@@ -171,40 +168,42 @@ void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) 
 		}
 	}
 
-	if (INVALID_SOCKET == m_clientSockets[index])
+	if (SOCKET_INVALID == clientSockets[index])
 	{
 		plog_fatal(LOG_PREFIX "Connection is not established!");
 		return;
 	}
 	plog_debug(LOG_PREFIX "Waiting for updates to arrive. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 
-	receivedBytes = recv(m_clientSockets[index], reinterpret_cast<char*>(&updateMessage), sizeof(Message), 0L);
+	receivedBytes = recv(clientSockets[index], reinterpret_cast<char*>(&updateMessage), sizeof(Message), 0);
 	if (0L >= receivedBytes)
 	{
-		plog_fatal(LOG_PREFIX "Invalid number of bytes received! (bytes: %" PRId32 ")", receivedBytes);
+		plog_fatal(LOG_PREFIX "Invalid number of bytes received! (bytes: %" PRId64 ") (error message: %s)", receivedBytes, strerror(errno));
 		updateMessage.type = MessageType::END_COMMUNICATION;
+
+		return;
 	}
-	else
-	{
-		plog_debug(LOG_PREFIX "Received an updated! (type: %" PRId32 ") (bytes: %" PRId32 ")", static_cast<int32_t>(updateMessage.type), receivedBytes);
-	}
+
+	plog_debug(LOG_PREFIX "Received an updated! (type: %" PRId32 ") (bytes: %" PRId64 ")",
+		static_cast<int32_t>(updateMessage.type), receivedBytes);
 }
 
 void Socket::sendUpdate(const Message& updateMessage, const ClientType clientType) const noexcept
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
-	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")", static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType));
+	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")",
+		static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
 		{
-			index = 0ULL;
+			index = 0UL;
 			break;
 		}
 		case ClientType::PLAYER_2:
 		{
-			index = 1ULL;
+			index = 1UL;
 			break;
 		}
 		default:
@@ -214,123 +213,117 @@ void Socket::sendUpdate(const Message& updateMessage, const ClientType clientTyp
 		}
 	}
 
-	if (INVALID_SOCKET == m_clientSockets[index])
+	if (SOCKET_INVALID == clientSockets[index])
 	{
 		plog_fatal(LOG_PREFIX "Connection is not established!");
 		return;
 	}
-	if (SOCKET_ERROR == send(m_clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0L))
+
+	if (-1L == send(clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0))
 	{
-		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (WSA error code: %" PRId32 ")",
-			static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType), WSAGetLastError());
+		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (error message: %s)",
+			static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType), strerror(errno));
 	}
 }
 
 void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
 {
-	int32_t     errorCode      = ERROR_SUCCESS;
-	size_t      index          = 0ULL;
+	size_t      index          = 0UL;
 	ClientType  clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
 	sockaddr_in client         = {};
-	int32_t     addressLength  = sizeof(client);
+	socklen_t   addressLength  = sizeof(client);
 	Message     message        = {};
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
-
-	errorCode = listen(m_serverSocket, 2L);
-	if (ERROR_SUCCESS != errorCode)
+	if (0 != listen(serverSocket, 2))
 	{
-		plog_fatal(LOG_PREFIX "Server failed to open for connections! (error code: %" PRId32 ")", errorCode);
+		plog_fatal(LOG_PREFIX "Server failed to open for connections! (error message: %s)", strerror(errno));
 		return;
 	}
 
-WAIT_FOR_CONNECTION:
-
-	m_clientSockets[index] = accept(m_serverSocket, reinterpret_cast<sockaddr*>(&client), &addressLength);
-	if (INVALID_SOCKET == m_serverSocket)
+	while (true)
 	{
-		plog_warn(LOG_PREFIX "Server socket has been closed!");
-		if (1ULL == index)
+		clientSockets[index] = accept(serverSocket, reinterpret_cast<sockaddr*>(&client), &addressLength);
+		if (SOCKET_INVALID == serverSocket)
 		{
-			closeClient(clientTypes[index]);
+			plog_warn(LOG_PREFIX "Server socket has been closed!");
+			if (1UL == index)
+			{
+				closeClient(clientTypes[index]);
+			}
+
+			if (nullptr == callback)
+			{
+				throw std::exception();
+			}
+
+			(*callback)(false);
+			break;
 		}
 
-		if (nullptr == callback)
+		if (SOCKET_INVALID == clientSockets[index])
 		{
-			throw std::exception();
+			plog_error(LOG_PREFIX "Connection failed to be accepted! (error message: %s)", strerror(errno));
+			continue;
+		}
+		plog_info(LOG_PREFIX "Connection accepted successfully!");
+
+		receiveUpdate(message, clientTypes[index]);
+		if (MessageType::VERSION != message.type)
+		{
+			plog_error(LOG_PREFIX "First message received is not checking to match versions! (type: %" PRId32 ")", static_cast<int32_t>(message.type));
+			goto ABORT_CONNECTION;
 		}
 
-		(*callback)(false);
-		return;
-	}
+		plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
+			message.payload.version.getMajor(), message.payload.version.getMinor(), message.payload.version.getPatch());
+		if (hob::VERSION_MAJOR != message.payload.version.getMajor()
+		 || hob::VERSION_MINOR != message.payload.version.getMinor()
+		 || hob::VERSION_PATCH != message.payload.version.getPatch())
+		{
+			plog_error(LOG_PREFIX "Versions are not matching!");
+			goto ABORT_CONNECTION;
+		}
 
-	if (INVALID_SOCKET == m_clientSockets[index])
-	{
-		plog_error(LOG_PREFIX "Connection failed to be accepted! (WSA error code: %" PRId32 ")", WSAGetLastError());
-		goto WAIT_FOR_CONNECTION;
-	}
-	plog_info(LOG_PREFIX "Connection accepted successfully!");
+		if (0UL == index)
+		{
+			++index;
+			continue;
+		}
 
-	receiveUpdate(message, clientTypes[index]);
-	if (MessageType::VERSION != message.type)
-	{
-		plog_error(LOG_PREFIX "First message received is not checking to match versions! (type: %" PRId32 ")", static_cast<int32_t>(message.type));
-		goto ABORT_CONNECTION;
-	}
+		if (nullptr != callback)
+		{
+			(*callback)(true);
+		}
 
-	plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", message.payload.version.major,
-		message.payload.version.minor, message.payload.version.patch);
-	if (hob::VERSION_MAJOR != message.payload.version.major
-	 || hob::VERSION_MINOR != message.payload.version.minor
-	 || hob::VERSION_PATCH != message.payload.version.patch)
-	{
-		plog_error(LOG_PREFIX "Versions are not matching!");
-		goto ABORT_CONNECTION;
-	}
+		message.type = MessageType::PING;
+		sendUpdate(message, ClientType::PLAYER_1);
+		sendUpdate(message, ClientType::PLAYER_2);
 
-	if (0ULL == index)
-	{
-		++index;
-		goto WAIT_FOR_CONNECTION;
-	}
-
-	if (nullptr != callback)
-	{
-		(*callback)(true);
-	}
-
-	message.type = MessageType::PING;
-	sendUpdate(message, ClientType::PLAYER_1);
-	sendUpdate(message, ClientType::PLAYER_2);
-
-	return;
+		break;
 
 ABORT_CONNECTION:
-
-	message.type = MessageType::END_COMMUNICATION;
-	sendUpdate(message, clientTypes[index]);
-
-	closeClient(clientTypes[index]);
-
-	goto WAIT_FOR_CONNECTION;
+		message.type = MessageType::END_COMMUNICATION;
+		sendUpdate(message, clientTypes[index]);
+		closeClient(clientTypes[index]);
+	}
 }
 
 void Socket::closeClient(const ClientType clientType) noexcept
 {
-	size_t  index     = 0ULL;
-	int32_t errorCode = ERROR_SUCCESS;
+	size_t index = 0UL;
 
 	plog_debug(LOG_PREFIX  "Client socket is being closed. (client type: %" PRId32 ")", static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
 		{
-			index = 0ULL;
+			index = 0UL;
 			break;
 		}
 		case ClientType::PLAYER_2:
 		{
-			index = 1ULL;
+			index = 1UL;
 			break;
 		}
 		default:
@@ -340,19 +333,17 @@ void Socket::closeClient(const ClientType clientType) noexcept
 		}
 	}
 
-	if (INVALID_SOCKET != m_clientSockets[index])
-	{
-		errorCode = closesocket(m_clientSockets[index]);
-		if (ERROR_SUCCESS != errorCode)
-		{
-			plog_error(LOG_PREFIX "Client socket %" PRIu64 " socket failed to be closed! (error code: %" PRId32 ")", index, errorCode);
-		}
-		m_clientSockets[index] = INVALID_SOCKET;
-	}
-	else
+	if (SOCKET_INVALID == clientSockets[index])
 	{
 		plog_warn(LOG_PREFIX "Client socket %" PRIu64 " is already closed!", index);
+		return;
 	}
+
+	if (0 != shutdown(clientSockets[index], SHUT_RDWR))
+	{
+		plog_error(LOG_PREFIX "Client socket %" PRIu64 " socket failed to be closed! (error message: %s)", index, strerror(errno));
+	}
+	clientSockets[index] = SOCKET_INVALID;
 }
 
 } /*< namespace hobServer */

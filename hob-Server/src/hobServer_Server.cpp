@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hobServer_Server.cpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added communication to clients.                             *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
+ * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hobServer_Server.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -36,12 +54,11 @@ static constexpr const uint16_t TIME_PER_TURN = 30U;
  *****************************************************************************************************/
 
 Server::Server(void) noexcept
-	: m_socket     {}
-	, m_runThread  {}
-	, m_createAgain{ false }
+	: socket     {}
+	, runThread  {}
+	, createAgain{ false }
 {
-	plog_trace(LOG_PREFIX "Server is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_socket), sizeof(m_runThread), sizeof(m_createAgain));
+	plog_trace(LOG_PREFIX "Server is being constructed.");
 }
 
 Server::~Server(void) noexcept
@@ -53,27 +70,27 @@ Server::~Server(void) noexcept
 void Server::runAsync(const uint16_t port) noexcept
 {
 	plog_info(LOG_PREFIX "Server is running asynchronically (port: %" PRIu16 ")", port);
-	if (true == m_createAgain.load())
+	if (true == createAgain.load())
 	{
 		plog_error(LOG_PREFIX "Server is already running asynchronically!");
 		return;
 	}
 
-	m_createAgain.store(true);
-	m_runThread = std::thread{ std::bind(&Server::runSync, this, port) };
+	createAgain.store(true);
+	runThread = std::thread{ std::bind(&Server::runSync, this, port) };
 }
 
 void Server::stop(void) noexcept
 {
 	plog_debug(LOG_PREFIX "Server is being stopped.");
 
-	m_createAgain.store(false);
-	m_socket.close();
+	createAgain.store(false);
+	socket.close();
 
-	if (true == m_runThread.joinable())
+	if (true == runThread.joinable())
 	{
 		plog_debug(LOG_PREFIX "Run thread is being joined.");
-		m_runThread.join();
+		runThread.join();
 		plog_debug(LOG_PREFIX "Run thread has joined.");
 	}
 }
@@ -83,37 +100,37 @@ void Server::runSync(const uint16_t port) noexcept
 	std::thread receiveFirstPlayerThread = {};
 
 	plog_debug(LOG_PREFIX "Server is running synchronically (port: %" PRIu16 ")", port);
-
-CREATE_SOCKET:
-
-	try
+	while (true)
 	{
-		m_socket.create(port);
-	}
-	catch (const std::exception& exception)
-	{
-		plog_fatal(LOG_PREFIX "Socket failed to be created!");
-		return;
-	}
+		try
+		{
+			socket.create(port);
+		}
+		catch (const std::exception& exception)
+		{
+			plog_fatal(LOG_PREFIX "Socket failed to be created!");
+			return;
+		}
 
-	startTimer(TIME_PER_TURN);
+		startTimer(TIME_PER_TURN);
 
-	receiveFirstPlayerThread = std::thread{ std::bind(&Server::receivePlayerUpdates, this, ClientType::PLAYER_1) };
-	receivePlayerUpdates(ClientType::PLAYER_2);
+		receiveFirstPlayerThread = std::thread{ std::bind(&Server::receivePlayerUpdates, this, ClientType::PLAYER_1) };
+		receivePlayerUpdates(ClientType::PLAYER_2);
 
-	if (true == receiveFirstPlayerThread.joinable())
-	{
-		plog_debug(LOG_PREFIX "Receiving updates from second player thread is being joined.");
-		receiveFirstPlayerThread.join();
-		plog_debug(LOG_PREFIX "Receiving updates from second player thread has joined.");
-	}
+		if (true == receiveFirstPlayerThread.joinable())
+		{
+			plog_debug(LOG_PREFIX "Receiving updates from second player thread is being joined.");
+			receiveFirstPlayerThread.join();
+			plog_debug(LOG_PREFIX "Receiving updates from second player thread has joined.");
+		}
 
-	stopTimer();
+		stopTimer();
 
-	if (true == m_createAgain.load())
-	{
+		if (false == createAgain.load())
+		{
+			break;
+		}
 		plog_info(LOG_PREFIX "Creating socket again!");
-		goto CREATE_SOCKET;
 	}
 	plog_info(LOG_PREFIX "Server has been finished!");
 }
@@ -126,25 +143,28 @@ void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 	plog_debug(LOG_PREFIX "Player updates are being received. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 	while (true)
 	{
-		m_socket.receiveUpdate(message, clientType);
+		socket.receiveUpdate(message, clientType);
 		switch (message.type)
 		{
 			case MessageType::PING:
 			{
 				plog_trace(LOG_PREFIX "Ping message is being sent.");
-				m_socket.sendUpdate(message, clientType);
+				socket.sendUpdate(message, clientType);
+
 				break;
 			}
 			case MessageType::TEXT:
 			{
 				plog_trace(LOG_PREFIX "Text message is being sent. (message: %s)", message.payload.text);
-				m_socket.sendUpdate(message, otherPlayer);
+				socket.sendUpdate(message, otherPlayer);
+
 				break;
 			}
 			case MessageType::END_COMMUNICATION:
 			{
 				plog_info(LOG_PREFIX "End communication message has been received!");
-				m_socket.close();
+				socket.close();
+
 				return;
 			}
 			default:
@@ -165,8 +185,8 @@ void Server::onTimeUpdate(const uint16_t timeLeft) noexcept
 	timeUpdate.type             = MessageType::TIME;
 	timeUpdate.payload.timeLeft = timeLeft;
 
-	m_socket.sendUpdate(timeUpdate, ClientType::PLAYER_1);
-	m_socket.sendUpdate(timeUpdate, ClientType::PLAYER_2);
+	socket.sendUpdate(timeUpdate, ClientType::PLAYER_1);
+	socket.sendUpdate(timeUpdate, ClientType::PLAYER_2);
 }
 
 void Server::onTimesUp(uint16_t& timeLeft) const noexcept
@@ -178,8 +198,8 @@ void Server::onTimesUp(uint16_t& timeLeft) const noexcept
 	timesUpUpdate.type = MessageType::END_TURN;
 	timeLeft           = TIME_PER_TURN;
 
-	m_socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_1);
-	m_socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_2);
+	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_1);
+	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_2);
 }
 
 } /*< namespace hobServer */

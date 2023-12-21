@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hobServer_Types.hpp                                                                          *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added ping.                                                 *
+ * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines common data types and macros.                                           *
- * @todo Fix doxygens.                                                                                *
+ * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
@@ -17,6 +35,8 @@
 
 #include <cinttypes>
 
+#include "hobServer_Version.hpp"
+
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
  *****************************************************************************************************/
@@ -25,45 +45,35 @@ namespace hobServer
 {
 
 /**
- * @brief TODO
+ * @brief The type of message that has been received/transmitted.
 */
 enum class MessageType
 {
-	END_COMMUNICATION = 0, /**< TODO */
-	VERSION           = 1, /**< TODO */
-	TEXT              = 2, /**< TODO */
-	END_TURN          = 3, /**< TODO */
-	TIME              = 4, /**< TODO */
-	PING              = 5, /**< TODO */
+	END_COMMUNICATION = 0, /**< The communication is no longer needed/possible.             */
+	VERSION           = 1, /**< The payload contains the version of the game.               */
+	TEXT              = 2, /**< The payload contains a text message written by a player.    */
+	END_TURN          = 3, /**< The current turn has ended.                                 */
+	TIME              = 4, /**< The payload contains how many seconds are left in the turn. */
+	PING              = 5  /**< The client is still listening.                              */
 };
 
 /**
- * @brief S prefix to differentiate from the class counterpart (example: 2.13.7).
-*/
-struct SVersion
-{
-	uint8_t major; /**< Major version (2).  */
-	uint8_t minor; /**< Minor version (13). */
-	uint8_t patch; /**< Patch version (7).  */
-};
-
-/**
- * @brief TODO
+ * @brief The actual data transmitted over the socket.
 */
 union MessagePayload
 {
-	char     text[128]; /**< Text message.                          */
-	SVersion version;   /**< The version of the game.               */
+	char     text[128]; /**< Text message written by a player.      */
+	Version  version;   /**< The version of the game.               */
 	uint16_t timeLeft;  /**< How many seconds are left in the turn. */
 };
 
 /**
- * @brief TODO
+ * @brief The message format transmitted over the socket.
 */
 struct Message
 {
-	MessageType    type;    /**< TODO */
-	MessagePayload payload; /**< TODO */
+	MessageType    type;    /**< The type of message that has been transmitted. */
+	MessagePayload payload; /**< The actual data.                               */
 };
 
 } /*< namespace hobServer */

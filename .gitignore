@@ -1,6 +1,5 @@
 # VSCode settings
 .vscode
-.vs
 
 # Objects
 obj
@@ -21,13 +20,5 @@ coverage_report
 *.gcov
 *.info
 
-# Logs
-Heap-of-Battle/hob_logs.txt
-Heap-of-Battle/hob_server_logs.txt
-Heap-of-Battle/plog_level
-
-# TODO-REMOVE
-hob-Installer
-hob-AI
-*.hppa
-*.cppa
+# Install directory
+Heap-of-Battle

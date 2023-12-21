@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hobServer_Socket.hpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Made waitConnectionFunction throwable.                      *
+ * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the socket.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,12 +33,11 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#define WIN32_LEAN_AND_MEAN  /*< For winsock to not have linkage issues.  */
 #include <string>
 #include <memory>
 #include <thread>
 #include <functional>
-#include <winsock2.h>
+#include <sys/socket.h>
 
 #include "hobServer_Types.hpp"
 
@@ -121,17 +138,17 @@ private:
 	/**
 	 * @brief The server socket.
 	*/
-	SOCKET m_serverSocket;
+	int32_t serverSocket;
 
 	/**
 	 * @brief The client sockets.
 	*/
-	SOCKET m_clientSockets[2];
+	int32_t clientSockets[2];
 
 	/**
 	 * @brief The thread that will be created if the waiting of connections is be done asynchronically.
 	*/
-	std::thread m_waitConnectionThread;
+	std::thread waitConnectionThread;
 };
 
 } /*< hobServer */

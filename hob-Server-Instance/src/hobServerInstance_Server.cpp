@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hobServerInstance_Server.cpp                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
+ * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hobServerInstance_Server.hpp.                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -14,7 +32,6 @@
 
 #include <iostream>
 #include <exception>
-#include <winsock2.h>
 #include <plog.h>
 
 #include "hobServerInstance_Server.hpp"
@@ -32,7 +49,7 @@ namespace hobServerInstance
 void Server::run(const uint16_t port) noexcept(false)
 {
 	hobServer::Server server = {};
-	int32_t           stop   = 1L;
+	int32_t           stop   = 1;
 
 	plog_trace("Server instance is being ran.");
 	try
@@ -45,7 +62,7 @@ void Server::run(const uint16_t port) noexcept(false)
 	}
 
 	server.runAsync(port);
-	while (0L != stop)
+	while (0 != stop)
 	{
 		std::cout << std::endl << "Input \"0\" to stop server: ";
 		std::cin >> stop;
@@ -56,15 +73,12 @@ void Server::run(const uint16_t port) noexcept(false)
 
 void Server::init(void) noexcept(false)
 {
-#ifdef DEVEL_BUILD
-	const plog_Version_t plogVersion      = plog_get_version();
-#endif /*< DEVEL_BUILD */
-	hobServer::Version   serverVersion    = {};
-	const WORD           versionRequested = MAKEWORD(2, 2);
-	WSADATA              wsaData          = {};
-	int32_t              errorCode        = ERROR_SUCCESS;
+#ifndef PLOG_STRIP_ALL
+	const plog_Version_t plogVersion   = plog_get_version();
+#endif /*< PLOG_STRIP_ALL */
+	hobServer::Version   serverVersion = {};
 
-#ifdef DEVEL_BUILD
+#ifndef PLOG_STRIP_ALL
 	if (PLOG_VERSION_MAJOR != plogVersion.major
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
@@ -72,9 +86,9 @@ void Server::init(void) noexcept(false)
 		std::cout << "Plog version mismatch! (compiled version: " << PLOG_VERSION_MAJOR << "." << PLOG_VERSION_MINOR << "." << PLOG_VERSION_PATCH << ")" << std::endl;
 		throw std::exception();
 	}
-	plog_init("hob_server_logs.txt", false);
+	plog_init("hob_server_logs.txt");
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
-#endif /*< DEVEL_BUILD */
+#endif /*< PLOG_STRIP_ALL */
 
 	plog_info("Running HOB server instance %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
@@ -86,37 +100,15 @@ void Server::init(void) noexcept(false)
 		plog_fatal("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
 		throw std::exception();
 	}
-
-	errorCode = WSAStartup(versionRequested, &wsaData);
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_error("WSA failed to be started! (error code: %" PRId32 ")", errorCode);
-		throw std::exception();
-	}
-
-	if (2 != LOBYTE(wsaData.wVersion) || 2 != HIBYTE(wsaData.wVersion))
-	{
-		plog_error("Could not find a usable version of Winsock.dll!");
-		throw std::exception();
-	}
 }
 
 void Server::deinit(void) noexcept
 {
-	int32_t errorCode = ERROR_SUCCESS;
-
 	plog_trace("Server instance is being deinitialized.");
-
-	errorCode = WSACleanup();
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_warn("WSA failed to be cleaned! (error code: %" PRId32 ")", errorCode);
-	}
-
-#ifdef DEVEL_BUILD
-	// plog_info("Plog is being deinitialized!");
-	// plog_deinit(); <- Calling this is optional, commented for logs in destructors to appear in file.
-#endif /*< DEVEL_BUILD */
+	plog_info("Plog is being deinitialized!");
+#ifndef PLOG_STRIP_ALL
+	plog_deinit();
+#endif /*< PLOG_STRIP_ALL */
 }
 
 } /*< namespace hobServerInstance */

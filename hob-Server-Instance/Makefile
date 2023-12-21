@@ -1,13 +1,14 @@
 #######################################################################################################
+# Copyright (C) Heap of Battle 2024                                                                   #
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   26.07.2023  Gaina Stefan               Initial version.                                           #
+#   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
 # Description: This Makefile is used to generate the server instance.                                 #
 #######################################################################################################
 
-CFLAGS = -Wall -Werror
-LDFLAGS  = -Wl,-rpath='.' -L../hob-Server/lib/ -lHOB_server \
-		   -lws2_32
+CFLAGS  = -Wall -Werror
+LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server
 
 INCLUDES = -Iinclude/               \
 		   -I../hob-Server/include/ \
@@ -15,10 +16,10 @@ INCLUDES = -Iinclude/               \
 
 SOURCES    := $(wildcard $(SRC)/*.cpp)
 OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
-EXECUTABLE := HOB-Server.exe
+EXECUTABLE := HOB-Server
 
 ### DEVELOPMENT ###
-all: CFLAGS  += -DDEVEL_BUILD
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD
 all: LDFLAGS += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lplog
 all: build
 
@@ -27,12 +28,12 @@ release: CFLAGS += -O3 -DPLOG_STRIP_ALL -fno-ident
 release: build
 
 ### BUILD ###
-build: | create_dirs $(EXECUTABLE) copy_executable
+build: | create_dirs $(EXECUTABLE)
 
 ### CREATE DIRECTORIES ###
 create_dirs:
-	if not exist "$(OBJ)" mkdir $(OBJ)
-	if not exist "$(BIN)" mkdir $(BIN)
+	mkdir -p $(OBJ)
+	mkdir -p $(BIN)
 
 ### BINARIES ###
 $(EXECUTABLE): $(OBJECTS)
@@ -42,11 +43,15 @@ $(EXECUTABLE): $(OBJECTS)
 $(OBJ)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-### COPY EXECUTABLE ###
-copy_executable:
-	copy $(BIN)\$(EXECUTABLE) ..\Heap-of-Battle
-
 ### CLEAN ###
 clean:
-	$(RM) $(OBJ)\*
-	$(RM) $(BIN)\*
+	rm -rf $(OBJ)
+	rm -rf $(BIN)
+
+### INSTALL ###
+install:
+	install $(BIN)/$(EXECUTABLE) ../$(INSTALL_DIRECTORY)
+
+### UNINSTALL ###
+uninstall:
+	rm -f ../$(INSTALL_DIRECTORY)/$(EXECUTABLE)

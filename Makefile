@@ -1,30 +1,31 @@
 #######################################################################################################
+# Copyright (C) Heap of Battle 2024                                                                   #
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
 #   27.07.2023  Gaina Stefan               Added compilation of server.                               #
+#   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
-
-export CC  = gcc
-export CXX = g++
 
 export SRC := src
 export OBJ := obj
 export LIB := lib
 export BIN := bin
 
-export RM := del /f /q
-
-export COVERAGE_REPORT := coverage_report
+export INSTALL_DIRECTORY := Heap-of-Battle
+export COVERAGE_REPORT   := coverage_report
 
 GENHTML       = vendor/lcov/genhtml.perl
 GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory coverage_report/
 
-INFO_FILES = $(COVERAGE_REPORT)/plog.info
+INFO_FILES = $(COVERAGE_REPORT)/?.info
 
 ### MAKE SUBDIRECTORIES ###
-all:
+all: debug install
+production: release install
+
+debug:
 	$(MAKE) -C hob-Server
 	$(MAKE) -C hob-Game
 	$(MAKE) -C hob
@@ -43,18 +44,30 @@ clean:
 	$(MAKE) clean -C hob
 	$(MAKE) clean -C hob-Server-Instance
 
+### INSTALL SUBDIRECTORIES ###
+install:
+	mkdir -p $(INSTALL_DIRECTORY)/$(LIB)
+	$(MAKE) install -C hob-Server
+	$(MAKE) install -C hob-Game
+	$(MAKE) install -C hob
+	$(MAKE) install -C hob-Server-Instance
+	$(MAKE) install -C vendor
+
+### UNINSTALL SUBDIRECTORIES ###
+uninstall:
+	$(MAKE) uninstall -C hob-Server
+	$(MAKE) uninstall -C hob-Game
+	$(MAKE) uninstall -C hob
+	$(MAKE) uninstall -C hob-Server-Instance
+	$(MAKE) uninstall -C vendor
+
 ### MAKE UNIT-TESTS ###
-ut: create_dir
+ut: ut-clean
+	mkdir -p $(COVERAGE_REPORT)
 	$(MAKE) -C unit-tests
 	$(MAKE) run_tests -C unit-tests
 	perl $(GENHTML) $(INFO_FILES) $(GENHTML_FLAGS)
 
-### CREATE DIRECTORY ###
-create_dir:
-	if not exist "$(COVERAGE_REPORT)" mkdir $(COVERAGE_REPORT)
-
 ### CLEAN UNIT-TESTS ###
 ut-clean:
-	$(RM) $(COVERAGE_REPORT)\*
-	$(RM) $(COVERAGE_REPORT)\src\*
-	rd /s /q $(COVERAGE_REPORT)\src
+	rm -rf $(COVERAGE_REPORT)
