@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Chat.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -13,112 +31,93 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <obfuscate.h>
 #include <plog.h>
 
 #include "hob_Chat.hpp"
 #include "hob_Faction.hpp"
-#include "hob_Renderer.hpp"
 #include "hob_Socket.hpp"
-
-/******************************************************************************************************
- * MACROS                                                                                             *
- *****************************************************************************************************/
-
-namespace hob
-{
-
-/**
- * @brief Default hour used for obfuscator key.
-*/
-static constexpr const uint8_t OBFUSCATE_HOUR = 7U;
-
-/**
- * @brief Default minute used for obfuscator key.
-*/
-static constexpr const uint8_t OBFUSCATE_MINUTE = 8U;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
  *****************************************************************************************************/
 
-Chat::Chat(void) noexcept
-	: SoundInitializer       { { HOB_SOUNDS_FILE_PATH("message_received") } }
-	, m_chatFrame            {}
-	, m_textures             {}
-	, m_components           {}
-	, m_messageQueue         {}
-	, m_font                 { NULL }
-	, m_enteringMessage      { "" }
-	, m_enteringMessageLength{ 0L }
-	, m_barTicks             { 0U }
-	, m_isActive             { false }
-	, m_isMuted              { false }
+namespace hob
+{
+
+Chat::Chat(SDL_Renderer* const renderer) noexcept
+	: SoundInitializer     { { HOB_SOUNDS_FILE_PATH("message_received") } }
+	, chatFrame            { renderer }
+	, textures             {}
+	, components           {}
+	, messageQueue         {}
+	, font                 { nullptr }
+	, enteringMessage      { "" }
+	, enteringMessageLength{ 0 }
+	, barTicks             { 0U }
+	, isActive             { false }
+	, isMuted              { false }
 {
 	Coordinate dimension = {};
 
-	plog_trace("Chat is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
-		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ") (9: %" PRIu64 ") (10: %" PRIu64 ")", sizeof(*this), sizeof(m_chatFrame),
-		sizeof(m_textures), sizeof(m_components), sizeof(m_messageQueue), sizeof(m_font), sizeof(m_enteringMessage), sizeof(m_enteringMessageLength),
-		sizeof(m_barTicks), sizeof(m_isActive), sizeof(m_isMuted));
+	plog_trace("Chat is being constructed.");
 
-	m_font = TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12L);
-	if (NULL == m_font)
+	font = TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12);
+	if (nullptr == font)
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 	}
 
-	dimension = m_textures[CHAT_TEXTURE_INDEX_BAR].create("|", m_font, Faction::getInstance().getFriendlyColor());
-	m_components[CHAT_TEXTURE_INDEX_BAR].updateTexture(m_textures[CHAT_TEXTURE_INDEX_BAR]);
-	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = 4L, .h = 15L });
+	dimension = textures[CHAT_TEXTURE_INDEX_BAR].create("|", font, Faction::getInstance().getFriendlyColor(), renderer);
+	components[CHAT_TEXTURE_INDEX_BAR].updateTexture(textures[CHAT_TEXTURE_INDEX_BAR]);
+	components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = 4, .h = 15 });
 
-	dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Commands: ./mute | ./unmute", m_font, Faction::getInstance().getNeutralColor());
-	m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
-	m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ .x = 8L, .y = 9L * HSCALE + 10L, .w = dimension.x, .h = dimension.y });
+	dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Commands: ./mute | ./unmute", font, Faction::getInstance().getNeutralColor(), renderer);
+	components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);
+	components[CHAT_TEXTURES_COUNT - 2].updatePosition({ .x = 8, .y = 9 * HSCALE + 10, .w = dimension.x, .h = dimension.y });
 }
 
 Chat::~Chat(void) noexcept
 {
 	plog_trace("Chat is being destructed.");
-	TTF_CloseFont(m_font);
+	TTF_CloseFont(font);
 }
 
-void Chat::draw(void) noexcept
+void Chat::draw(SDL_Renderer* const renderer) noexcept
 {
 	static constexpr const uint8_t BAR_FREQUENCY = 40U;
 
-	size_t      index           = 0ULL;
+	size_t      index           = 0UL;
 	std::string opponentMessage = {};
 
 	plog_verbose("Chat is being drawn.");
-	while (false == m_messageQueue.isEmpty())
+	while (false == messageQueue.isEmpty())
 	{
-		opponentMessage = m_messageQueue.get();
-		enterMessage(opponentMessage, Faction::getInstance().getOpponentColor());
+		opponentMessage = messageQueue.get();
+		enterMessage(opponentMessage, Faction::getInstance().getOpponentColor(), renderer);
 	}
 
-	m_chatFrame.draw();
-	for (index = 0ULL; index < CHAT_TEXTURE_INDEX_BAR; ++index)
+	chatFrame.draw(renderer);
+	for (; index < CHAT_TEXTURE_INDEX_BAR; ++index)
 	{
-		m_components[index].draw();
+		components[index].draw(renderer);
 	}
 
-	if (false == m_isActive)
+	if (false == isActive)
 	{
 		plog_verbose("Bar is not being drawn.");
 		return;
 	}
 
-	if (BAR_FREQUENCY >= ++m_barTicks)
+	if (BAR_FREQUENCY >= ++barTicks)
 	{
-		m_components[CHAT_TEXTURE_INDEX_BAR].draw();
+		components[CHAT_TEXTURE_INDEX_BAR].draw(renderer);
 		return;
 	}
 
-	if (2U * BAR_FREQUENCY < m_barTicks)
+	if (2U * BAR_FREQUENCY < barTicks)
 	{
 		plog_verbose("Bar is being drawn again.");
-		m_barTicks = 0U;
+		barTicks = 0U;
 	}
 }
 
@@ -127,14 +126,13 @@ void Chat::receivedMessage(char* const message) noexcept
 	std::string messageCopy = {};
 
 	plog_debug("Message from opponent is being received. (message: %s)", message);
-	if (NULL == message)
+	if (nullptr == message)
 	{
 		plog_error("Message from opponent is invalid!");
 		return;
 	}
 
-	deobfuscate_string(message, OBFUSCATE_HOUR, OBFUSCATE_MINUTE);
-	if (true == m_isMuted)
+	if (true == isMuted)
 	{
 		plog_debug("Received message is being dropped! (message: %s)", message);
 		return;
@@ -149,36 +147,36 @@ void Chat::receivedMessage(char* const message) noexcept
 		plog_error("Failed to copy message from opponent! (message length: %" PRIu64 ")", strlen(message));
 		return;
 	}
-	m_messageQueue.put(messageCopy);
-	m_soundContainer[CHAT_SOUND_INDEX_MESSAGE_RECEIVED].play();
+	messageQueue.put(messageCopy);
+	soundContainer[CHAT_SOUND_INDEX_MESSAGE_RECEIVED].play();
 }
 
-void Chat::handleClick(const Coordinate click) noexcept
+void Chat::handleClick(const Coordinate click, SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Click is being handled.");
-	if (true == m_chatFrame.isClickInside(click) && false == m_isActive)
+	if (true == chatFrame.isClickInside(click) && false == isActive)
 	{
 		activate();
 		return;
 	}
 
-	if (true == m_isActive)
+	if (true == isActive)
 	{
-		deactivate();
+		deactivate(renderer);
 	}
 }
 
-void Chat::handleButtonPress(const SDL_Event& event) noexcept
+void Chat::handleButtonPress(const SDL_Event& event, SDL_Renderer* const renderer, const Socket& socket) noexcept
 {
 	char        showedKey[]               = "\0";
 	char        digitShiftCharacters[]    = ")!@#$%^&*(";
 	char        specialShiftCharacters1[] = "<_>?";
 	char        specialShiftCharacters2[] = "{|}";
-	const char* keyName                   = NULL;
+	const char* keyName                   = nullptr;
 	SDL_Keymod  keyMod                    = KMOD_NONE;
 
 	plog_verbose("Handling key event.");
-	if (false == m_isActive)
+	if (false == isActive)
 	{
 		if (SDLK_RETURN == event.key.keysym.sym)
 		{
@@ -193,7 +191,7 @@ void Chat::handleButtonPress(const SDL_Event& event) noexcept
 	}
 
 	keyName = SDL_GetKeyName(event.key.keysym.sym);
-	if (1L == strlen(keyName) && NULL != keyName)
+	if (1 == strlen(keyName) && nullptr != keyName)
 	{
 		(void)strncpy(showedKey, keyName, sizeof(showedKey));
 		keyMod = SDL_GetModState();
@@ -202,13 +200,13 @@ void Chat::handleButtonPress(const SDL_Event& event) noexcept
 		 || (keyName[0] >= 'A' && keyName[0] <= 'Z'))
 		{
 			plog_verbose("Inputed character is alphabetical.");
-			if ((0L == (KMOD_CAPS & keyMod) &&  0L == (KMOD_LSHIFT & keyMod) && 0L == (KMOD_RSHIFT & keyMod))
-			 || (0L != (KMOD_CAPS & keyMod) && (0L != (KMOD_LSHIFT & keyMod) || 0L != (KMOD_RSHIFT & keyMod))))
+			if ((0 == (KMOD_CAPS & keyMod) &&  0 == (KMOD_LSHIFT & keyMod) && 0 == (KMOD_RSHIFT & keyMod))
+			 || (0 != (KMOD_CAPS & keyMod) && (0 != (KMOD_LSHIFT & keyMod) || 0 != (KMOD_RSHIFT & keyMod))))
 			{
 				showedKey[0] += 'a' - 'A';
 			}
 		}
-		else if (0L != (KMOD_LSHIFT & keyMod) || 0L != (KMOD_RSHIFT & keyMod))
+		else if (0 != (KMOD_LSHIFT & keyMod) || 0 != (KMOD_RSHIFT & keyMod))
 		{
 			if ('0' <= keyName[0] && '9' >= keyName[0])
 			{
@@ -263,28 +261,28 @@ void Chat::handleButtonPress(const SDL_Event& event) noexcept
 			case SDLK_BACKSPACE:
 			{
 				plog_verbose("Backspace button was pressed.");
-				if (0L < m_enteringMessage.length())
+				if (0 < enteringMessage.length())
 				{
-					m_enteringMessage.pop_back();
-					updateEnteringMessage();
+					enteringMessage.pop_back();
+					updateEnteringMessage(renderer);
 				}
 				return;
 			}
 			case SDLK_RETURN:
 			{
 				plog_debug("Return button was pressed.");
-				if (false == m_isActive)
+				if (false == isActive)
 				{
 					activate();
 					return;
 				}
-				sendMessage();
+				sendMessage(renderer, socket);
 				return;
 			}
 			case SDLK_ESCAPE:
 			{
 				plog_trace("Escape button was pressed.");
-				deactivate();
+				deactivate(renderer);
 			}
 			default:
 			{
@@ -293,145 +291,144 @@ void Chat::handleButtonPress(const SDL_Event& event) noexcept
 			}
 		}
 	}
-	if ('\0' != showedKey[0ULL] && 6 * HSCALE - 24L > m_enteringMessageLength)
+	if ('\0' != showedKey[0] && 6 * HSCALE - 24 > enteringMessageLength)
 	{
-		m_enteringMessage.append(showedKey);
-		updateEnteringMessage();
+		enteringMessage.append(showedKey);
+		updateEnteringMessage(renderer);
 	}
 }
 
-void Chat::updateEnteringMessage(void) noexcept
+void Chat::updateEnteringMessage(SDL_Renderer* const renderer) noexcept
 {
 	Coordinate dimension = {};
 
-	plog_verbose("Entering message is being updated. (entering message: %s)", m_enteringMessage.c_str());
+	plog_verbose("Entering message is being updated. (entering message: %s)", enteringMessage.c_str());
 
-	m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].destroy();
-	if ("" != m_enteringMessage)
+	textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].destroy();
+	if ("" != enteringMessage)
 	{
-		dimension = m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].create(m_enteringMessage, m_font, Faction::getInstance().getFriendlyColor());
+		dimension = textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].create(enteringMessage, font, Faction::getInstance().getFriendlyColor(), renderer);
 	}
 	else
 	{
 		plog_debug("Entering message is being cleared.");
 	}
 
-	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updateTexture(m_textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE]);
-	m_components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updatePosition({ .x = 8L, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = dimension.x, .h = dimension.y });
-	m_components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x + 8L, .y = 14L * HSCALE + HSCALE / 3L + 1L, .w = 4L, .h = 15L });
-	m_enteringMessageLength = dimension.x;
+	components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updateTexture(textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE]);
+	components[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].updatePosition({ .x = 8, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = dimension.x, .h = dimension.y });
+	components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x + 8, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = 4, .h = 15 });
+	enteringMessageLength = dimension.x;
 
-	m_barTicks = 0U;
+	barTicks = 0U;
 }
 
-void Chat::sendMessage(void) noexcept
+void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexcept
 {
 	hobServer::Message updateMessage = {};
 	Coordinate         dimension     = {};
-	size_t             index         = 0ULL;
+	size_t             index         = 0UL;
 
 	plog_trace("Message is being sent.");
-	if ("" == m_enteringMessage)
+	if ("" == enteringMessage)
 	{
 		plog_warn("Invalid message entered!");
 		return;
 	}
 
-	if ("./unmute" == m_enteringMessage)
+	if ("./unmute" == enteringMessage)
 	{
-		if (true == m_isMuted)
+		if (true == isMuted)
 		{
 			plog_info("Chat is being unmuted!");
-			m_isMuted = false;
+			isMuted = false;
 
-			m_textures[CHAT_TEXTURES_COUNT - 2ULL].destroy();
-			m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
+			textures[CHAT_TEXTURES_COUNT - 2].destroy();
+			components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);
 		}
 		goto CLEAN_ENTERING_MESSAGE;
 	}
 
-	if (true == m_isMuted)
+	if (true == isMuted)
 	{
 		plog_debug("Chat is muted.");
 		goto CLEAN_ENTERING_MESSAGE;
 	}
 
-	if ("./mute" == m_enteringMessage)
+	if ("./mute" == enteringMessage)
 	{
 		plog_info("Chat is being muted!");
-		m_isMuted = true;
+		isMuted = true;
 
-		dimension = m_textures[CHAT_TEXTURES_COUNT - 2ULL].create("Chat is muted: ./unmute", m_font, Faction::getInstance().getNeutralColor());
-		m_components[CHAT_TEXTURES_COUNT - 2ULL].updateTexture(m_textures[CHAT_TEXTURES_COUNT - 2ULL]);
-		m_components[CHAT_TEXTURES_COUNT - 2ULL].updatePosition({ .x = 8L, .y = 9L * HSCALE + 10L, .w = dimension.x, .h = dimension.y });
-		for (index = 1ULL; index < CHAT_TEXTURES_COUNT - 2ULL; ++index)
+		dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Chat is muted: ./unmute", font, Faction::getInstance().getNeutralColor(), renderer);
+		components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);
+		components[CHAT_TEXTURES_COUNT - 2].updatePosition({ .x = 8, .y = 9 * HSCALE + 10, .w = dimension.x, .h = dimension.y });
+		for (index = 1UL; index < CHAT_TEXTURES_COUNT - 2UL; ++index)
 		{
-			if (NULL != m_textures[index].getRawTexture())
+			if (nullptr != textures[index].getRawTexture())
 			{
-				m_textures[index].destroy();
-				m_components[index].updateTexture(m_textures[index]);
+				textures[index].destroy();
+				components[index].updateTexture(textures[index]);
 			}
 		}
 		goto CLEAN_ENTERING_MESSAGE;
 	}
 
 	updateMessage.type = hobServer::MessageType::TEXT;
-	(void)strncpy(updateMessage.payload.text, m_enteringMessage.c_str(), sizeof(updateMessage.payload.text));
-	obfuscate_string(updateMessage.payload.text, OBFUSCATE_HOUR, OBFUSCATE_MINUTE);
-	Socket::getInstance().sendUpdate(updateMessage);
+	(void)strncpy(updateMessage.payload.text, enteringMessage.c_str(), sizeof(updateMessage.payload.text));
+	socket.sendUpdate(updateMessage);
 
-	enterMessage(m_enteringMessage, Faction::getInstance().getFriendlyColor());
+	enterMessage(enteringMessage, Faction::getInstance().getFriendlyColor(), renderer);
 
 CLEAN_ENTERING_MESSAGE:
 
-	m_enteringMessage = "";
-	updateEnteringMessage();
+	enteringMessage = "";
+	updateEnteringMessage(renderer);
 }
 
-void Chat::enterMessage(const std::string& message, const SDL_Color color) noexcept
+void Chat::enterMessage(const std::string& message, const SDL_Color color, SDL_Renderer* const renderer) noexcept
 {
 	Coordinate dimension = {};
-	size_t     index     = 0ULL;
+	size_t     index     = 0UL;
 
 	plog_info("Message is being entered! (message: %s)", message.c_str());
-	if (NULL != m_textures[CHAT_TEXTURES_COUNT - 3ULL].getRawTexture())
-	 //&& NULL != textures[CHAT_TEXTURES_COUNT - 2ULL].getRawTexture()) <- commented because the row of text on top has commands in the beginning.
+	if (nullptr != textures[CHAT_TEXTURES_COUNT - 3].getRawTexture())
+	// && nullptr != textures[CHAT_TEXTURES_COUNT - 2].getRawTexture()) <- commented because the row of text on top has commands in the beginning.
 	{
-		m_textures[CHAT_TEXTURES_COUNT - 2ULL].destroy();
+		textures[CHAT_TEXTURES_COUNT - 2].destroy();
 	}
-	for (index = CHAT_TEXTURES_COUNT - 2ULL; index > 1ULL; --index)
+	for (index = CHAT_TEXTURES_COUNT - 2UL; index > 1UL; --index)
 	{
-		if (NULL == m_textures[index - 1ULL].getRawTexture())
+		if (nullptr == textures[index - 1UL].getRawTexture())
 		{
 			continue;
 		}
-		m_textures  [index] = m_textures[index - 1ULL];
-		m_components[index] = m_components[index - 1ULL];
-		m_components[index].correctPosition({ .x = 0L, .y = -10L, .w = 0L, .h = 0L });
+		textures  [index] = textures[index - 1UL];
+		components[index] = components[index - 1UL];
+		components[index].correctPosition({ .x = 0, .y = -10, .w = 0, .h = 0 });
 	}
-	dimension = m_textures[1ULL].create(message, m_font, color);
-	m_components[1ULL].updateTexture(m_textures[1ULL]);
-	m_components[1ULL].updatePosition({ .x = 8L, .y = 14L * HSCALE - 18L, .w = dimension.x, .h = dimension.y });
+	dimension = textures[1].create(message, font, color, renderer);
+	components[1].updateTexture(textures[1UL]);
+	components[1].updatePosition({ .x = 8, .y = 14 * HSCALE - 18, .w = dimension.x, .h = dimension.y });
 }
 
 void Chat::activate(void) noexcept
 {
 	plog_debug("Chat is being activated.");
 
-	m_isActive = true;
-	m_barTicks = 0U;
-	m_chatFrame.showInputBox();
+	isActive = true;
+	barTicks = 0U;
+	chatFrame.showInputBox();
 }
 
-void Chat::deactivate(void) noexcept
+void Chat::deactivate(SDL_Renderer* const renderer) noexcept
 {
 	plog_debug("Chat is being deactivated.");
 
-	m_isActive = false;
-	m_chatFrame.hideInputBox();
+	isActive = false;
+	chatFrame.hideInputBox();
 
-	m_enteringMessage = "";
-	updateEnteringMessage();
+	enteringMessage = "";
+	updateEnteringMessage(renderer);
 }
 
 } /*< namespace hob */

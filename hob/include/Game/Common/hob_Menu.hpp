@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Menu.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the game menu.                       *
- * @todo N/A.                                                                                         *
+ * @todo Fix doxygen.                                                                                 *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
@@ -54,14 +72,15 @@ enum class Action
 /**
  * @brief Draws in-game menu depending of the user's faction.
 */
-class Menu final : public TextureInitializer<7ULL, 10ULL>
+class Menu final : public TextureInitializer<7UL, 10UL>
 {
 public:
 	/**
 	 * @brief Loads textures for the menu.
+	 * @param renderer: Rendering context of the window.
 	 * @param gold: Start amount of gold.
 	*/
-	Menu(uint8_t gold) noexcept;
+	Menu(SDL_Renderer* renderer, uint8_t gold) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -69,26 +88,58 @@ public:
 	*/
 	~Menu(void) = default;
 
-	void draw(void) noexcept override;
+	/**
+	 * @brief TODO
+	 * @param renderer: Rendering context of the window.
+	 * @return void
+	*/
+	void draw(SDL_Renderer* renderer) noexcept override;
 
+	/**
+	 * @brief TODO
+	 * @param click: TODO
+	 * @param menuMode: TODO
+	 * @return TODO
+	*/
 	Action handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept;
 
+	/**
+	 * @brief TODO
+	 * @param mouse: TODO
+	 * @return void
+	*/
 	void handleHover(Coordinate mouse) noexcept;
 
+	/**
+	 * @brief TODO
+	 * @param seconds: TODO
+	 * @param isAlliance: TODO
+	 * @return void
+	*/
 	void updateTimer(uint16_t seconds, bool isAlliance) noexcept;
 
+	/**
+	 * @brief TODO
+	 * @param amount: TODO
+	 * @return void
+	*/
 	void updateGold(uint8_t amount) noexcept;
 
 private:
 	/**
 	 * @brief Graphical representation of the time left.
 	*/
-	Timer m_timer;
+	Timer timer;
 
-	Gold m_gold;
+	/**
+	 * @brief TODO
+	*/
+	Gold gold;
 
-	Icons m_icons;
-
+	/**
+	 * @brief TODO
+	*/
+	Icons icons;
 };
 
 } /*< namespace hob */

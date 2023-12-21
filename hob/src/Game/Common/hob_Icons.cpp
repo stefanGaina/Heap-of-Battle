@@ -1,3 +1,20 @@
+/******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
 #include <plog.h>
 
 #include "hob_Icons.hpp"
@@ -6,13 +23,14 @@
 /**
  * @brief Full file path of an image used by the icons.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/icons/" name)
 
 namespace hob
 {
 
-Icons::Icons(void) noexcept
+Icons::Icons(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer
 	{
 		{
@@ -32,21 +50,22 @@ Icons::Icons(void) noexcept
 			TEXTURE_FILE_PATH("hall_icon")           /*< 13 */
 		},
 		{
-			0ULL,
-			0ULL,
-			0ULL,
-			0ULL,
-			0ULL
+			0UL,
+			0UL,
+			0UL,
+			0UL,
+			0UL
 		},
 		{
 			{
-				{ 0L, 0L, 0L, 0L },
-				{ 0L, 0L, 0L, 0L },
-				{ 0L, 0L, 0L, 0L },
-				{ 0L, 0L, 0L, 0L },
-				{ 0L, 0L, 0L, 0L }
+				{ 0, 0, 0, 0 },
+				{ 0, 0, 0, 0 },
+				{ 0, 0, 0, 0 },
+				{ 0, 0, 0, 0 },
+				{ 0, 0, 0, 0 }
 			}
-		}
+		},
+		{ renderer }
 	}
 {
 
@@ -61,20 +80,20 @@ void Icons::setAllianceKeep(void) noexcept
 {
 	if (true == Faction::getInstance().getFaction())
 	{
-		m_componentContainer[0ULL].updateTexture(m_textureContainer[0ULL]);
-		m_componentContainer[0ULL].updatePosition({ .x = 8L, .y = HSCALE + HSCALE / 2L + 4L, .w = HSCALE - 8L, .h = HSCALE - 8L });
+		componentContainer[0UL].updateTexture(textureContainer[0UL]);
+		componentContainer[0UL].updatePosition({ .x = 8, .y = HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
 
-		m_componentContainer[1ULL].updateTexture(m_textureContainer[1ULL]);
-		m_componentContainer[1ULL].updatePosition({ .x = 8L, .y = 3L * HSCALE + 4L, .w = HSCALE - 8L, .h = HSCALE - 8L });
+		componentContainer[1UL].updateTexture(textureContainer[1UL]);
+		componentContainer[1UL].updatePosition({ .x = 8, .y = 3 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
 
-		m_componentContainer[2ULL].updateTexture(m_textureContainer[2ULL]);
-		m_componentContainer[2ULL].updatePosition({ .x = 8L, .y = 4L * HSCALE + HSCALE / 2L + 4L, .w = HSCALE - 8L, .h = HSCALE - 8L });
+		componentContainer[2UL].updateTexture(textureContainer[2UL]);
+		componentContainer[2UL].updatePosition({ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
 
-		m_componentContainer[3ULL].updateTexture(m_textureContainer[3ULL]);
-		m_componentContainer[3ULL].updatePosition({ .x = 8L, .y = 6L * HSCALE + 4L, .w = HSCALE - 8L, .h = HSCALE - 8L });
+		componentContainer[3UL].updateTexture(textureContainer[3UL]);
+		componentContainer[3UL].updatePosition({ .x = 8, .y = 6 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
 
-		m_componentContainer[4ULL].updateTexture(m_textureContainer[4ULL]);
-		m_componentContainer[4ULL].updatePosition({ .x = 8L, .y = 7L * HSCALE + HSCALE / 2L + 4L, .w = HSCALE - 8L, .h = HSCALE - 8L });
+		componentContainer[4UL].updateTexture(textureContainer[4UL]);
+		componentContainer[4UL].updatePosition({ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
 	}
 }
 

@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Chat.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the chat.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -22,6 +40,7 @@
 #include "hob_Texture.hpp"
 #include "hob_SoundInitializer.hpp"
 #include "hob_AsyncQueue.hpp"
+#include "hob_Socket.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -58,9 +77,9 @@ class Chat final : public IDrawable
 public:
 	/**
 	 * @brief Initialzies font and loads textures.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	*/
-	Chat(void) noexcept;
+	Chat(SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Deinitializes font and destroys textures.
@@ -71,23 +90,26 @@ public:
 	/**
 	 * @brief Handles the press of the click.
 	 * @param click: Coordinates of where the click has been pressed.
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void handleClick(Coordinate click) noexcept;
+	void handleClick(Coordinate click, SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Handles key input events if chat is active.
-	 * @param void
+	 * @param event: The button press event.
+	 * @param renderer: Rendering context of the window.
+	 * @param socket: Reference to the socket object.
 	 * @return void
 	*/
-	void handleButtonPress(const SDL_Event& event) noexcept;
+	void handleButtonPress(const SDL_Event& event, SDL_Renderer* renderer, const Socket& socket) noexcept;
 
 	/**
 	 * @brief Draws messages to the chat box.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(void) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief Adds the message to the chat box.
@@ -99,25 +121,27 @@ public:
 private:
 	/**
 	 * @brief Updates the composing message.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void updateEnteringMessage(void) noexcept;
+	void updateEnteringMessage(SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Sends the message to the opponent.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
+	 * @param socket: Reference to the socket object.
 	 * @return void
 	*/
-	void sendMessage(void) noexcept;
+	void sendMessage(SDL_Renderer* renderer, const Socket& socket) noexcept;
 
 	/**
 	 * @brief Adds the message to the chat box.
 	 * @param message: The text message.
 	 * @param color: Color of the text.
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void enterMessage(const std::string& message, SDL_Color color) noexcept;
+	void enterMessage(const std::string& message, SDL_Color color, SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Activates chat displaying input box and handling user input.
@@ -128,61 +152,61 @@ private:
 
 	/**
 	 * @brief Deactivates chat only displaying already sent messages.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void deactivate(void) noexcept;
+	void deactivate(SDL_Renderer* renderer) noexcept;
 
 private:
 	/**
 	 * @brief Visual of the chat frame and background.
 	*/
-	ChatFrame m_chatFrame;
+	ChatFrame chatFrame;
 
 	/**
 	 * @brief Contains and manages the life of the text textures.
 	*/
-	std::array<Texture, CHAT_TEXTURES_COUNT> m_textures;
+	std::array<Texture, CHAT_TEXTURES_COUNT> textures;
 
 	/**
 	 * @brief Contains the text components.
 	*/
-	std::array<Component, CHAT_TEXTURES_COUNT> m_components;
+	std::array<Component, CHAT_TEXTURES_COUNT> components;
 
 	/**
 	 * @brief Thread safe queue for buffering messages.
 	*/
-	AsyncQueue<std::string> m_messageQueue;
+	AsyncQueue<std::string> messageQueue;
 
 	/**
 	 * @brief Font with which text will be written.
 	*/
-	TTF_Font* m_font;
+	TTF_Font* font;
 
 	/**
 	 * @brief The message that is being entered by the user.
 	*/
-	std::string m_enteringMessage;
+	std::string enteringMessage;
 
 	/**
 	 * @brief The length of the message entered by the user (pixels).
 	*/
-	int32_t m_enteringMessageLength;
+	int32_t enteringMessageLength;
 
 	/**
 	 * @brief How many frames passed since the bar appeared / dissapeared.
 	*/
-	uint8_t m_barTicks;
+	uint8_t barTicks;
 
 	/**
 	 * @brief Flag determining if chat is active(receives input) or not.
 	*/
-	bool m_isActive;
+	bool isActive;
 
 	/**
 	 * @brief Flag indicating if the chat is muted(receives messages) or not.
 	*/
-	bool m_isMuted;
+	bool isMuted;
 };
 
 } /*< namespace hob */

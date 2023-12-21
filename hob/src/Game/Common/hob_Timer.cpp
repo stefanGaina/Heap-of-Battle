@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Timer.cpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Timer.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -25,6 +43,7 @@
 /**
  * @brief Full file path of an image used by the timer.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/timer/" name)
 
@@ -35,7 +54,7 @@
 namespace hob
 {
 
-Timer::Timer(void) noexcept
+Timer::Timer(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer
 	{
 		{
@@ -63,47 +82,48 @@ Timer::Timer(void) noexcept
 			TEXTURE_FILE_PATH("horde_double_points")
 		},
 		{
-			0ULL, 10ULL, 0ULL, 0ULL
+			0UL, 10UL, 0UL, 0UL
 		},
 		{
 			{
-				{ 3L * HSCALE                  + 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 3L * HSCALE + HSCALE / 2L    + 5L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 4L * HSCALE + 5L                 , SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 4L * HSCALE + HSCALE / 2L + 5L   , SCALE / 9L, SCALE / 3L, SCALE / 3L }
+				{ 3 * HSCALE              + 5, SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ 3 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ 4 * HSCALE + 5             , SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ 4 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }
 			}
-		}
+		},
+		{ renderer }
 	}
-	, m_queue{}
+	, queue{}
 {
-	plog_trace("Timer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_queue));
+	plog_trace("Timer is being constructed.");
 }
 
-void Timer::draw(void) noexcept
+void Timer::draw(SDL_Renderer* const renderer) noexcept
 {
 	TimeFormat timeFormat = {};
-	size_t     modifier   = 0ULL;
+	size_t     modifier   = 0UL;
 
 	plog_verbose("Timer is being drawn.");
-	while (false == m_queue.isEmpty())
+	while (false == queue.isEmpty())
 	{
-		timeFormat = m_queue.get();
+		timeFormat = queue.get();
 		if (false == timeFormat.isAlliance)
 		{
-			modifier = 11ULL;
+			modifier = 11UL;
 		}
-		m_componentContainer[0ULL].updateTexture(m_textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60ULL          + modifier]);
-		m_componentContainer[1ULL].updateTexture(m_textureContainer[10ULL                                                     + modifier]);
-		m_componentContainer[2ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) / 10ULL + modifier]);
-		m_componentContainer[3ULL].updateTexture(m_textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60ULL) % 10ULL + modifier]);
+		componentContainer[0].updateTexture(textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60UL         + modifier]);
+		componentContainer[1].updateTexture(textureContainer[10UL                                                    + modifier]);
+		componentContainer[2].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) / 10UL + modifier]);
+		componentContainer[3].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) % 10UL + modifier]);
 	}
-	TextureInitializer::draw();
+	TextureInitializer::draw(renderer);
 }
 
 void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
 	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-	m_queue.put({ .seconds = seconds, .isAlliance = isAlliance });
+	queue.put({ .seconds = seconds, .isAlliance = isAlliance });
 }
 
 } /*< namespace hob */

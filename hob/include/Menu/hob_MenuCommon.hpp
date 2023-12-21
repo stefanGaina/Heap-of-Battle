@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_MenuCommon.hpp                                                                           *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Removed the use of ::hob.                                   *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines common macros and constants for the menu.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -18,7 +36,7 @@
 #include "hob_Types.hpp"
 
 /******************************************************************************************************
- * MACROS                                                                                             *
+ * CONSTANTS                                                                                          *
  *****************************************************************************************************/
 
 namespace hob
@@ -27,27 +45,27 @@ namespace hob
 /**
  * @brief Menu's bar width (pixels).
 */
-constexpr const int32_t BAR_WIDTH = 4L * SCALE;
+constexpr const int32_t BAR_WIDTH = 4 * SCALE;
 
 /**
  * @brief Menu's bar height (pixels).
 */
-constexpr const int32_t BAR_HEIGHT = 2L * SCALE;
+constexpr const int32_t BAR_HEIGHT = 2 * SCALE;
 
 /**
  * @brief Menu's bar horizontal centered position (pixels).
 */
-constexpr const int32_t BAR_HORIZONTAL_CENTERED = 6L * SCALE;
+constexpr const int32_t BAR_HORIZONTAL_CENTERED = 6 * SCALE;
 
 /**
  * @brief Menu's bar text width (pixels).
 */
-constexpr const int32_t BAR_TEXT_WIDTH = 2L * SCALE;
+constexpr const int32_t BAR_TEXT_WIDTH = 2 * SCALE;
 
 /**
  * @brief Menu's bar text height (pixels).
 */
-constexpr const int32_t BAR_TEXT_HEIGHT = SCALE / 2L;
+constexpr const int32_t BAR_TEXT_HEIGHT = SCALE / 2;
 
 /**
  * @brief Relative path to the menu's background texture.
@@ -77,7 +95,7 @@ constexpr const char* const MENU_SOUND_PATH_CLICK = HOB_SOUNDS_FILE_PATH("click"
 /**
  * @brief Corrections applied for determining is mouse is inside menu's bar.
 */
-constexpr const SDL_Rect BAR_CORRECTIONS = { SCALE / 8L / 2L, BAR_HEIGHT / 4L, -SCALE / 16L, -SCALE / 8L - BAR_HEIGHT / 4L };
+constexpr const SDL_Rect BAR_CORRECTIONS = { SCALE / 8 / 2, BAR_HEIGHT / 4, -SCALE / 16, -SCALE / 8 - BAR_HEIGHT / 4 };
 
 } /*< namespace hob */
 

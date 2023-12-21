@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Buildings1.cpp                                                                           *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Buildings1.hpp.                             *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -23,6 +41,7 @@
 /**
  * @brief Full file path of an image of a building.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("buildings/" name)
 
@@ -33,7 +52,7 @@
 namespace hob
 {
 
-Buildings1::Buildings1(void) noexcept
+Buildings1::Buildings1(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer
 	{
 		{
@@ -68,151 +87,152 @@ Buildings1::Buildings1(void) noexcept
 			TEXTURE_FILE_PATH("horde/tower_winter")            , /*< 28 */
 		},
 		{ /* No component is used. */ },
-		{ /* No component is used. */ }
+		{ /* No component is used. */ },
+		{ renderer }
 	}
 	, BuildingInitializer
 	{
 		{
-			m_textureContainer[0ULL].getRawTexture(),
-			NULL,
-			NULL,
-			NULL,
+			textureContainer[0].getRawTexture(),
+			nullptr,
+			nullptr,
+			nullptr,
 
-			m_textureContainer[0ULL].getRawTexture(),
-			NULL,
-			NULL,
-			NULL,
+			textureContainer[0].getRawTexture(),
+			nullptr,
+			nullptr,
+			nullptr,
 
-			m_textureContainer[1ULL].getRawTexture(),
-			m_textureContainer[2ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[1].getRawTexture(),
+			textureContainer[2].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[5ULL].getRawTexture(),
-			m_textureContainer[6ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[5].getRawTexture(),
+			textureContainer[6].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[9ULL].getRawTexture(),
-			m_textureContainer[10ULL].getRawTexture(),
-			m_textureContainer[11ULL].getRawTexture(),
-			m_textureContainer[12ULL].getRawTexture(),
+			textureContainer[9].getRawTexture(),
+			textureContainer[10].getRawTexture(),
+			textureContainer[11].getRawTexture(),
+			textureContainer[12].getRawTexture(),
 
-			m_textureContainer[9ULL].getRawTexture(),
-			m_textureContainer[10ULL].getRawTexture(),
-			m_textureContainer[11ULL].getRawTexture(),
-			m_textureContainer[12ULL].getRawTexture(),
+			textureContainer[9].getRawTexture(),
+			textureContainer[10].getRawTexture(),
+			textureContainer[11].getRawTexture(),
+			textureContainer[12].getRawTexture(),
 
-			m_textureContainer[9ULL].getRawTexture(),
-			m_textureContainer[10ULL].getRawTexture(),
-			m_textureContainer[11ULL].getRawTexture(),
-			m_textureContainer[12ULL].getRawTexture(),
+			textureContainer[9].getRawTexture(),
+			textureContainer[10].getRawTexture(),
+			textureContainer[11].getRawTexture(),
+			textureContainer[12].getRawTexture(),
 
-			m_textureContainer[9ULL].getRawTexture(),
-			m_textureContainer[10ULL].getRawTexture(),
-			m_textureContainer[11ULL].getRawTexture(),
-			m_textureContainer[12ULL].getRawTexture(),
+			textureContainer[9].getRawTexture(),
+			textureContainer[10].getRawTexture(),
+			textureContainer[11].getRawTexture(),
+			textureContainer[12].getRawTexture(),
 
-			m_textureContainer[13ULL].getRawTexture(),
-			NULL,
-			NULL,
-			NULL,
+			textureContainer[13].getRawTexture(),
+			nullptr,
+			nullptr,
+			nullptr,
 
-			m_textureContainer[17ULL].getRawTexture(),
-			NULL,
-			NULL,
-			NULL,
+			textureContainer[17].getRawTexture(),
+			nullptr,
+			nullptr,
+			nullptr,
 
-			m_textureContainer[21ULL].getRawTexture(),
-			m_textureContainer[22ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[21].getRawTexture(),
+			textureContainer[22].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[21ULL].getRawTexture(),
-			m_textureContainer[22ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[21].getRawTexture(),
+			textureContainer[22].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[23ULL].getRawTexture(),
-			m_textureContainer[24ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[23].getRawTexture(),
+			textureContainer[24].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[23ULL].getRawTexture(),
-			m_textureContainer[24ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[23].getRawTexture(),
+			textureContainer[24].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[25ULL].getRawTexture(),
-			m_textureContainer[26ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[25].getRawTexture(),
+			textureContainer[26].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[25ULL].getRawTexture(),
-			m_textureContainer[26ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[25].getRawTexture(),
+			textureContainer[26].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[27ULL].getRawTexture(),
-			m_textureContainer[28ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[27].getRawTexture(),
+			textureContainer[28].getRawTexture(),
+			nullptr,
+			nullptr,
 
-			m_textureContainer[27ULL].getRawTexture(),
-			m_textureContainer[28ULL].getRawTexture(),
-			NULL,
-			NULL,
+			textureContainer[27].getRawTexture(),
+			textureContainer[28].getRawTexture(),
+			nullptr,
+			nullptr,
 		},
 		{
 			{
-				{ 16L * HSCALE, 2L  * HSCALE + SCALE / 3L + 6L, 6L * HSCALE, 3L * HSCALE + HSCALE / 3L },
-				{ 16L * HSCALE, 9L  * HSCALE + SCALE / 3L + 6L, 6L * HSCALE, 3L * HSCALE + HSCALE / 3L },
-				{ 6L  * HSCALE, 11L * HSCALE                  , 4L * HSCALE, 4L * HSCALE               },
-				{ 6L  * HSCALE, 0L                            , 4L * HSCALE, 4L * HSCALE               },
-				{ 6L  * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
-				{ 13L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
-				{ 22L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
-				{ 29L * HSCALE, 6L  * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
-				{ 29L * HSCALE, 12L * HSCALE                  , 3L * HSCALE, 3L * HSCALE               },
-				{ 29L * HSCALE, 0L                            , 3L * HSCALE, 3L * HSCALE               },
-				{ 14L * HSCALE, 13L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
-				{ 22L * HSCALE, 13L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
-				{ 14L * HSCALE, 0L                            , 2L * HSCALE, 2L * HSCALE               },
-				{ 22L * HSCALE, 0L                            , 2L * HSCALE, 2L * HSCALE               },
-				{ 11L * HSCALE, 10L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
-				{ 25L * HSCALE, 10L * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
-				{ 11L * HSCALE, 3L  * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
-				{ 25L * HSCALE, 3L  * HSCALE                  , 2L * HSCALE, 2L * HSCALE               },
+				{ 16 * HSCALE, 2  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 },
+				{ 16 * HSCALE, 9  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 },
+				{ 6  * HSCALE, 11 * HSCALE                , 4 * HSCALE, 4 * HSCALE              },
+				{ 6  * HSCALE, 0                          , 4 * HSCALE, 4 * HSCALE              },
+				{ 6  * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
+				{ 13 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
+				{ 22 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
+				{ 29 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
+				{ 29 * HSCALE, 12 * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
+				{ 29 * HSCALE, 0                          , 3 * HSCALE, 3 * HSCALE              },
+				{ 14 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 22 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 14 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              },
+				{ 22 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              },
+				{ 11 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 25 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 11 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 25 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
 			}
 		}
 	}
-	, m_previousSeason{ false }
+	, previousSeason{ false }
 {
 	plog_trace("Buildings1 is being constructed.");
 }
 
-void Buildings1::draw(void) noexcept
+void Buildings1::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Buildings1 is being drawn.");
-	BuildingInitializer::draw();
+	BuildingInitializer::draw(renderer);
 }
 
 void Buildings1::changeWeather(const bool isWinter) noexcept
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
 	plog_debug("Buildings are changing weather. (flag: %" PRId16 ")", static_cast<int16_t>(isWinter));
-	if (isWinter == m_previousSeason)
+	if (isWinter == previousSeason)
 	{
 		plog_debug("Buildings already changed weather.");
 		return;
 	}
 
-	for (index = 0ULL; index < 18ULL; ++index)
+	for (; index < 18UL; ++index)
 	{
-		m_buildingContainer[index].changeWeather(isWinter);
+		buildingContainer[index].changeWeather(isWinter);
 	}
-	m_previousSeason = isWinter;
+	previousSeason = isWinter;
 }
 
 } /*< namespace hob */

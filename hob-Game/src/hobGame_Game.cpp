@@ -1,4 +1,21 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
@@ -57,24 +74,24 @@ namespace hobGame
 {
 
 Game::Game(const bool isAlliance) noexcept
-	: m_turn{ isAlliance }
-	, m_gold{ 100U }
+	: turn{ isAlliance }
+	, gold{ 100U }
 {
-	plog_trace("Game is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_turn), sizeof(m_gold));
+	plog_trace("Game is being constructed.");
 }
 
 void Game::endTurn(void) noexcept
 {
-	m_turn  = !m_turn;
-	if (true == m_turn)
+	turn = !turn;
+	if (true == turn)
 	{
-		m_gold += 5U;
+		gold += 5U;
 	}
 }
 
 bool Game::getTurn(void) const noexcept
 {
-	return m_turn;
+	return turn;
 }
 
 bool Game::recruit(Unit unit) noexcept
@@ -84,12 +101,12 @@ bool Game::recruit(Unit unit) noexcept
 
 CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
 {
-	if (x < 6L * hob::HSCALE || y > 15L * hob::HSCALE)
+	if (x < 6 * hob::HSCALE || y > 15 * hob::HSCALE)
 	{
 		return CursorType::IDLE;
 	}
 
-	x -= 6L * hob::HSCALE;
+	x -= 6 * hob::HSCALE;
 	x /= hob::HSCALE;
 	y /= hob::HSCALE;
 
@@ -103,12 +120,12 @@ CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
 
 MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
 {
-	if (x < 6L * hob::HSCALE || y > 15L * hob::HSCALE)
+	if (x < 6 * hob::HSCALE || y > 15 * hob::HSCALE)
 	{
 		return MenuMode::EMPTY;
 	}
 
-	x -= 6L * hob::HSCALE;
+	x -= 6 * hob::HSCALE;
 	x /= hob::HSCALE;
 	y /= hob::HSCALE;
 
@@ -127,7 +144,7 @@ MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
 
 uint8_t Game::getGold(void) const noexcept
 {
-	return m_gold;
+	return gold;
 }
 
 } /*< namespace hobGame */

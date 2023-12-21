@@ -1,7 +1,25 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_AsyncQueue.hpp                                                                           *
  * @date:      @author:                   Reason for change:                                          *
  * 27.08.2023  Gaina Stefan               Initial version.                                            *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the queue.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -70,12 +88,12 @@ private:
 	/**
 	 * @brief The queue where the elements are being placed.
 	*/
-	std::queue<TYPE> m_queue;
+	std::queue<TYPE> queue;
 
 	/**
 	 * @brief The mutex protecting the queue from multiple threads access.
 	*/
-	std::mutex m_mutex;
+	std::mutex mutex;
 };
 
 /***********************************************************************************************************************
@@ -84,28 +102,28 @@ private:
 
 template<typename TYPE>
 AsyncQueue<TYPE>::AsyncQueue(void) noexcept
-	: m_queue{}
-	, m_mutex{}
+	: queue{}
+	, mutex{}
 {
-	plog_trace("Async queue is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_queue), sizeof(m_mutex));
+	plog_trace("Async queue is being constructed.");
 }
 
 template<typename TYPE>
 bool AsyncQueue<TYPE>::isEmpty(void) noexcept
 {
-	std::unique_lock<std::mutex> lock(m_mutex);
-	return m_queue.empty();
+	std::unique_lock<std::mutex> lock(mutex);
+	return queue.empty();
 }
 
 template<typename TYPE>
 void AsyncQueue<TYPE>::put(TYPE element) noexcept
 {
-	std::unique_lock<std::mutex> lock(m_mutex);
+	std::unique_lock<std::mutex> lock(mutex);
 
 	plog_verbose("Element is being pushed into asynchronically queue.");
 	try
 	{
-		m_queue.push(element);
+		queue.push(element);
 	}
 	catch (const std::bad_alloc& exception)
 	{
@@ -125,10 +143,10 @@ TYPE AsyncQueue<TYPE>::get(void) noexcept
 		return (TYPE){};
 	}
 
-	m_mutex.lock();
-	element = m_queue.front();
-	m_queue.pop();
-	m_mutex.unlock();
+	mutex.lock();
+	element = queue.front();
+	queue.pop();
+	mutex.unlock();
 
 	return element;
 }

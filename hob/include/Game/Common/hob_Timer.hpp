@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Timer.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -37,14 +55,14 @@ struct TimeFormat
 /**
  * @brief Graphical representation of the time left.
 */
-class Timer final : public TextureInitializer<22ULL, 4ULL>
+class Timer final : public TextureInitializer<22UL, 4UL>
 {
 public:
 	/**
 	 * @brief Loads the textures needed for drawing the timer.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	*/
-	Timer(void) noexcept;
+	Timer(SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -54,10 +72,10 @@ public:
 
 	/**
 	 * @brief Draws the time left.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(void) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief Updates the time left. This method is safe to be called from other thread than rendering thread.
@@ -71,7 +89,7 @@ private:
 	/**
 	 * @brief Thread safe queue for buffering updates.
 	*/
-	AsyncQueue<TimeFormat> m_queue;
+	AsyncQueue<TimeFormat> queue;
 };
 
 } /*< namespace hob */

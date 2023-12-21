@@ -1,7 +1,25 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Tiles1.hpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the tiles of the first scenario.     *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -18,7 +36,7 @@
 #include "hob_TileInitializer.hpp"
 
 /******************************************************************************************************
- * MACROS                                                                                             *
+ * CONSTANTS                                                                                          *
  *****************************************************************************************************/
 
 namespace hob
@@ -27,17 +45,17 @@ namespace hob
 /**
  * @brief How many times of tiles are being used.
 */
-constexpr const size_t TILES1_COUNT = 13ULL;
+constexpr const size_t TILES1_COUNT = 13UL;
 
 /**
  * @brief How many textures scenario 1 tiles loads.
 */
-constexpr const size_t TILES1_TEXTURES_COUNT = 34ULL;
+constexpr const size_t TILES1_TEXTURES_COUNT = 34UL;
 
 /**
  * @brief How many components the tiles of scenario 1 uses.
 */
-constexpr const size_t TILES1_COMPONENTS_COUNT = 0ULL;
+constexpr const size_t TILES1_COMPONENTS_COUNT = 0UL;
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -52,9 +70,9 @@ class Tiles1 final : public TextureInitializer<TILES1_TEXTURES_COUNT, TILES1_COM
 public:
 	/**
 	 * @brief Loads the textures and initializes the tiles.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	*/
-	Tiles1(void);
+	Tiles1(SDL_Renderer* renderer);
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -64,10 +82,10 @@ public:
 
 	/**
 	 * @brief Draws the tiles.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(void) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 };
 
 } /*< namespace hob */

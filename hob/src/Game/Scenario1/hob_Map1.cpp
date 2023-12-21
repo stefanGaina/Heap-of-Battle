@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Map1.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added chat.                                                 *
  * 27.08.2023  Gaina Stefan               Fixed compilation error due to removal of header.           *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Map1.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -21,7 +39,6 @@
 #include "hob_Music.hpp"
 #include "hob_Cursor.hpp"
 #include "hob_Socket.hpp"
-#include "hob_Server.hpp"
 #include "hob_Faction.hpp"
 
 /******************************************************************************************************
@@ -31,64 +48,65 @@
 namespace hob
 {
 
-Map1::Map1(void) noexcept
-	: Loop              {}
-	, m_game            { Faction::getInstance().getFaction() }
-	, m_tiles           {}
-	, m_menu            { m_game.getGold() }
-	, m_buildings       {}
-	, m_chat            {}
-	, m_grid            {}
-	, m_units           {}
-	, m_receivingThread { std::bind(&Map1::receivingFunction, this) }
-	, m_receivingUpdates{ true }
+Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, hobServer::Server& server, Socket& socket) noexcept
+	: Loop            { renderer, cursor, ping }
+	, game            { Faction::getInstance().getFaction() }
+	, tiles           { renderer }
+	, menu            { renderer, game.getGold() }
+	, buildings       { renderer }
+	, chat            { renderer }
+	, grid            {}
+	, units           { renderer }
+	, receivingThread { std::bind(&Map1::receivingFunction, this) }
+	, receivingUpdates{ true }
+	, music           { music }
+	, server          { server }
+	, socket          { socket }
 {
-	plog_trace("Map1 is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
-		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ")", sizeof(*this), sizeof(m_game), sizeof(m_tiles), sizeof(m_menu),
-		 sizeof(m_buildings), sizeof(m_chat), sizeof(m_grid), sizeof(m_receivingThread), sizeof(m_receivingUpdates));
+	plog_trace("Map1 is being constructed.");
 
-	Music::getInstance().start(true == Faction::getInstance().getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
+	music.start(true == Faction::getInstance().getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 
-	Cursor::getInstance().setFaction(Faction::getInstance().getFaction());
-	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
+	cursor.setFaction(Faction::getInstance().getFaction());
+	cursor.setTexture(hobGame::CursorType::IDLE);
 }
 
 Map1::~Map1(void) noexcept
 {
 	plog_trace("Map1 is being destructed.");
 
-	m_receivingUpdates.store(false);
-	Server::getInstance().close();
-	Socket::getInstance().close();
-	pingStop();
+	receivingUpdates.store(false);
+	server.stop();
+	socket.close();
+	ping->clean();
 
-	if (true == m_receivingThread.joinable())
+	if (true == receivingThread.joinable())
 	{
 		plog_debug("Receiving updates thread is being joined.");
-		m_receivingThread.join();
+		receivingThread.join();
 		plog_debug("Receiving updates thread has joined.");
 	}
 
-	Cursor::getInstance().setFaction(true);
-	Cursor::getInstance().setTexture(hobGame::CursorType::IDLE);
+	cursor.setFaction(true);
+	cursor.setTexture(hobGame::CursorType::IDLE);
 }
 
 void Map1::draw(void) noexcept
 {
 	plog_verbose("Map1 is being drawn.");
-	m_menu.draw();
-	m_chat.draw();
-	m_tiles.draw();
-	m_buildings.draw();
-	m_units.draw();
-	m_grid.draw();
+	menu.draw(renderer);
+	chat.draw(renderer);
+	tiles.draw(renderer);
+	buildings.draw(renderer);
+	units.draw(renderer);
+	grid.draw(renderer);
 }
 
 void Map1::handleEvent(const SDL_Event& event) noexcept
 {
 	Coordinate         click      = {};
 	hobServer::Message message    = {};
-	uint32_t           mouseState = 0UL;
+	uint32_t           mouseState = 0;
 	Action             action     = Action::NOTHING;
 
 	plog_verbose("Event is being handled.");
@@ -105,9 +123,9 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 				return;
 			}
 
-			m_chat.handleClick(click);
+			chat.handleClick(click, renderer);
 
-			action = m_menu.handleClick(click, m_game.getMenuMode(click.x, click.y));
+			action = menu.handleClick(click, game.getMenuMode(click.x, click.y));
 			switch (action)
 			{
 				case Action::NOTHING:
@@ -116,9 +134,9 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 				}
 				case Action::RECRUIT_INFANTRY:
 				{
-					if (true == m_game.recruit(hobGame::Unit::INFANTRY))
+					if (true == game.recruit(hobGame::Unit::INFANTRY))
 					{
-						m_units.add(hobGame::Unit::INFANTRY);
+						units.add(hobGame::Unit::INFANTRY);
 					}
 					break;
 				}
@@ -140,43 +158,44 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			mouseState = SDL_GetMouseState(&click.x, &click.y);
 			plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 
-			Cursor::getInstance().updatePosition(click);
-			Cursor::getInstance().setTexture(m_game.getCursorType(click.x, click.y));
-			m_menu.handleHover(click);
+			cursor.updatePosition(click);
+			cursor.setTexture(game.getCursorType(click.x, click.y));
+			menu.handleHover(click);
 			break;
 		}
 		case SDL_KEYDOWN:
 		{
-			m_chat.handleButtonPress(event);
+			chat.handleButtonPress(event, renderer, socket);
 
-			// TODO: remove this
+#ifdef DEVEL_BUILD // TODO: remove this
 			switch (event.key.keysym.sym)
 			{
 				case SDLK_a:
 				{
-					m_tiles.changeTexture(Season::SUMMER);
-					m_buildings.changeWeather(false);
+					tiles.changeTexture(Season::SUMMER);
+					buildings.changeWeather(false);
 					break;
 				}
 				case SDLK_s:
 				{
-					m_tiles.changeTexture(Season::AUTUMN);
-					m_buildings.changeWeather(false);
+					tiles.changeTexture(Season::AUTUMN);
+					buildings.changeWeather(false);
 					break;
 				}
 				case SDLK_d:
 				{
-					m_tiles.changeTexture(Season::WINTER);
-					m_buildings.changeWeather(true);
+					tiles.changeTexture(Season::WINTER);
+					buildings.changeWeather(true);
 					break;
 				}
 				case SDLK_f:
 				{
-					m_tiles.changeTexture(Season::SPRING);
-					m_buildings.changeWeather(false);
+					tiles.changeTexture(Season::SPRING);
+					buildings.changeWeather(false);
 					break;
 				}
 			}
+#endif /*< DEVEL_BUILD */
 			break;
 		}
 		case SDL_WINDOWEVENT:
@@ -185,9 +204,9 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			if (SDL_WINDOWEVENT_FOCUS_LOST == event.window.event)
 			{
 				plog_trace("Window lost focus.");
-				click = { .x = -1L, .y = -1L };
-				Cursor::getInstance().updatePosition(click);
-				m_menu.handleHover(click);
+				click = { .x = -1, .y = -1 };
+				cursor.updatePosition(click);
+				menu.handleHover(click);
 			}
 			break;
 		}
@@ -196,7 +215,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			plog_info("Command to quit game was given!");
 
 			message.type = hobServer::MessageType::END_COMMUNICATION;
-			Socket::getInstance().sendUpdate(message);
+			socket.sendUpdate(message);
 
 			stop(Scene::QUIT);
 			break;
@@ -214,52 +233,52 @@ void Map1::receivingFunction(void) noexcept
 	hobServer::Message receivedMessage = {};
 
 	plog_trace("Update messages are being received.");
-	while (true == m_receivingUpdates.load())
+	while (true == receivingUpdates.load())
 	{
-		Socket::getInstance().receiveUpdate(receivedMessage);
+		socket.receiveUpdate(receivedMessage);
 		switch (receivedMessage.type)
 		{
 			case hobServer::MessageType::PING:
 			{
 				plog_trace("Ping message received.");
-				pingReceived();
+				ping->update(socket);
 				break;
 			}
 			case hobServer::MessageType::TIME:
 			{
 				plog_verbose("Time update message received. (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
-				if (false == Faction::getInstance().getFaction() && false == m_game.getTurn())
+				if (false == Faction::getInstance().getFaction() && false == game.getTurn())
 				{
-					m_menu.updateTimer(receivedMessage.payload.timeLeft, true);
+					menu.updateTimer(receivedMessage.payload.timeLeft, true);
 					break;
 				}
-				m_menu.updateTimer(receivedMessage.payload.timeLeft, Faction::getInstance().getFaction() && m_game.getTurn());
+				menu.updateTimer(receivedMessage.payload.timeLeft, Faction::getInstance().getFaction() && game.getTurn());
 				break;
 			}
 			case hobServer::MessageType::TEXT:
 			{
 				plog_trace("Text message received. (message: %s)", receivedMessage.payload.text);
-				m_chat.receivedMessage(receivedMessage.payload.text);
+				chat.receivedMessage(receivedMessage.payload.text);
 				break;
 			}
 			case hobServer::MessageType::END_TURN:
 			{
 				plog_info("End turn message received!");
-				m_game.endTurn();
-				m_menu.updateGold(m_game.getGold());
+				game.endTurn();
+				menu.updateGold(game.getGold());
 				break;
 			}
 			case hobServer::MessageType::END_COMMUNICATION:
 			{
 				plog_info("End communication message received!");
-				m_receivingUpdates.store(false);
+				receivingUpdates.store(false);
 				stop(Scene::MAIN_MENU);
 				break;
 			}
 			case hobServer::MessageType::VERSION:
 			{
 				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
-					receivedMessage.payload.version.major, receivedMessage.payload.version.minor, receivedMessage.payload.version.patch);
+					receivedMessage.payload.version.getMajor(), receivedMessage.payload.version.getMinor(), receivedMessage.payload.version.getPatch());
 				break;
 			}
 			default:

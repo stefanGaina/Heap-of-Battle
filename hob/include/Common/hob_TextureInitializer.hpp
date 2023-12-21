@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_TextureInitializer.hpp                                                                   *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Fixed comment.                                              *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes and method implementation of the        *
  * texture initializer.                                                                               *
  * @todo N/A.                                                                                         *
@@ -45,9 +63,10 @@ public:
 	 * files which sounds will be loaded from.
 	 * @param[in] textureIndexes: Which textures will be assigned to each initialized component.
 	 * @param[in] destinations: Positions on the screen and dimensions of the textures.
+	 * @param renderer: Rendering context of the window.
 	*/
 	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths, std::array<size_t, COMPONENTS_COUNT> textureIndexes,
-		std::array<SDL_Rect, COMPONENTS_COUNT> destinations) noexcept;
+		std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -57,21 +76,21 @@ public:
 
 	/**
 	 * @brief Draws the components in the order of initialization.
-	 * @param param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	virtual void draw(void) noexcept override;
+	virtual void draw(SDL_Renderer* renderer) noexcept override;
 
 protected:
 	/**
 	 * @brief Holds all the components needed.
 	*/
-	std::array<Component, COMPONENTS_COUNT> m_componentContainer;
+	std::array<Component, COMPONENTS_COUNT> componentContainer;
 
 	/**
 	 * @brief Holds all the textures needed.
 	*/
-	std::array<Texture, TEXTURES_COUNT> m_textureContainer;
+	std::array<Texture, TEXTURES_COUNT> textureContainer;
 };
 
 /******************************************************************************************************
@@ -80,33 +99,34 @@ protected:
 
 template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const std::array<std::string, TEXTURES_COUNT> filePaths,
-	const std::array<size_t, COMPONENTS_COUNT> textureIndexes, const std::array<SDL_Rect, COMPONENTS_COUNT> destinations) noexcept
+	const std::array<size_t, COMPONENTS_COUNT> textureIndexes, const std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* const renderer) noexcept
+	: componentContainer{}
+	, textureContainer  {}
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
-	plog_trace("TextureInitializer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_componentContainer), sizeof(m_textureContainer));
-	for (index = 0ULL; index < TEXTURES_COUNT; ++index)
+	plog_trace("TextureInitializer is being constructed.");
+	for (; index < TEXTURES_COUNT; ++index)
 	{
-		m_textureContainer[index].load(filePaths[index]);
+		textureContainer[index].load(filePaths[index], renderer);
 	}
 
-	for (index = 0ULL; index < COMPONENTS_COUNT; ++index)
+	for (index = 0UL; index < COMPONENTS_COUNT; ++index)
 	{
-		m_componentContainer[index].updateTexture(m_textureContainer[textureIndexes[index]]);
-		m_componentContainer[index].updatePosition(destinations[index]);
+		componentContainer[index].updateTexture(textureContainer[textureIndexes[index]]);
+		componentContainer[index].updatePosition(destinations[index]);
 	}
 }
 
 template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
-void TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::draw(void) noexcept
+void TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::draw(SDL_Renderer* const renderer) noexcept
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
 	plog_verbose("Textures are being drawn.");
-	for (index = 0ULL; index < COMPONENTS_COUNT; ++index)
+	for (; index < COMPONENTS_COUNT; ++index)
 	{
-		m_componentContainer[index].draw();
+		componentContainer[index].draw(renderer);
 	}
 }
 

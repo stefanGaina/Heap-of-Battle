@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Music.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the music.                           *
  * @todo N/A.                                                                                         *
  * @bug Mix_Quit() is called in game's deinit method and music's destructor is called after so stop   *
@@ -30,9 +48,9 @@ namespace hob
 */
 enum class Song
 {
-	MAIN_MENU         = 0, /**< Song associated to the main menu. */
-	SCENARIO_ALLIANCE = 1,
-	SCENARIO_HORDE    = 2
+	MAIN_MENU         = 0, /**< Song associated to the main menu.                */
+	SCENARIO_ALLIANCE = 1, /**< Song that is associated to the alliance faction. */
+	SCENARIO_HORDE    = 2  /**< Song that is associated to the horde faction.    */
 };
 
 /**
@@ -42,11 +60,16 @@ class Music final
 {
 public:
 	/**
-	 * @brief Singleton way to get access to the music object.
+	 * @brief Does not play a song implicitly.
 	 * @param void
-	 * @return Reference to the music instance.
 	*/
-	static Music& getInstance(void) noexcept;
+	Music(void) noexcept;
+
+	/**
+	 * @brief Frees the song that is playing.
+	 * @param void
+	*/
+	~Music(void) noexcept;
 
 	/**
 	 * @brief Starts a song. Requesting to start the same song again will not replay it.
@@ -83,46 +106,21 @@ public:
 	*/
 	void setVolume(Volume volume);
 
-	/**
-	 * @brief Prevents the creation of another object.
-	 * @param otherMusic: instance to be copied.
-	*/
-	Music(Music& otherMusic) = delete;
-
-	/**
-	 * @brief Prevents the creation of another object.
-	 * @param music: Instance to be copied.
-	*/
-	void operator =(const Music& music) = delete;
-
-private:
-	/**
-	 * @brief Does not play a song implicitly.
-	 * @param void
-	*/
-	Music(void) noexcept;
-
-	/**
-	 * @brief Frees the song that is playing.
-	 * @param void
-	*/
-	~Music(void) noexcept;
-
 private:
 	/**
 	 * @brief Handle to SDL music object.
 	*/
-	Mix_Music* m_song;
+	Mix_Music* song;
 
 	/**
 	 * @brief What song is currently playing.
 	*/
-	Song m_playingSong;
+	Song playingSong;
 
 	/**
 	 * @brief The volume at which all the songs are played.
 	*/
-	int32_t m_volume;
+	int32_t volume;
 };
 
 } /*< namespace hob */

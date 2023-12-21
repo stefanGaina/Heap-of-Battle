@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_FramesPerSecond.cpp                                                                      *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_FramesPerSecond.hpp.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -26,72 +44,70 @@
 namespace hob
 {
 
-FramesPerSecond::FramesPerSecond(void) noexcept
-	: m_component          {}
-	, m_texture            {}
-	, m_font               { NULL }
-	, m_FrameStartTime     { SDL_GetTicks64() }
-	, m_framesCount        { 0U }
-	, m_previousFramesCount{ 10000U }
+FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
+	: component          {}
+	, texture            {}
+	, font               { nullptr }
+	, FrameStartTime     { SDL_GetTicks64() }
+	, framesCount        { 0U }
+	, previousFramesCount{ 10000U }
 {
-	plog_trace("Frames per second is being constructed. (size: %" PRIu64") (1: %" PRIu64") (2: %" PRIu64 ") (3: %" PRIu64 ") "
-		"(4: %" PRIu64 ") (5: %" PRIu64 ") (6: %" PRIu64 ")", sizeof(*this), sizeof(m_component), sizeof(m_texture), sizeof(m_font),
-		sizeof(m_FrameStartTime), sizeof(m_framesCount), sizeof(m_previousFramesCount));
+	plog_trace("Frames per second is being constructed.");
 
-	m_font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12L);
-	if (NULL == m_font)
+	font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12);
+	if (nullptr == font)
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 	}
-	update(m_framesCount);
+	update(framesCount, renderer);
 }
 
 FramesPerSecond::~FramesPerSecond(void) noexcept
 {
 	plog_trace("Frames per second is being destructed.");
-	TTF_CloseFont(m_font);
+	// TTF_CloseFont(font); <- This has been removed on purpose.
 }
 
-void FramesPerSecond::draw(void) noexcept
+void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000ULL;
+	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
 	const uint64_t frameEndTime = SDL_GetTicks64();
 
-	plog_verbose("Frames per second is being drawn. (start time: %" PRIu64 ") (end time: %" PRIu64 ")", m_FrameStartTime, frameEndTime);
-	if (SECOND_IN_MILLISECONDS <= frameEndTime - m_FrameStartTime)
+	plog_verbose("Frames per second is being drawn. (start time: %" PRIu64 ") (end time: %" PRIu64 ")", FrameStartTime, frameEndTime);
+	if (SECOND_IN_MILLISECONDS <= frameEndTime - FrameStartTime)
 	{
-		update(m_framesCount);
-		m_FrameStartTime = frameEndTime;
-		m_framesCount    = 0U;
+		update(framesCount, renderer);
+		FrameStartTime = frameEndTime;
+		framesCount    = 0U;
 	}
 	else
 	{
-		++m_framesCount;
+		++framesCount;
 	}
-	m_component.draw();
+	component.draw(renderer);
 }
 
-void FramesPerSecond::update(const uint16_t framesPerSecond) noexcept
+void FramesPerSecond::update(const uint16_t framesPerSecond, SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { 0xFF, 0xFF, 0x00, 0xFF };
+	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
 	const std::string text             = std::to_string(framesPerSecond) + " FPS";
 	Coordinate        textureDimension = {};
 
 	plog_verbose("Frames per second is being updated. (frames: %" PRIu16 ")", framesPerSecond);
-	if (framesPerSecond == m_previousFramesCount)
+	if (framesPerSecond == previousFramesCount)
 	{
 		plog_verbose("Frames per second does not need to be updated.");
 		return;
 	}
-	m_previousFramesCount = framesPerSecond;
+	previousFramesCount = framesPerSecond;
 
-	m_texture.destroy();
-	textureDimension = m_texture.create(text, m_font, YELLOW);
+	texture.destroy();
+	textureDimension = texture.create(text, font, YELLOW, renderer);
 
-	m_component.updateTexture(m_texture);
-	m_component.updatePosition({.x =  30L * HSCALE + HSCALE / 2L, .y = 0L, .w = textureDimension.x, .h = textureDimension.y });
+	component.updateTexture(texture);
+	component.updatePosition({.x = 30 * HSCALE + HSCALE / 2, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
 }
 
 } /*< namespace hob */

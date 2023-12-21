@@ -1,4 +1,21 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Map1.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
@@ -20,6 +37,7 @@
 #include <atomic>
 
 #include "hob_Loop.hpp"
+#include "hob_Music.hpp"
 #include "hob_Menu.hpp"
 #include "hob_Chat.hpp"
 #include "hob_Tiles1.hpp"
@@ -27,6 +45,7 @@
 #include "hob_Grid1.hpp"
 #include "hob_Units.hpp"
 #include "hobGame_Game.hpp"
+#include "hobServer_Server.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -43,9 +62,14 @@ class Map1 final : public Loop
 public:
 	/**
 	 * @brief Creates the receiving thread and changes the cursor.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
+	 * @param cursor: Reference to the cursor object.
+	 * @param ping: TODO
+	 * @param music: Reference to the music object.
+	 * @param server: TODO
+	 * @param socket: TODO
 	*/
-	Map1(void) noexcept;
+	Map1(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, hobServer::Server& server, Socket& socket) noexcept;
 
 	/**
 	 * @brief Closes the socket and resets the cursor.
@@ -76,44 +100,65 @@ private:
 	void receivingFunction(void) noexcept;
 
 private:
-	hobGame::Game m_game;
+	/**
+	 * @brief TODO
+	*/
+	hobGame::Game game;
 
 	/**
 	 * @brief Playing board background.
 	*/
-	Tiles1 m_tiles;
+	Tiles1 tiles;
 
 	/**
 	 * @brief Menu background.
 	*/
-	Menu m_menu;
+	Menu menu;
 
 	/**
 	 * @brief Graphical representation of the buildings.
 	*/
-	Buildings1 m_buildings;
+	Buildings1 buildings;
 
 	/**
 	 * @brief Visual representation of chat box and messages.
 	*/
-	Chat m_chat;
+	Chat chat;
 
 	/**
 	 * @brief Lines between tiles and buildings.
 	*/
-	Grid1 m_grid;
+	Grid1 grid;
 
-	Units m_units;
+	/**
+	 * @brief TODO
+	*/
+	Units units;
 
 	/**
 	 * @brief Thread for receiving updates from the server.
 	*/
-	std::thread m_receivingThread;
+	std::thread receivingThread;
 
 	/**
 	 * @brief Flag indicating if the receiving thread should still execute.
 	*/
-	std::atomic_bool m_receivingUpdates;
+	std::atomic<bool> receivingUpdates;
+
+	/**
+	 * @brief TODO
+	*/
+	Music& music;
+
+	/**
+	 * @brief TODO
+	*/
+	hobServer::Server& server;
+
+	/**
+	 * @brief TODO
+	*/
+	Socket& socket;
 };
 
 } /*< namespace hob */

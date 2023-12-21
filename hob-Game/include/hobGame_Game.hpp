@@ -1,3 +1,20 @@
+/******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
 #ifndef HOB_GAME_GAME_HPP_
 #define HOB_GAME_GAME_HPP_
 
@@ -27,7 +44,7 @@ enum class CursorType
 enum class MenuMode
 {
 	EMPTY         = 0, /**< */
-	UNCHANGED     = 1,
+	UNCHANGED     = 1, /**< */
 	ALLIANCE_KEEP = 2, /**< */
 	HORDE_KEEP    = 3  /**< */
 };
@@ -45,11 +62,13 @@ class Game
 public:
 	/**
 	 * @brief
+	 * @param isAlliance: TODO
 	*/
 	Game(bool isAlliance) noexcept;
 
 	/**
 	 * @brief
+	 * @param void
 	*/
 	~Game(void) = default;
 
@@ -88,12 +107,12 @@ private:
 	/**
 	 * @brief Flag indicating if it is the user's turn.
 	*/
-	bool m_turn;
+	bool turn;
 
 	/**
-	 * @brief
+	 * @brief TODO
 	*/
-	uint8_t m_gold;
+	uint8_t gold;
 };
 
 } /*< namespace hobGame */

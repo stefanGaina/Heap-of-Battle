@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Music.cpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Added use of HOB_MUSIC_FILE_PATH.                           *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -26,22 +44,12 @@
 namespace hob
 {
 
-Music& Music::getInstance(void) noexcept
-{
-	static Music musicInstance = {};
-
-	plog_verbose("Music instance is being got.");
-
-	return musicInstance;
-}
-
 Music::Music(void) noexcept
-	: m_song       { NULL }
-	, m_playingSong{ Song::MAIN_MENU }
-	, m_volume     { MIX_MAX_VOLUME }
+	: song       { nullptr }
+	, playingSong{ Song::MAIN_MENU }
+	, volume     { MIX_MAX_VOLUME }
 {
-	plog_trace("Music is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_song), sizeof(m_playingSong), sizeof(m_volume));
+	plog_trace("Music is being constructed.");
 }
 
 Music::~Music(void) noexcept
@@ -52,10 +60,10 @@ Music::~Music(void) noexcept
 
 void Music::start(const Song song)
 {
-	int32_t errorCode = 0L;
+	int32_t errorCode = 0;
 
 	plog_info("Music is being started. (song: %" PRId32 ")", static_cast<int32_t>(song));
-	if (song == m_playingSong && NULL != m_song)
+	if (song == playingSong && nullptr != this->song)
 	{
 		plog_warn("Music is already started! (song: %" PRId32 ")", static_cast<int32_t>(song));
 		return;
@@ -66,22 +74,22 @@ void Music::start(const Song song)
 		case Song::MAIN_MENU:
 		{
 			stop();
-			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("main_menu_music"));
-			m_playingSong = song;
+			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("main_menu_music"));
+			playingSong = song;
 			break;
 		}
 		case Song::SCENARIO_ALLIANCE:
 		{
 			stop();
-			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_alliance"));
-			m_playingSong = song;
+			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_alliance"));
+			playingSong = song;
 			break;
 		}
 		case Song::SCENARIO_HORDE:
 		{
 			stop();
-			m_song        = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_horde"));
-			m_playingSong = song;
+			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_horde"));
+			playingSong = song;
 			break;
 		}
 		default:
@@ -91,31 +99,31 @@ void Music::start(const Song song)
 		}
 	}
 
-	errorCode = Mix_PlayMusic(m_song, -1L);
-	if (0L != errorCode)
+	errorCode = Mix_PlayMusic(this->song, -1);
+	if (0 != errorCode)
 	{
 		plog_error("Failed to play music! (error code: %" PRId32 ")", errorCode);
 	}
 
-	(void)Mix_VolumeMusic(m_volume);
+	(void)Mix_VolumeMusic(volume);
 }
 
 void Music::stop(void)
 {
 	plog_trace("Music is being stopped.");
-	if (NULL == m_song)
+	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
 		return;
 	}
-	Mix_FreeMusic(m_song);
-	m_song = NULL;
+	Mix_FreeMusic(song);
+	song = nullptr;
 }
 
 void Music::pause(void)
 {
 	plog_info("Music is being paused.");
-	if (NULL == m_song)
+	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
 		return;
@@ -126,7 +134,7 @@ void Music::pause(void)
 void Music::resume(void)
 {
 	plog_info("Music is being resumed.");
-	if (NULL == m_song)
+	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
 		return;
@@ -141,32 +149,32 @@ void Music::setVolume(const Volume volume)
 	{
 		case Volume::MUTED:
 		{
-			m_volume = 0L;
+			Music::volume = 0;
 			break;
 		}
 		case Volume::LOW:
 		{
-			m_volume = MIX_MAX_VOLUME - 4L * MIX_MAX_VOLUME / 5L;
+			Music::volume = MIX_MAX_VOLUME - 4 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::MEDIUM:
 		{
-			m_volume = MIX_MAX_VOLUME - 3L * MIX_MAX_VOLUME / 5L;
+			Music::volume = MIX_MAX_VOLUME - 3 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::HIGH:
 		{
-			m_volume = MIX_MAX_VOLUME - 2L * MIX_MAX_VOLUME / 5L;
+			Music::volume = MIX_MAX_VOLUME - 2 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::VERY_HIGH:
 		{
-			m_volume = MIX_MAX_VOLUME - 1L * MIX_MAX_VOLUME / 5L;
+			Music::volume = MIX_MAX_VOLUME - 1 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::MAX:
 		{
-			m_volume = MIX_MAX_VOLUME;
+			Music::volume = MIX_MAX_VOLUME;
 			break;
 		}
 		default:
@@ -175,8 +183,8 @@ void Music::setVolume(const Volume volume)
 			return;
 		}
 	}
-	plog_info("Music volume set! (volume: %" PRId32 ")", m_volume);
-	Mix_VolumeMusic(m_volume);
+	plog_info("Music volume set! (volume: %" PRId32 ")", Music::volume);
+	Mix_VolumeMusic(Music::volume);
 }
 
 } /*< namespace hob */

@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_SoundInitializer.hpp                                                                     *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Fixed comment.                                              *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes and method implementation of the sound  *
  * initializer.                                                                                       *
  * @todo N/A.                                                                                         *
@@ -53,7 +71,7 @@ protected:
 	/**
 	 * @brief Holds all the sounds needed for the scene.
 	*/
-	std::array<Sound, SOUNDS_COUNT> m_soundContainer;
+	std::array<Sound, SOUNDS_COUNT> soundContainer;
 };
 
 /******************************************************************************************************
@@ -63,12 +81,12 @@ protected:
 template<size_t SOUNDS_COUNT>
 SoundInitializer<SOUNDS_COUNT>::SoundInitializer(const std::array<std::string, SOUNDS_COUNT> filePaths) noexcept
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
-	plog_trace("SoundInitializer is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ")", sizeof(*this), sizeof(m_soundContainer));
-	for (index = 0ULL; index < SOUNDS_COUNT; ++index)
+	plog_trace("SoundInitializer is being constructed.");
+	for (; index < SOUNDS_COUNT; ++index)
 	{
-		m_soundContainer[index].load(filePaths[index]);
+		soundContainer[index].load(filePaths[index]);
 	}
 }
 

@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Cursor.cpp                                                                               *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Removed the use of hob:: and getRawTexture().               *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -26,6 +44,7 @@
 /**
  * @brief Full file path of an image used by the cursor.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("cursor/" name)
 
@@ -36,15 +55,7 @@
 namespace hob
 {
 
-Cursor& Cursor::getInstance(void) noexcept
-{
-	static Cursor cursorInstance = {};
-
-	plog_verbose("Cursor instance is being got.");
-	return cursorInstance;
-}
-
-Cursor::Cursor(void) noexcept
+Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer
 	{
 		{
@@ -59,29 +70,30 @@ Cursor::Cursor(void) noexcept
 		},
 		{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE },
 		{
-			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3L, SCALE / 3L }
-		}
+			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 }
+		},
+		{ renderer }
 	}
-	, m_textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
-	, m_enabled           { false }
+	, textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
+	, enabled           { false }
 {
-	int32_t errorCode = 0L;
+	int32_t errorCode = 0;
 
-	plog_trace("Cursor is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_textureIndexOffset), sizeof(m_enabled));
+	plog_trace("Cursor is being constructed.");
 
 	errorCode = SDL_ShowCursor(SDL_QUERY);
-	if (0L > errorCode)
+	if (0 > errorCode)
 	{
-		plog_error("SDL Cursor failed to be queried! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
+		plog_error("SDL Cursor failed to be queried! (SDL error message: %s)", SDL_GetError());
 		return;
 	}
 
 	if (SDL_ENABLE == errorCode)
 	{
 		errorCode = SDL_ShowCursor(SDL_DISABLE);
-		if (0L > errorCode)
+		if (0 > errorCode)
 		{
-			plog_error("SDL Cursor failed to be hidden! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
+			plog_error("SDL Cursor failed to be hidden! (SDL error message: %s)", SDL_GetError());
 			return;
 		}
 	}
@@ -89,12 +101,12 @@ Cursor::Cursor(void) noexcept
 	{
 		plog_debug("SDL Cursor is already hidden.");
 	}
-	m_enabled = true;
+	enabled = true;
 }
 
 void Cursor::updatePosition(const Coordinate& mouse) noexcept
 {
-	SDL_Rect destination = { .x = 0L, .y = 0L, .w = SCALE / 3L, .h = SCALE / 3L };
+	SDL_Rect destination = { .x = 0, .y = 0, .w = SCALE / 3, .h = SCALE / 3 };
 
 	plog_verbose("Cursor position is being updated. (coordinates: %" PRId32 ", %" PRId32 ")", mouse.x, mouse.y);
 	if (0L >= mouse.x || 0L >= mouse.y)
@@ -107,22 +119,22 @@ void Cursor::updatePosition(const Coordinate& mouse) noexcept
 		destination.x = mouse.x;
 		destination.y = mouse.y;
 	}
-	m_componentContainer[CURSOR_COMPONENT_INDEX].updatePosition(destination);
+	componentContainer[CURSOR_COMPONENT_INDEX].updatePosition(destination);
 }
 
-void Cursor::draw(void) noexcept
+void Cursor::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Cursor is being drawn.");
-	if (true == m_enabled)
+	if (true == enabled)
 	{
-		TextureInitializer::draw();
+		TextureInitializer::draw(renderer);
 	}
 }
 
 void Cursor::setFaction(const bool isAlliance) noexcept
 {
 	plog_info("Cursor's faction is being set! (faction: %" PRId16 ")", static_cast<int16_t>(isAlliance));
-	m_textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
+	textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
 }
 
 void Cursor::setTexture(const hobGame::CursorType type) noexcept
@@ -132,22 +144,22 @@ void Cursor::setTexture(const hobGame::CursorType type) noexcept
 	{
 		case hobGame::CursorType::IDLE:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE + m_textureIndexOffset]);
+			componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE + textureIndexOffset]);
 			break;
 		}
 		case hobGame::CursorType::SELECT:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT + m_textureIndexOffset]);
+			componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT + textureIndexOffset]);
 			break;
 		}
 		case hobGame::CursorType::MOVE:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE + m_textureIndexOffset]);
+			componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE + textureIndexOffset]);
 			break;
 		}
 		case hobGame::CursorType::ATTACK:
 		{
-			m_componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(m_textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK + m_textureIndexOffset]);
+			componentContainer[CURSOR_COMPONENT_INDEX].updateTexture(textureContainer[CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK + textureIndexOffset]);
 			break;
 		}
 		default:

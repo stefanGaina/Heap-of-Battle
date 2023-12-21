@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Component.hpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Changed order of members.                                   *
  * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the component.                       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -37,7 +55,7 @@ public:
 	 * @param[in] texture: Texture of the component.
 	 * @param destination: Position on the screen and dimension of the texture.
 	*/
-	Component(SDL_Texture* texture = NULL, SDL_Rect destination = { 0L, 0L, 0L, 0L }) noexcept;
+	Component(SDL_Texture* texture = nullptr, SDL_Rect destination = { 0, 0, 0, 0 }) noexcept;
 
 	/**
 	 * @brief Does not destroy the texture.
@@ -47,10 +65,10 @@ public:
 
 	/**
 	 * @brief Draws the texture at the destination.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(void) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief Changes the texture of the component or sets it if not already. Does not destroy the old one.
@@ -86,7 +104,7 @@ public:
 	 * @param corrections: Values added for textures that are loaded from images with blank space.
 	 * @return true - it is inside area | false - it is not inside area.
 	*/
-	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0L, .y = 0L, .w = 0L, .h = 0L }) const noexcept;
+	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0, .y = 0, .w = 0, .h = 0 }) const noexcept;
 
 	/**
 	 * @brief Queries for the texture that is used for the drawing.
@@ -106,12 +124,12 @@ private:
 	/**
 	 * @brief Position on the screen and dimension of the texture.
 	*/
-	SDL_Rect m_destination;
+	SDL_Rect destination;
 
 	/**
 	 * @brief Texture that will be drawn. This class does not have ownership over it.
 	*/
-	SDL_Texture* m_texture;
+	SDL_Texture* texture;
 };
 
 } /*< namespace hob */

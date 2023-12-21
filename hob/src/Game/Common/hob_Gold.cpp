@@ -1,3 +1,20 @@
+/******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
 #include <plog.h>
 
 #include "hob_Gold.hpp"
@@ -9,13 +26,14 @@
 /**
  * @brief Full file path of an image used by the gold.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/gold/" name)
 
 namespace hob
 {
 
-Gold::Gold(const uint8_t amount) noexcept
+Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 	: TextureInitializer
 	{
 		{
@@ -32,16 +50,17 @@ Gold::Gold(const uint8_t amount) noexcept
 			TEXTURE_FILE_PATH("gold")    /*< 10 */
 		},
 		{
-			0ULL, 0ULL, 0ULL, 10ULL
+			0UL, 0UL, 0UL, 10UL
 		},
 		{
 			{
-				{ 15L              , SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ HSCALE / 2L + 15L, SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ HSCALE + 15L     , SCALE / 9L, SCALE / 3L, SCALE / 3L },
-				{ 2 * HSCALE + 5L  , SCALE / 9L, SCALE / 3L, SCALE / 3L }
+				{ 15             , SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ HSCALE + 15    , SCALE / 9, SCALE / 3, SCALE / 3 },
+				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }
 			}
-		}
+		},
+		{ renderer }
 	}
 	, SoundInitializer
 	{
@@ -49,59 +68,59 @@ Gold::Gold(const uint8_t amount) noexcept
 			HOB_SOUNDS_FILE_PATH("gold_received")
 		}
 	}
-	, m_queue         {}
-	, m_previousAmount{ amount }
+	, queue         {}
+	, previousAmount{ amount }
 {
-	--m_previousAmount;
-	update(m_previousAmount + 1U);
+	--previousAmount;
+	update(previousAmount + 1U);
 }
 
-void Gold::draw(void) noexcept
+void Gold::draw(SDL_Renderer* const renderer) noexcept
 {
 	uint8_t amount = 0U;
 
 	plog_verbose("Gold is being drawn.");
-	while (false == m_queue.isEmpty())
+	while (false == queue.isEmpty())
 	{
-		amount = m_queue.get();
+		amount = queue.get();
 
-		m_componentContainer[2].updateTexture(m_textureContainer[amount % 10]);
+		componentContainer[2].updateTexture(textureContainer[amount % 10]);
 		amount /= 10;
 		if (0U == amount)
 		{
-			m_componentContainer[1].updateTexture(NULL);
-			m_componentContainer[0].updateTexture(NULL);
+			componentContainer[1].updateTexture(nullptr);
+			componentContainer[0].updateTexture(nullptr);
 			continue;
 		}
 
-		m_componentContainer[1].updateTexture(m_textureContainer[amount % 10]);
+		componentContainer[1].updateTexture(textureContainer[amount % 10]);
 		amount /= 10;
 		if (0U == amount)
 		{
-			m_componentContainer[0].updateTexture(NULL);
+			componentContainer[0].updateTexture(nullptr);
 			continue;
 		}
-		m_componentContainer[0].updateTexture(m_textureContainer[amount % 10]);
+		componentContainer[0].updateTexture(textureContainer[amount % 10]);
 	}
 
-	TextureInitializer::draw();
+	TextureInitializer::draw(renderer);
 }
 
 void Gold::update(const uint8_t amount) noexcept
 {
 	plog_trace("Gold is being updated. (amount: %" PRIu8 ")", amount);
-	if (amount == m_previousAmount)
+	if (amount == previousAmount)
 	{
 		return;
 	}
 
-	if (amount > m_previousAmount)
+	if (amount > previousAmount)
 	{
 		plog_verbose("Gold increased.");
-		m_soundContainer[0].play();
+		soundContainer[0].play();
 	}
-	m_previousAmount = amount;
-	m_queue.put(m_previousAmount);
+	previousAmount = amount;
+	queue.put(previousAmount);
 }
 
 } /*< namespace hob */

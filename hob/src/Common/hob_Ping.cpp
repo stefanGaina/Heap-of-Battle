@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Ping.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Ping.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -26,22 +44,20 @@
 namespace hob
 {
 
-bool Ping::s_interruptWait = true;
+bool Ping::interruptWait = true;
 
 Ping::Ping(void) noexcept
-	: m_queue           {}
-	, m_component       {}
-	, m_texture         {}
-	, m_font            { NULL }
-	, m_pingThread      {}
-	, m_waitTime        {}
-	, m_waitMutex       {}
-	, m_messageStartTime{ 0ULL }
-	, m_previousLatency { 1000U }
+	: queue           {}
+	, component       {}
+	, texture         {}
+	, font            { nullptr }
+	, pingThread      {}
+	, waitTime        {}
+	, waitMutex       {}
+	, messageStartTime{ 0UL }
+	, previousLatency { 1000U }
 {
-	plog_trace("Ping is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ") (3: %" PRIu64 ") (4: %" PRIu64 ") "
-		"(5: %" PRIu64 ") (6: %" PRIu64 ") (7: %" PRIu64 ") (8: %" PRIu64 ") (9: %" PRIu64 ")", sizeof(*this), sizeof(m_queue), sizeof(m_component),
-		sizeof(m_texture), sizeof(m_font), sizeof(m_pingThread), sizeof(m_waitTime), sizeof(m_waitMutex), sizeof(m_messageStartTime), sizeof(m_previousLatency));
+	plog_trace("Ping is being constructed.");
 }
 
 Ping::~Ping(void) noexcept
@@ -50,84 +66,84 @@ Ping::~Ping(void) noexcept
 	clean();
 }
 
-void Ping::draw(void) noexcept
+void Ping::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { 0xFF, 0xFF, 0x00, 0xFF };
+	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
 	std::string text             = "";
 	Coordinate  textureDimension = {};
-	uint64_t    latency          = 0ULL;
+	uint64_t    latency          = 0UL;
 
 	plog_verbose("Ping is being drawn.");
-	while (false == m_queue.isEmpty())
+	while (false == queue.isEmpty())
 	{
-		latency = m_queue.get();
-		if (latency == m_previousLatency)
+		latency = queue.get();
+		if (latency == previousLatency)
 		{
 			plog_verbose("Ping does not need to be updated.");
 			continue;
 		}
-		m_previousLatency = latency;
-		text              = std::to_string(latency) + " ms";
+		previousLatency = latency;
+		text            = std::to_string(latency) + " ms";
 
-		m_texture.destroy();
-		textureDimension = m_texture.create(text, m_font, YELLOW);
+		texture.destroy();
+		textureDimension = texture.create(text, font, YELLOW, renderer);
 
-		m_component.updateTexture(m_texture);
-		m_component.updatePosition({ .x = 30L * HSCALE - HSCALE + 7L, .y = 0L, .w = textureDimension.x, .h = textureDimension.y });
+		component.updateTexture(texture);
+		component.updatePosition({ .x = 30 * HSCALE - HSCALE + 7, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
 	}
-	m_component.draw();
+	component.draw(renderer);
 }
 
-void Ping::update(void) noexcept
+void Ping::update(const Socket& socket) noexcept
 {
-	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000ULL;
+	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
 	const uint64_t pingEndTime = SDL_GetTicks64();
-	const uint64_t latency     = SECOND_IN_MILLISECONDS <= pingEndTime - m_messageStartTime ? SECOND_IN_MILLISECONDS - 1ULL : pingEndTime - m_messageStartTime;
+	const uint64_t latency     = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
 
 	plog_verbose("Ping is being updated. (latency: %" PRIu64 ")", latency);
-	if (true == m_pingThread.joinable())
+	if (true == pingThread.joinable())
 	{
-		m_queue.put(latency);
+		queue.put(latency);
 		return;
 	}
 
-	m_font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12L);
-	if (NULL == m_font)
+	font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12);
+	if (nullptr == font)
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 		return;
 	}
-	s_interruptWait = false;
-	m_pingThread    = std::thread{ std::bind(&Ping::sendPings, this) };
+	interruptWait = false;
+	pingThread    = std::thread{ std::bind(&Ping::sendPings, this, &socket) };
 }
 
 void Ping::clean(void) noexcept
 {
 	plog_debug("Ping is being cleaned!");
 
-	TTF_CloseFont(m_font);
-	m_texture.destroy();
-	m_component.updateTexture(NULL);
+	TTF_CloseFont(font);
+	texture.destroy();
+	component.updateTexture(nullptr);
 
-	m_waitMutex.lock();
-	s_interruptWait = true;
-	m_waitMutex.unlock();
+	waitMutex.lock();
+	interruptWait = true;
+	waitMutex.unlock();
 
-	m_waitTime.notify_all();
+	waitTime.notify_all();
 
-	if (true == m_pingThread.joinable())
+	if (true == pingThread.joinable())
 	{
 		plog_debug("Ping thread is being joined.");
-		m_pingThread.join();
+		pingThread.join();
 		plog_debug("Ping thread has joined.");
 	}
 }
 
-void Ping::sendPings(void) noexcept
+void Ping::sendPings(const Socket* const socket) noexcept
 {
-	std::unique_lock<std::mutex> lockWait(m_waitMutex);
+	std::unique_lock<std::mutex> lockWait(waitMutex);
 	hobServer::Message           pingMessage = {};
 
 	plog_trace("Send pings thread has started.");
@@ -135,13 +151,13 @@ void Ping::sendPings(void) noexcept
 
 	while (true)
 	{
-		m_messageStartTime = SDL_GetTicks64();
-		Socket::getInstance().sendUpdate(pingMessage);
+		messageStartTime = SDL_GetTicks64();
+		socket->sendUpdate(pingMessage);
 
 		plog_verbose("Waiting 1 second.");
-		m_waitTime.wait_for(lockWait, std::chrono::milliseconds(1000LL), [] { return s_interruptWait; });
+		waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
 
-		if (true == s_interruptWait)
+		if (true == interruptWait)
 		{
 			plog_debug("Send pings thread has been interrupted.");
 			break;

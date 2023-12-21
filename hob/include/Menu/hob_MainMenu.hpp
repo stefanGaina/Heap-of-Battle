@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_MainMenu.hpp                                                                             *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Fixed comments.                                             *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the main menu scene.                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -18,6 +36,7 @@
 #include "hob_Loop.hpp"
 #include "hob_TextureInitializer.hpp"
 #include "hob_SoundInitializer.hpp"
+#include "hob_Music.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -76,9 +95,11 @@ class MainMenu final : public Loop
 public:
 	/**
 	 * @brief Loads the textures and sounds needed for this scene.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
+	 * @param cursor: Reference to the cursor object.
+	 * @param music: Reference to the music object.
 	*/
-	MainMenu(void) noexcept;
+	MainMenu(SDL_Renderer* renderer, Cursor& cursor, Music& music) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures and sound needed for this scene.
@@ -105,7 +126,12 @@ private:
 	/**
 	 * @brief Holds the index of the component that was previously pressed.
 	*/
-	size_t m_clickDownIndex;
+	size_t clickDownIndex;
+
+	/**
+	 * @brief Reference to the music object.
+	*/
+	Music& music;
 };
 
 } /*< namespace hob */

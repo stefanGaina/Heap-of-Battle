@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Menu.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Refactored.                                                 *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Menu.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -24,6 +42,7 @@
 /**
  * @brief Full file path of an image of a building.
  * @param name: The name of the image (without extension).
+ * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/" name)
 
@@ -34,7 +53,7 @@
 namespace hob
 {
 
-Menu::Menu(const uint8_t gold) noexcept
+Menu::Menu(SDL_Renderer* const renderer, const uint8_t gold) noexcept
 	: TextureInitializer
 	{
 		{
@@ -46,63 +65,64 @@ Menu::Menu(const uint8_t gold) noexcept
 			TEXTURE_FILE_PATH("hourglass_inactive")                                                                                         /*< 5 */
 		},
 		{
-			0ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			5ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			true == Faction::getInstance().getFaction() ? 3ULL : 4ULL,
-			1ULL
+			0UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			5UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
+			1UL
 		},
 		{
 			{
-				{ 0L              , 0L                       , 6L * HSCALE, 15L * HSCALE },
-				{ 0L              , 0L                       , 3L * HSCALE, 1L  * HSCALE },
-				{ 3L * HSCALE     , 0L                       , 3L * HSCALE, 1L  * HSCALE },
-				{ 5L * HSCALE + 3L, 1L                       , 1L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 1L * HSCALE + HSCALE / 2L, 3L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 3L * HSCALE              , 3L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 4L * HSCALE + HSCALE / 2L, 3L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 6L * HSCALE              , 3L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 7L * HSCALE + HSCALE / 2L, 3L * HSCALE, 1L  * HSCALE },
-				{ 0L              , 0L                       , 0L         , 0L           }
+				{ 0             , 0                      , 6 * HSCALE, 15 * HSCALE },
+				{ 0             , 0                      , 3 * HSCALE, 1  * HSCALE },
+				{ 3 * HSCALE    , 0                      , 3 * HSCALE, 1  * HSCALE },
+				{ 5 * HSCALE + 3, 1                      , 1 * HSCALE, 1  * HSCALE },
+				{ 0             , 1 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
+				{ 0             , 3 * HSCALE             , 3 * HSCALE, 1  * HSCALE },
+				{ 0             , 4 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
+				{ 0             , 6 * HSCALE             , 3 * HSCALE, 1  * HSCALE },
+				{ 0             , 7 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
+				{ 0             , 0                      , 0         , 0           }
 			}
-		}
+		},
+		{ renderer }
 	}
-	, m_timer{}
-	, m_gold { gold }
-	, m_icons{}
+	, timer{ renderer }
+	, gold { renderer, gold }
+	, icons{ renderer }
 {
 	plog_trace("Game menu is being constructed.");
 }
 
-void Menu::draw(void) noexcept
+void Menu::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Game menu is being drawn.");
 
-	TextureInitializer::draw();
-	m_timer.draw();
-	m_gold.draw();
-	m_icons.draw();
+	TextureInitializer::draw(renderer);
+	timer.draw(renderer);
+	gold.draw(renderer);
+	icons.draw(renderer);
 }
 
 Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 {
-	size_t index = 0ULL;
+	size_t index = 0UL;
 
 	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
-	if (6L * HSCALE < click.x || 15L * HSCALE < click.y)
+	if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
 	{
 		switch (menuMode)
 		{
 			case hobGame::MenuMode::EMPTY:
 			{
-				for (index = 4ULL; index < 9ULL; ++index)
+				for (index = 4UL; index < 9UL; ++index)
 				{
-					m_componentContainer[index].updateTexture(NULL);
+					componentContainer[index].updateTexture(nullptr);
 				}
 				break;
 			}
@@ -112,11 +132,11 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 			}
 			case hobGame::MenuMode::ALLIANCE_KEEP:
 			{
-				for (index = 4ULL; index < 9ULL; ++index)
+				for (index = 4UL; index < 9UL; ++index)
 				{
-					m_componentContainer[index].updateTexture(m_textureContainer[true == Faction::getInstance().getFaction() ? 3ULL : 4ULL]);
+					componentContainer[index].updateTexture(textureContainer[true == Faction::getInstance().getFaction() ? 3UL : 4UL]);
 				}
-				m_icons.setAllianceKeep();
+				icons.setAllianceKeep();
 				break;
 			}
 			case hobGame::MenuMode::HORDE_KEEP:
@@ -132,12 +152,12 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 		return Action::NOTHING;
 	}
 
-	if (NULL == m_componentContainer[9ULL].getRawTexture())
+	if (nullptr == componentContainer[9].getRawTexture())
 	{
 		return Action::NOTHING;
 	}
 
-	if (3L * HSCALE > click.x && HSCALE + HSCALE / 2L < click.y && 2L * HSCALE + HSCALE / 2L > click.y)
+	if (3 * HSCALE > click.x && HSCALE + HSCALE / 2 < click.y && 2 * HSCALE + HSCALE / 2 > click.y)
 	{
 		return Action::RECRUIT_INFANTRY;
 	}
@@ -145,55 +165,55 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 	return Action::NOTHING;
 }
 
-void Menu::handleHover(Coordinate mouse) noexcept
+void Menu::handleHover(const Coordinate mouse) noexcept
 {
-	int32_t y = 0L;
+	int32_t y = 0;
 
 	plog_verbose("Menu is handling hover. (mouse: %" PRId32 ", % " PRId32 ")", mouse.x, mouse.y);
 
-	m_componentContainer[9ULL].updateTexture(NULL);
-	if (0L >= mouse.x || 0L >= mouse.y)
+	componentContainer[9].updateTexture(nullptr);
+	if (0 >= mouse.x || 0 >= mouse.y)
 	{
 		return;
 	}
 
-	if (3L * HSCALE > mouse.x && HSCALE > mouse.y)
+	if (3 * HSCALE > mouse.x && HSCALE > mouse.y)
 	{
-		m_componentContainer[9ULL].updateTexture(true == Faction::getInstance().getFaction() ? m_textureContainer[1ULL] : m_textureContainer[2ULL]);
-		m_componentContainer[9ULL].updatePosition({ .x = 0L, .y = 0L, .w = 3L * HSCALE, .h = HSCALE });
+		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
+		componentContainer[9].updatePosition({ .x = 0, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
 		return;
 	}
 
-	if (3L * HSCALE < mouse.x && 6L * HSCALE > mouse.x && HSCALE > mouse.y)
+	if (3 * HSCALE < mouse.x && 6 * HSCALE > mouse.x && HSCALE > mouse.y)
 	{
-		m_componentContainer[9ULL].updateTexture(true == Faction::getInstance().getFaction() ? m_textureContainer[1ULL] : m_textureContainer[2ULL]);
-		m_componentContainer[9ULL].updatePosition({ .x = 3L * HSCALE, .y = 0L, .w = 3L * HSCALE, .h = HSCALE });
+		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
+		componentContainer[9].updatePosition({ .x = 3 * HSCALE, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
 		return;
 	}
 
-	if (NULL == m_componentContainer[4ULL].getRawTexture())
-	{
-		return;
-	}
-
-	if (3L * HSCALE > mouse.x && HSCALE + HSCALE / 2L < mouse.y && 2L * HSCALE + HSCALE / 2L > mouse.y)
-	{
-		m_componentContainer[9ULL].updateTexture(true == Faction::getInstance().getFaction() ? m_textureContainer[1ULL] : m_textureContainer[2ULL]);
-		m_componentContainer[9ULL].updatePosition({ .x = 0L, .y = HSCALE + HSCALE / 2L, .w = 3L * HSCALE, .h = HSCALE });
-		return;
-	}
-
-	if (NULL == m_componentContainer[5ULL].getRawTexture())
+	if (nullptr == componentContainer[4].getRawTexture())
 	{
 		return;
 	}
 
-	for (y = 3L * HSCALE; y < 9L * HSCALE; y += HSCALE + HSCALE / 2L)
+	if (3 * HSCALE > mouse.x && HSCALE + HSCALE / 2 < mouse.y && 2 * HSCALE + HSCALE / 2 > mouse.y)
 	{
-		if (3L * HSCALE > mouse.x && y < mouse.y && y + HSCALE > mouse.y)
+		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
+		componentContainer[9].updatePosition({ .x = 0, .y = HSCALE + HSCALE / 2, .w = 3 * HSCALE, .h = HSCALE });
+		return;
+	}
+
+	if (nullptr == componentContainer[5].getRawTexture())
+	{
+		return;
+	}
+
+	for (y = 3 * HSCALE; y < 9 * HSCALE; y += HSCALE + HSCALE / 2)
+	{
+		if (3 * HSCALE > mouse.x && y < mouse.y && y + HSCALE > mouse.y)
 		{
-			m_componentContainer[9ULL].updateTexture(true == Faction::getInstance().getFaction() ? m_textureContainer[1ULL] : m_textureContainer[2ULL]);
-			m_componentContainer[9ULL].updatePosition({ .x = 0L, .y = y, .w = 3L * HSCALE, .h = HSCALE });
+			componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
+			componentContainer[9].updatePosition({ .x = 0, .y = y, .w = 3 * HSCALE, .h = HSCALE });
 			return;
 		}
 	}
@@ -201,12 +221,12 @@ void Menu::handleHover(Coordinate mouse) noexcept
 
 void Menu::updateTimer(const uint16_t seconds, const bool isAlliance) noexcept
 {
-	m_timer.update(seconds, isAlliance);
+	timer.update(seconds, isAlliance);
 }
 
 void Menu::updateGold(const uint8_t amount) noexcept
 {
-	m_gold.update(amount);
+	gold.update(amount);
 }
 
 } /*< namespace hob */

@@ -1,8 +1,26 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_FramesPerSecond.hpp                                                                      *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Change order of members.                                    *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the frames per second.               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -34,9 +52,9 @@ class FramesPerSecond final : public IDrawable
 public:
 	/**
 	 * @brief Loads font and initializes frames to 0 until a second has passed.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	*/
-	FramesPerSecond(void) noexcept;
+	FramesPerSecond(SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Destroys the textures and closes the font.
@@ -46,10 +64,10 @@ public:
 
 	/**
 	 * @brief Draws in top right corner in yellow "x FPS".
-	 * @param void
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(void) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 
 private:
 	/**
@@ -57,38 +75,38 @@ private:
 	 * @param framesPerSecond: How many frames were in the second.
 	 * @return void
 	*/
-	void update(uint16_t framesPerSecond) noexcept;
+	void update(uint16_t framesPerSecond, SDL_Renderer* renderer) noexcept;
 
 private:
 	/**
 	 * @brief The component of the text display in top right corner.
 	*/
-	Component m_component;
+	Component component;
 
 	/**
 	 * @brief The texture of the displayed text.
 	*/
-	Texture m_texture;
+	Texture texture;
 
 	/**
 	 * @brief The font of the text written in the texture.
 	*/
-	TTF_Font* m_font;
+	TTF_Font* font;
 
 	/**
 	 * @brief The time when the first counted frame started.
 	*/
-	uint64_t m_FrameStartTime;
+	uint64_t FrameStartTime;
 
 	/**
 	 * @brief How many frames were counted in a second.
 	*/
-	uint16_t m_framesCount;
+	uint16_t framesCount;
 
 	/**
 	 * @brief The previous frames count to not recreate the same texture.
 	*/
-	uint16_t m_previousFramesCount;
+	uint16_t previousFramesCount;
 };
 
 } /*< namespace hob */

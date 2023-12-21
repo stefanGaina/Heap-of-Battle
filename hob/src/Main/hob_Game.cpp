@@ -1,9 +1,27 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Game.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.07.2023  Gaina Stefan               Added WSA.                                                  *
  * 29.08.2023  Gaina Stefan               Added LAN menu.                                             *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Game.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -15,7 +33,6 @@
 
 #include <iostream>
 #include <memory>
-#include <winsock2.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
@@ -38,11 +55,8 @@ namespace hob
 
 void Game::run(void) noexcept(false)
 {
-	Window window = {};
-
-#ifndef DEVEL_BUILD
-	Window::hideTerminal();
-#endif /*< DEVEL_BUILD */
+	Window        window   = {};
+	SDL_Renderer* renderer = nullptr;
 
 	try
 	{
@@ -55,21 +69,24 @@ void Game::run(void) noexcept(false)
 
 	try
 	{
-		window.create();
+		renderer = window.create();
 	}
-	catch(const std::exception& exception)
+	catch (const std::exception& exception)
 	{
 		deinit();
 		throw exception;
 	}
 
 #ifdef DEVEL_BUILD
-	window.logInfo();
+	window.logInfo(renderer);
 #endif /*< DEVEL_BUILD */
 
-	sceneLoop();
+	sceneLoop(renderer);
 
 	window.destroy();
+	SDL_DestroyRenderer(renderer);
+	renderer = nullptr;
+
 	deinit();
 }
 
@@ -81,9 +98,6 @@ void Game::init(void) noexcept(false)
 	SDL_version        sdlVersion       = {};
 	const SDL_version* sdlVersionRef    = IMG_Linked_Version();
 	hobServer::Version serverVersion    = {};
-	WORD               versionRequested = MAKEWORD(2, 2);
-	WSADATA            wsaData          = {};
-	int32_t            errorCode        = 0L;
 
 #ifndef PLOG_STRIP_ALL
 	if (PLOG_VERSION_MAJOR != plogVersion.major
@@ -93,11 +107,8 @@ void Game::init(void) noexcept(false)
 		(void)fprintf(stdout, "Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 		throw std::exception();
 	}
-#ifdef DEVEL_BUILD
-	plog_init("hob_logs.txt", true);
-// #else
-// 	plog_init("hob_logs.txt", false);
-#endif /*< DEVEL_BUILD */
+
+	plog_init("hob_logs.txt");
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 
 	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
@@ -150,53 +161,32 @@ void Game::init(void) noexcept(false)
 		throw std::exception();
 	}
 
-	errorCode = WSAStartup(versionRequested, &wsaData);
-	if (ERROR_SUCCESS != errorCode)
+	if (0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
-		plog_error("WSA failed to be started! (error code: %" PRId32 ")", errorCode);
+		plog_fatal("SDL failed to be initialized! (error message: %s)", SDL_GetError());
 		throw std::exception();
 	}
 
-	if (2 != LOBYTE(wsaData.wVersion) || 2 != HIBYTE(wsaData.wVersion))
+	if (IMG_INIT_PNG != IMG_Init(IMG_INIT_PNG))
 	{
-		plog_error("Could not find a usable version of Winsock.dll!");
-		throw std::exception();
-	}
-
-	errorCode = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-	if (0L != errorCode)
-	{
-		plog_fatal("SDL failed to be initialized! (error code: %" PRId32 ") (error message: %s)", errorCode, SDL_GetError());
-		(void)WSACleanup();
-		throw std::exception();
-	}
-
-	errorCode = IMG_Init(IMG_INIT_PNG);
-	if (IMG_INIT_PNG != errorCode)
-	{
-		plog_fatal("SDL image failed to be initializzed! (error code: %" PRId32 ") (error message: %s)", errorCode, IMG_GetError());
-		(void)WSACleanup();
+		plog_fatal("SDL image failed to be initializzed! (error message: %s)", IMG_GetError());
 		SDL_Quit();
 
 		throw std::exception();
 	}
 
-	errorCode = Mix_OpenAudio(44100L, MIX_DEFAULT_FORMAT, 2L, 2048L);
-	if (0L > errorCode)
+	if (0 > Mix_OpenAudio(44100L, MIX_DEFAULT_FORMAT, 2L, 2048L))
 	{
-		plog_fatal("Mixer failed to be opened! (error code: %" PRId32 ") (error message: %s)", errorCode, Mix_GetError());
-		(void)WSACleanup();
+		plog_fatal("Mixer failed to be opened! (error message: %s)", Mix_GetError());
 		IMG_Quit();
 		SDL_Quit();
 
 		throw std::exception();
 	}
 
-	errorCode = TTF_Init();
-	if (0L != errorCode)
+	if (0 != TTF_Init())
 	{
-		plog_error("TTF failed to be initialized! (error code: %" PRId32 ") (error message: %s)", errorCode, TTF_GetError());
-		(void)WSACleanup();
+		plog_error("TTF failed to be initialized! (error message: %s)", TTF_GetError());
 		Mix_Quit();
 		IMG_Quit();
 		SDL_Quit();
@@ -208,36 +198,33 @@ void Game::init(void) noexcept(false)
 
 void Game::deinit(void) noexcept
 {
-	int32_t errorCode = ERROR_SUCCESS;
-
-	errorCode = WSACleanup();
-	if (ERROR_SUCCESS != errorCode)
-	{
-		plog_warn("WSA failed to be cleaned! (error code: %" PRId32 ")", errorCode);
-	}
-
 	TTF_Quit();
-	plog_info("SDL TTF was cleaned up!");
+	plog_info("SDL TTF has been cleaned up!");
 
 	Mix_Quit();
-	plog_info("SDL mixer was cleaned up!");
+	plog_info("SDL mixer has been cleaned up!");
 
 	IMG_Quit();
-	plog_info("SDL image was cleaned up!");
+	plog_info("SDL image has been cleaned up!");
 
 	SDL_Quit();
-	plog_info("SDL was cleaned up!");
+	plog_info("SDL has been cleaned up!");
 
+	plog_info("Plog is being deinitialized!");
 #ifndef PLOG_STRIP_ALL
-	// plog_info("Plog is being deinitialized!");
-	// plog_deinit(); <- Calling this is optional, commented for logs in destructors to appear in file.
+	plog_deinit();
 #endif /*< PLOG_STRIP_ALL */
 }
 
-void Game::sceneLoop(void) noexcept
+void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 {
 	Scene                 nextScene = Scene::MAIN_MENU;
 	std::unique_ptr<Loop> sceneLoop = nullptr;
+	Cursor                cursor    = { renderer };
+	Music                 music     = {};
+	hobServer::Server     server    = {};
+	Socket                socket    = {};
+	Ping                  ping      = {};
 
 	plog_debug("Starting scene loop!");
 	while (true)
@@ -248,7 +235,7 @@ void Game::sceneLoop(void) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<MainMenu>();
+					sceneLoop = std::make_unique<MainMenu>(renderer, cursor, music);
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -261,7 +248,7 @@ void Game::sceneLoop(void) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<LocalMenu>();
+					sceneLoop = std::make_unique<LocalMenu>(renderer, cursor, &ping, music, server, socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -274,7 +261,7 @@ void Game::sceneLoop(void) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<Map1>();
+					sceneLoop = std::make_unique<Map1>(renderer, cursor, &ping, music, server, socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{

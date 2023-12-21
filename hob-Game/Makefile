@@ -1,7 +1,9 @@
 #######################################################################################################
+# Copyright (C) Heap of Battle 2024                                                                   #
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   29.06.2023  Gaina Stefan               Initial version.                                           #
+#   22.12.2023  Gaina Stefan               Ported to Linux.                                           #
 # Description: This Makefile is used to generate the server.                                          #
 #######################################################################################################
 
@@ -14,10 +16,10 @@ INCLUDES = -Iinclude/                \
 
 SOURCES := $(wildcard $(SRC)/*.cpp)
 OBJECTS := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
-LIBRARY := HOB_game.dll
+LIBRARY := libHOB_game.so
 
 ### DEVELOPMENT ###
-all: CFLAGS  += -DDEVEL_BUILD
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD
 all: LDFLAGS += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lplog
 all: build
 
@@ -26,12 +28,12 @@ release: CFLAGS += -O3 -DPLOG_STRIP_ALL
 release: build
 
 ### BUILD ###
-build: | create_dirs $(LIBRARY) copy_library
+build: | create_dirs $(LIBRARY)
 
 ### CREATE DIRECTORIES ###
 create_dirs:
-	if not exist "$(OBJ)" mkdir $(OBJ)
-	if not exist "$(LIB)" mkdir $(LIB)
+	mkdir -p $(OBJ)
+	mkdir -p $(LIB)
 
 ### BINARIES ###
 $(LIBRARY): $(OBJECTS)
@@ -41,11 +43,15 @@ $(LIBRARY): $(OBJECTS)
 $(OBJ)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-### COPY LIBRARY ###
-copy_library:
-	copy $(LIB)\$(LIBRARY) ..\Heap-of-Battle
-
 ### CLEAN ###
 clean:
-	$(RM) $(OBJ)\*
-	$(RM) $(LIB)\*
+	rm -rf $(OBJ)
+	rm -rf $(LIB)
+
+### INSTALL ###
+install:
+	install $(LIB)/$(LIBRARY) ../$(INSTALL_DIRECTORY)/$(LIB)
+
+### UNINSTALL ###
+uninstall:
+	rm -f ../$(INSTALL_DIRECTORY)/$(LIB)/$(LIBRARY)

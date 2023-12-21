@@ -1,13 +1,32 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Loop.cpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Move frames per second in render.                           *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Loop.hpp.                                   *
  * @todo N/A.                                                                                         *
- * @bug The execution is blocked when the window is being moved. This is a SDL limitation on Windows. *
+ * @bug The execution is blocked when the window is being moved. This is a limitation on Windows. (no *
+ * longer the case on Linux because obviously it is better).                                          *
  *****************************************************************************************************/
 
 /******************************************************************************************************
@@ -18,8 +37,6 @@
 #include <plog.h>
 
 #include "hob_Loop.hpp"
-#include "hob_Renderer.hpp"
-#include "hob_Cursor.hpp"
 #include "hob_FramesPerSecond.hpp"
 
 /******************************************************************************************************
@@ -29,22 +46,21 @@
 namespace hob
 {
 
-Ping Loop::s_ping = {};
-
-Loop::Loop(void) noexcept
-	: m_nextScene{ Scene::QUIT }
-	, m_isRunning{ false }
+Loop::Loop(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping) noexcept
+	: renderer { renderer }
+	, cursor   { cursor }
+	, ping     { ping }
+	, nextScene{ Scene::QUIT }
+	, isRunning{ false }
 {
-	SDL_Event event     = {};
-	int32_t   errorCode = 0L;
+	SDL_Event event = {};
 
-	plog_trace("Loop is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")", sizeof(*this), sizeof(m_nextScene), sizeof(m_isRunning));
+	plog_trace("Loop is being constructed.");
 	event.type = SDL_MOUSEMOTION;
 
-	errorCode = SDL_PushEvent(&event);
-	if (1L != errorCode)
+	if (1 != SDL_PushEvent(&event))
 	{
-		plog_warn("Failed to push mouse motion event! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
+		plog_warn("Failed to push mouse motion event! (SDL error message: %s)", SDL_GetError());
 	}
 }
 
@@ -53,64 +69,56 @@ Scene Loop::start(void) noexcept
 	uint8_t failedRenderCount = 0U;
 
 	plog_debug("Loop is being started.");
-	if (true == m_isRunning.load())
+	if (true == isRunning.load())
 	{
 		plog_warn("Loop is already started!");
 		return Scene::QUIT;
 	}
 
-	m_isRunning.store(true);
-	while (true == m_isRunning.load())
+	isRunning.store(true);
+	while (true == isRunning.load())
 	{
 		handleEvents();
 
-SKIP_HANDLE_EVENTS:
-
-		try
+		while (true)
 		{
-			render();
-		}
-		catch (...)
-		{
-			plog_fatal("Render failed, not handling events until graphics synchronize!");
-
-			++failedRenderCount;
-			if (UINT8_MAX == failedRenderCount)
+			try
 			{
-				plog_fatal("Maximum retry attempts reached! (failed count: %" PRIu16 ")", static_cast<uint16_t>(failedRenderCount));
-				return Scene::QUIT;
+				render();
+			}
+			catch (...)
+			{
+				plog_fatal("Render failed, not handling events until graphics synchronize!");
+
+				++failedRenderCount;
+				if (UINT8_MAX == failedRenderCount)
+				{
+					plog_fatal("Maximum retry attempts reached! (failed count: %" PRIu16 ")", static_cast<uint16_t>(failedRenderCount));
+					return Scene::QUIT;
+				}
+
+				continue;
 			}
 
-			goto SKIP_HANDLE_EVENTS;
+			failedRenderCount = 0U;
+			break;
 		}
-		failedRenderCount = 0U;
 	}
 
-	return m_nextScene;
+	return nextScene;
 }
 
 void Loop::stop(const Scene nextScene) noexcept
 {
 	plog_debug("Loop is being stopped.");
-	if (false == m_isRunning.load())
+	if (false == isRunning.load())
 	{
 		plog_warn("Loop is already stopped!");
 		return;
 	}
-	m_nextScene = nextScene;
-	m_isRunning.store(false);
-}
 
-void Loop::pingReceived(void) const noexcept
-{
-	plog_verbose("Ping has been received.");
-	s_ping.update();
-}
-
-void Loop::pingStop(void) const noexcept
-{
-	plog_verbose("Ping is being stopped.");
-	s_ping.clean();
+	this->nextScene = nextScene;
+	isRunning.store(false);
 }
 
 void Loop::handleEvents(void) noexcept
@@ -118,7 +126,7 @@ void Loop::handleEvents(void) noexcept
 	SDL_Event event = {};
 
 	plog_verbose("Events are being handled.");
-	while (1L == SDL_PollEvent(&event))
+	while (1 == SDL_PollEvent(&event))
 	{
 		plog_verbose("Event received.");
 		handleEvent(event);
@@ -127,25 +135,25 @@ void Loop::handleEvents(void) noexcept
 
 void Loop::render(void) noexcept(false)
 {
-	static FramesPerSecond framesPerSecond = {};
-
-	int32_t errorCode = 0L;
+	static FramesPerSecond framesPerSecond = { renderer };
 
 	plog_verbose("Scene is being rendered.");
-
-	errorCode = SDL_RenderClear(Renderer::getInstance().get());
-	if (0L != errorCode)
+	if (0 != SDL_RenderClear(renderer))
 	{
-		plog_error("Renderer failed to be cleared! (error code: %" PRId32 ") (error message: %s)", errorCode, SDL_GetError());
+		plog_error("Renderer failed to be cleared! (error message: %s)", SDL_GetError());
 		throw std::exception();
 	}
 
 	draw();
-	Cursor::getInstance().draw();
-	framesPerSecond.draw();
-	s_ping.draw();
+	cursor.draw(renderer);
+	framesPerSecond.draw(renderer);
 
-	SDL_RenderPresent(Renderer::getInstance().get());
+	if (nullptr != ping)
+	{
+		ping->draw(renderer);
+	}
+
+	SDL_RenderPresent(renderer);
 }
 
 } /*< namespace hob */

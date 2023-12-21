@@ -1,4 +1,21 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Component.cpp                                                                            *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
@@ -6,6 +23,7 @@
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file implements the class defined in hob_Component.hpp.                              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -18,7 +36,6 @@
 #include <plog.h>
 
 #include "hob_Component.hpp"
-#include "hob_Renderer.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -28,48 +45,44 @@ namespace hob
 {
 
 Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noexcept
-	: m_destination{ destination }
-	, m_texture    { texture }
+	: destination{ destination }
+	, texture    { texture }
 {
-	plog_trace("Component is being constructed. (size: %" PRIu64 ") (1: %" PRIu64 ") (2: %" PRIu64 ")",
-		sizeof(*this), sizeof(m_destination), sizeof(m_texture));
+	plog_trace("Component is being constructed.");
 }
 
-void Component::draw(void) noexcept
+void Component::draw(SDL_Renderer* const renderer) noexcept
 {
-	int32_t errorCode = 0L;
-
 	plog_verbose("Component is being drawn.");
-	if (NULL == m_texture)
+	if (nullptr == texture)
 	{
 		plog_verbose("Invalid texture!");
 		return;
 	}
 
-	errorCode = SDL_RenderCopy(Renderer::getInstance().get(), m_texture, NULL, &m_destination);
-	if (0L != errorCode)
+	if (0 != SDL_RenderCopy(renderer, texture, nullptr, &destination))
 	{
-		plog_warn("Renderer failed to copy texture! (error code: %" PRId32 ") (SDL error message: %s)", errorCode, SDL_GetError());
+		plog_warn("Renderer failed to copy texture! (SDL error message: %s)", SDL_GetError());
 	}
 }
 
 void Component::updateTexture(SDL_Texture* const texture) noexcept
 {
 	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture);
-	m_texture = texture;
+	this->texture = texture;
 }
 
 void Component::updateTexture(const Texture& texture) noexcept
 {
 	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture.getRawTexture());
-	m_texture = texture.getRawTexture();
+	this->texture = texture.getRawTexture();
 }
 
 void Component::updatePosition(const SDL_Rect destination) noexcept
 {
 	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		destination.x, destination.y, destination.w, destination.h);
-	m_destination = destination;
+	this->destination = destination;
 }
 
 void Component::correctPosition(const SDL_Rect corrections) noexcept
@@ -77,18 +90,18 @@ void Component::correctPosition(const SDL_Rect corrections) noexcept
 	plog_verbose("Component is being corrected. (corrections: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		corrections.x, corrections.y, corrections.w, corrections.h);
 
-	m_destination.x += corrections.x;
-	m_destination.y += corrections.y;
-	m_destination.w += corrections.w;
-	m_destination.h += corrections.h;
+	destination.x += corrections.x;
+	destination.y += corrections.y;
+	destination.w += corrections.w;
+	destination.h += corrections.h;
 }
 
 bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections) const noexcept
 {
-	int32_t verticalBeginning   = m_destination.y                   + corrections.y;
-	int32_t verticalEnding      = m_destination.y + m_destination.h + corrections.h;
-	int32_t horizontalBeginning = m_destination.x                   + corrections.x;
-	int32_t horizontalEnding    = m_destination.x + m_destination.w + corrections.w;
+	int32_t verticalBeginning   = destination.y                 + corrections.y;
+	int32_t verticalEnding      = destination.y + destination.h + corrections.h;
+	int32_t horizontalBeginning = destination.x                 + corrections.x;
+	int32_t horizontalEnding    = destination.x + destination.w + corrections.w;
 
 	plog_verbose("Checking if mouse is inside component. (mouse: { %" PRId32 ", %" PRId32 " }, corrections: { %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 " })",
 		mouse.x, mouse.y, corrections.x, corrections.y, corrections.w, corrections.h);
@@ -100,12 +113,12 @@ bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections
 SDL_Texture* Component::getRawTexture(void) const noexcept
 {
 	plog_verbose("Texture is being got.");
-	return m_texture;
+	return texture;
 }
 
 bool Component::operator ==(const Texture& texture) const noexcept
 {
-	return texture.getRawTexture() == m_texture;
+	return texture.getRawTexture() == this->texture;
 }
 
 } /*< namespace hob */

@@ -1,10 +1,28 @@
 /******************************************************************************************************
+ * Heap of Battle Copyright (C) 2024                                                                  *
+ *                                                                                                    *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
+ * authors be held liable for any damages arising from the use of this software.                      *
+ *                                                                                                    *
+ * Permission is granted to anyone to use this software for any purpose, including commercial         *
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
+ *                                                                                                    *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
+ *    the original software.                                                                          *
+ * 3. This notice may not be removed or altered from any source distribution.                         *
+******************************************************************************************************/
+
+/******************************************************************************************************
  * @file hob_Loop.hpp                                                                                 *
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 24.07.2023  Gaina Stefan               Removeed frames per second.                                 *
  * 25.08.2023  Gaina Stefan               Added ping monitoring functionality.                        *
  * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
+ * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -20,6 +38,7 @@
 #include <atomic>
 
 #include "hob_Ping.hpp"
+#include "hob_Cursor.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -36,9 +55,11 @@ class Loop
 public:
 	/**
 	 * @brief Loop state is set to not started.
-	 * @param void
+	 * @param renderer: Rendering context of the window.
+	 * @param cursor: Reference to the cursor object.
+	 * @param ping: Reference to the ping object (can be null).
 	*/
-	Loop(void) noexcept;
+	Loop(SDL_Renderer* renderer, Cursor& cursor, Ping* ping) noexcept;
 
 	/**
 	 * @brief Default destructor to avoid polymorphically delete undefined behavior
@@ -60,20 +81,6 @@ protected:
 	 * @return void
 	*/
 	void stop(Scene nextScene) noexcept;
-
-	/**
-	 * @brief Ping from the server has been received.
-	 * @param void
-	 * @return void
-	*/
-	void pingReceived(void) const noexcept;
-
-	/**
-	 * @brief Hide the latency for scenes that do not involve multiplayer.
-	 * @param void
-	 * @return void
-	*/
-	void pingStop(void) const noexcept;
 
 private:
 	/**
@@ -104,21 +111,32 @@ private:
 	*/
 	virtual void draw(void) noexcept = 0;
 
-private:
+protected:
+	/**
+	 * @brief The rendering context of the window.
+	*/
+	SDL_Renderer* renderer;
+
+	/**
+	 * @brief Reference to the cursor object.
+	*/
+	Cursor& cursor;
+
 	/**
 	 * @brief Displays the latency for multiplayer scenes.
 	*/
-	static Ping s_ping;
+	Ping* ping;
 
+private:
 	/**
 	 * @brief The scene that will follow after the current one is finished.
 	*/
-	Scene m_nextScene;
+	Scene nextScene;
 
 	/**
 	 * @brief Flag indicating if the loop is running or is stopped.
 	*/
-	std::atomic_bool m_isRunning;
+	std::atomic<bool> isRunning;
 };
 
 } /*< namespace hob */
