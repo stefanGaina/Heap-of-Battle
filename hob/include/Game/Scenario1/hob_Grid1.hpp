@@ -19,6 +19,7 @@
  * @file hob_Grid1.hpp                                                                                *
  * @date:      @author:                   Reason for change:                                          *
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
+ * 16.01.2024  Gaina Stefan               Removed tab.                                                *
  * @details This file defines the class and method prototypes of the grid of the first scenario.      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -52,7 +53,7 @@ public:
 	 * @return void
 	*/
 	void draw(SDL_Renderer* renderer) noexcept override;
-	
+
 private:
 	/**
 	 * @brief Draws the horizontal lines that are playable and not coresponding to any building.

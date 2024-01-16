@@ -1,5 +1,5 @@
 /******************************************************************************************************
- * Plog Copyright (C) 2023                                                                            *
+ * Plog Copyright (C) 2024                                                                            *
  *                                                                                                    *
  * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
  * authors be held liable for any damages arising from the use of this software.                      *
@@ -8,10 +8,10 @@
  * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
  *                                                                                                    *
  * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- * original software. If you use this software in a product, an acknowledgment in the product         *
- * documentation would be appreciated but is not required.                                            *
+ *    original software. If you use this software in a product, an acknowledgment in the product      *
+ *    documentation would be appreciated but is not required.                                         *
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- * the original software.                                                                             *
+ *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
 ******************************************************************************************************/
 
@@ -19,11 +19,13 @@
  * @file plog.h                                                                                       *
  * @date:      @author:                   Reason for change:                                          *
  * 22.06.2023  Gaina Stefan               Initial version.                                            *
- * 22.06.2023  Gaina Stefan               Add plog_get_version.                                       *
+ * 22.06.2023  Gaina Stefan               Added plog_get_version.                                     *
  * 22.06.2023  Gaina Stefan               Fixed the stripping of logging from compilation.            *
  * 29.06.2023  Gaina Stefan               Moved version to plog_version.h.                            *
  * 10.09.2023  Gaina Stefan               Added terminal mode.                                        *
  * 15.12.2023  Gaina Stefan               Added buffer size.                                          *
+ * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
+ * 13.01.2024  Gaina Stefan               Updated doxygen.                                            *
  * @details This file defines the type definitions and public interface of Plog.                      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -92,7 +94,7 @@
 /**
  * @brief Logs a fatal error message (system is unusable).
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_fatal(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_FATAL, "fatal", __FUNCTION__, format, ##__VA_ARGS__)
@@ -102,7 +104,7 @@
 /**
  * @brief Fatal error messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_fatal(format, ...)
@@ -114,7 +116,7 @@
 /**
  * @brief Logs a non-fatal error message (system is still usable).
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_error(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_ERROR, "error", __FUNCTION__, format, ##__VA_ARGS__)
@@ -124,7 +126,7 @@
 /**
  * @brief Error messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_error(format, ...)
@@ -136,7 +138,7 @@
 /**
  * @brief Logs a warning message (something unusual that might require attention).
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_warn(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_WARN, "warn", __FUNCTION__, format, ##__VA_ARGS__)
@@ -146,7 +148,7 @@
 /**
  * @brief Warning messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_warn(format, ...)
@@ -158,7 +160,7 @@
 /**
  * @brief Logs an information message.
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_info(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_INFO, "info", __FUNCTION__, format, ##__VA_ARGS__)
@@ -168,7 +170,7 @@
 /**
  * @brief Information messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_info(format, ...)
@@ -180,7 +182,7 @@
 /**
  * @brief Logs a message for debugging purposes.
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_debug(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_DEBUG, "debug", __FUNCTION__, format, ##__VA_ARGS__)
@@ -190,7 +192,7 @@
 /**
  * @brief Debug messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_debug(format, ...)
@@ -202,7 +204,7 @@
 /**
  * @brief Logs a message to show the path of the execution.
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_trace(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_TRACE, "trace", __FUNCTION__, format, ##__VA_ARGS__)
@@ -212,7 +214,7 @@
 /**
  * @brief Trace messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_trace(format, ...)
@@ -224,7 +226,7 @@
 /**
  * @brief Logs a message for verbose details.
  * @param format: String that contains the text to be written.
- * @param __VA_ARGS__: The parameters passed in a printf style (optional).
+ * @param VA_ARGS: The parameters passed in a printf style (optional).
  * @return void
 */
 #define plog_verbose(format, ...) plog_internal(E_PLOG_SEVERITY_LEVEL_VERBOSE, "verbose", __FUNCTION__, format, ##__VA_ARGS__)
@@ -234,7 +236,7 @@
 /**
  * @brief Verbose messages are stripped from compilation.
  * @param format: Does not matter.
- * @param __VA_ARGS__: Does not matter.
+ * @param VA_ARGS: Does not matter.
  * @return void
 */
 #define plog_verbose(format, ...)
@@ -271,8 +273,9 @@ extern "C" {
 /**
  * @brief Initializes the plog library, opening the file where the logs will be written. Logging before
  * calling this will not have any effect.
- * @param file_name: Name/path of the existing/to be created file.
- * @return TRUE - initialization has been successful | FALSE - an error occured.
+ * @param file_name: Path to an existing file (that has write rights). If it does not exist one will be created.
+ * @return TRUE - initialization has been successful.
+ * @return FALSE - an error occured.
 */
 extern gboolean plog_init(const gchar* file_name);
 
@@ -285,9 +288,10 @@ extern gboolean plog_init(const gchar* file_name);
 extern void plog_deinit(void);
 
 /**
- * @brief Sets a new severity level.
+ * @brief Sets a new severity level, this will filter logs at runtime.
  * @param severity_level_mask: Bitmask for severity level according to plog_SeverityLevel_t.
  * @return void
+ * @see plog_SeverityLevel_t
 */
 extern void plog_set_severity_level(guint8 severity_level_mask);
 
@@ -330,7 +334,7 @@ extern guint8 plog_get_file_count(void);
 
 /**
  * @brief Sets a new terminal mode.
- * @param terminal_mode: true - the logs will also be printed the terminal | false - the logs will
+ * @param terminal_mode: TRUE - the logs will also be printed the terminal, FALSE - the logs will
  * only be printed in the file.
  * @return void
 */
@@ -339,8 +343,8 @@ extern void plog_set_terminal_mode(gboolean terminal_mode);
 /**
  * @brief Querries the terminal mode.
  * @param void
- * @return TRUE - the logs are also be printed the terminal | FALSE - the logs are only printed in
- * the file.
+ * @return TRUE - the logs are also be printed the terminal.
+ * @return FALSE - the logs are only printed in the file.
 */
 extern gboolean plog_get_terminal_mode(void);
 
@@ -348,7 +352,8 @@ extern gboolean plog_get_terminal_mode(void);
  * @brief Sets a new buffer size.
  * @param buffer_size: Size of the buffer storing the log that will be printed asynchronically (0 means
  * asynchronically logging is disabled).
- * @return TRUE - the buffer size has been successfully set | FALSE - an error occured.
+ * @return TRUE - the buffer size has been successfully set.
+ * @return FALSE - an error occured.
 */
 extern gboolean plog_set_buffer_size(gsize buffer_size);
 

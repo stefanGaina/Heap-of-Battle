@@ -1,0 +1,25 @@
+<map id="hob/include/Game/Common/hob_Chat.hpp" name="hob/include/Game/Common/hob_Chat.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="232,5,435,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="308,393,388,420"/>
+<area shape="rect" id="node3" href="$hob__IDrawable_8hpp.html" title=" " alt="" coords="97,319,244,345"/>
+<area shape="rect" id="node5" href="$hob__ChatFrame_8hpp.html" title=" " alt="" coords="257,95,409,121"/>
+<area shape="rect" id="node9" href="$hob__Texture_8hpp.html" title=" " alt="" coords="297,319,426,345"/>
+<area shape="rect" id="node14" href="$hob__SoundInitializer_8hpp.html" title=" " alt="" coords="452,169,633,196"/>
+<area shape="rect" id="node17" href="$hob__AsyncQueue_8hpp.html" title=" " alt="" coords="792,95,955,121"/>
+<area shape="rect" id="node20" href="$hob__Socket_8hpp.html" title=" " alt="" coords="666,319,790,345"/>
+<area shape="rect" id="node4" title=" " alt="" coords="336,468,395,495"/>
+<area shape="rect" id="node6" href="$hob__TextureInitializer_8hpp.html" title=" " alt="" coords="239,169,428,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="515,244,571,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="427,244,490,271"/>
+<area shape="rect" id="node13" href="$hob__Component_8hpp.html" title=" " alt="" coords="195,244,351,271"/>
+<area shape="rect" id="node10" title=" " alt="" coords="423,393,481,420"/>
+<area shape="rect" id="node11" href="$hob__Types_8hpp.html" title=" " alt="" coords="506,393,625,420"/>
+<area shape="rect" id="node12" title=" " alt="" coords="529,468,612,495"/>
+<area shape="rect" id="node15" href="$hob__Sound_8hpp.html" title=" " alt="" coords="595,244,717,271"/>
+<area shape="rect" id="node16" title=" " alt="" coords="539,319,642,345"/>
+<area shape="rect" id="node18" title=" " alt="" coords="818,169,881,196"/>
+<area shape="rect" id="node19" title=" " alt="" coords="905,169,969,196"/>
+<area shape="rect" id="node21" href="$hobServer__Types_8hpp.html" title=" " alt="" coords="648,393,808,420"/>
+<area shape="rect" id="node22" href="$hobServer__Version_8hpp.html" title=" " alt="" coords="643,468,813,495"/>
+<area shape="rect" id="node23" title=" " alt="" coords="695,543,761,569"/>
+</map>

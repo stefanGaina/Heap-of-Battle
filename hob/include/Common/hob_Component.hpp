@@ -22,6 +22,7 @@
  * 26.08.2023  Gaina Stefan               Changed order of members.                                   *
  * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 16.01.2024  Gaina Stefan               Removed tab.                                                *
  * @details This file defines the class and method prototypes of the component.                       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -90,7 +91,7 @@ public:
 	 * @return void
 	*/
 	void updatePosition(SDL_Rect destination) noexcept;
-	
+
 	/**
 	 * @brief Update position and dimension based on current information.
 	 * @param corrections: Values to be added to the destination.

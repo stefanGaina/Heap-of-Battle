@@ -1,0 +1,7 @@
+<map id="hob::MainMenu" name="hob::MainMenu">
+<area shape="rect" id="node1" title="Main menu scene." alt="" coords="499,71,621,97"/>
+<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="269,5,355,32"/>
+<area shape="rect" id="node3" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,56,451,112"/>
+<area shape="rect" id="node4" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,71,125,97"/>
+<area shape="rect" id="node5" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="187,137,437,178"/>
+</map>

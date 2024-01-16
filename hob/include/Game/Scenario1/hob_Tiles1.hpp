@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 16.01.2024  Gaina Stefan               Removed draw() method.                                      *
  * @details This file defines the class and method prototypes of the tiles of the first scenario.     *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -79,13 +80,6 @@ public:
 	 * @param void
 	*/
 	~Tiles1(void) = default;
-
-	/**
-	 * @brief Draws the tiles.
-	 * @param renderer: Rendering context of the window.
-	 * @return void
-	*/
-	void draw(SDL_Renderer* renderer) noexcept override;
 };
 
 } /*< namespace hob */

@@ -21,8 +21,9 @@
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added chat.                                                 *
  * 29.08.2023  Gaina Stefan               Fixed comment.                                              *
+ * 16.01.2024  Gaina Stefan               Added faction member.                                       *
  * @details This file defines the class and method prototypes of the map of the first scenario.       *
- * @todo N/A.                                                                                         *
+ * @todo Fix doxygen comments.                                                                        *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
@@ -38,6 +39,7 @@
 
 #include "hob_Loop.hpp"
 #include "hob_Music.hpp"
+#include "hob_Faction.hpp"
 #include "hob_Menu.hpp"
 #include "hob_Chat.hpp"
 #include "hob_Tiles1.hpp"
@@ -66,10 +68,11 @@ public:
 	 * @param cursor: Reference to the cursor object.
 	 * @param ping: TODO
 	 * @param music: Reference to the music object.
+	 * @param faction: TODO
 	 * @param server: TODO
 	 * @param socket: TODO
 	*/
-	Map1(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, hobServer::Server& server, Socket& socket) noexcept;
+	Map1(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept;
 
 	/**
 	 * @brief Closes the socket and resets the cursor.
@@ -149,6 +152,11 @@ private:
 	 * @brief TODO
 	*/
 	Music& music;
+
+	/**
+	 * @brief TODO
+	*/
+	const Faction& faction;
 
 	/**
 	 * @brief TODO

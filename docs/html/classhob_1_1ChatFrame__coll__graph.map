@@ -1,0 +1,5 @@
+<map id="hob::ChatFrame" name="hob::ChatFrame">
+<area shape="rect" id="node1" title="Visual of the chat frame and background." alt="" coords="493,27,619,54"/>
+<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,5,445,76"/>
+<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,27,125,54"/>
+</map>

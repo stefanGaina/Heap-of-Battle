@@ -1,0 +1,5 @@
+<map id="hobServer::Message" name="hobServer::Message">
+<area shape="rect" id="node1" title="The message format transmitted over the socket." alt="" coords="31,184,185,211"/>
+<area shape="rect" id="node2" href="$unionhobServer_1_1MessagePayload.html" title="The actual data transmitted over the socket." alt="" coords="5,95,211,121"/>
+<area shape="rect" id="node3" href="$classhobServer_1_1Version.html" title="Encapsulates the version." alt="" coords="36,5,180,32"/>
+</map>

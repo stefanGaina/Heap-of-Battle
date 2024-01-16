@@ -23,6 +23,7 @@
  * 25.08.2023  Gaina Stefan               Added ping monitoring functionality.                        *
  * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 16.01.2024  Gaina Stefan               Added const to members.                                     *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -62,7 +63,7 @@ public:
 	Loop(SDL_Renderer* renderer, Cursor& cursor, Ping* ping) noexcept;
 
 	/**
-	 * @brief Default destructor to avoid polymorphically delete undefined behavior
+	 * @brief Default destructor to avoid polymorphically delete undefined behavior.
 	 * @param void
 	*/
 	virtual ~Loop(void) = default;
@@ -115,7 +116,7 @@ protected:
 	/**
 	 * @brief The rendering context of the window.
 	*/
-	SDL_Renderer* renderer;
+	SDL_Renderer* const renderer;
 
 	/**
 	 * @brief Reference to the cursor object.
@@ -125,7 +126,7 @@ protected:
 	/**
 	 * @brief Displays the latency for multiplayer scenes.
 	*/
-	Ping* ping;
+	Ping* const ping;
 
 private:
 	/**

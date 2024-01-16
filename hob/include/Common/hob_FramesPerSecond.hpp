@@ -21,6 +21,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Change order of members.                                    *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 16.01.2024  Gaina Stefan               Added const to font.                                        *
  * @details This file defines the class and method prototypes of the frames per second.               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -91,7 +92,7 @@ private:
 	/**
 	 * @brief The font of the text written in the texture.
 	*/
-	TTF_Font* font;
+	TTF_Font* const font;
 
 	/**
 	 * @brief The time when the first counted frame started.

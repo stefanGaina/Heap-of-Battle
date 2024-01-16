@@ -5,6 +5,7 @@
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
 #   27.07.2023  Gaina Stefan               Added compilation of server.                               #
 #   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
+#   16.01.2024  Gaina Stefan               Added doxygen                                              #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -22,8 +23,8 @@ GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory coverage_rep
 INFO_FILES = $(COVERAGE_REPORT)/?.info
 
 ### MAKE SUBDIRECTORIES ###
-all: debug install
-production: release install
+all: debug install doxygen
+production: release install doxygen
 
 debug:
 	$(MAKE) -C hob-Server
@@ -71,3 +72,7 @@ ut: ut-clean
 ### CLEAN UNIT-TESTS ###
 ut-clean:
 	rm -rf $(COVERAGE_REPORT)
+
+### MAKE DOXYGEN ###
+doxygen:
+	doxygen docs/doxygen.conf

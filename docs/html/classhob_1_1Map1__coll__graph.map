@@ -1,0 +1,8 @@
+<map id="hob::Map1" name="hob::Map1">
+<area shape="rect" id="node1" title="Main class of the scenario 1." alt="" coords="880,29,971,56"/>
+<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="745,29,831,56"/>
+<area shape="rect" id="node3" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="449,5,532,32"/>
+<area shape="rect" id="node4" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,37,125,64"/>
+<area shape="rect" id="node6" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="175,55,425,111"/>
+<area shape="rect" id="node5" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="556,67,652,93"/>
+</map>

@@ -20,8 +20,9 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 16.01.2024  Gaina Stefan               Removed draw() method.                                      *
  * @details This file defines the class and method prototypes of the buildings of the first scenario. *
- * @todo N/A.                                                                                         *
+ * @todo Add enums for texture indexes.                                                               *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
@@ -60,13 +61,6 @@ public:
 	 * @param void
 	*/
 	~Buildings1(void) = default;
-
-	/**
-	 * @brief Calls the draw method of each building.
-	 * @param renderer: Rendering context of the window.
-	 * @return void
-	*/
-	void draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief Changes the textures of the buildings.

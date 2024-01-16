@@ -1,0 +1,4 @@
+<map id="hob::Grid1" name="hob::Grid1">
+<area shape="rect" id="node1" title="Lines on the map of scenario 1." alt="" coords="21,80,110,107"/>
+<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,5,125,32"/>
+</map>
