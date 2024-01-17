@@ -22,6 +22,7 @@
  * 26.08.2023  Gaina Stefan               Changed order of members.                                   *
  * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the cursor.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -103,7 +104,7 @@ public:
 
 	/**
 	 * @brief Sets from which pool will the cursor choose its textures from.
-	 * @param isAlliance: true - Alliance | false - Horde
+	 * @param isAlliance: true - Alliance, false - Horde.
 	 * @return void
 	*/
 	void setFaction(bool isAlliance) noexcept;

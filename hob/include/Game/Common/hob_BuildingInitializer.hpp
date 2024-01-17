@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added comment.                                              *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added constant for seasons count.                           *
  * @details This file defines the class and method prototypes of the building initializer.            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -40,11 +41,20 @@
 #include "hob_Texture.hpp"
 
 /******************************************************************************************************
- * TYPE DEFINITIONS                                                                                   *
+ * CONSTANTS                                                                                          *
  *****************************************************************************************************/
 
 namespace hob
 {
+
+/**
+ * @brief How many seasons there are.
+*/
+constexpr const size_t SEASONS_COUNT = 4UL;
+
+/******************************************************************************************************
+ * TYPE DEFINITIONS                                                                                   *
+ *****************************************************************************************************/
 
 /**
  * @brief Initializes a list of buildings.
@@ -55,10 +65,10 @@ class BuildingInitializer : public IDrawable
 public:
 	/**
 	 * @brief Initializes a container of buildings.
-	 * @param textures: 4 textures for each building (in order).
+	 * @param textures: Textures for each building (in order).
 	 * @param destinations: Destination for each building.
 	*/
-	BuildingInitializer(std::array<SDL_Texture*, 4UL * BUILDINGS_COUNT> textures, std::array<SDL_Rect, BUILDINGS_COUNT> destinations) noexcept;
+	BuildingInitializer(std::array<SDL_Texture*, SEASONS_COUNT * BUILDINGS_COUNT> textures, std::array<SDL_Rect, BUILDINGS_COUNT> destinations) noexcept;
 
 	/**
 	 * @brief Does not destroy the textures.
@@ -85,7 +95,7 @@ protected:
  *****************************************************************************************************/
 
 template<size_t BUILDINGS_COUNT>
-BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture*, 4UL * BUILDINGS_COUNT> textures,
+BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture*, SEASONS_COUNT * BUILDINGS_COUNT> textures,
 	std::array<SDL_Rect, BUILDINGS_COUNT> destinations) noexcept
 	: buildingContainer{}
 {
@@ -95,7 +105,7 @@ BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture
 	plog_trace("BuildingInitializer is being constructed.");
 	for (; index < BUILDINGS_COUNT; ++index)
 	{
-		textureIndex = 4UL * index;
+		textureIndex = SEASONS_COUNT * index;
 
 		buildingContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL],
 			textures[textureIndex + 3UL], destinations[index]);

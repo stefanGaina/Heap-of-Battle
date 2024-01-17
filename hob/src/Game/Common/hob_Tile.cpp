@@ -48,7 +48,7 @@ Tile::Tile(void) noexcept
 	, springTexture{ nullptr }
 	, component    { nullptr, { 0, 0, 0, 0 } }
 {
-	plog_trace("Tile is being default constructed."); 
+	plog_trace("Tile is being default constructed.");
 }
 
 void Tile::init(SDL_Texture* const summerTexture, SDL_Texture* const autumnTexture, SDL_Texture* const winterTexture,
@@ -94,6 +94,7 @@ void Tile::changeTexture(const Season season) noexcept
 				plog_warn("Tile is not changing texture!");
 				break;
 			}
+
 			component.updateTexture(summerTexture);
 			break;
 		}
@@ -104,6 +105,7 @@ void Tile::changeTexture(const Season season) noexcept
 				plog_warn("Tile is not changing texture!");
 				break;
 			}
+
 			component.updateTexture(autumnTexture);
 			break;
 		}
@@ -114,6 +116,7 @@ void Tile::changeTexture(const Season season) noexcept
 				plog_warn("Tile is not changing texture!");
 				break;
 			}
+
 			component.updateTexture(winterTexture);
 			break;
 		}
@@ -124,6 +127,7 @@ void Tile::changeTexture(const Season season) noexcept
 				plog_warn("Tile is not changing texture!");
 				break;
 			}
+
 			component.updateTexture(springTexture);
 			break;
 		}

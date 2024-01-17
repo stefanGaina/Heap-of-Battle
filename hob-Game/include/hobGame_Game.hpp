@@ -82,7 +82,8 @@ public:
 	/**
 	 * @brief
 	 * @param void
-	 * @return true - it is user's turn | false - it is opponent's turn.
+	 * @return true - it is user's turn.
+	 * @return false - it is opponent's turn.
 	*/
 	bool getTurn(void) const noexcept;
 

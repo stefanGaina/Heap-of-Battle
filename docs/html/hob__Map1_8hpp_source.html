@@ -92,104 +92,105 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 27.07.2023  Gaina Stefan               Initial version.                                            *</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 26.08.2023  Gaina Stefan               Added chat.                                                 *</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 29.08.2023  Gaina Stefan               Fixed comment.                                              *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the map of the first scenario.       *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef HOB_MAP1_H_</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define HOB_MAP1_H_</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Loop_8hpp.html">hob_Loop.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Music_8hpp.html">hob_Music.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Faction_8hpp.html">hob_Faction.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Menu_8hpp.html">hob_Menu.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Chat_8hpp.html">hob_Chat.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Tiles1_8hpp.html">hob_Tiles1.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Buildings1_8hpp.html">hob_Buildings1.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Grid1_8hpp.html">hob_Grid1.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Units_8hpp.html">hob_Units.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobServer__Server_8hpp.html">hobServer_Server.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classhob_1_1Map1.html">   61</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Map1.html">Map1</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1Loop.html">Loop</a></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classhob_1_1Map1.html#a3977a466ccd1f2906b65679228b05678">Map1</a>(SDL_Renderer* <a class="code" href="classhob_1_1Loop.html#acd0d580387a7e988f88ce3992bb9c6b6">renderer</a>, <a class="code" href="classhob_1_1Cursor.html">Cursor</a>&amp; <a class="code" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">cursor</a>, <a class="code" href="classhob_1_1Ping.html">Ping</a>* <a class="code" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">ping</a>, <a class="code" href="classhob_1_1Music.html">Music</a>&amp; music, <span class="keyword">const</span> <a class="code" href="classhob_1_1Faction.html">Faction</a>&amp; faction, <a class="code" href="classhobServer_1_1Server.html">hobServer::Server</a>&amp; server, <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classhob_1_1Map1.html#affd1289e8d7251da9638bed9ea085674">~Map1</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> handleEvent(<span class="keyword">const</span> SDL_Event&amp; event) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> draw(<span class="keywordtype">void</span>) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> receivingFunction(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="classhobGame_1_1Game.html">hobGame::Game</a> game;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="classhob_1_1Tiles1.html">Tiles1</a> tiles;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="classhob_1_1Menu.html">Menu</a> menu;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="classhob_1_1Buildings1.html">Buildings1</a> buildings;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="classhob_1_1Chat.html">Chat</a> chat;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="classhob_1_1Grid1.html">Grid1</a> grid;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <a class="code" href="classhob_1_1Units.html">Units</a> units;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    std::thread receivingThread;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    std::atomic&lt;bool&gt; receivingUpdates;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <a class="code" href="classhob_1_1Music.html">Music</a>&amp; music;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">const</span> <a class="code" href="classhob_1_1Faction.html">Faction</a>&amp; faction;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="classhobServer_1_1Server.html">hobServer::Server</a>&amp; server;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_MAP1_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 16.01.2024  Gaina Stefan               Added faction member.                                       *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the map of the first scenario.       *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @todo Fix doxygen comments.                                                                        *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef HOB_MAP1_H_</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define HOB_MAP1_H_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Loop_8hpp.html">hob_Loop.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Music_8hpp.html">hob_Music.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Faction_8hpp.html">hob_Faction.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Menu_8hpp.html">hob_Menu.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Chat_8hpp.html">hob_Chat.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Tiles1_8hpp.html">hob_Tiles1.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Buildings1_8hpp.html">hob_Buildings1.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Grid1_8hpp.html">hob_Grid1.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Units_8hpp.html">hob_Units.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobServer__Server_8hpp.html">hobServer_Server.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classhob_1_1Map1.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Map1.html">Map1</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1Loop.html">Loop</a></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="classhob_1_1Map1.html#a3977a466ccd1f2906b65679228b05678">Map1</a>(SDL_Renderer* <a class="code" href="classhob_1_1Loop.html#acd0d580387a7e988f88ce3992bb9c6b6">renderer</a>, <a class="code" href="classhob_1_1Cursor.html">Cursor</a>&amp; <a class="code" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">cursor</a>, <a class="code" href="classhob_1_1Ping.html">Ping</a>* <a class="code" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">ping</a>, <a class="code" href="classhob_1_1Music.html">Music</a>&amp; music, <span class="keyword">const</span> <a class="code" href="classhob_1_1Faction.html">Faction</a>&amp; faction, <a class="code" href="classhobServer_1_1Server.html">hobServer::Server</a>&amp; server, <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classhob_1_1Map1.html#affd1289e8d7251da9638bed9ea085674">~Map1</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> handleEvent(<span class="keyword">const</span> SDL_Event&amp; event) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> draw(<span class="keywordtype">void</span>) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> receivingFunction(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="classhobGame_1_1Game.html">hobGame::Game</a> game;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="classhob_1_1Tiles1.html">Tiles1</a> tiles;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="classhob_1_1Menu.html">Menu</a> menu;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="classhob_1_1Buildings1.html">Buildings1</a> buildings;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="classhob_1_1Chat.html">Chat</a> chat;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="classhob_1_1Grid1.html">Grid1</a> grid;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="classhob_1_1Units.html">Units</a> units;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    std::thread receivingThread;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    std::atomic&lt;bool&gt; receivingUpdates;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <a class="code" href="classhob_1_1Music.html">Music</a>&amp; music;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">const</span> <a class="code" href="classhob_1_1Faction.html">Faction</a>&amp; faction;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <a class="code" href="classhobServer_1_1Server.html">hobServer::Server</a>&amp; server;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;};</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_MAP1_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html"><div class="ttname"><a href="classhobGame_1_1Game.html">hobGame::Game</a></div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:61</div></div>
-<div class="ttc" id="aclasshobServer_1_1Server_html"><div class="ttname"><a href="classhobServer_1_1Server.html">hobServer::Server</a></div><div class="ttdoc">Server for matches.</div><div class="ttdef"><b>Definition:</b> hobServer_Server.hpp:53</div></div>
-<div class="ttc" id="aclasshob_1_1Buildings1_html"><div class="ttname"><a href="classhob_1_1Buildings1.html">hob::Buildings1</a></div><div class="ttdoc">Graphical representation of all the buildings used in scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.hpp:50</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html"><div class="ttname"><a href="classhob_1_1Chat.html">hob::Chat</a></div><div class="ttdoc">Visual representation of chat box and messages.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:76</div></div>
-<div class="ttc" id="aclasshob_1_1Cursor_html"><div class="ttname"><a href="classhob_1_1Cursor.html">hob::Cursor</a></div><div class="ttdoc">Provides a way to customize the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Cursor.hpp:76</div></div>
-<div class="ttc" id="aclasshob_1_1Faction_html"><div class="ttname"><a href="classhob_1_1Faction.html">hob::Faction</a></div><div class="ttdoc">Global user faction (Alliance | Horde).</div><div class="ttdef"><b>Definition:</b> hob_Faction.hpp:50</div></div>
-<div class="ttc" id="aclasshob_1_1Grid1_html"><div class="ttname"><a href="classhob_1_1Grid1.html">hob::Grid1</a></div><div class="ttdoc">Lines on the map of scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Grid1.hpp:47</div></div>
-<div class="ttc" id="aclasshob_1_1Loop_html"><div class="ttname"><a href="classhob_1_1Loop.html">hob::Loop</a></div><div class="ttdoc">Abstract class that provides the inherited mechanism to keeping up a scene.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:54</div></div>
-<div class="ttc" id="aclasshob_1_1Loop_html_a94a2ff7e065743776569aabef6cd1869"><div class="ttname"><a href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">hob::Loop::cursor</a></div><div class="ttdeci">Cursor &amp; cursor</div><div class="ttdoc">Reference to the cursor object.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:123</div></div>
-<div class="ttc" id="aclasshob_1_1Loop_html_ab1c071aad9aea8eff01cd7d6414841a4"><div class="ttname"><a href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">hob::Loop::ping</a></div><div class="ttdeci">Ping *const ping</div><div class="ttdoc">Displays the latency for multiplayer scenes.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:128</div></div>
-<div class="ttc" id="aclasshob_1_1Loop_html_acd0d580387a7e988f88ce3992bb9c6b6"><div class="ttname"><a href="classhob_1_1Loop.html#acd0d580387a7e988f88ce3992bb9c6b6">hob::Loop::renderer</a></div><div class="ttdeci">SDL_Renderer *const renderer</div><div class="ttdoc">The rendering context of the window.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:118</div></div>
-<div class="ttc" id="aclasshob_1_1Map1_html"><div class="ttname"><a href="classhob_1_1Map1.html">hob::Map1</a></div><div class="ttdoc">Main class of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Map1.hpp:62</div></div>
-<div class="ttc" id="aclasshob_1_1Map1_html_a3977a466ccd1f2906b65679228b05678"><div class="ttname"><a href="classhob_1_1Map1.html#a3977a466ccd1f2906b65679228b05678">hob::Map1::Map1</a></div><div class="ttdeci">Map1(SDL_Renderer *renderer, Cursor &amp;cursor, Ping *ping, Music &amp;music, const Faction &amp;faction, hobServer::Server &amp;server, Socket &amp;socket) noexcept</div><div class="ttdoc">Creates the receiving thread and changes the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Map1.cpp:51</div></div>
-<div class="ttc" id="aclasshob_1_1Map1_html_affd1289e8d7251da9638bed9ea085674"><div class="ttname"><a href="classhob_1_1Map1.html#affd1289e8d7251da9638bed9ea085674">hob::Map1::~Map1</a></div><div class="ttdeci">~Map1(void) noexcept</div><div class="ttdoc">Closes the socket and resets the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Map1.cpp:75</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html"><div class="ttname"><a href="classhob_1_1Menu.html">hob::Menu</a></div><div class="ttdoc">Draws in-game menu depending of the user's faction.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:89</div></div>
+<div class="ttc" id="aclasshobServer_1_1Server_html"><div class="ttname"><a href="classhobServer_1_1Server.html">hobServer::Server</a></div><div class="ttdoc">Server for matches.</div><div class="ttdef"><b>Definition:</b> hobServer_Server.hpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Buildings1_html"><div class="ttname"><a href="classhob_1_1Buildings1.html">hob::Buildings1</a></div><div class="ttdoc">Graphical representation of all the buildings used in scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.hpp:52</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html"><div class="ttname"><a href="classhob_1_1Chat.html">hob::Chat</a></div><div class="ttdoc">Visual representation of chat box and messages.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:77</div></div>
+<div class="ttc" id="aclasshob_1_1Cursor_html"><div class="ttname"><a href="classhob_1_1Cursor.html">hob::Cursor</a></div><div class="ttdoc">Provides a way to customize the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Cursor.hpp:77</div></div>
+<div class="ttc" id="aclasshob_1_1Faction_html"><div class="ttname"><a href="classhob_1_1Faction.html">hob::Faction</a></div><div class="ttdoc">Global user faction (Alliance | Horde).</div><div class="ttdef"><b>Definition:</b> hob_Faction.hpp:51</div></div>
+<div class="ttc" id="aclasshob_1_1Grid1_html"><div class="ttname"><a href="classhob_1_1Grid1.html">hob::Grid1</a></div><div class="ttdoc">Lines on the map of scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Grid1.hpp:48</div></div>
+<div class="ttc" id="aclasshob_1_1Loop_html"><div class="ttname"><a href="classhob_1_1Loop.html">hob::Loop</a></div><div class="ttdoc">Abstract class that provides the inherited mechanism to keeping up a scene.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:56</div></div>
+<div class="ttc" id="aclasshob_1_1Loop_html_a94a2ff7e065743776569aabef6cd1869"><div class="ttname"><a href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">hob::Loop::cursor</a></div><div class="ttdeci">Cursor &amp; cursor</div><div class="ttdoc">Reference to the cursor object.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:125</div></div>
+<div class="ttc" id="aclasshob_1_1Loop_html_ab1c071aad9aea8eff01cd7d6414841a4"><div class="ttname"><a href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">hob::Loop::ping</a></div><div class="ttdeci">Ping *const ping</div><div class="ttdoc">Displays the latency for multiplayer scenes.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:130</div></div>
+<div class="ttc" id="aclasshob_1_1Loop_html_acd0d580387a7e988f88ce3992bb9c6b6"><div class="ttname"><a href="classhob_1_1Loop.html#acd0d580387a7e988f88ce3992bb9c6b6">hob::Loop::renderer</a></div><div class="ttdeci">SDL_Renderer *const renderer</div><div class="ttdoc">The rendering context of the window.</div><div class="ttdef"><b>Definition:</b> hob_Loop.hpp:120</div></div>
+<div class="ttc" id="aclasshob_1_1Map1_html"><div class="ttname"><a href="classhob_1_1Map1.html">hob::Map1</a></div><div class="ttdoc">Main class of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Map1.hpp:63</div></div>
+<div class="ttc" id="aclasshob_1_1Map1_html_a3977a466ccd1f2906b65679228b05678"><div class="ttname"><a href="classhob_1_1Map1.html#a3977a466ccd1f2906b65679228b05678">hob::Map1::Map1</a></div><div class="ttdeci">Map1(SDL_Renderer *renderer, Cursor &amp;cursor, Ping *ping, Music &amp;music, const Faction &amp;faction, hobServer::Server &amp;server, Socket &amp;socket) noexcept</div><div class="ttdoc">Creates the receiving thread and changes the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Map1.cpp:52</div></div>
+<div class="ttc" id="aclasshob_1_1Map1_html_affd1289e8d7251da9638bed9ea085674"><div class="ttname"><a href="classhob_1_1Map1.html#affd1289e8d7251da9638bed9ea085674">hob::Map1::~Map1</a></div><div class="ttdeci">~Map1(void) noexcept</div><div class="ttdoc">Closes the socket and resets the cursor.</div><div class="ttdef"><b>Definition:</b> hob_Map1.cpp:76</div></div>
+<div class="ttc" id="aclasshob_1_1Menu_html"><div class="ttname"><a href="classhob_1_1Menu.html">hob::Menu</a></div><div class="ttdoc">Draws in-game menu depending of the user's faction.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:90</div></div>
 <div class="ttc" id="aclasshob_1_1Music_html"><div class="ttname"><a href="classhob_1_1Music.html">hob::Music</a></div><div class="ttdoc">Music wrapper.</div><div class="ttdef"><b>Definition:</b> hob_Music.hpp:60</div></div>
 <div class="ttc" id="aclasshob_1_1Ping_html"><div class="ttname"><a href="classhob_1_1Ping.html">hob::Ping</a></div><div class="ttdoc">Displays the latency (milliseconds).</div><div class="ttdef"><b>Definition:</b> hob_Ping.hpp:57</div></div>
-<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:53</div></div>
-<div class="ttc" id="aclasshob_1_1Tiles1_html"><div class="ttname"><a href="classhob_1_1Tiles1.html">hob::Tiles1</a></div><div class="ttdoc">Tiles of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:69</div></div>
+<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Tiles1_html"><div class="ttname"><a href="classhob_1_1Tiles1.html">hob::Tiles1</a></div><div class="ttdoc">Tiles of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:70</div></div>
 <div class="ttc" id="aclasshob_1_1Units_html"><div class="ttname"><a href="classhob_1_1Units.html">hob::Units</a></div><div class="ttdef"><b>Definition:</b> hob_Units.hpp:31</div></div>
 <div class="ttc" id="ahobGame__Game_8hpp_html"><div class="ttname"><a href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a></div></div>
 <div class="ttc" id="ahobServer__Server_8hpp_html"><div class="ttname"><a href="hobServer__Server_8hpp.html">hobServer_Server.hpp</a></div></div>
@@ -202,7 +203,7 @@ $(function() {
 <div class="ttc" id="ahob__Music_8hpp_html"><div class="ttname"><a href="hob__Music_8hpp.html">hob_Music.hpp</a></div></div>
 <div class="ttc" id="ahob__Tiles1_8hpp_html"><div class="ttname"><a href="hob__Tiles1_8hpp.html">hob_Tiles1.hpp</a></div></div>
 <div class="ttc" id="ahob__Units_8hpp_html"><div class="ttname"><a href="hob__Units_8hpp.html">hob_Units.hpp</a></div></div>
-<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:43</div></div>
+<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

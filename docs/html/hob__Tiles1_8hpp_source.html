@@ -91,61 +91,62 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @date:      @author:                   Reason for change:                                          *</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 29.07.2023  Gaina Stefan               Initial version.                                            *</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the tiles of the first scenario.     *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef HOB_TILES1_HPP_</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define HOB_TILES1_HPP_</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__TextureInitializer_8hpp.html">hob_TextureInitializer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__TileInitializer_8hpp.html">hob_TileInitializer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> * CONSTANTS                                                                                          *</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">   48</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">TILES1_COUNT</a> = 13UL;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">   53</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">TILES1_TEXTURES_COUNT</a> = 34UL;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">   58</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">TILES1_COMPONENTS_COUNT</a> = 0UL;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html">   67</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Tiles1.html">Tiles1</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT&gt;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                   , <span class="keyword">public</span> <a class="code" href="classhob_1_1TileInitializer.html">TileInitializer</a>&lt;TILES1_COUNT&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="classhob_1_1Tiles1.html#af36a81ca6c141910953dcea56713fcad">Tiles1</a>(SDL_Renderer* renderer);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html#a31f9dfa9ceb8e9071bb8f4a49ce1a376">   81</a></span>&#160;    <a class="code" href="classhob_1_1Tiles1.html#a31f9dfa9ceb8e9071bb8f4a49ce1a376">~Tiles1</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_TILES1_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 16.01.2024  Gaina Stefan               Removed draw() method.                                      *</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the tiles of the first scenario.     *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef HOB_TILES1_HPP_</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define HOB_TILES1_HPP_</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__TextureInitializer_8hpp.html">hob_TextureInitializer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__TileInitializer_8hpp.html">hob_TileInitializer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * CONSTANTS                                                                                          *</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">   49</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">TILES1_COUNT</a> = 13UL;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">   54</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">TILES1_TEXTURES_COUNT</a> = 34UL;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">   59</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">TILES1_COMPONENTS_COUNT</a> = 0UL;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Tiles1.html">Tiles1</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT&gt;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                   , <span class="keyword">public</span> <a class="code" href="classhob_1_1TileInitializer.html">TileInitializer</a>&lt;TILES1_COUNT&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classhob_1_1Tiles1.html#af36a81ca6c141910953dcea56713fcad">Tiles1</a>(SDL_Renderer* renderer);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html#a31f9dfa9ceb8e9071bb8f4a49ce1a376">   82</a></span>&#160;    <a class="code" href="classhob_1_1Tiles1.html#a31f9dfa9ceb8e9071bb8f4a49ce1a376">~Tiles1</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_TILES1_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshob_1_1TextureInitializer_html"><div class="ttname"><a href="classhob_1_1TextureInitializer.html">hob::TextureInitializer</a></div><div class="ttdoc">Initializes a list of textures and components.</div><div class="ttdef"><b>Definition:</b> hob_TextureInitializer.hpp:58</div></div>
 <div class="ttc" id="aclasshob_1_1TileInitializer_html"><div class="ttname"><a href="classhob_1_1TileInitializer.html">hob::TileInitializer</a></div><div class="ttdoc">Initializes a list of tiles.</div><div class="ttdef"><b>Definition:</b> hob_TileInitializer.hpp:63</div></div>
-<div class="ttc" id="aclasshob_1_1Tiles1_html"><div class="ttname"><a href="classhob_1_1Tiles1.html">hob::Tiles1</a></div><div class="ttdoc">Tiles of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:69</div></div>
+<div class="ttc" id="aclasshob_1_1Tiles1_html"><div class="ttname"><a href="classhob_1_1Tiles1.html">hob::Tiles1</a></div><div class="ttdoc">Tiles of the scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:70</div></div>
 <div class="ttc" id="aclasshob_1_1Tiles1_html_a31f9dfa9ceb8e9071bb8f4a49ce1a376"><div class="ttname"><a href="classhob_1_1Tiles1.html#a31f9dfa9ceb8e9071bb8f4a49ce1a376">hob::Tiles1::~Tiles1</a></div><div class="ttdeci">~Tiles1(void)=default</div><div class="ttdoc">Destroys the loaded textures.</div></div>
-<div class="ttc" id="aclasshob_1_1Tiles1_html_af36a81ca6c141910953dcea56713fcad"><div class="ttname"><a href="classhob_1_1Tiles1.html#af36a81ca6c141910953dcea56713fcad">hob::Tiles1::Tiles1</a></div><div class="ttdeci">Tiles1(SDL_Renderer *renderer)</div><div class="ttdoc">Loads the textures and initializes the tiles.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.cpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Tiles1_html_af36a81ca6c141910953dcea56713fcad"><div class="ttname"><a href="classhob_1_1Tiles1.html#af36a81ca6c141910953dcea56713fcad">hob::Tiles1::Tiles1</a></div><div class="ttdeci">Tiles1(SDL_Renderer *renderer)</div><div class="ttdoc">Loads the textures and initializes the tiles.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.cpp:55</div></div>
 <div class="ttc" id="ahob__TextureInitializer_8hpp_html"><div class="ttname"><a href="hob__TextureInitializer_8hpp.html">hob_TextureInitializer.hpp</a></div></div>
 <div class="ttc" id="ahob__TileInitializer_8hpp_html"><div class="ttname"><a href="hob__TileInitializer_8hpp.html">hob_TileInitializer.hpp</a></div></div>
-<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:43</div></div>
-<div class="ttc" id="anamespacehob_html_a0d27248e7ebe94eba4fb46239d9f02ad"><div class="ttname"><a href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">hob::TILES1_TEXTURES_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_TEXTURES_COUNT</div><div class="ttdoc">How many textures scenario 1 tiles loads.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:53</div></div>
-<div class="ttc" id="anamespacehob_html_aac687ade8bd1eadd16790f07ee2b275c"><div class="ttname"><a href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">hob::TILES1_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_COUNT</div><div class="ttdoc">How many times of tiles are being used.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:48</div></div>
-<div class="ttc" id="anamespacehob_html_ae76766e7b6c0154d61a0e165d8e31f41"><div class="ttname"><a href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">hob::TILES1_COMPONENTS_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_COMPONENTS_COUNT</div><div class="ttdoc">How many components the tiles of scenario 1 uses.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:58</div></div>
+<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:44</div></div>
+<div class="ttc" id="anamespacehob_html_a0d27248e7ebe94eba4fb46239d9f02ad"><div class="ttname"><a href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">hob::TILES1_TEXTURES_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_TEXTURES_COUNT</div><div class="ttdoc">How many textures scenario 1 tiles loads.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:54</div></div>
+<div class="ttc" id="anamespacehob_html_aac687ade8bd1eadd16790f07ee2b275c"><div class="ttname"><a href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">hob::TILES1_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_COUNT</div><div class="ttdoc">How many times of tiles are being used.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:49</div></div>
+<div class="ttc" id="anamespacehob_html_ae76766e7b6c0154d61a0e165d8e31f41"><div class="ttname"><a href="namespacehob.html#ae76766e7b6c0154d61a0e165d8e31f41">hob::TILES1_COMPONENTS_COUNT</a></div><div class="ttdeci">constexpr const size_t TILES1_COMPONENTS_COUNT</div><div class="ttdoc">How many components the tiles of scenario 1 uses.</div><div class="ttdef"><b>Definition:</b> hob_Tiles1.hpp:59</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

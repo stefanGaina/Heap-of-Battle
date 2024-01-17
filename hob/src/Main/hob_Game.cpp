@@ -222,6 +222,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 	std::unique_ptr<Loop> sceneLoop = nullptr;
 	Cursor                cursor    = { renderer };
 	Music                 music     = {};
+	Faction               faction   = {};
 	hobServer::Server     server    = {};
 	Socket                socket    = {};
 	Ping                  ping      = {};
@@ -248,7 +249,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<LocalMenu>(renderer, cursor, &ping, music, server, socket);
+					sceneLoop = std::make_unique<LocalMenu>(renderer, cursor, &ping, music, faction, server, socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -261,7 +262,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<Map1>(renderer, cursor, &ping, music, server, socket);
+					sceneLoop = std::make_unique<Map1>(renderer, cursor, &ping, music, faction, server, socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{

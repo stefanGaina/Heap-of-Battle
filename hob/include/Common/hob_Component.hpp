@@ -23,6 +23,7 @@
  * 29.08.2023  Gaina Stefan               Overloaded updateTexture and == operator.                   *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 16.01.2024  Gaina Stefan               Removed tab.                                                *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the component.                       *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -103,7 +104,8 @@ public:
 	 * @brief Checks if coordinates are inside the component's rectangle destination area.
 	 * @param mouse: Coordinates of the mouse.
 	 * @param corrections: Values added for textures that are loaded from images with blank space.
-	 * @return true - it is inside area | false - it is not inside area.
+	 * @return true - it is inside area.
+	 * @return false - it is not inside area.
 	*/
 	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0, .y = 0, .w = 0, .h = 0 }) const noexcept;
 

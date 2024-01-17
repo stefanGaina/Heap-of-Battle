@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added indexes.                                              *
  * @details This file defines the class and method prototypes of the game menu.                       *
  * @todo Fix doxygen.                                                                                 *
  * @bug No known bugs.                                                                                *
@@ -50,9 +51,13 @@ namespace hob
 */
 enum GameMenuTextureIndex
 {
-	MENU_TEXTURE_INDEX_STONE      = 0, /**< Index to the game menu's background texture.           */
-	MENU_TEXTURE_INDEX_STONE_VAR  = 1, /**< Index to the game menu's background variation texture. */
-	MENU_TEXTURES_COUNT           = 2  /**< How many textures game menu loads.                     */
+	MENU_TEXTURE_INDEX_BACKGROUND                = 0, /**< Index to the game menu's background texture. */
+	MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE   = 1, /**< Index to the game menu's background variation texture. */
+	MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE      = 2, /**< TODO */
+	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE = 3, /**< TODO */
+	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE    = 4, /**< TODO */
+	MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE        = 5, /**< TODO */
+	MENU_TEXTURES_COUNT                          = 6  /**< How many textures game menu loads.                     */
 };
 
 /**
@@ -60,27 +65,37 @@ enum GameMenuTextureIndex
 */
 enum GameMenuComponentIndex
 {
-	MENU_COMPONENTS_COUNT = 228 /**< How many components the game menu uses. */
+	MENU_COMPONENT_INDEX_FRAME_1        = 4, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_2        = 5, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_3        = 6, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_4        = 7, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_5        = 8, /**< TODO */
+	MENU_COMPONENT_INDEX_SELECTED_FRAME = 9, /**< TODO */
+	MENU_COMPONENTS_COUNT = 10 /**< How many components the game menu uses. */
 };
 
+/**
+ * @brief TODO
+*/
 enum class Action
 {
-	NOTHING          = 0,
-	RECRUIT_INFANTRY = 1
+	NOTHING          = 0, /**< TODO */
+	RECRUIT_INFANTRY = 1  /**< TODO */
 };
 
 /**
  * @brief Draws in-game menu depending of the user's faction.
 */
-class Menu final : public TextureInitializer<7UL, 10UL>
+class Menu final : public TextureInitializer<MENU_TEXTURES_COUNT, MENU_COMPONENTS_COUNT>
 {
 public:
 	/**
 	 * @brief Loads textures for the menu.
 	 * @param renderer: Rendering context of the window.
+	 * @param isAlliance: TODO
 	 * @param gold: Start amount of gold.
 	*/
-	Menu(SDL_Renderer* renderer, uint8_t gold) noexcept;
+	Menu(SDL_Renderer* renderer, bool isAlliance, uint8_t gold) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -99,16 +114,18 @@ public:
 	 * @brief TODO
 	 * @param click: TODO
 	 * @param menuMode: TODO
+	 * @param isAlliance: TODO
 	 * @return TODO
 	*/
-	Action handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept;
+	Action handleClick(Coordinate click, hobGame::MenuMode menuMode, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
 	 * @param mouse: TODO
+	 * @param isAlliance: TODO
 	 * @return void
 	*/
-	void handleHover(Coordinate mouse) noexcept;
+	void handleHover(Coordinate mouse, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO

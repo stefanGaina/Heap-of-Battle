@@ -21,10 +21,10 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Made an aesthetic change.                                   *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added missing noexcept.                                     *
  * @details This file defines the class and method prototypes of the music.                           *
  * @todo N/A.                                                                                         *
- * @bug Mix_Quit() is called in game's deinit method and music's destructor is called after so stop   *
- * needs to be called at the end of the scene manually.                                               *
+ * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
 #ifndef HOB_MUSIC_HPP_
@@ -76,35 +76,35 @@ public:
 	 * @param song: Song to be started.
 	 * @return void
 	*/
-	void start(Song song);
+	void start(Song song) noexcept;
 
 	/**
 	 * @brief Stops the playing song and frees it.
 	 * @param void
 	 * @return void
 	*/
-	void stop(void);
+	void stop(void) noexcept;
 
 	/**
 	 * @brief Pauses the playing song.
 	 * @param void
 	 * @return void
 	*/
-	void pause(void);
+	void pause(void) const noexcept;
 
 	/**
 	 * @brief Resumes the paused song.
 	 * @param void
 	 * @return void
 	*/
-	void resume(void);
+	void resume(void) const noexcept;
 
 	/**
 	 * @brief Sets the volume at which all the songs will be played.
 	 * @param volume: Desired level.
 	 * @return void
 	*/
-	void setVolume(Volume volume);
+	void setVolume(Volume volume) noexcept;
 
 private:
 	/**

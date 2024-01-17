@@ -9,7 +9,7 @@ var searchData=
   ['board_18',['board',['../hobGame__Game_8cpp.html#accfd0cbea92b934c4ee946e60412bac0',1,'hobGame_Game.cpp']]],
   ['building_19',['Building',['../classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f',1,'hob::Building::Building()'],['../classhob_1_1Building.html',1,'hob::Building']]],
   ['buildingcontainer_20',['buildingContainer',['../classhob_1_1BuildingInitializer.html#acc1f1b7f53f37d9fab4a2a31163b13f9',1,'hob::BuildingInitializer']]],
-  ['buildinginitializer_21',['BuildingInitializer',['../classhob_1_1BuildingInitializer.html#adb0fcba3f797ec1d70413acf739c7b58',1,'hob::BuildingInitializer::BuildingInitializer()'],['../classhob_1_1BuildingInitializer.html',1,'hob::BuildingInitializer&lt; BUILDINGS_COUNT &gt;']]],
+  ['buildinginitializer_21',['BuildingInitializer',['../classhob_1_1BuildingInitializer.html#a57b9f2735cc5da4baf507b07941f6154',1,'hob::BuildingInitializer::BuildingInitializer()'],['../classhob_1_1BuildingInitializer.html',1,'hob::BuildingInitializer&lt; BUILDINGS_COUNT &gt;']]],
   ['buildinginitializer_3c_2018ul_20_3e_22',['BuildingInitializer&lt; 18UL &gt;',['../classhob_1_1BuildingInitializer.html',1,'hob']]],
   ['buildings1_23',['Buildings1',['../classhob_1_1Buildings1.html#a80d1e84124db3d7fc01314b4c5a50ffb',1,'hob::Buildings1::Buildings1()'],['../classhob_1_1Buildings1.html',1,'hob::Buildings1']]]
 ];

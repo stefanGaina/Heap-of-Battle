@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 27.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the queue.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -65,7 +66,8 @@ public:
 	/**
 	 * @brief Checks if the queue has any elements stored in it.
 	 * @param void
-	 * @return true - queue is empty | false - otherwise.
+	 * @return true - queue is empty.
+	 * @return false - queue has at least 1 element.
 	*/
 	bool isEmpty(void) noexcept;
 

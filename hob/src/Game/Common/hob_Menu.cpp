@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Refactored.                                                 *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added indexes.                                              *
  * @details This file implements the class defined in hob_Menu.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -53,28 +54,28 @@
 namespace hob
 {
 
-Menu::Menu(SDL_Renderer* const renderer, const uint8_t gold) noexcept
+Menu::Menu(SDL_Renderer* const renderer, const bool isAlliance, const uint8_t gold) noexcept
 	: TextureInitializer
 	{
 		{
-			true == Faction::getInstance().getFaction() ? TEXTURE_FILE_PATH("background_alliance") : TEXTURE_FILE_PATH("background_horde"), /*< 0 */
-			TEXTURE_FILE_PATH("frame_selected_alliance")                                                                                  , /*< 1 */
-			TEXTURE_FILE_PATH("frame_selected_horde")                                                                                     , /*< 2 */
-			TEXTURE_FILE_PATH("frame_unselected_alliance")                                                                                , /*< 3 */
-			TEXTURE_FILE_PATH("frame_unselected_horde")                                                                                   , /*< 4 */
-			TEXTURE_FILE_PATH("hourglass_inactive")                                                                                         /*< 5 */
+			true == isAlliance ? TEXTURE_FILE_PATH("background_alliance") : TEXTURE_FILE_PATH("background_horde"), /*< 0 */
+			TEXTURE_FILE_PATH("frame_selected_alliance")                                                         , /*< 1 */
+			TEXTURE_FILE_PATH("frame_selected_horde")                                                            , /*< 2 */
+			TEXTURE_FILE_PATH("frame_unselected_alliance")                                                       , /*< 3 */
+			TEXTURE_FILE_PATH("frame_unselected_horde")                                                          , /*< 4 */
+			TEXTURE_FILE_PATH("hourglass_inactive")                                                                /*< 5 */
 		},
 		{
-			0UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			5UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			true == Faction::getInstance().getFaction() ? 3UL : 4UL,
-			1UL
+			MENU_TEXTURE_INDEX_BACKGROUND,                                                                                 /**< 0 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 1 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 2 */
+			MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE,                                                                         /**< 3 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 4 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 5 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 6 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 7 */
+			true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 8 */
+			MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE                                                                     /**< 9 */
 		},
 		{
 			{
@@ -90,13 +91,14 @@ Menu::Menu(SDL_Renderer* const renderer, const uint8_t gold) noexcept
 				{ 0             , 0                      , 0         , 0           }
 			}
 		},
-		{ renderer }
+		renderer
 	}
 	, timer{ renderer }
 	, gold { renderer, gold }
 	, icons{ renderer }
 {
 	plog_trace("Game menu is being constructed.");
+	(void)handleClick({ 7 * HSCALE, 14 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
 }
 
 void Menu::draw(SDL_Renderer* const renderer) noexcept
@@ -109,7 +111,7 @@ void Menu::draw(SDL_Renderer* const renderer) noexcept
 	icons.draw(renderer);
 }
 
-Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
+Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
 {
 	size_t index = 0UL;
 
@@ -120,10 +122,11 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 		{
 			case hobGame::MenuMode::EMPTY:
 			{
-				for (index = 4UL; index < 9UL; ++index)
+				for (index = MENU_COMPONENT_INDEX_FRAME_1; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
 				{
 					componentContainer[index].updateTexture(nullptr);
 				}
+				icons.hide();
 				break;
 			}
 			case hobGame::MenuMode::UNCHANGED:
@@ -132,15 +135,17 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 			}
 			case hobGame::MenuMode::ALLIANCE_KEEP:
 			{
-				for (index = 4UL; index < 9UL; ++index)
+				for (index = MENU_COMPONENT_INDEX_FRAME_1; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
 				{
-					componentContainer[index].updateTexture(textureContainer[true == Faction::getInstance().getFaction() ? 3UL : 4UL]);
+					componentContainer[index].updateTexture(textureContainer[true == isAlliance
+						? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE]);
 				}
-				icons.setAllianceKeep();
+				icons.setAllianceKeep(isAlliance);
 				break;
 			}
 			case hobGame::MenuMode::HORDE_KEEP:
 			{
+				icons.setHordeKeep(isAlliance);
 				break;
 			}
 			default:
@@ -149,10 +154,11 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 				break;
 			}
 		}
+
 		return Action::NOTHING;
 	}
 
-	if (nullptr == componentContainer[9].getRawTexture())
+	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].getRawTexture())
 	{
 		return Action::NOTHING;
 	}
@@ -165,13 +171,13 @@ Action Menu::handleClick(Coordinate click, hobGame::MenuMode menuMode) noexcept
 	return Action::NOTHING;
 }
 
-void Menu::handleHover(const Coordinate mouse) noexcept
+void Menu::handleHover(const Coordinate mouse, const bool isAlliance) noexcept
 {
 	int32_t y = 0;
 
 	plog_verbose("Menu is handling hover. (mouse: %" PRId32 ", % " PRId32 ")", mouse.x, mouse.y);
 
-	componentContainer[9].updateTexture(nullptr);
+	componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(nullptr);
 	if (0 >= mouse.x || 0 >= mouse.y)
 	{
 		return;
@@ -179,31 +185,37 @@ void Menu::handleHover(const Coordinate mouse) noexcept
 
 	if (3 * HSCALE > mouse.x && HSCALE > mouse.y)
 	{
-		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
-		componentContainer[9].updatePosition({ .x = 0, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(true == isAlliance
+			? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE] : textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE]);
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updatePosition({ .x = 0, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
+
 		return;
 	}
 
 	if (3 * HSCALE < mouse.x && 6 * HSCALE > mouse.x && HSCALE > mouse.y)
 	{
-		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
-		componentContainer[9].updatePosition({ .x = 3 * HSCALE, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(true == isAlliance
+			? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE] : textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE]);
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updatePosition({ .x = 3 * HSCALE, .y = 0, .w = 3 * HSCALE, .h = HSCALE });
+
 		return;
 	}
 
-	if (nullptr == componentContainer[4].getRawTexture())
+	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_FRAME_1].getRawTexture())
 	{
 		return;
 	}
 
 	if (3 * HSCALE > mouse.x && HSCALE + HSCALE / 2 < mouse.y && 2 * HSCALE + HSCALE / 2 > mouse.y)
 	{
-		componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
-		componentContainer[9].updatePosition({ .x = 0, .y = HSCALE + HSCALE / 2, .w = 3 * HSCALE, .h = HSCALE });
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(true == isAlliance
+			? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE] : textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE]);
+		componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updatePosition({ .x = 0, .y = HSCALE + HSCALE / 2, .w = 3 * HSCALE, .h = HSCALE });
+
 		return;
 	}
 
-	if (nullptr == componentContainer[5].getRawTexture())
+	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_FRAME_2].getRawTexture())
 	{
 		return;
 	}
@@ -212,8 +224,10 @@ void Menu::handleHover(const Coordinate mouse) noexcept
 	{
 		if (3 * HSCALE > mouse.x && y < mouse.y && y + HSCALE > mouse.y)
 		{
-			componentContainer[9].updateTexture(true == Faction::getInstance().getFaction() ? textureContainer[1] : textureContainer[2]);
-			componentContainer[9].updatePosition({ .x = 0, .y = y, .w = 3 * HSCALE, .h = HSCALE });
+			componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(true == isAlliance
+				? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE] : textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE]);
+			componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updatePosition({ .x = 0, .y = y, .w = 3 * HSCALE, .h = HSCALE });
+
 			return;
 		}
 	}

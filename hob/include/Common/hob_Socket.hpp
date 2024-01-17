@@ -22,6 +22,7 @@
  * 27.08.2023  Gaina Stefan               Removed unnecessary headers.                                *
  * 29.08.2023  Gaina Stefan               Fixed comment.                                              *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Removed Singleton methods.                                  *
  * @details This file defines the class and method prototypes of the client socket.                   *
  * @todo Add port to create.                                                                          *
  * @bug No known bugs.                                                                                *
@@ -91,18 +92,6 @@ public:
 	 * @return void
 	*/
 	void sendUpdate(const hobServer::Message& updateMessage) const noexcept;
-
-	/**
-	 * @brief Prevents the creation of another object.
-	 * @param otherSocket: Instance to be copied.
-	*/
-	Socket(Socket& otherSocket) = delete;
-
-	/**
-	 * @brief Prevents the creation of another object.
-	 * @param socket: Instance to be copied.
-	*/
-	void operator =(const Socket& socket) = delete;
 
 private:
 	/**

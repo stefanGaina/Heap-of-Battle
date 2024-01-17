@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the chat frame.                      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -90,7 +91,8 @@ public:
 	/**
 	 * @brief Checks if coordinates are inside the chat frame's area.
 	 * @param click: coordinates of the click.
-	 * @return true - it is inside chat frame | false - it is not inside chat frame.
+	 * @return true - it is inside chat frame.
+	 * @return false - it is not inside chat frame.
 	*/
 	bool isClickInside(Coordinate click) const noexcept;
 

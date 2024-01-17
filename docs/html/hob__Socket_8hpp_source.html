@@ -93,68 +93,63 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 27.08.2023  Gaina Stefan               Removed unnecessary headers.                                *</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 29.08.2023  Gaina Stefan               Fixed comment.                                              *</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the client socket.                   *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @todo Add port to create.                                                                          *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef HOB_SOCKET_HPP_</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define HOB_SOCKET_HPP_</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Types_8hpp.html">hob_Types.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobServer__Types_8hpp.html">hobServer_Types.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classhob_1_1Socket.html">   52</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Socket.html">Socket</a> final</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classhob_1_1Socket.html#a5794406b4b205da550f264b4f469aea8">Socket</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="classhob_1_1Socket.html#affe002245b7b19db4ca9023445331be7">~Socket</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#af5c2ee762244695874c39b0e2acbd779">create</a>(std::string ipAddress) noexcept(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#a08e1a32b1c2b206d539ea83992197ad0">close</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#a428689809cc0a72400b637f3c23fb9bd">receiveUpdate</a>(<a class="code" href="structhobServer_1_1Message.html">hobServer::Message</a>&amp; updateMessage) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#aefd2755cf3e77fa38b7ffd9da85480a5">sendUpdate</a>(<span class="keyword">const</span> <a class="code" href="structhobServer_1_1Message.html">hobServer::Message</a>&amp; updateMessage) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classhob_1_1Socket.html#a18293b39a10d8f36fa56647ba100c5d4">   99</a></span>&#160;    <a class="code" href="classhob_1_1Socket.html#a18293b39a10d8f36fa56647ba100c5d4">Socket</a>(<a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; otherSocket) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classhob_1_1Socket.html#a577aff938e9389c525405a7a1b424c07">  105</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#a577aff938e9389c525405a7a1b424c07">operator =</a>(<span class="keyword">const</span> <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    int32_t socket;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_SOCKET_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:53</div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * 17.01.2024  Gaina Stefan               Removed Singleton methods.                                  *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the client socket.                   *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @todo Add port to create.                                                                          *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef HOB_SOCKET_HPP_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define HOB_SOCKET_HPP_</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Types_8hpp.html">hob_Types.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobServer__Types_8hpp.html">hobServer_Types.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classhob_1_1Socket.html">   53</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Socket.html">Socket</a> final</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classhob_1_1Socket.html#a5794406b4b205da550f264b4f469aea8">Socket</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="classhob_1_1Socket.html#affe002245b7b19db4ca9023445331be7">~Socket</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#af5c2ee762244695874c39b0e2acbd779">create</a>(std::string ipAddress) noexcept(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#a08e1a32b1c2b206d539ea83992197ad0">close</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#a428689809cc0a72400b637f3c23fb9bd">receiveUpdate</a>(<a class="code" href="structhobServer_1_1Message.html">hobServer::Message</a>&amp; updateMessage) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Socket.html#aefd2755cf3e77fa38b7ffd9da85480a5">sendUpdate</a>(<span class="keyword">const</span> <a class="code" href="structhobServer_1_1Message.html">hobServer::Message</a>&amp; updateMessage) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    int32_t socket;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_SOCKET_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:54</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_a08e1a32b1c2b206d539ea83992197ad0"><div class="ttname"><a href="classhob_1_1Socket.html#a08e1a32b1c2b206d539ea83992197ad0">hob::Socket::close</a></div><div class="ttdeci">void close(void) noexcept</div><div class="ttdoc">Closes the client socket.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:109</div></div>
-<div class="ttc" id="aclasshob_1_1Socket_html_a18293b39a10d8f36fa56647ba100c5d4"><div class="ttname"><a href="classhob_1_1Socket.html#a18293b39a10d8f36fa56647ba100c5d4">hob::Socket::Socket</a></div><div class="ttdeci">Socket(Socket &amp;otherSocket)=delete</div><div class="ttdoc">Prevents the creation of another object.</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_a428689809cc0a72400b637f3c23fb9bd"><div class="ttname"><a href="classhob_1_1Socket.html#a428689809cc0a72400b637f3c23fb9bd">hob::Socket::receiveUpdate</a></div><div class="ttdeci">void receiveUpdate(hobServer::Message &amp;updateMessage) const noexcept</div><div class="ttdoc">Waits until the server sends a message.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:140</div></div>
-<div class="ttc" id="aclasshob_1_1Socket_html_a577aff938e9389c525405a7a1b424c07"><div class="ttname"><a href="classhob_1_1Socket.html#a577aff938e9389c525405a7a1b424c07">hob::Socket::operator=</a></div><div class="ttdeci">void operator=(const Socket &amp;socket)=delete</div><div class="ttdoc">Prevents the creation of another object.</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_a5794406b4b205da550f264b4f469aea8"><div class="ttname"><a href="classhob_1_1Socket.html#a5794406b4b205da550f264b4f469aea8">hob::Socket::Socket</a></div><div class="ttdeci">Socket(void) noexcept</div><div class="ttdoc">Does not create the socket implicitly.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:61</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_aefd2755cf3e77fa38b7ffd9da85480a5"><div class="ttname"><a href="classhob_1_1Socket.html#aefd2755cf3e77fa38b7ffd9da85480a5">hob::Socket::sendUpdate</a></div><div class="ttdeci">void sendUpdate(const hobServer::Message &amp;updateMessage) const noexcept</div><div class="ttdoc">Sends an update to the server.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:125</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_af5c2ee762244695874c39b0e2acbd779"><div class="ttname"><a href="classhob_1_1Socket.html#af5c2ee762244695874c39b0e2acbd779">hob::Socket::create</a></div><div class="ttdeci">void create(std::string ipAddress) noexcept(false)</div><div class="ttdoc">Creates a client socket.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:73</div></div>
 <div class="ttc" id="aclasshob_1_1Socket_html_affe002245b7b19db4ca9023445331be7"><div class="ttname"><a href="classhob_1_1Socket.html#affe002245b7b19db4ca9023445331be7">hob::Socket::~Socket</a></div><div class="ttdeci">~Socket(void) noexcept</div><div class="ttdoc">Cleans the socket if it was not already.</div><div class="ttdef"><b>Definition:</b> hob_Socket.cpp:67</div></div>
 <div class="ttc" id="ahobServer__Types_8hpp_html"><div class="ttname"><a href="hobServer__Types_8hpp.html">hobServer_Types.hpp</a></div></div>
 <div class="ttc" id="ahob__Types_8hpp_html"><div class="ttname"><a href="hob__Types_8hpp.html">hob_Types.hpp</a></div></div>
-<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:43</div></div>
+<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:44</div></div>
 <div class="ttc" id="astructhobServer_1_1Message_html"><div class="ttname"><a href="structhobServer_1_1Message.html">hobServer::Message</a></div><div class="ttdoc">The message format transmitted over the socket.</div><div class="ttdef"><b>Definition:</b> hobServer_Types.hpp:74</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

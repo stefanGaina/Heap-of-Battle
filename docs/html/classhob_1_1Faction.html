@@ -82,7 +82,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a74751e1d569c1c19a50812582f41a835"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Faction.html#a74751e1d569c1c19a50812582f41a835">Faction</a> (void) noexcept</td></tr>
-<tr class="memdesc:a74751e1d569c1c19a50812582f41a835"><td class="mdescLeft">&#160;</td><td class="mdescRight">It assigns to Alliance by default.  <a href="classhob_1_1Faction.html#a74751e1d569c1c19a50812582f41a835">More...</a><br /></td></tr>
+<tr class="memdesc:a74751e1d569c1c19a50812582f41a835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes to Alliance by default.  <a href="classhob_1_1Faction.html#a74751e1d569c1c19a50812582f41a835">More...</a><br /></td></tr>
 <tr class="separator:a74751e1d569c1c19a50812582f41a835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0a9672cbba44fbc51b913afffcb5941"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Faction.html#aa0a9672cbba44fbc51b913afffcb5941">~Faction</a> (void)=default</td></tr>
 <tr class="memdesc:aa0a9672cbba44fbc51b913afffcb5941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="classhob_1_1Faction.html#aa0a9672cbba44fbc51b913afffcb5941">More...</a><br /></td></tr>
@@ -139,7 +139,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>It assigns to Alliance by default. </p>
+<p>Initializes to Alliance by default. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
@@ -211,7 +211,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Sets the faction of the user. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">isAlliance</td><td>true - alliance | false - horde. </td></tr>
+    <tr><td class="paramname">isAlliance</td><td>true - alliance, false - horde. </td></tr>
   </table>
   </dd>
 </dl>
@@ -250,7 +250,9 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true - alliance | false - horde </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true - alliance. </dd>
+<dd>
+false - horde. </dd></dl>
 
 </div>
 </div>

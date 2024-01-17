@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 16.01.2024  Gaina Stefan               Removed draw() method.                                      *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the buildings of the first scenario. *
  * @todo Add enums for texture indexes.                                                               *
  * @bug No known bugs.                                                                                *
@@ -64,7 +65,7 @@ public:
 
 	/**
 	 * @brief Changes the textures of the buildings.
-	 * @param isWinter: true - winter | false - otherwise.
+	 * @param isWinter: true - winter, false - otherwise.
 	 * @return void
 	*/
 	void changeWeather(bool isWinter) noexcept;

@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Made font const.                                            *
  * @details This file implements the class defined in hob_FramesPerSecond.hpp.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -47,14 +48,13 @@ namespace hob
 FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 	: component          {}
 	, texture            {}
-	, font               { nullptr }
+	, font               { TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12) }
 	, FrameStartTime     { SDL_GetTicks64() }
 	, framesCount        { 0U }
 	, previousFramesCount{ 10000U }
 {
 	plog_trace("Frames per second is being constructed.");
 
-	font = TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12);
 	if (nullptr == font)
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
@@ -65,7 +65,7 @@ FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 FramesPerSecond::~FramesPerSecond(void) noexcept
 {
 	plog_trace("Frames per second is being destructed.");
-	// TTF_CloseFont(font); <- This has been removed on purpose.
+	// TTF_CloseFont(font); <- this has been removed on purpose.
 }
 
 void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept

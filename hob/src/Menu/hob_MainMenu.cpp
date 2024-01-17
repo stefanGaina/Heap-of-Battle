@@ -102,7 +102,7 @@ MainMenu::MainMenu(SDL_Renderer* const renderer, Cursor& cursor, Music& music) n
 				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT   }
 			}
 		},
-		{ renderer }
+		renderer
 	}
 	, SoundInitializer
 	{

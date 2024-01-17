@@ -54,13 +54,13 @@ Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 		},
 		{
 			{
-				{ 15             , SCALE / 9, SCALE / 3, SCALE / 3 },
-				{ HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 },
-				{ HSCALE + 15    , SCALE / 9, SCALE / 3, SCALE / 3 },
-				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }
+				{ 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 0 */
+				{ HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
+				{ 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 2 */
+				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }  /**< 3 */
 			}
 		},
-		{ renderer }
+		renderer
 	}
 	, SoundInitializer
 	{

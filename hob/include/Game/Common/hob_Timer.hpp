@@ -21,6 +21,7 @@
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added indexes.                                              *
  * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -44,6 +45,29 @@ namespace hob
 {
 
 /**
+ * @brief Enumerates timer's textures index.
+*/
+enum TimerTextureIndex
+{
+	TIMER_TEXTURE_INDEX_ALLIANCE_0    = 0,  /**< TODO */
+	TIMER_TEXTURE_INDEX_DOUBLE_POINTS = 10, /**< TODO */
+	TIMER_TEXTURE_INDEX_HORDE_0       = 11, /**< TODO */
+	TIMER_TEXTURES_COUNT              = 22  /**< How many textures timer loads. */
+};
+
+/**
+ * @brief Enumerates timer's changeable components index.
+*/
+enum TimerComponentIndex
+{
+	TIMER_COMPONENT_INDEX_MINUTE         = 0, /**< TODO */
+	TIMER_COMPONENT_INDEX_DOUBLE_POINTS  = 1,
+	TIMER_COMPONENT_INDEX_SECOND_DIGIT_1 = 2,
+	TIMER_COMPONENT_INDEX_SECOND_DIGIT_2 = 3,
+	TIMER_COMPONENTS_COUNT               = 4  /**< How many components the timer uses. */
+};
+
+/**
  * @brief Encapsulates information about the time.
 */
 struct TimeFormat
@@ -55,7 +79,7 @@ struct TimeFormat
 /**
  * @brief Graphical representation of the time left.
 */
-class Timer final : public TextureInitializer<22UL, 4UL>
+class Timer final : public TextureInitializer<TIMER_TEXTURES_COUNT, TIMER_COMPONENTS_COUNT>
 {
 public:
 	/**

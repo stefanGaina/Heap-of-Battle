@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added indexes comments.                                     *
  * @details This file implements the class defined in hob_Buildings1.hpp.                             *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -88,133 +89,127 @@ Buildings1::Buildings1(SDL_Renderer* const renderer) noexcept
 		},
 		{ /* No component is used. */ },
 		{ /* No component is used. */ },
-		{ renderer }
+		renderer
 	}
 	, BuildingInitializer
 	{
 		{
-			textureContainer[0].getRawTexture(),
+			textureContainer[0].getRawTexture(), /*< 0 */
 			nullptr,
 			nullptr,
 			nullptr,
 
-			textureContainer[0].getRawTexture(),
+			textureContainer[0].getRawTexture(), /*< 1 */
 			nullptr,
 			nullptr,
 			nullptr,
 
-			textureContainer[1].getRawTexture(),
+			textureContainer[1].getRawTexture(), /*< 2 */
 			textureContainer[2].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[5].getRawTexture(),
+			textureContainer[5].getRawTexture(), /*< 3 */
 			textureContainer[6].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[9].getRawTexture(),
+			textureContainer[9].getRawTexture(), /**< 4 */
 			textureContainer[10].getRawTexture(),
 			textureContainer[11].getRawTexture(),
 			textureContainer[12].getRawTexture(),
 
-			textureContainer[9].getRawTexture(),
+			textureContainer[9].getRawTexture(), /**< 5 */
 			textureContainer[10].getRawTexture(),
 			textureContainer[11].getRawTexture(),
 			textureContainer[12].getRawTexture(),
 
-			textureContainer[9].getRawTexture(),
+			textureContainer[9].getRawTexture(), /**< 6 */
 			textureContainer[10].getRawTexture(),
 			textureContainer[11].getRawTexture(),
 			textureContainer[12].getRawTexture(),
 
-			textureContainer[9].getRawTexture(),
+			textureContainer[9].getRawTexture(), /**< 7 */
 			textureContainer[10].getRawTexture(),
 			textureContainer[11].getRawTexture(),
 			textureContainer[12].getRawTexture(),
 
-			textureContainer[13].getRawTexture(),
+			textureContainer[13].getRawTexture(), /**< 8 */
 			nullptr,
 			nullptr,
 			nullptr,
 
-			textureContainer[17].getRawTexture(),
+			textureContainer[17].getRawTexture(), /**< 9 */
 			nullptr,
 			nullptr,
 			nullptr,
 
-			textureContainer[21].getRawTexture(),
+			textureContainer[21].getRawTexture(), /**< 10 */
 			textureContainer[22].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[21].getRawTexture(),
+			textureContainer[21].getRawTexture(), /**< 11 */
 			textureContainer[22].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[23].getRawTexture(),
+			textureContainer[23].getRawTexture(), /**< 12 */
 			textureContainer[24].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[23].getRawTexture(),
+			textureContainer[23].getRawTexture(), /**< 13 */
 			textureContainer[24].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[25].getRawTexture(),
+			textureContainer[25].getRawTexture(), /**< 14 */
 			textureContainer[26].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[25].getRawTexture(),
+			textureContainer[25].getRawTexture(), /**< 15 */
 			textureContainer[26].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[27].getRawTexture(),
+			textureContainer[27].getRawTexture(), /**< 16 */
 			textureContainer[28].getRawTexture(),
 			nullptr,
 			nullptr,
 
-			textureContainer[27].getRawTexture(),
+			textureContainer[27].getRawTexture(), /**< 17 */
 			textureContainer[28].getRawTexture(),
 			nullptr,
 			nullptr,
 		},
 		{
 			{
-				{ 16 * HSCALE, 2  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 },
-				{ 16 * HSCALE, 9  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 },
-				{ 6  * HSCALE, 11 * HSCALE                , 4 * HSCALE, 4 * HSCALE              },
-				{ 6  * HSCALE, 0                          , 4 * HSCALE, 4 * HSCALE              },
-				{ 6  * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
-				{ 13 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
-				{ 22 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
-				{ 29 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
-				{ 29 * HSCALE, 12 * HSCALE                , 3 * HSCALE, 3 * HSCALE              },
-				{ 29 * HSCALE, 0                          , 3 * HSCALE, 3 * HSCALE              },
-				{ 14 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
-				{ 22 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
-				{ 14 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              },
-				{ 22 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              },
-				{ 11 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
-				{ 25 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
-				{ 11 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
-				{ 25 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              },
+				{ 16 * HSCALE, 2  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /**< 0  */
+				{ 16 * HSCALE, 9  * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /**< 1  */
+				{ 6  * HSCALE, 11 * HSCALE                , 4 * HSCALE, 4 * HSCALE              }, /**< 2  */
+				{ 6  * HSCALE, 0                          , 4 * HSCALE, 4 * HSCALE              }, /**< 3  */
+				{ 6  * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              }, /**< 4  */
+				{ 13 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              }, /**< 5  */
+				{ 22 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              }, /**< 6  */
+				{ 29 * HSCALE, 6  * HSCALE                , 3 * HSCALE, 3 * HSCALE              }, /**< 7  */
+				{ 29 * HSCALE, 12 * HSCALE                , 3 * HSCALE, 3 * HSCALE              }, /**< 8  */
+				{ 29 * HSCALE, 0                          , 3 * HSCALE, 3 * HSCALE              }, /**< 9  */
+				{ 14 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 10 */
+				{ 22 * HSCALE, 13 * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 11 */
+				{ 14 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              }, /**< 12 */
+				{ 22 * HSCALE, 0                          , 2 * HSCALE, 2 * HSCALE              }, /**< 13 */
+				{ 10 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 14 */
+				{ 26 * HSCALE, 10 * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 15 */
+				{ 10 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 16 */
+				{ 26 * HSCALE, 3  * HSCALE                , 2 * HSCALE, 2 * HSCALE              }, /**< 17 */
 			}
 		}
 	}
 	, previousSeason{ false }
 {
 	plog_trace("Buildings1 is being constructed.");
-}
-
-void Buildings1::draw(SDL_Renderer* const renderer) noexcept
-{
-	plog_verbose("Buildings1 is being drawn.");
-	BuildingInitializer::draw(renderer);
 }
 
 void Buildings1::changeWeather(const bool isWinter) noexcept

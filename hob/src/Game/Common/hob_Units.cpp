@@ -31,7 +31,7 @@ Units::Units(SDL_Renderer* const renderer) noexcept
 		},
 		{ /* No component is used. */ },
 		{ /* No component is used. */ },
-		{ renderer }
+		renderer
 	}
 	, components{}
 {

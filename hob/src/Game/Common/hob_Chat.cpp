@@ -22,6 +22,7 @@
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added faction colors as parameters.                         *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -44,34 +45,34 @@
 namespace hob
 {
 
-Chat::Chat(SDL_Renderer* const renderer) noexcept
+Chat::Chat(SDL_Renderer* const renderer, const SDL_Color friendlyColor, const SDL_Color opponentColor) noexcept
 	: SoundInitializer     { { HOB_SOUNDS_FILE_PATH("message_received") } }
 	, chatFrame            { renderer }
 	, textures             {}
 	, components           {}
 	, messageQueue         {}
-	, font                 { nullptr }
+	, font                 { TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12) }
 	, enteringMessage      { "" }
 	, enteringMessageLength{ 0 }
 	, barTicks             { 0U }
 	, isActive             { false }
 	, isMuted              { false }
+	, friendlyColor        { friendlyColor }
+	, opponentColor        { opponentColor }
 {
 	Coordinate dimension = {};
 
 	plog_trace("Chat is being constructed.");
-
-	font = TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12);
 	if (nullptr == font)
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 	}
 
-	dimension = textures[CHAT_TEXTURE_INDEX_BAR].create("|", font, Faction::getInstance().getFriendlyColor(), renderer);
+	dimension = textures[CHAT_TEXTURE_INDEX_BAR].create("|", font, friendlyColor, renderer);
 	components[CHAT_TEXTURE_INDEX_BAR].updateTexture(textures[CHAT_TEXTURE_INDEX_BAR]);
 	components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = 4, .h = 15 });
 
-	dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Commands: ./mute | ./unmute", font, Faction::getInstance().getNeutralColor(), renderer);
+	dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Commands: ./mute | ./unmute", font, Faction::getNeutralColor(), renderer);
 	components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);
 	components[CHAT_TEXTURES_COUNT - 2].updatePosition({ .x = 8, .y = 9 * HSCALE + 10, .w = dimension.x, .h = dimension.y });
 }
@@ -93,7 +94,7 @@ void Chat::draw(SDL_Renderer* const renderer) noexcept
 	while (false == messageQueue.isEmpty())
 	{
 		opponentMessage = messageQueue.get();
-		enterMessage(opponentMessage, Faction::getInstance().getOpponentColor(), renderer);
+		enterMessage(opponentMessage, opponentColor, renderer);
 	}
 
 	chatFrame.draw(renderer);
@@ -307,7 +308,7 @@ void Chat::updateEnteringMessage(SDL_Renderer* const renderer) noexcept
 	textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].destroy();
 	if ("" != enteringMessage)
 	{
-		dimension = textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].create(enteringMessage, font, Faction::getInstance().getFriendlyColor(), renderer);
+		dimension = textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].create(enteringMessage, font, friendlyColor, renderer);
 	}
 	else
 	{
@@ -359,7 +360,7 @@ void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexc
 		plog_info("Chat is being muted!");
 		isMuted = true;
 
-		dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Chat is muted: ./unmute", font, Faction::getInstance().getNeutralColor(), renderer);
+		dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Chat is muted: ./unmute", font, Faction::getNeutralColor(), renderer);
 		components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);
 		components[CHAT_TEXTURES_COUNT - 2].updatePosition({ .x = 8, .y = 9 * HSCALE + 10, .w = dimension.x, .h = dimension.y });
 		for (index = 1UL; index < CHAT_TEXTURES_COUNT - 2UL; ++index)
@@ -377,7 +378,7 @@ void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexc
 	(void)strncpy(updateMessage.payload.text, enteringMessage.c_str(), sizeof(updateMessage.payload.text));
 	socket.sendUpdate(updateMessage);
 
-	enterMessage(enteringMessage, Faction::getInstance().getFriendlyColor(), renderer);
+	enterMessage(enteringMessage, friendlyColor, renderer);
 
 CLEAN_ENTERING_MESSAGE:
 

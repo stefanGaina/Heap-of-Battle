@@ -21,6 +21,7 @@
  * 27.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added direct getters for color.                             *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Made the class no longer Singleton.                         *
  * @details This file implements the class defined in hob_Faction.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -41,15 +42,6 @@
 namespace hob
 {
 
-Faction& Faction::getInstance(void) noexcept
-{
-	static Faction factionInstance = {};
-
-	plog_verbose("Faction instance is being got.");
-
-	return factionInstance;
-}
-
 Faction::Faction(void) noexcept
 	: isAlliance{ true }
 {
@@ -68,19 +60,19 @@ bool Faction::getFaction(void) const noexcept
 	return isAlliance;
 }
 
-SDL_Color Faction::getNeutralColor(void) const noexcept
+SDL_Color Faction::getNeutralColor(void) noexcept
 {
 	plog_verbose("Neutral color is being got.");
 	return { 0xAAU, 0xAAU, 0xAAU, 0xFFU }; /*< gray */
 }
 
-SDL_Color Faction::getAllianceColor(void) const noexcept
+SDL_Color Faction::getAllianceColor(void) noexcept
 {
 	plog_verbose("Alliance color is being got.");
 	return { 0x00U, 0xBFU, 0xBFU, 0xFFU }; /*< deep sky blue */
 }
 
-SDL_Color Faction::getHordeColor(void) const noexcept
+SDL_Color Faction::getHordeColor(void) noexcept
 {
 	plog_verbose("Horde color is being got.");
 	return { 0xFFU, 0x31U, 0x31U, 0xFFU }; /*< neon red */
@@ -93,7 +85,7 @@ SDL_Color Faction::getFriendlyColor(void) const noexcept
 
 SDL_Color Faction::getOpponentColor(void) const noexcept
 {
-	return true == isAlliance ? getHordeColor() : getAllianceColor();
+	return true == isAlliance ? Faction::getHordeColor() : Faction::getAllianceColor();
 }
 
 } /*< namespace hob */

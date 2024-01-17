@@ -24,6 +24,7 @@
  * 29.08.2023  Gaina Stefan               Made m_isRunning atomic.                                    *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 16.01.2024  Gaina Stefan               Added const to members.                                     *
+ * 17.01.2024  Gaina Stefan               Added comment.                                              *
  * @details This file defines the class and method prototypes of the loop.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -100,7 +101,7 @@ private:
 
 	/**
 	 * @brief Abstract method, handling an event.
-	 * @param void
+	 * @param event: The event to be handled.
 	 * @return void
 	*/
 	virtual void handleEvent(const SDL_Event& event) noexcept = 0;

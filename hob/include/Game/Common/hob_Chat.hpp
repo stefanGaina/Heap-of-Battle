@@ -21,6 +21,7 @@
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added color parameters.                                     *
  * @details This file defines the class and method prototypes of the chat.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -78,8 +79,10 @@ public:
 	/**
 	 * @brief Initialzies font and loads textures.
 	 * @param renderer: Rendering context of the window.
+	 * @param friendlyColor: The color assigned to the user.
+	 * @param opponentColor: The color assigned to the opponent.
 	*/
-	Chat(SDL_Renderer* renderer) noexcept;
+	Chat(SDL_Renderer* renderer, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept;
 
 	/**
 	 * @brief Deinitializes font and destroys textures.
@@ -181,7 +184,7 @@ private:
 	/**
 	 * @brief Font with which text will be written.
 	*/
-	TTF_Font* font;
+	TTF_Font* const font;
 
 	/**
 	 * @brief The message that is being entered by the user.
@@ -207,6 +210,16 @@ private:
 	 * @brief Flag indicating if the chat is muted(receives messages) or not.
 	*/
 	bool isMuted;
+
+	/**
+	 * @brief The color assigned to the user.
+	*/
+	const SDL_Color friendlyColor;
+
+	/**
+	 * @brief The color assigned to the opponent.
+	*/
+	const SDL_Color opponentColor;
 };
 
 } /*< namespace hob */

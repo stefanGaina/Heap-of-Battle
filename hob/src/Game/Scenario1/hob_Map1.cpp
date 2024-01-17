@@ -22,6 +22,7 @@
  * 26.08.2023  Gaina Stefan               Added chat.                                                 *
  * 27.08.2023  Gaina Stefan               Fixed compilation error due to removal of header.           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added faction member.                                       *
  * @details This file implements the class defined in hob_Map1.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -48,26 +49,27 @@
 namespace hob
 {
 
-Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, hobServer::Server& server, Socket& socket) noexcept
+Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
 	: Loop            { renderer, cursor, ping }
-	, game            { Faction::getInstance().getFaction() }
+	, game            { faction.getFaction() }
 	, tiles           { renderer }
-	, menu            { renderer, game.getGold() }
+	, menu            { renderer, faction.getFaction(), game.getGold() }
 	, buildings       { renderer }
-	, chat            { renderer }
+	, chat            { renderer, faction.getFriendlyColor(), faction.getOpponentColor() }
 	, grid            {}
 	, units           { renderer }
 	, receivingThread { std::bind(&Map1::receivingFunction, this) }
 	, receivingUpdates{ true }
 	, music           { music }
+	, faction         { faction }
 	, server          { server }
 	, socket          { socket }
 {
 	plog_trace("Map1 is being constructed.");
 
-	music.start(true == Faction::getInstance().getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
+	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 
-	cursor.setFaction(Faction::getInstance().getFaction());
+	cursor.setFaction(faction.getFaction());
 	cursor.setTexture(hobGame::CursorType::IDLE);
 }
 
@@ -96,8 +98,8 @@ void Map1::draw(void) noexcept
 	plog_verbose("Map1 is being drawn.");
 	menu.draw(renderer);
 	chat.draw(renderer);
-	tiles.draw(renderer);
-	buildings.draw(renderer);
+	tiles.TileInitializer::draw(renderer);
+	buildings.BuildingInitializer::draw(renderer);
 	units.draw(renderer);
 	grid.draw(renderer);
 }
@@ -125,7 +127,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 
 			chat.handleClick(click, renderer);
 
-			action = menu.handleClick(click, game.getMenuMode(click.x, click.y));
+			action = menu.handleClick(click, game.getMenuMode(click.x, click.y), faction.getFaction());
 			switch (action)
 			{
 				case Action::NOTHING:
@@ -160,7 +162,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 
 			cursor.updatePosition(click);
 			cursor.setTexture(game.getCursorType(click.x, click.y));
-			menu.handleHover(click);
+			menu.handleHover(click, faction.getFaction());
 			break;
 		}
 		case SDL_KEYDOWN:
@@ -206,7 +208,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 				plog_trace("Window lost focus.");
 				click = { .x = -1, .y = -1 };
 				cursor.updatePosition(click);
-				menu.handleHover(click);
+				menu.handleHover(click, faction.getFaction());
 			}
 			break;
 		}
@@ -247,12 +249,12 @@ void Map1::receivingFunction(void) noexcept
 			case hobServer::MessageType::TIME:
 			{
 				plog_verbose("Time update message received. (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
-				if (false == Faction::getInstance().getFaction() && false == game.getTurn())
+				if (false == faction.getFaction() && false == game.getTurn())
 				{
 					menu.updateTimer(receivedMessage.payload.timeLeft, true);
 					break;
 				}
-				menu.updateTimer(receivedMessage.payload.timeLeft, Faction::getInstance().getFaction() && game.getTurn());
+				menu.updateTimer(receivedMessage.payload.timeLeft, faction.getFaction() && game.getTurn());
 				break;
 			}
 			case hobServer::MessageType::TEXT:

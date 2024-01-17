@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the texture.                         *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -80,7 +81,7 @@ public:
 	/**
 	 * @brief Creates a texture from a text.
 	 * @param text: The text that represents the texture.
-	 * @param[in] font: The font from which the texture will be created.
+	 * @param font: The font from which the texture will be created.
 	 * @param color: Color of the text.
 	 * @param renderer: Rendering context of the window.
 	 * @return The dimension of the created texture (0 and 0 in case of error).

@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Added use of HOB_MUSIC_FILE_PATH.                           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added missing noexcept/const.                               *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -58,7 +59,7 @@ Music::~Music(void) noexcept
 	stop();
 }
 
-void Music::start(const Song song)
+void Music::start(const Song song) noexcept
 {
 	int32_t errorCode = 0;
 
@@ -108,7 +109,7 @@ void Music::start(const Song song)
 	(void)Mix_VolumeMusic(volume);
 }
 
-void Music::stop(void)
+void Music::stop(void) noexcept
 {
 	plog_trace("Music is being stopped.");
 	if (nullptr == song)
@@ -120,7 +121,7 @@ void Music::stop(void)
 	song = nullptr;
 }
 
-void Music::pause(void)
+void Music::pause(void) const noexcept
 {
 	plog_info("Music is being paused.");
 	if (nullptr == song)
@@ -131,7 +132,7 @@ void Music::pause(void)
 	Mix_PauseMusic();
 }
 
-void Music::resume(void)
+void Music::resume(void) const noexcept
 {
 	plog_info("Music is being resumed.");
 	if (nullptr == song)
@@ -142,39 +143,39 @@ void Music::resume(void)
 	Mix_ResumeMusic();
 }
 
-void Music::setVolume(const Volume volume)
+void Music::setVolume(const Volume volume) noexcept
 {
 	plog_debug("Setting music volume. (volume: %" PRId32 ")", static_cast<int32_t>(volume));
 	switch (volume)
 	{
 		case Volume::MUTED:
 		{
-			Music::volume = 0;
+			this->volume = 0;
 			break;
 		}
 		case Volume::LOW:
 		{
-			Music::volume = MIX_MAX_VOLUME - 4 * MIX_MAX_VOLUME / 5;
+			this->volume = MIX_MAX_VOLUME - 4 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::MEDIUM:
 		{
-			Music::volume = MIX_MAX_VOLUME - 3 * MIX_MAX_VOLUME / 5;
+			this->volume = MIX_MAX_VOLUME - 3 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::HIGH:
 		{
-			Music::volume = MIX_MAX_VOLUME - 2 * MIX_MAX_VOLUME / 5;
+			this->volume = MIX_MAX_VOLUME - 2 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::VERY_HIGH:
 		{
-			Music::volume = MIX_MAX_VOLUME - 1 * MIX_MAX_VOLUME / 5;
+			this->volume = MIX_MAX_VOLUME - 1 * MIX_MAX_VOLUME / 5;
 			break;
 		}
 		case Volume::MAX:
 		{
-			Music::volume = MIX_MAX_VOLUME;
+			this->volume = MIX_MAX_VOLUME;
 			break;
 		}
 		default:
@@ -183,8 +184,8 @@ void Music::setVolume(const Volume volume)
 			return;
 		}
 	}
-	plog_info("Music volume set! (volume: %" PRId32 ")", Music::volume);
-	Mix_VolumeMusic(Music::volume);
+	plog_info("Music volume set! (volume: %" PRId32 ")", this->volume);
+	Mix_VolumeMusic(this->volume);
 }
 
 } /*< namespace hob */

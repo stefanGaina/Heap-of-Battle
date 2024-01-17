@@ -92,114 +92,115 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 26.08.2023  Gaina Stefan               Initial version.                                            *</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 27.08.2023  Gaina Stefan               Added queue.                                                *</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the chat.                            *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef HOB_CHAT_HPP_</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define HOB_CHAT_HPP_</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__ChatFrame_8hpp.html">hob_ChatFrame.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Texture_8hpp.html">hob_Texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__SoundInitializer_8hpp.html">hob_SoundInitializer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__AsyncQueue_8hpp.html">hob_AsyncQueue.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Socket_8hpp.html">hob_Socket.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660d">   55</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660d">ChatTextureIndex</a></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">   57</a></span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</a> = 0,  </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">   58</a></span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">CHAT_TEXTURE_INDEX_BAR</a>              = 19, </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">CHAT_TEXTURES_COUNT</a>                 = 20  </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">   60</a></span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">   65</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">ChatSoundIndex</a></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">   67</a></span>&#160;    <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">CHAT_SOUND_INDEX_MESSAGE_RECEIVED</a> = 0, </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">CHAT_SOUNDS_COUNT</a>                 = 1  </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">   69</a></span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classhob_1_1Chat.html">   74</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Chat.html">Chat</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                 , <span class="keyword">public</span> <a class="code" href="classhob_1_1SoundInitializer.html">SoundInitializer</a>&lt;CHAT_SOUNDS_COUNT&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="classhob_1_1Chat.html#aa486d7f6257ac1ca6bdc6f9e6c7d2f40">Chat</a>(SDL_Renderer* renderer, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">~Chat</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#ae9b7504292ddb116320efc984914178d">handleClick</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> click, SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a63d0dcb11b1c888b984a082c061dd3a2">handleButtonPress</a>(<span class="keyword">const</span> SDL_Event&amp; event, SDL_Renderer* renderer, <span class="keyword">const</span> <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a7ddf019d374d3fec39e82d8b45730a18">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a8be95aa301d0a571a16c8736bb3d8716">receivedMessage</a>(<span class="keywordtype">char</span>* message) noexcept;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> updateEnteringMessage(SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> sendMessage(SDL_Renderer* renderer, <span class="keyword">const</span> <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">void</span> enterMessage(<span class="keyword">const</span> std::string&amp; message, SDL_Color color, SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> activate(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">void</span> deactivate(SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="classhob_1_1ChatFrame.html">ChatFrame</a> chatFrame;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::array&lt;Texture, CHAT_TEXTURES_COUNT&gt; textures;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    std::array&lt;Component, CHAT_TEXTURES_COUNT&gt; components;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <a class="code" href="classhob_1_1AsyncQueue.html">AsyncQueue&lt;std::string&gt;</a> messageQueue;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    TTF_Font* font;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    std::string enteringMessage;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    int32_t enteringMessageLength;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    uint8_t barTicks;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">bool</span> isActive;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordtype">bool</span> isMuted;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">const</span> SDL_Color friendlyColor;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">const</span> SDL_Color opponentColor;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;};</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_CHAT_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 17.01.2024  Gaina Stefan               Added color parameters.                                     *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the chat.                            *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef HOB_CHAT_HPP_</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define HOB_CHAT_HPP_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__ChatFrame_8hpp.html">hob_ChatFrame.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Texture_8hpp.html">hob_Texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__SoundInitializer_8hpp.html">hob_SoundInitializer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__AsyncQueue_8hpp.html">hob_AsyncQueue.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Socket_8hpp.html">hob_Socket.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660d">   56</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660d">ChatTextureIndex</a></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">   58</a></span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</a> = 0,  </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">   59</a></span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">CHAT_TEXTURE_INDEX_BAR</a>              = 19, </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">CHAT_TEXTURES_COUNT</a>                 = 20  </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">   61</a></span>&#160;};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">   66</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">ChatSoundIndex</a></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">   68</a></span>&#160;    <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">CHAT_SOUND_INDEX_MESSAGE_RECEIVED</a> = 0, </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">CHAT_SOUNDS_COUNT</a>                 = 1  </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">   70</a></span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classhob_1_1Chat.html">   75</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Chat.html">Chat</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                 , <span class="keyword">public</span> <a class="code" href="classhob_1_1SoundInitializer.html">SoundInitializer</a>&lt;CHAT_SOUNDS_COUNT&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="classhob_1_1Chat.html#aa486d7f6257ac1ca6bdc6f9e6c7d2f40">Chat</a>(SDL_Renderer* renderer, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">~Chat</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#ae9b7504292ddb116320efc984914178d">handleClick</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> click, SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a63d0dcb11b1c888b984a082c061dd3a2">handleButtonPress</a>(<span class="keyword">const</span> SDL_Event&amp; event, SDL_Renderer* renderer, <span class="keyword">const</span> <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a7ddf019d374d3fec39e82d8b45730a18">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Chat.html#a8be95aa301d0a571a16c8736bb3d8716">receivedMessage</a>(<span class="keywordtype">char</span>* message) noexcept;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> updateEnteringMessage(SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> sendMessage(SDL_Renderer* renderer, <span class="keyword">const</span> <a class="code" href="classhob_1_1Socket.html">Socket</a>&amp; socket) noexcept;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> enterMessage(<span class="keyword">const</span> std::string&amp; message, SDL_Color color, SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">void</span> activate(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> deactivate(SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="classhob_1_1ChatFrame.html">ChatFrame</a> chatFrame;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    std::array&lt;Texture, CHAT_TEXTURES_COUNT&gt; textures;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    std::array&lt;Component, CHAT_TEXTURES_COUNT&gt; components;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="classhob_1_1AsyncQueue.html">AsyncQueue&lt;std::string&gt;</a> messageQueue;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    TTF_Font* <span class="keyword">const</span> font;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    std::string enteringMessage;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    int32_t enteringMessageLength;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    uint8_t barTicks;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">bool</span> isActive;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">bool</span> isMuted;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keyword">const</span> SDL_Color friendlyColor;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">const</span> SDL_Color opponentColor;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;};</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_CHAT_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshob_1_1AsyncQueue_html"><div class="ttname"><a href="classhob_1_1AsyncQueue.html">hob::AsyncQueue&lt; std::string &gt;</a></div></div>
-<div class="ttc" id="aclasshob_1_1ChatFrame_html"><div class="ttname"><a href="classhob_1_1ChatFrame.html">hob::ChatFrame</a></div><div class="ttdoc">Visual of the chat frame and background.</div><div class="ttdef"><b>Definition:</b> hob_ChatFrame.hpp:76</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html"><div class="ttname"><a href="classhob_1_1Chat.html">hob::Chat</a></div><div class="ttdoc">Visual representation of chat box and messages.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:76</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_a63d0dcb11b1c888b984a082c061dd3a2"><div class="ttname"><a href="classhob_1_1Chat.html#a63d0dcb11b1c888b984a082c061dd3a2">hob::Chat::handleButtonPress</a></div><div class="ttdeci">void handleButtonPress(const SDL_Event &amp;event, SDL_Renderer *renderer, const Socket &amp;socket) noexcept</div><div class="ttdoc">Handles key input events if chat is active.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:171</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_a7ddf019d374d3fec39e82d8b45730a18"><div class="ttname"><a href="classhob_1_1Chat.html#a7ddf019d374d3fec39e82d8b45730a18">hob::Chat::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws messages to the chat box.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:87</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_a8be95aa301d0a571a16c8736bb3d8716"><div class="ttname"><a href="classhob_1_1Chat.html#a8be95aa301d0a571a16c8736bb3d8716">hob::Chat::receivedMessage</a></div><div class="ttdeci">void receivedMessage(char *message) noexcept</div><div class="ttdoc">Adds the message to the chat box.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:126</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_aa486d7f6257ac1ca6bdc6f9e6c7d2f40"><div class="ttname"><a href="classhob_1_1Chat.html#aa486d7f6257ac1ca6bdc6f9e6c7d2f40">hob::Chat::Chat</a></div><div class="ttdeci">Chat(SDL_Renderer *renderer, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept</div><div class="ttdoc">Initialzies font and loads textures.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:47</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_ae4ab3249c505d3da377cae56b47ab307"><div class="ttname"><a href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">hob::Chat::~Chat</a></div><div class="ttdeci">~Chat(void) noexcept</div><div class="ttdoc">Deinitializes font and destroys textures.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:81</div></div>
-<div class="ttc" id="aclasshob_1_1Chat_html_ae9b7504292ddb116320efc984914178d"><div class="ttname"><a href="classhob_1_1Chat.html#ae9b7504292ddb116320efc984914178d">hob::Chat::handleClick</a></div><div class="ttdeci">void handleClick(Coordinate click, SDL_Renderer *renderer) noexcept</div><div class="ttdoc">Handles the press of the click.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:156</div></div>
+<div class="ttc" id="aclasshob_1_1ChatFrame_html"><div class="ttname"><a href="classhob_1_1ChatFrame.html">hob::ChatFrame</a></div><div class="ttdoc">Visual of the chat frame and background.</div><div class="ttdef"><b>Definition:</b> hob_ChatFrame.hpp:77</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html"><div class="ttname"><a href="classhob_1_1Chat.html">hob::Chat</a></div><div class="ttdoc">Visual representation of chat box and messages.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:77</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_a63d0dcb11b1c888b984a082c061dd3a2"><div class="ttname"><a href="classhob_1_1Chat.html#a63d0dcb11b1c888b984a082c061dd3a2">hob::Chat::handleButtonPress</a></div><div class="ttdeci">void handleButtonPress(const SDL_Event &amp;event, SDL_Renderer *renderer, const Socket &amp;socket) noexcept</div><div class="ttdoc">Handles key input events if chat is active.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:170</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_a7ddf019d374d3fec39e82d8b45730a18"><div class="ttname"><a href="classhob_1_1Chat.html#a7ddf019d374d3fec39e82d8b45730a18">hob::Chat::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws messages to the chat box.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:86</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_a8be95aa301d0a571a16c8736bb3d8716"><div class="ttname"><a href="classhob_1_1Chat.html#a8be95aa301d0a571a16c8736bb3d8716">hob::Chat::receivedMessage</a></div><div class="ttdeci">void receivedMessage(char *message) noexcept</div><div class="ttdoc">Adds the message to the chat box.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:125</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_aa486d7f6257ac1ca6bdc6f9e6c7d2f40"><div class="ttname"><a href="classhob_1_1Chat.html#aa486d7f6257ac1ca6bdc6f9e6c7d2f40">hob::Chat::Chat</a></div><div class="ttdeci">Chat(SDL_Renderer *renderer, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept</div><div class="ttdoc">Initialzies font and loads textures.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:48</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_ae4ab3249c505d3da377cae56b47ab307"><div class="ttname"><a href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">hob::Chat::~Chat</a></div><div class="ttdeci">~Chat(void) noexcept</div><div class="ttdoc">Deinitializes font and destroys textures.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:80</div></div>
+<div class="ttc" id="aclasshob_1_1Chat_html_ae9b7504292ddb116320efc984914178d"><div class="ttname"><a href="classhob_1_1Chat.html#ae9b7504292ddb116320efc984914178d">hob::Chat::handleClick</a></div><div class="ttdeci">void handleClick(Coordinate click, SDL_Renderer *renderer) noexcept</div><div class="ttdoc">Handles the press of the click.</div><div class="ttdef"><b>Definition:</b> hob_Chat.cpp:155</div></div>
 <div class="ttc" id="aclasshob_1_1IDrawable_html"><div class="ttname"><a href="classhob_1_1IDrawable.html">hob::IDrawable</a></div><div class="ttdoc">Interface of classes that can be drawn.</div><div class="ttdef"><b>Definition:</b> hob_IDrawable.hpp:48</div></div>
-<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:53</div></div>
+<div class="ttc" id="aclasshob_1_1Socket_html"><div class="ttname"><a href="classhob_1_1Socket.html">hob::Socket</a></div><div class="ttdoc">Client socket wrapper for server types.</div><div class="ttdef"><b>Definition:</b> hob_Socket.hpp:54</div></div>
 <div class="ttc" id="aclasshob_1_1SoundInitializer_html"><div class="ttname"><a href="classhob_1_1SoundInitializer.html">hob::SoundInitializer</a></div><div class="ttdoc">Initializes a list of sounds.</div><div class="ttdef"><b>Definition:</b> hob_SoundInitializer.hpp:56</div></div>
 <div class="ttc" id="ahob__AsyncQueue_8hpp_html"><div class="ttname"><a href="hob__AsyncQueue_8hpp.html">hob_AsyncQueue.hpp</a></div></div>
 <div class="ttc" id="ahob__ChatFrame_8hpp_html"><div class="ttname"><a href="hob__ChatFrame_8hpp.html">hob_ChatFrame.hpp</a></div></div>
@@ -207,14 +208,14 @@ $(function() {
 <div class="ttc" id="ahob__Socket_8hpp_html"><div class="ttname"><a href="hob__Socket_8hpp.html">hob_Socket.hpp</a></div></div>
 <div class="ttc" id="ahob__SoundInitializer_8hpp_html"><div class="ttname"><a href="hob__SoundInitializer_8hpp.html">hob_SoundInitializer.hpp</a></div></div>
 <div class="ttc" id="ahob__Texture_8hpp_html"><div class="ttname"><a href="hob__Texture_8hpp.html">hob_Texture.hpp</a></div></div>
-<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:43</div></div>
-<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">hob::ChatSoundIndex</a></div><div class="ttdeci">ChatSoundIndex</div><div class="ttdoc">Enumerates chat's sounds index.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:66</div></div>
-<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">hob::CHAT_SOUND_INDEX_MESSAGE_RECEIVED</a></div><div class="ttdeci">@ CHAT_SOUND_INDEX_MESSAGE_RECEIVED</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:67</div></div>
-<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">hob::CHAT_SOUNDS_COUNT</a></div><div class="ttdeci">@ CHAT_SOUNDS_COUNT</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:68</div></div>
-<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660d"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660d">hob::ChatTextureIndex</a></div><div class="ttdeci">ChatTextureIndex</div><div class="ttdoc">Enumerates chat's textures index.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:56</div></div>
-<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">hob::CHAT_TEXTURE_INDEX_BAR</a></div><div class="ttdeci">@ CHAT_TEXTURE_INDEX_BAR</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:58</div></div>
-<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">hob::CHAT_TEXTURES_COUNT</a></div><div class="ttdeci">@ CHAT_TEXTURES_COUNT</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:59</div></div>
-<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">hob::CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</a></div><div class="ttdeci">@ CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:57</div></div>
+<div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:44</div></div>
+<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54">hob::ChatSoundIndex</a></div><div class="ttdeci">ChatSoundIndex</div><div class="ttdoc">Enumerates chat's sounds index.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:67</div></div>
+<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a451ba33fc37f821f66bf9aea696bf2f3">hob::CHAT_SOUND_INDEX_MESSAGE_RECEIVED</a></div><div class="ttdeci">@ CHAT_SOUND_INDEX_MESSAGE_RECEIVED</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:68</div></div>
+<div class="ttc" id="anamespacehob_html_a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f"><div class="ttname"><a href="namespacehob.html#a39c368417332a0d94ea9be8ff1bc7a54a52f5edcea192554693a1d8e19882ff5f">hob::CHAT_SOUNDS_COUNT</a></div><div class="ttdeci">@ CHAT_SOUNDS_COUNT</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:69</div></div>
+<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660d"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660d">hob::ChatTextureIndex</a></div><div class="ttdeci">ChatTextureIndex</div><div class="ttdoc">Enumerates chat's textures index.</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:57</div></div>
+<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da138a0bb066efb35d9c602d44e49fcde6">hob::CHAT_TEXTURE_INDEX_BAR</a></div><div class="ttdeci">@ CHAT_TEXTURE_INDEX_BAR</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:59</div></div>
+<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da27be4433ee79222c1846436cae69b34a">hob::CHAT_TEXTURES_COUNT</a></div><div class="ttdeci">@ CHAT_TEXTURES_COUNT</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:60</div></div>
+<div class="ttc" id="anamespacehob_html_ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a"><div class="ttname"><a href="namespacehob.html#ada76706b204277067f7b8a960595660da50e4faf69facb0e0decd8e4ceb19489a">hob::CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</a></div><div class="ttdeci">@ CHAT_TEXTURE_INDEX_ENTERING_MESSAGE</div><div class="ttdef"><b>Definition:</b> hob_Chat.hpp:58</div></div>
 <div class="ttc" id="astructhob_1_1Coordinate_html"><div class="ttname"><a href="structhob_1_1Coordinate.html">hob::Coordinate</a></div><div class="ttdoc">Coordinates of an object on the screen (0, 0 &lt;-&gt; top left corner).</div><div class="ttdef"><b>Definition:</b> hob_Types.hpp:112</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

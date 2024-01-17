@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added faction member.                                       *
  * @details This file implements the class defined in hob_LocalMenu.hpp.                              *
  * @todo Offer a way for IP address of the host to be inputed (after pressing connect).               *
  * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a     *
@@ -57,7 +58,8 @@
 namespace hob
 {
 
-LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, hobServer::Server& server, Socket& socket) noexcept
+LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music,
+	Faction& faction, hobServer::Server& server, Socket& socket) noexcept
 	: Loop{ renderer, cursor, ping }
 	, TextureInitializer
 	{
@@ -92,7 +94,7 @@ LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const p
 				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT }
 			}
 		},
-		{ renderer }
+		renderer
 	}
 	, SoundInitializer
 	{
@@ -107,13 +109,14 @@ LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const p
 	, receivingUpdates    { false }
 	, clickDownIndex      { 0UL }
 	, music               { music }
+	, faction             { faction }
 	, server              { server }
 	, socket              { socket }
 {
 	plog_trace("Local menu is being constructed.");
 
 	music.start(Song::MAIN_MENU);
-	
+
 	cursor.setFaction(true);
 	cursor.setTexture(hobGame::CursorType::IDLE);
 }
@@ -128,11 +131,11 @@ LocalMenu::~LocalMenu(void) noexcept
 
 	if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
 	{
-		Faction::getInstance().setFaction(true);
+		faction.setFaction(true);
 	}
 	else if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
 	{
-		Faction::getInstance().setFaction(false);
+		faction.setFaction(false);
 	}
 }
 
@@ -256,12 +259,12 @@ void LocalMenu::handleEvent(const SDL_Event& event) noexcept
 							}
 							catch (const std::exception& exception)
 							{
-								plog_error("Failed to create local server!");
+								plog_error("Failed to create the local server!");
 								soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
 								break;
 							}
 
-							// TODO: the client might connect before the server is ready
+							// TODO: Remove this when it is safe to make the client connection.
 							sleep(1);
 
 							componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
@@ -279,7 +282,7 @@ void LocalMenu::handleEvent(const SDL_Event& event) noexcept
 							componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT]);
 							break;
 						}
-						plog_error("First button text is not host game or waiting!"); 
+						plog_error("First button text is not host game or waiting!");
 						break;
 					}
 					case LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT:

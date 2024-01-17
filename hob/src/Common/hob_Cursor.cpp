@@ -72,7 +72,7 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 		{
 			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 }
 		},
-		{ renderer }
+		renderer
 	}
 	, textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
 	, enabled           { false }
@@ -90,8 +90,7 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 
 	if (SDL_ENABLE == errorCode)
 	{
-		errorCode = SDL_ShowCursor(SDL_DISABLE);
-		if (0 > errorCode)
+		if (0 > SDL_ShowCursor(SDL_DISABLE))
 		{
 			plog_error("SDL Cursor failed to be hidden! (SDL error message: %s)", SDL_GetError());
 			return;

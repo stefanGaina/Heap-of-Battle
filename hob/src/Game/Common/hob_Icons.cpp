@@ -15,10 +15,28 @@
  * 3. This notice may not be removed or altered from any source distribution.                         *
 ******************************************************************************************************/
 
+/******************************************************************************************************
+ * @file hob_Icons.cpp                                                                                *
+ * @date:      @author:                   Reason for change:                                          *
+ * 23.12.2023  Gaina Stefan               Initial version.                                            *
+ * 17.01.2024  Gaina Stefan               Made preliminary implementation.                            *
+ * @details This file implements the class defined in hob_Icons.hpp.                                  *
+ * @todo N/A.                                                                                         *
+ * @bug No known bugs.                                                                                *
+ *****************************************************************************************************/
+
+/******************************************************************************************************
+ * HEADER FILE INCLUDES                                                                               *
+ *****************************************************************************************************/
+
 #include <plog.h>
 
 #include "hob_Icons.hpp"
 #include "hob_Faction.hpp"
+
+/******************************************************************************************************
+ * MACROS                                                                                             *
+ *****************************************************************************************************/
 
 /**
  * @brief Full file path of an image used by the icons.
@@ -26,6 +44,10 @@
  * @return The full file path.
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/icons/" name)
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 namespace hob
 {
@@ -50,50 +72,81 @@ Icons::Icons(SDL_Renderer* const renderer) noexcept
 			TEXTURE_FILE_PATH("hall_icon")           /*< 13 */
 		},
 		{
-			0UL,
-			0UL,
-			0UL,
-			0UL,
-			0UL
+			ICONS_TEXTURE_INDEX_ELF          , /**< 0 */
+			ICONS_TEXTURE_INDEX_KNIGHT       , /**< 1 */
+			ICONS_TEXTURE_INDEX_GRYPHON_RIDER, /**< 2 */
+			ICONS_TEXTURE_INDEX_MAGE         , /**< 3 */
+			ICONS_TEXTURE_INDEX_CASTLE         /**< 4 */
 		},
 		{
 			{
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 0, 0, 0 }
+				{ .x = 8, .y = 1 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 0 */
+				{ .x = 8, .y = 3 * HSCALE              + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 1 */
+				{ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 2 */
+				{ .x = 8, .y = 6 * HSCALE              + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 3 */
+				{ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }  /**< 4 */
 			}
 		},
-		{ renderer }
+		renderer
 	}
 {
-
+	plog_trace("Icons are being constructed.");
 }
 
 void Icons::hide(void) noexcept
 {
+	size_t index = 0UL;
 
+	plog_verbose("Icons are being hidden.");
+	for (index = ICONS_COMPONENT_INDEX_1; index <= ICONS_COMPONENT_INDEX_5; ++index)
+	{
+		componentContainer[index].updateTexture(nullptr);
+	}
 }
 
-void Icons::setAllianceKeep(void) noexcept
+void Icons::setAllianceKeep(const bool isAlliance) noexcept
 {
-	if (true == Faction::getInstance().getFaction())
+	size_t index = 0UL;
+
+	plog_verbose("Icons are being set to indicate alliance keep.");
+	if (true == isAlliance)
 	{
-		componentContainer[0UL].updateTexture(textureContainer[0UL]);
-		componentContainer[0UL].updatePosition({ .x = 8, .y = HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
+		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_ELF]);
+		componentContainer[ICONS_COMPONENT_INDEX_2].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_KNIGHT]);
+		componentContainer[ICONS_COMPONENT_INDEX_3].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_GRYPHON_RIDER]);
+		componentContainer[ICONS_COMPONENT_INDEX_4].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_MAGE]);
+		componentContainer[ICONS_COMPONENT_INDEX_5].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_CASTLE]);
 
-		componentContainer[1UL].updateTexture(textureContainer[1UL]);
-		componentContainer[1UL].updatePosition({ .x = 8, .y = 3 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
+		return;
+	}
 
-		componentContainer[2UL].updateTexture(textureContainer[2UL]);
-		componentContainer[2UL].updatePosition({ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
+	componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_KEEP]);
+	for (index = ICONS_COMPONENT_INDEX_2; index <= ICONS_COMPONENT_INDEX_5; ++index)
+	{
+		componentContainer[index].updateTexture(nullptr);
+	}
+}
 
-		componentContainer[3UL].updateTexture(textureContainer[3UL]);
-		componentContainer[3UL].updatePosition({ .x = 8, .y = 6 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
+void Icons::setHordeKeep(const bool isAlliance) noexcept
+{
+	size_t index = 0UL;
 
-		componentContainer[4UL].updateTexture(textureContainer[4UL]);
-		componentContainer[4UL].updatePosition({ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 });
+	plog_verbose("Icons are being set to indicate horde keep.");
+	if (false == isAlliance)
+	{
+		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_TROLL]);
+		componentContainer[ICONS_COMPONENT_INDEX_2].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_DEATH_RIDER]);
+		componentContainer[ICONS_COMPONENT_INDEX_3].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_DRAGON]);
+		componentContainer[ICONS_COMPONENT_INDEX_4].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_OGRE]);
+		componentContainer[ICONS_COMPONENT_INDEX_5].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_STRONGHOLD]);
+
+		return;
+	}
+
+	componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_HALL]);
+	for (index = ICONS_COMPONENT_INDEX_2; index <= ICONS_COMPONENT_INDEX_5; ++index)
+	{
+		componentContainer[index].updateTexture(nullptr);
 	}
 }
 

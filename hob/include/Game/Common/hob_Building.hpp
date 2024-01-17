@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Changed comment.                                            *
  * @details This file defines the class and method prototypes of the building.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -82,14 +83,14 @@ public:
 
 	/**
 	 * @brief Changes the texture that will be drawn (it keeps count if texture is set to alternative).
-	 * @param isWinter: true - winter | false - otherwise.
+	 * @param isWinter: true - winter, false - otherwise.
 	 * @return void
 	*/
 	void changeWeather(bool isWinter) noexcept;
 
 	/**
 	 * @brief Changes the texture that will be drawn (it keeps count of the current weather).
-	 * @param isAlternative: true - is alternative | false - otherwise.
+	 * @param isAlternative: true - is alternative, false - otherwise.
 	 * @return void
 	*/
 	void switchTexture(bool isAlternative) noexcept;

@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 29.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Added faction.                                              *
  * @details This file defines the class and method prototypes of the LAN menu scene.                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -37,6 +38,7 @@
 #include "hob_SoundInitializer.hpp"
 #include "hob_AsyncQueue.hpp"
 #include "hob_Music.hpp"
+#include "hob_Faction.hpp"
 #include "hobServer_Server.hpp"
 
 /******************************************************************************************************
@@ -110,10 +112,11 @@ public:
 	 * @param cursor: Reference to the cursor object.
 	 * @param ping: Reference to the ping object.
 	 * @param music: Reference to the music object.
+	 * @param faction: Reference to the faction object.
 	 * @param server: Reference to the server object.
 	 * @param socket: Reference to the socket object.
 	*/
-	LocalMenu(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, hobServer::Server& server, Socket& socket) noexcept;
+	LocalMenu(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, Faction& faction, hobServer::Server& server, Socket& socket) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures and sound needed for this scene.
@@ -195,6 +198,11 @@ private:
 	 * @brief Reference to the music object.
 	*/
 	Music& music;
+
+	/**
+	 * @brief Reference to the faction object.
+	*/
+	Faction& faction;
 
 	/**
 	 * @brief Reference to the server object.

@@ -22,6 +22,7 @@
  * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
  * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Fixed delimitator comment.                                  *
  * @details This file implements the class defined in hob_Ping.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -38,13 +39,17 @@
 #include "hob_Socket.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * LOCAL VARIABLES                                                                                    *
  *****************************************************************************************************/
 
 namespace hob
 {
 
 bool Ping::interruptWait = true;
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
 
 Ping::Ping(void) noexcept
 	: queue           {}
@@ -155,7 +160,7 @@ void Ping::sendPings(const Socket* const socket) noexcept
 		socket->sendUpdate(pingMessage);
 
 		plog_verbose("Waiting 1 second.");
-		waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
+		(void)waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
 
 		if (true == interruptWait)
 		{
