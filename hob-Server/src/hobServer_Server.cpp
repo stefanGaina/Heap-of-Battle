@@ -22,8 +22,10 @@
  * 25.08.2023  Gaina Stefan               Added communication to clients.                             *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Made create() throwable.                                    *
  * @details This file implements the class defined in hobServer_Server.hpp.                           *
- * @todo N/A.                                                                                         *
+ * @todo runAsync() is currently returning before the server is ready to make connections so in the   *
+ * case of the local server the client socket might try a connection before hand.                     *
  * @bug No known bugs.                                                                                *
  *****************************************************************************************************/
 
@@ -67,7 +69,7 @@ Server::~Server(void) noexcept
 	stop();
 }
 
-void Server::runAsync(const uint16_t port) noexcept
+void Server::runAsync(const uint16_t port) noexcept(false)
 {
 	plog_info(LOG_PREFIX "Server is running asynchronically (port: %" PRIu16 ")", port);
 	if (true == createAgain.load())
@@ -78,6 +80,9 @@ void Server::runAsync(const uint16_t port) noexcept
 
 	createAgain.store(true);
 	runThread = std::thread{ std::bind(&Server::runSync, this, port) };
+
+	// TODO: wait until the server is ready to make connections.
+	// Make sure to implement a timeout given as parameter.
 }
 
 void Server::stop(void) noexcept
@@ -104,7 +109,8 @@ void Server::runSync(const uint16_t port) noexcept
 	{
 		try
 		{
-			socket.create(port);
+			// TODO: give a callback to be notified when the server is ready to make connections.
+			socket.create(port, nullptr);
 		}
 		catch (const std::exception& exception)
 		{

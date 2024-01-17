@@ -102,7 +102,7 @@ void Timer::timerFunction(uint16_t timeLeft) noexcept
 		onTimeUpdate(timeLeft);
 
 		plog_verbose(LOG_PREFIX "Waiting 1 second.");
-		waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
+		(void)waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
 
 		if (true == interruptWait)
 		{

@@ -21,6 +21,7 @@
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Made waitConnectionFunction throwable.                      *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Removed callback from waitConnection().                     *
  * @details This file defines the class and method prototypes of the socket.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -64,12 +65,12 @@ class Socket final
 {
 public:
 	/**
-	 * @brief Function prototype of the callback when the connections are done.
+	 * @brief Function prototype of the callback when the server is ready to make connections.
 	*/
-	using CallbackFunction = std::function<void(bool)>;
+	using CallbackFunction = std::function<void(void)>;
 
 	/**
-	 * @brief Pointer to the callback when the connections are done
+	 * @brief Pointer to the callback when the server is ready to make connections.
 	*/
 	using Callback = std::shared_ptr<CallbackFunction>;
 
@@ -88,11 +89,11 @@ public:
 	/**
 	 * @brief Create a server socket and waits connections from 2 clients.
 	 * @param port: The port that the server socket will be opened to connections.
-	 * @param[in] callback: Function that will be called asynchronically after the connection is done
-	 * with both clients. This is optional, otherwise the waiting will be done synchronically.
+	 * @param callback: Function that will be called synchronically after the server is ready
+	 * to make connections. For now this is optional.
 	 * @return void
 	*/
-	void create(uint16_t port, Callback callback = nullptr) noexcept(false);
+	void create(uint16_t port, Callback callback) noexcept(false);
 
 	/**
 	 * @brief Closes the server socket and the 2 client sockets interrupting the waiting of
@@ -121,11 +122,10 @@ public:
 private:
 	/**
 	 * @brief Waits connections to server from 2 clients. Throws exceptions only when not called with a callback.
-	 * @param[in] callback: Function that will be called at the end if on another thread (null - otherwise).
-	 * Parameter is true if the connection has been established successfully and false otherwise.
+	 * @param void
 	 * @return void
 	*/
-	void waitConnectionFunction(Callback callback = nullptr) noexcept(false);
+	void waitConnection(void) noexcept(false);
 
 	/**
 	 * @brief Closes the client socket.
@@ -144,11 +144,6 @@ private:
 	 * @brief The client sockets.
 	*/
 	int32_t clientSockets[2];
-
-	/**
-	 * @brief The thread that will be created if the waiting of connections is be done asynchronically.
-	*/
-	std::thread waitConnectionThread;
 };
 
 } /*< hobServer */

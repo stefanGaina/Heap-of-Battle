@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Removed callback from waitConnection().                     *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -49,9 +50,8 @@ namespace hobServer
 {
 
 Socket::Socket(void) noexcept
-	: serverSocket        { SOCKET_INVALID }
-	, clientSockets       { SOCKET_INVALID, SOCKET_INVALID }
-	, waitConnectionThread{}
+	: serverSocket { SOCKET_INVALID }
+	, clientSockets{ SOCKET_INVALID, SOCKET_INVALID }
 {
 	plog_debug(LOG_PREFIX "Socket is being constructed.");
 }
@@ -62,7 +62,7 @@ Socket::~Socket(void) noexcept
 	close();
 }
 
-void Socket::create(const uint16_t port, const Callback callback) noexcept(false)
+void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 {
 	sockaddr_in server = {};
 
@@ -92,28 +92,21 @@ void Socket::create(const uint16_t port, const Callback callback) noexcept(false
 		throw std::exception();
 	}
 
-	if (nullptr == callback)
+	// TODO: remove this check when a callback is given by the server.
+	if (nullptr != callback)
 	{
-		plog_warn(LOG_PREFIX "Callback is invalid, function is blocking!");
-		try
-		{
-			waitConnectionFunction();
-		}
-		catch (const std::exception& exception)
-		{
-			plog_error(LOG_PREFIX "Server failed to establish connections!");
-			throw exception;
-		}
-		return;
+		(*callback)();
 	}
 
-	if (true == waitConnectionThread.joinable())
+	try
 	{
-		plog_debug(LOG_PREFIX "Wait connection thread is being joined.");
-		waitConnectionThread.join();
-		plog_debug(LOG_PREFIX "Wait connection thread has joined.");
+		waitConnection();
 	}
-	waitConnectionThread = std::thread{ std::bind(&Socket::waitConnectionFunction, this, callback) };
+	catch (const std::exception& exception)
+	{
+		plog_error(LOG_PREFIX "Server failed to establish connections!");
+		throw exception;
+	}
 }
 
 void Socket::close(void) noexcept
@@ -134,13 +127,6 @@ void Socket::close(void) noexcept
 
 	closeClient(ClientType::PLAYER_1);
 	closeClient(ClientType::PLAYER_2);
-
-	if (true == waitConnectionThread.joinable())
-	{
-		plog_debug(LOG_PREFIX "Wait connection thread is being joined.");
-		waitConnectionThread.join();
-		plog_debug(LOG_PREFIX "Wait connection thread has joined.");
-	}
 }
 
 void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) const noexcept
@@ -226,13 +212,13 @@ void Socket::sendUpdate(const Message& updateMessage, const ClientType clientTyp
 	}
 }
 
-void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
+void Socket::waitConnection(void) noexcept(false)
 {
-	size_t      index          = 0UL;
-	ClientType  clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
-	sockaddr_in client         = {};
-	socklen_t   addressLength  = sizeof(client);
-	Message     message        = {};
+	size_t           index          = 0UL;
+	const ClientType clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
+	sockaddr_in      client         = {};
+	socklen_t        addressLength  = sizeof(client);
+	Message          message        = {};
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
 	if (0 != listen(serverSocket, 2))
@@ -252,13 +238,7 @@ void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
 				closeClient(clientTypes[index]);
 			}
 
-			if (nullptr == callback)
-			{
-				throw std::exception();
-			}
-
-			(*callback)(false);
-			break;
+			throw std::exception();
 		}
 
 		if (SOCKET_INVALID == clientSockets[index])
@@ -289,11 +269,6 @@ void Socket::waitConnectionFunction(const Callback callback) noexcept(false)
 		{
 			++index;
 			continue;
-		}
-
-		if (nullptr != callback)
-		{
-			(*callback)(true);
 		}
 
 		message.type = MessageType::PING;

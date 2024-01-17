@@ -21,6 +21,7 @@
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Handled runAsync()'s exception.                             *
  * @details This file implements the class defined in hobServerInstance_Server.hpp.                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -55,13 +56,13 @@ void Server::run(const uint16_t port) noexcept(false)
 	try
 	{
 		init();
+		server.runAsync(port);
 	}
 	catch (const std::exception& exception)
 	{
 		throw exception;
 	}
 
-	server.runAsync(port);
 	while (0 != stop)
 	{
 		std::cout << std::endl << "Input \"0\" to stop server: ";

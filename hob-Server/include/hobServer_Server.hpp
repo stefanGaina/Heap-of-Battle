@@ -21,6 +21,7 @@
  * 26.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added receivePlayerUpdates method.                          *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 17.01.2024  Gaina Stefan               Made create() throwable.                                    *
  * @details This file defines the class and method prototypes of the server.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -69,7 +70,7 @@ public:
 	 * @param port: Port on which the server socket will be opened.
 	 * @return void
 	*/
-	void runAsync(uint16_t port) noexcept;
+	void runAsync(uint16_t port) noexcept(false);
 
 	/**
 	 * @brief Stops the server.
