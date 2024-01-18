@@ -21,6 +21,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Fixed comments.                                             *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
  * @details This file defines the class and method prototypes of the main menu scene.                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -121,6 +122,34 @@ private:
 	 * @return void
 	*/
 	void draw(void) noexcept override;
+
+	/**
+	 * @brief Handles a button down event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonDown(void) noexcept;
+
+	/**
+	 * @brief Handles a button up event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonUp(void) noexcept;
+
+	/**
+	 * @brief Handles a mouse motion event.
+	 * @param void
+	 * @return void
+	*/
+	void handleMouseMotion(void) noexcept;
+
+	/**
+	 * @brief Handles a quit event.
+	 * @param void
+	 * @return void
+	*/
+	void handleQuit(void) noexcept;
 
 private:
 	/**

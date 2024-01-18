@@ -21,6 +21,7 @@
  * 29.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added faction member.                                       *
+ * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
  * @details This file implements the class defined in hob_LocalMenu.hpp.                              *
  * @todo Offer a way for IP address of the host to be inputed (after pressing connect).               *
  * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a     *
@@ -64,34 +65,34 @@ LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const p
 	, TextureInitializer
 	{
 		{
-			MENU_TEXTURE_PATH_BACKGROUND       ,
-			MENU_TEXTURE_PATH_BUTTON_IDLE      ,
-			MENU_TEXTURE_PATH_BUTTON_ACTIVE    ,
-			MENU_TEXTURE_PATH_BUTTON_PRESSED   ,
-			TEXTURE_FILE_PATH("host_game_text"),
-			TEXTURE_FILE_PATH("connect_text")  ,
-			TEXTURE_FILE_PATH("back_text")     ,
-			TEXTURE_FILE_PATH("waiting_text")  ,
-			TEXTURE_FILE_PATH("connecting_text")
+			MENU_TEXTURE_PATH_BACKGROUND       , /*< 0 */
+			MENU_TEXTURE_PATH_BUTTON_IDLE      , /*< 1 */
+			MENU_TEXTURE_PATH_BUTTON_ACTIVE    , /*< 2 */
+			MENU_TEXTURE_PATH_BUTTON_PRESSED   , /*< 3 */
+			TEXTURE_FILE_PATH("host_game_text"), /*< 4 */
+			TEXTURE_FILE_PATH("connect_text")  , /*< 5 */
+			TEXTURE_FILE_PATH("back_text")     , /*< 6 */
+			TEXTURE_FILE_PATH("waiting_text")  , /*< 7 */
+			TEXTURE_FILE_PATH("connecting_text") /*< 8 */
 		},
 		{
-			LOCAL_MENU_TEXTURE_INDEX_BACKGROUND    ,
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   ,
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   ,
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   ,
-			LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT,
-			LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT  ,
-			LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT
+			LOCAL_MENU_TEXTURE_INDEX_BACKGROUND    , /*< 0 */
+			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 1 */
+			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 2 */
+			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 3 */
+			LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT, /*< 4 */
+			LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT  , /*< 5 */
+			LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT       /*< 6 */
 		},
 		{
 			{
-				{ 0                                          , 0                                    , SCREEN_WIDTH      , SCREEN_HEIGHT   },
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2                , BAR_WIDTH         , BAR_HEIGHT      },
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      },
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      },
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4                , BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT },
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT },
-				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT }
+				{ 0                                          , 0                                    , SCREEN_WIDTH      , SCREEN_HEIGHT   }, /*< 0 */
+				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2                , BAR_WIDTH         , BAR_HEIGHT      }, /*< 1 */
+				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      }, /*< 2 */
+				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      }, /*< 3 */
+				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4                , BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT }, /*< 4 */
+				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT }, /*< 5 */
+				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT }  /*< 6 */
 			}
 		},
 		renderer
@@ -116,7 +117,6 @@ LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const p
 	plog_trace("Local menu is being constructed.");
 
 	music.start(Song::MAIN_MENU);
-
 	cursor.setFaction(true);
 	cursor.setTexture(hobGame::CursorType::IDLE);
 }
@@ -141,9 +141,220 @@ LocalMenu::~LocalMenu(void) noexcept
 
 void LocalMenu::draw(void) noexcept
 {
+	plog_verbose("Local menu is being drawn.");
+
+	handleQueue();
+	TextureInitializer::draw(renderer);
+}
+
+void LocalMenu::handleEvent(const SDL_Event& event) noexcept
+{
+	plog_verbose("Event is being handled.");
+	switch (event.type)
+	{
+		case SDL_MOUSEBUTTONDOWN:
+		{
+			handleButtonDown();
+			break;
+		}
+		case SDL_MOUSEBUTTONUP:
+		{
+			handleButtonUp();
+			// break; <- omitted so buttons get reselected appropriately.
+		}
+		case SDL_MOUSEMOTION:
+		{
+			handleMouseMotion();
+			break;
+		}
+		case SDL_KEYDOWN:
+		{
+			// To test server error while waiting for opponent connection.
+			socket.close();
+			// TODO: give a way to input IP address
+			break;
+		}
+		case SDL_QUIT:
+		{
+			handleQuit();
+			break;
+		}
+		default:
+		{
+			plog_verbose("Event received but not handled. (type: %" PRIu32 ")", event.type);
+			break;
+		}
+	}
+}
+
+void LocalMenu::handleButtonDown(void) noexcept
+{
+	Coordinate     click      = {};
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+	size_t         index      = 0UL;
+
+	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	if (1 != SDL_BUTTON(mouseState))
+	{
+		plog_trace("Mouse click is not left click.");
+		return;
+	}
+
+	for (index = LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME; index <= LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK; ++index)
+	{
+		if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
+		{
+			plog_verbose("Bar is pressed. (index: %" PRIu64 ")", index);
+			componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_PRESSED]);
+			soundContainer[LOCAL_MENU_SOUND_INDEX_CLICK].play();
+			clickDownIndex = index;
+			return;
+		}
+		componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
+	}
+}
+
+void LocalMenu::handleButtonUp(void) noexcept
+{
+	Coordinate     click      = {};
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+
+	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
+	{
+		switch (clickDownIndex)
+		{
+			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME:
+			{
+				plog_debug("Host game bar was selected, clicked and released.");
+				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
+				{
+					plog_debug("Aborting the connection to the opponent's server.");
+
+					socket.close();
+					joinWaitConnectionThread();
+
+					while (false == queue.isEmpty())
+					{
+						plog_trace("Ignored status from queue.");
+						(void)queue.get();
+					}
+					componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
+				}
+				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT])
+				{
+					plog_debug("Hosting the game by running the server locally.");
+					try
+					{
+						server.runAsync(8787U);
+					}
+					catch (const std::exception& exception)
+					{
+						plog_error("Failed to create the local server!");
+						soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
+						break;
+					}
+
+					// TODO: Remove this when it is safe to make the client connection.
+					sleep(1);
+
+					componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
+					waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") };
+					break;
+				}
+				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
+				{
+					plog_debug("Aborting the host.");
+
+					receivingUpdates.store(false);
+					socket.close();
+					server.stop();
+					joinReceivingThread();
+					componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT]);
+					break;
+				}
+				plog_error("First button text is not host game or waiting!");
+				break;
+			}
+			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT:
+			{
+				plog_debug("Connect bar was selected, clicked and released.");
+				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
+				{
+					plog_debug("Connection has been interruped by the user.");
+					socket.close();
+					joinWaitConnectionThread();
+					componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
+					break;
+				}
+				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
+				{
+					plog_debug("Connecting while hosting is not supported.");
+					soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
+					break;
+				}
+				waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") }; // TODO: Update this
+				componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT]);
+				break;
+			}
+			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK:
+			{
+				plog_debug("Back bar was selected, clicked and released.");
+				receivingUpdates.store(false);
+				socket.close();
+				server.stop();
+				stop(Scene::MAIN_MENU);
+				break;
+			}
+			default:
+			{
+				plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
+				break;
+			}
+		}
+	}
+	clickDownIndex = 0UL;
+}
+
+void LocalMenu::handleMouseMotion(void) noexcept
+{
+	Coordinate     click      = {};
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+	size_t         index      = 0UL;
+
+	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	cursor.updatePosition(click);
+
+	if (1 == SDL_BUTTON(mouseState))
+	{
+		plog_verbose("Mouse left click is pressed.");
+		return;
+	}
+
+	for (index = LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME; index <= LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK; ++index)
+	{
+		if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
+		{
+			plog_verbose("Bar is selected. (index: %" PRIu64 ")", index);
+			componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_ACTIVE]);
+			return;
+		}
+		componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
+	}
+}
+
+void LocalMenu::handleQuit(void) noexcept
+{
+	plog_info("Command to quit game was given!");
+	stop(Scene::QUIT);
+	socket.close();
+	server.stop();
+}
+
+void LocalMenu::handleQueue(void) noexcept
+{
 	ConnectionStatus connectionStatus = ConnectionStatus::ABORTED;
 
-	plog_verbose("Local menu is being drawn.");
 	while (false == queue.isEmpty())
 	{
 		connectionStatus = queue.get();
@@ -185,190 +396,6 @@ void LocalMenu::draw(void) noexcept
 				plog_error("Invalid connection status received! (status: %" PRId32 ")", static_cast<int32_t>(connectionStatus));
 				break;
 			}
-		}
-	}
-	TextureInitializer::draw(renderer);
-}
-
-void LocalMenu::handleEvent(const SDL_Event& event) noexcept
-{
-	Coordinate click      = {};
-	uint32_t   mouseState = 0U;
-	size_t     index      = 0UL;
-
-	plog_verbose("Event is being handled.");
-	switch (event.type)
-	{
-		case SDL_MOUSEBUTTONDOWN:
-		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
-
-			if (1 != SDL_BUTTON(mouseState))
-			{
-				plog_trace("Mouse click is not left click.");
-				return;
-			}
-
-			for (index = LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME; index <= LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK; ++index)
-			{
-				if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
-				{
-					plog_verbose("Bar is pressed. (index: %" PRIu64 ")", index);
-					componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_PRESSED]);
-					soundContainer[LOCAL_MENU_SOUND_INDEX_CLICK].play();
-					clickDownIndex = index;
-					return;
-				}
-				componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
-			}
-			break;
-		}
-		case SDL_MOUSEBUTTONUP:
-		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
-
-			if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
-			{
-				switch (clickDownIndex)
-				{
-					case LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME:
-					{
-						plog_debug("Host game bar was selected, clicked and released.");
-						if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
-						{
-							plog_debug("Aborting the connection to the opponent's server.");
-
-							socket.close();
-							joinWaitConnectionThread();
-
-							while (false == queue.isEmpty())
-							{
-								plog_trace("Ignored status from queue.");
-								(void)queue.get();
-							}
-							componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
-						}
-						if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT])
-						{
-							plog_debug("Hosting the game by running the server locally.");
-							try
-							{
-								server.runAsync(8787U);
-							}
-							catch (const std::exception& exception)
-							{
-								plog_error("Failed to create the local server!");
-								soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
-								break;
-							}
-
-							// TODO: Remove this when it is safe to make the client connection.
-							sleep(1);
-
-							componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
-							waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") };
-							break;
-						}
-						if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
-						{
-							plog_debug("Aborting the host.");
-
-							receivingUpdates.store(false);
-							socket.close();
-							server.stop();
-							joinReceivingThread();
-							componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT]);
-							break;
-						}
-						plog_error("First button text is not host game or waiting!");
-						break;
-					}
-					case LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT:
-					{
-						plog_debug("Connect bar was selected, clicked and released.");
-						if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
-						{
-							plog_debug("Connection has been interruped by the user.");
-							socket.close();
-							joinWaitConnectionThread();
-							componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
-							break;
-						}
-						if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
-						{
-							plog_debug("Connecting while hosting is not supported.");
-							soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
-							break;
-						}
-						waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") }; // TODO: Update this
-						componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT]);
-						break;
-					}
-					case LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK:
-					{
-						plog_debug("Back bar was selected, clicked and released.");
-						receivingUpdates.store(false);
-						socket.close();
-						server.stop();
-						stop(Scene::MAIN_MENU);
-						break;
-					}
-					default:
-					{
-						plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
-						break;
-					}
-				}
-			}
-			clickDownIndex = 0UL;
-			// break; <- omitted so buttons get reselected appropriately.
-		}
-		case SDL_MOUSEMOTION:
-		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
-
-			cursor.updatePosition(click);
-
-			if (1 == SDL_BUTTON(mouseState))
-			{
-				plog_verbose("Mouse left click is pressed.");
-				return;
-			}
-
-			for (index = LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME; index <= LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK; ++index)
-			{
-				if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
-				{
-					plog_verbose("Bar is selected. (index: %" PRIu64 ")", index);
-					componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_ACTIVE]);
-					return;
-				}
-				componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
-			}
-			break;
-		}
-		case SDL_KEYDOWN:
-		{
-			// To test server error while waiting for opponent connection.
-			socket.close();
-			// TODO: give a way to input IP address
-			break;
-		}
-		case SDL_QUIT:
-		{
-			plog_info("Command to quit game was given!");
-			stop(Scene::QUIT);
-			socket.close();
-			server.stop();
-			break;
-		}
-		default:
-		{
-			plog_verbose("Event received but not handled. (type: %" PRIu32 ")", event.type);
-			break;
 		}
 	}
 }

@@ -21,6 +21,7 @@
  * 29.08.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added faction.                                              *
+ * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
  * @details This file defines the class and method prototypes of the LAN menu scene.                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -139,7 +140,41 @@ private:
 	*/
 	void draw(void) noexcept override;
 
-private:
+	/**
+	 * @brief Handles a button down event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonDown(void) noexcept;
+
+	/**
+	 * @brief Handles a button up event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonUp(void) noexcept;
+
+	/**
+	 * @brief Handles a mouse motion event.
+	 * @param void
+	 * @return void
+	*/
+	void handleMouseMotion(void) noexcept;
+
+	/**
+	 * @brief Handles a quit event.
+	 * @param void
+	 * @return void
+	*/
+	void handleQuit(void) noexcept;
+
+	/**
+	 * @brief Handles the updates present in queue.
+	 * @param void
+	 * @return void
+	*/
+	void handleQueue(void) noexcept;
+
 	/**
 	 * @brief Joins the receiving thread (only if it is joinable).
 	 * @param void
