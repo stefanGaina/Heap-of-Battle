@@ -5,7 +5,8 @@
 #   23.07.2023  Gaina Stefan               Initial version.                                           #
 #   27.07.2023  Gaina Stefan               Added compilation of server.                               #
 #   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   16.01.2024  Gaina Stefan               Added doxygen                                              #
+#   16.01.2024  Gaina Stefan               Added doxygen.                                             #
+#   18.01.2024  Gaina Stefan               Added compilation timer.                                   #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -22,9 +23,11 @@ GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory coverage_rep
 
 INFO_FILES = $(COVERAGE_REPORT)/?.info
 
+COMPILATION_TIMER = cd vendor/Compilation-Timer && ./compilation-timer
+
 ### MAKE SUBDIRECTORIES ###
-all: debug install doxygen
-production: release install doxygen
+all: start_timer debug install doxygen end_timer
+production: start_timer release install doxygen end_timer
 
 debug:
 	$(MAKE) -C hob-Server
@@ -39,11 +42,12 @@ release:
 	$(MAKE) release -C hob-Server-Instance
 
 ### CLEAN SUBDIRECTORIES ###
-clean:
+clean: start_timer
 	$(MAKE) clean -C hob-Server
 	$(MAKE) clean -C hob-Game
 	$(MAKE) clean -C hob
 	$(MAKE) clean -C hob-Server-Instance
+	$(COMPILATION_TIMER) end
 
 ### INSTALL SUBDIRECTORIES ###
 install:
@@ -63,11 +67,12 @@ uninstall:
 	$(MAKE) uninstall -C vendor
 
 ### MAKE UNIT-TESTS ###
-ut: ut-clean
+ut: start_timer ut-clean
 	mkdir -p $(COVERAGE_REPORT)
 	$(MAKE) -C unit-tests
 	$(MAKE) run_tests -C unit-tests
 	perl $(GENHTML) $(INFO_FILES) $(GENHTML_FLAGS)
+	$(COMPILATION_TIMER) end
 
 ### CLEAN UNIT-TESTS ###
 ut-clean:
@@ -76,3 +81,11 @@ ut-clean:
 ### MAKE DOXYGEN ###
 doxygen:
 	doxygen docs/doxygen.conf
+
+### START TIMER ###
+start_timer:
+	$(COMPILATION_TIMER) start
+
+### END TIMER ###
+end_timer:
+	$(COMPILATION_TIMER) end

@@ -22,3 +22,6 @@ coverage_report
 
 # Install directory
 Heap-of-Battle
+
+# Compilation timer
+vendor/Compilation-Timer/time
