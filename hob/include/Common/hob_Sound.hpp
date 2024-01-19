@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL_mixer include.                                  *
  * @details This file defines the class and method prototypes of the sound.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -33,7 +34,7 @@
  *****************************************************************************************************/
 
 #include <string>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

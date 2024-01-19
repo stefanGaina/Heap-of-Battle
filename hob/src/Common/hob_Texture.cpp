@@ -24,6 +24,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Added comment.                                              *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL_image include.                                  *
  * @details This file implements the class defined in hob_Texture.hpp.                                *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -33,7 +34,7 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <plog.h>
 
 #include "hob_Texture.hpp"

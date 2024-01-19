@@ -22,6 +22,7 @@
  * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL_image include.                                  *
  * @details This file implements the class defined in hob_Window.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -32,7 +33,7 @@
  *****************************************************************************************************/
 
 #include <exception>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <plog.h>
 
 #include "hob_Window.hpp"

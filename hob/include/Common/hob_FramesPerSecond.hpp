@@ -22,6 +22,7 @@
  * 26.08.2023  Gaina Stefan               Change order of members.                                    *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 16.01.2024  Gaina Stefan               Added const to font.                                        *
+ * 19.01.2024  Gaina Stefan               Changed update().                                           *
  * @details This file defines the class and method prototypes of the frames per second.               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -73,10 +74,10 @@ public:
 private:
 	/**
 	 * @brief If the frame rate changed destroy the texture and create a new updated one.
-	 * @param framesPerSecond: How many frames were in the second.
+	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void update(uint16_t framesPerSecond, SDL_Renderer* renderer) noexcept;
+	void update(SDL_Renderer* renderer) noexcept;
 
 private:
 	/**
@@ -97,7 +98,7 @@ private:
 	/**
 	 * @brief The time when the first counted frame started.
 	*/
-	uint64_t FrameStartTime;
+	uint64_t frameStartTime;
 
 	/**
 	 * @brief How many frames were counted in a second.

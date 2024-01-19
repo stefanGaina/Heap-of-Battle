@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL include.                                        *
  * @details This file defines the class and method prototypes of the drawable interface.              *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -32,7 +33,7 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

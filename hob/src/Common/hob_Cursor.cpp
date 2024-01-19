@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 29.08.2023  Gaina Stefan               Removed the use of hob:: and getRawTexture().               *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Added indexes comments.                                     *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -59,18 +60,18 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer
 	{
 		{
-			TEXTURE_FILE_PATH("alliance_idle")  ,
-			TEXTURE_FILE_PATH("alliance_select"),
-			TEXTURE_FILE_PATH("alliance_move")  ,
-			TEXTURE_FILE_PATH("alliance_attack"),
-			TEXTURE_FILE_PATH("horde_idle")     ,
-			TEXTURE_FILE_PATH("horde_select")   ,
-			TEXTURE_FILE_PATH("horde_move")     ,
-			TEXTURE_FILE_PATH("horde_attack")
+			TEXTURE_FILE_PATH("alliance_idle")  , /*< 0 */
+			TEXTURE_FILE_PATH("alliance_select"), /*< 1 */
+			TEXTURE_FILE_PATH("alliance_move")  , /*< 2 */
+			TEXTURE_FILE_PATH("alliance_attack"), /*< 3 */
+			TEXTURE_FILE_PATH("horde_idle")     , /*< 4 */
+			TEXTURE_FILE_PATH("horde_select")   , /*< 5 */
+			TEXTURE_FILE_PATH("horde_move")     , /*< 6 */
+			TEXTURE_FILE_PATH("horde_attack")     /*< 7 */
 		},
-		{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE },
+		{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }, /*< 0 */
 		{
-			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 }
+			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 } /*< 0 */
 		},
 		renderer
 	}

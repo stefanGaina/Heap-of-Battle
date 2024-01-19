@@ -24,6 +24,7 @@
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Made font const.                                            *
+ * 19.01.2024  Gaina Stefan               Changed update().                                           *
  * @details This file implements the class defined in hob_FramesPerSecond.hpp.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -39,17 +40,26 @@
 #include "hob_FramesPerSecond.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * CONSTANTS                                                                                          *
  *****************************************************************************************************/
 
 namespace hob
 {
 
+/**
+ * @brief How many milliseconds are in a second.
+*/
+static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
+
 FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 	: component          {}
 	, texture            {}
 	, font               { TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12) }
-	, FrameStartTime     { SDL_GetTicks64() }
+	, frameStartTime     { SDL_GetTicks64() - SECOND_IN_MILLISECONDS }
 	, framesCount        { 0U }
 	, previousFramesCount{ 10000U }
 {
@@ -59,7 +69,7 @@ FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 	{
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 	}
-	update(framesCount, renderer);
+	update(renderer);
 }
 
 FramesPerSecond::~FramesPerSecond(void) noexcept
@@ -70,44 +80,57 @@ FramesPerSecond::~FramesPerSecond(void) noexcept
 
 void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
+	plog_verbose("Frames per second is being drawn.");
 
-	const uint64_t frameEndTime = SDL_GetTicks64();
-
-	plog_verbose("Frames per second is being drawn. (start time: %" PRIu64 ") (end time: %" PRIu64 ")", FrameStartTime, frameEndTime);
-	if (SECOND_IN_MILLISECONDS <= frameEndTime - FrameStartTime)
-	{
-		update(framesCount, renderer);
-		FrameStartTime = frameEndTime;
-		framesCount    = 0U;
-	}
-	else
-	{
-		++framesCount;
-	}
+	update(renderer);
 	component.draw(renderer);
 }
 
-void FramesPerSecond::update(const uint16_t framesPerSecond, SDL_Renderer* const renderer) noexcept
+void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 {
 	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
-	const std::string text             = std::to_string(framesPerSecond) + " FPS";
-	Coordinate        textureDimension = {};
+	const uint64_t frameEndTime     = SDL_GetTicks64();
+	std::string    text             = {};
+	Coordinate     textureDimension = {};
 
-	plog_verbose("Frames per second is being updated. (frames: %" PRIu16 ")", framesPerSecond);
-	if (framesPerSecond == previousFramesCount)
+	plog_verbose("Frames per second is being updated.(start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
+	if (SECOND_IN_MILLISECONDS > frameEndTime - frameStartTime)
 	{
-		plog_verbose("Frames per second does not need to be updated.");
+		++framesCount;
 		return;
 	}
-	previousFramesCount = framesPerSecond;
+
+	plog_verbose("A second has been reached. (frames: %" PRIu16 ")", framesCount);
+	if (framesCount == previousFramesCount)
+	{
+		plog_verbose("Frames per second does not need to be changed.");
+		return;
+	}
+
+	try
+	{
+		text = std::to_string(framesCount) + " FPS";
+	}
+	catch (const std::bad_alloc& exception)
+	{
+		plog_error("Failed to allocate memory for frames per second string!");
+
+		frameStartTime = frameEndTime;
+		framesCount    = 0U;
+
+		return;
+	}
+	previousFramesCount = framesCount;
 
 	texture.destroy();
 	textureDimension = texture.create(text, font, YELLOW, renderer);
 
 	component.updateTexture(texture);
 	component.updatePosition({.x = 30 * HSCALE + HSCALE / 2, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
+
+	frameStartTime = frameEndTime;
+	framesCount    = 0U;
 }
 
 } /*< namespace hob */

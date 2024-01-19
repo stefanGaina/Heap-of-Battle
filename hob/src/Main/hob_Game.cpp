@@ -22,6 +22,7 @@
  * 27.07.2023  Gaina Stefan               Added WSA.                                                  *
  * 29.08.2023  Gaina Stefan               Added LAN menu.                                             *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL includes.                                       *
  * @details This file implements the class defined in hob_Game.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -33,9 +34,9 @@
 
 #include <iostream>
 #include <memory>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <plog.h>
 
 #include "hob_Game.hpp"
@@ -104,8 +105,7 @@ void Game::init(void) noexcept(false)
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
 	{
-		(void)fprintf(stdout, "Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
-		throw std::exception();
+		plog_warn("Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 	}
 
 	plog_init("hob_logs.txt");
@@ -120,8 +120,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_MINOR_VERSION != sdlVersion.minor
 	 || SDL_PATCHLEVEL    != sdlVersion.patch)
 	{
-		plog_fatal("SDL version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
-		throw std::exception();
+		plog_warn("SDL version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
 	}
 
 	plog_info("Using SDL image %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersionRef->major, sdlVersionRef->minor, sdlVersionRef->patch);
@@ -129,8 +128,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_IMAGE_MINOR_VERSION != sdlVersionRef->minor
 	 || SDL_IMAGE_PATCHLEVEL    != sdlVersionRef->patch)
 	{
-		plog_fatal("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_IMAGE_MAJOR_VERSION, SDL_IMAGE_MINOR_VERSION, SDL_IMAGE_PATCHLEVEL);
-		throw std::exception();
+		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_IMAGE_MAJOR_VERSION, SDL_IMAGE_MINOR_VERSION, SDL_IMAGE_PATCHLEVEL);
 	}
 
 	sdlVersionRef = Mix_Linked_Version();
@@ -139,8 +137,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_MIXER_MINOR_VERSION != sdlVersionRef->minor
 	 || SDL_MIXER_PATCHLEVEL    != sdlVersionRef->patch)
 	{
-		plog_fatal("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION, SDL_MIXER_PATCHLEVEL);
-		throw std::exception();
+		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION, SDL_MIXER_PATCHLEVEL);
 	}
 
 	sdlVersionRef = TTF_Linked_Version();
@@ -148,8 +145,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_TTF_MINOR_VERSION != sdlVersionRef->minor
 	 || SDL_TTF_PATCHLEVEL    != sdlVersionRef->patch)
 	{
-		plog_fatal("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
-		throw std::exception();
+		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
 	}
 
 	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
@@ -157,8 +153,7 @@ void Game::init(void) noexcept(false)
 	 || hobServer::VERSION_MINOR != serverVersion.getMinor()
 	 || hobServer::VERSION_PATCH != serverVersion.getPatch())
 	{
-		plog_fatal("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
-		throw std::exception();
+		plog_warn("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
 	}
 
 	if (0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))

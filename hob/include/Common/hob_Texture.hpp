@@ -21,6 +21,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Changed comment.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL_ttf include.                                    *
  * @details This file defines the class and method prototypes of the texture.                         *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -34,7 +35,7 @@
  *****************************************************************************************************/
 
 #include <string>
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "hob_Types.hpp"
 

@@ -22,6 +22,7 @@
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added color parameters.                                     *
+ * 19.01.2024  Gaina Stefan               Changed SDL_ttf include.                                    *
  * @details This file defines the class and method prototypes of the chat.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -34,7 +35,7 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "hob_IDrawable.hpp"
 #include "hob_ChatFrame.hpp"

@@ -21,6 +21,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 29.08.2023  Gaina Stefan               Added local menu.                                           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Changed SDL include.                                        *
  * @details This file defines common data types and macros.                                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -34,7 +35,7 @@
  *****************************************************************************************************/
 
 #include <cinttypes>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 /******************************************************************************************************
  * MACROS                                                                                             *
