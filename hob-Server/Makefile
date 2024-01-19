@@ -9,9 +9,9 @@
 
 CFLAGS = -Wall -Werror -Wpointer-arith -fPIC
 
-INCLUDES = -Iinclude/               \
-		   -I../hob/include/Main/   \
-		   -I../vendor/Plog/include/
+INCLUDES = -Iinclude             \
+		   -I../hob/include/Main \
+		   -I../vendor/Plog/include
 
 SOURCES := $(wildcard $(SRC)/*.cpp)
 OBJECTS := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))

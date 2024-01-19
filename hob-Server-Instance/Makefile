@@ -10,9 +10,9 @@
 CFLAGS  = -Wall -Werror
 LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server
 
-INCLUDES = -Iinclude/               \
-		   -I../hob-Server/include/ \
-		   -I../vendor/Plog/include/
+INCLUDES = -Iinclude               \
+		   -I../hob-Server/include \
+		   -I../vendor/Plog/include
 
 SOURCES    := $(wildcard $(SRC)/*.cpp)
 OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))

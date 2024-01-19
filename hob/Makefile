@@ -9,31 +9,34 @@
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
-CFLAGS = -Wall -Werror
-LDFLAGS  = -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server \
-		   -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game   \
-		   -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2/$(LIB)       -lSDL2       \
-		   -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_image/$(LIB) -lSDL2_image \
-		   -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_image/$(LIB) -lSDL2_mixer \
-		   -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_ttf/$(LIB)   -lSDL2_ttf
-#		   -static -static-libgcc                                                            \
-		   -static-libstdc++
+CFLAGS  = -Wall -Werror
+LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server  \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game    \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server  \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game    \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2/$(LIB)       -lSDL2        \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_image/$(LIB) -lSDL2_image  \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_mixer/$(LIB) -lSDL2_mixer  \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/SDL2_ttf/$(LIB)   -lSDL2_ttf
+#		   -static -static-libgcc
+#		   -static-libstdc++
+#`sdl2-config --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
-INCLUDES = -Iinclude/                      \
-		   -Iinclude/Common/               \
-		   -Iinclude/Game/Common/          \
-		   -Iinclude/Game/Scenario1/       \
-		   -Iinclude/Main/                 \
-		   -Iinclude/Menu/                 \
-		   -I../hob-Server/include/        \
-		   -I../hob-Game/include/          \
-		   -I../vendor/Plog/include/       \
-		   -I../vendor/SDL2/include/       \
-		   -I../vendor/SDL2_image/include/ \
-		   -I../vendor/SDL2_mixer/include/ \
-		   -I../vendor/SDL2_ttf/include/
+INCLUDES = -Iinclude                      \
+		   -Iinclude/Common               \
+		   -Iinclude/Game/Common          \
+		   -Iinclude/Game/Scenario1       \
+		   -Iinclude/Main                 \
+		   -Iinclude/Menu                 \
+		   -I../hob-Server/include        \
+		   -I../hob-Game/include          \
+		   -I../vendor/Plog/include       \
+		   -I../vendor/SDL2/include       \
+		   -I../vendor/SDL2_image/include \
+		   -I../vendor/SDL2_mixer/include \
+		   -I../vendor/SDL2_ttf/include
 
-SOURCES    := $(wildcard $(SRC)/*/*.cpp) $(wildcard $(SRC)/*/*/*.cpp) 
+SOURCES    := $(wildcard $(SRC)/*/*.cpp) $(wildcard $(SRC)/*/*/*.cpp)
 OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := Heap-of-Battle
 

@@ -1,11 +1,11 @@
 <map id="hob/include/Common/hob_FramesPerSecond.hpp" name="hob/include/Common/hob_FramesPerSecond.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="59,5,261,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="67,5,269,47"/>
 <area shape="rect" id="node2" href="$hob__IDrawable_8hpp.html" title=" " alt="" coords="5,169,152,196"/>
-<area shape="rect" id="node4" href="$hob__Texture_8hpp.html" title=" " alt="" coords="177,169,306,196"/>
-<area shape="rect" id="node9" href="$hob__Component_8hpp.html" title=" " alt="" coords="82,95,238,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="145,319,204,345"/>
-<area shape="rect" id="node5" title=" " alt="" coords="117,244,176,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="200,244,280,271"/>
-<area shape="rect" id="node7" href="$hob__Types_8hpp.html" title=" " alt="" coords="305,244,423,271"/>
-<area shape="rect" id="node8" title=" " alt="" coords="323,319,405,345"/>
+<area shape="rect" id="node4" href="$hob__Texture_8hpp.html" title=" " alt="" coords="193,169,322,196"/>
+<area shape="rect" id="node9" href="$hob__Component_8hpp.html" title=" " alt="" coords="90,95,246,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="135,319,231,345"/>
+<area shape="rect" id="node5" title=" " alt="" coords="116,244,175,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="199,244,316,271"/>
+<area shape="rect" id="node7" href="$hob__Types_8hpp.html" title=" " alt="" coords="339,244,458,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="357,319,440,345"/>
 </map>
