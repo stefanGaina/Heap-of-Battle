@@ -23,6 +23,7 @@
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added faction colors as parameters.                         *
+ * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -376,6 +377,7 @@ void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexc
 
 	updateMessage.type = hobServer::MessageType::TEXT;
 	(void)strncpy(updateMessage.payload.text, enteringMessage.c_str(), sizeof(updateMessage.payload.text));
+	updateMessage.payload.text[sizeof(updateMessage.payload.text) - 1UL] = '\0';
 	socket.sendUpdate(updateMessage);
 
 	enterMessage(enteringMessage, friendlyColor, renderer);

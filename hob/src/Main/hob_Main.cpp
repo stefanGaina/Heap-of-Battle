@@ -20,6 +20,7 @@
  * @date:      @author:                   Reason for change:                                          *
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
  * @details This file provides an entry point for the Heap-of-Battle game.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -41,6 +42,7 @@
 
 int main(int argc, char* argv[])
 {
+	(void)argv;
 	if (1 < argc)
 	{
 		std::cout << "Parameters are ignored!" << std::endl;

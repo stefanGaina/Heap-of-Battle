@@ -7,16 +7,18 @@
 #   26.08.2023  Gaina Stefan               Fix gcc depedencies.                                       #
 #   22.12.2023  Gaina Stefan               Ported to Linux.                                           #
 #   19.01.2024  Gaina Stefan               Changed the way SDL is linked.                             #
+#   19.01.2024  Gaina Stefan               Updated flags.                                             #
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
-CFLAGS  = -Wall -Werror
-LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)' \
-		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+CFLAGS  = -Wextra -Wall -Werror -Wno-implicit-fallthrough
+LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'    \
+		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
+		  -lpthread
 
 INCLUDES = -Iinclude                \
 		   -Iinclude/Common         \
@@ -34,12 +36,12 @@ OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := Heap-of-Battle
 
 ### DEVELOPMENT ###
-all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD
-all: LDFLAGS += -Wl,-Bdynamic,-rpath='.' -L../vendor/Plog/$(LIB) -lplog
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -g
+all: LDFLAGS += -Wl,-Bdynamic,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/$(LIB) -lplog
 all: build
 
 ### PRODUCTION ###
-release: CFLAGS += -DPLOG_STRIP_ALL
+release: CFLAGS += -O2 -DPLOG_STRIP_ALL
 release: build
 
 ### BUILD ###

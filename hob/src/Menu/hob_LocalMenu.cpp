@@ -22,6 +22,7 @@
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added faction member.                                       *
  * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
+ * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
  * @details This file implements the class defined in hob_LocalMenu.hpp.                              *
  * @todo Offer a way for IP address of the host to be inputed (after pressing connect).               *
  * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a     *
@@ -33,6 +34,7 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
+#include <unistd.h>
 #include <plog.h>
 
 #include "hob_LocalMenu.hpp"
@@ -216,10 +218,9 @@ void LocalMenu::handleButtonDown(void) noexcept
 
 void LocalMenu::handleButtonUp(void) noexcept
 {
-	Coordinate     click      = {};
-	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+	Coordinate click = {};
 
-	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", SDL_GetMouseState(&click.x, &click.y), click.x, click.y);
 	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
 	{
 		switch (clickDownIndex)

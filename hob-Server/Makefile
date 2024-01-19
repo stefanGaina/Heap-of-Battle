@@ -4,10 +4,11 @@
 #   Date:       Author:                    Reason:                                                    #
 #   29.06.2023  Gaina Stefan               Initial version.                                           #
 #   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
+#   19.01.2024  Gaina Stefan               Updated flags.                                             #
 # Description: This Makefile is used to generate the server.                                          #
 #######################################################################################################
 
-CFLAGS = -Wall -Werror -Wpointer-arith -fPIC
+CFLAGS = -Wextra -Wall -Werror -fPIC
 
 INCLUDES = -Iinclude             \
 		   -I../hob/include/Main \
@@ -18,12 +19,12 @@ OBJECTS := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 LIBRARY := libHOB_server.so
 
 ### DEVELOPMENT ###
-all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD
-all: LDFLAGS += -Wl,-rpath='.' -L../vendor/Plog/lib/ -lplog
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -g
+all: LDFLAGS += -Wl,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/lib/ -lplog
 all: build
 
 ### PRODUCTION ###
-release: CFLAGS += -O3 -DPLOG_STRIP_ALL
+release: CFLAGS += -O2 -DPLOG_STRIP_ALL
 release: build
 
 ### BUILD ###

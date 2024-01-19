@@ -22,6 +22,7 @@
  * 29.08.2023  Gaina Stefan               Refactored.                                                 *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
+ * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
  * @details This file implements the class defined in hob_MainMenu.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -189,10 +190,9 @@ void MainMenu::handleButtonDown(void) noexcept
 
 void MainMenu::handleButtonUp(void) noexcept
 {
-	Coordinate     click      = {};
-	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+	Coordinate click = {};
 
-	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", SDL_GetMouseState(&click.x, &click.y), click.x, click.y);
 	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
 	{
 		switch (clickDownIndex)
