@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Changed comment.                                            *
+ * 20.01.2024  Gaina Stefan               Overloaded changeWeather() method.                          *
  * @details This file defines the class and method prototypes of the building.                        *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -63,10 +64,10 @@ public:
 
 	/**
 	 * @brief Initializes the building with all textures and destination.
-	 * @param[in] summerTexture: Texture that will be drawn during summer, autumn and spring.
-	 * @param[in] winterTexture: Texture that will be drawn during winter.
-	 * @param[in] alternativeSummerTexture: Alternative texture that will be drawn during summer, autumn and spring.
-	 * @param[in] alternativeWinterTexture: Alternative texture that will be drawn during winter.
+	 * @param summerTexture: Texture that will be drawn during summer, autumn and spring.
+	 * @param winterTexture: Texture that will be drawn during winter.
+	 * @param alternativeSummerTexture: Alternative texture that will be drawn during summer, autumn and spring.
+	 * @param alternativeWinterTexture: Alternative texture that will be drawn during winter.
 	 * @param destination: Position on the screen and dimension of the texture.
 	 * @param renderer: Rendering context of the window.
 	 * @return void
@@ -94,6 +95,18 @@ public:
 	 * @return void
 	*/
 	void switchTexture(bool isAlternative) noexcept;
+
+private:
+	/**
+	 * @brief Changes the weather that will be drawn.
+	 * @param weatherTexture1: The undesired weather texture variation 1.
+	 * @param weatherTexture2: The undesired weather texture variation 2.
+	 * @param weatherTexture3: The desired weather texture variation 1.
+	 * @param weatherTexture4: The desired weather texture variation 2.
+	 * @return void
+	*/
+	void changeWeather(SDL_Texture* weatherTexture1, SDL_Texture* weatherTexture2,
+		SDL_Texture* weatherTexture3, SDL_Texture* weatherTexture4) noexcept;
 
 private:
 	/**

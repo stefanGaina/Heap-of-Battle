@@ -7,6 +7,7 @@
 #   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
 #   16.01.2024  Gaina Stefan               Added doxygen.                                             #
 #   18.01.2024  Gaina Stefan               Added compilation timer.                                   #
+#   20.01.2024  Gaina Stefan               Added install_plog rule.                                   #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -26,8 +27,8 @@ INFO_FILES = $(COVERAGE_REPORT)/?.info
 COMPILATION_TIMER = cd vendor/Compilation-Timer && ./compilation-timer
 
 ### MAKE SUBDIRECTORIES ###
-all: start_timer debug install doxygen end_timer
-production: start_timer release install doxygen end_timer
+all: start_timer debug install install_plog doxygen end_timer
+production: start_timer release uninstall install doxygen end_timer
 
 debug:
 	$(MAKE) -C hob-Server
@@ -57,6 +58,10 @@ install:
 	$(MAKE) install -C hob
 	$(MAKE) install -C hob-Server-Instance
 	$(MAKE) install -C vendor
+
+### INSTALL PLOG ###
+install_plog:
+	$(MAKE) install_plog -C vendor
 
 ### UNINSTALL SUBDIRECTORIES ###
 uninstall:

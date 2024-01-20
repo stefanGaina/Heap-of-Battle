@@ -22,6 +22,7 @@
  * 25.08.2023  Gaina Stefan               Added receivePlayerUpdates method.                          *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Made create() throwable.                                    *
+ * 20.01.2024  Gaina Stefan               Added wait when creating socket.                            *
  * @details This file defines the class and method prototypes of the server.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -34,7 +35,6 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <thread>
 #include <atomic>
 
 #include "hobServer_Socket.hpp"
@@ -68,9 +68,11 @@ public:
 	/**
 	 * @brief Runs the server asynchronically.
 	 * @param port: Port on which the server socket will be opened.
+	 * @param timeout: Maximum amount of time (milliseconds) allowed to wait until the server socket
+	 * is ready to accept connections from client socket
 	 * @return void
 	*/
-	void runAsync(uint16_t port) noexcept(false);
+	void runAsync(uint16_t port, uint16_t timeout) noexcept(false);
 
 	/**
 	 * @brief Stops the server.
@@ -80,20 +82,6 @@ public:
 	void stop(void) noexcept;
 
 private:
-	/**
-	 * @brief Runs the server synchronically.
-	 * @param port: Port on which the server socket will be opened.
-	 * @return void
-	*/
-	void runSync(uint16_t port) noexcept;
-
-	/**
-	 * @brief Receives updates from a player and sends them to the other.
-	 * @param clientType: Which player the updates come from.
-	 * @return void
-	*/
-	void receivePlayerUpdates(ClientType clientType) noexcept;
-
 	/**
 	 * @brief Sends an update message with how much time is left in the turn.
 	 * @param timeLeft: How many seconds are left in the turn.
@@ -108,7 +96,33 @@ private:
 	*/
 	void onTimesUp(uint16_t& timeLeft) const noexcept override;
 
+	/**
+	 * @brief Runs the server synchronically.
+	 * @param port: Port on which the server socket will be opened.
+	 * @return void
+	*/
+	void runSync(uint16_t port) noexcept;
+
+	/**
+	 * @brief Wakes up the caller's waiting thread.
+	 * @param void
+	 * @return void
+	*/
+	void onSocketReady(void) noexcept;
+
+	/**
+	 * @brief Receives updates from a player and sends them to the other.
+	 * @param clientType: Which player the updates come from.
+	 * @return void
+	*/
+	void receivePlayerUpdates(ClientType clientType) noexcept;
+
 private:
+	/**
+	 * @brief It is static because it is used in a lambda function.
+	*/
+	static bool isSocketReady;
+
 	/**
 	 * @brief Server socket.
 	*/
@@ -123,6 +137,16 @@ private:
 	 * @brief Flag indicating the server is still running after the connections are closed/lost.
 	*/
 	std::atomic<bool> createAgain;
+
+	/**
+	 * @brief The variable signaled when the socket is ready (to avoid premature connection).
+	*/
+	std::condition_variable waitSocket;
+
+	/**
+	 * @brief Mutex protecting isSocketReady.
+	*/
+	std::mutex mutex;
 };
 
 } /*< namespace hobServer */

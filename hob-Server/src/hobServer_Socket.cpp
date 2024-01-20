@@ -24,6 +24,7 @@
  * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Removed callback from waitConnection().                     *
+ * 20.01.2024  Gaina Stefan               Made socket address reusable.                               *
  * @details This file implements the class defined in hobServer_Socket.hpp.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -65,6 +66,7 @@ Socket::~Socket(void) noexcept
 void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 {
 	sockaddr_in server = {};
+	int32_t     option = 1;
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
 	if (SOCKET_INVALID != serverSocket || SOCKET_INVALID != clientSockets[0] || SOCKET_INVALID != clientSockets[1])
@@ -76,28 +78,28 @@ void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 	serverSocket = ::socket(AF_INET, SOCK_STREAM, 0);
 	if (SOCKET_INVALID == serverSocket)
 	{
-		plog_error(LOG_PREFIX "Server socket failed to be created! (error message: %s)", strerror(errno));
+		plog_error(LOG_PREFIX "Failed to create socket! (error message: %s)", strerror(errno));
 		throw std::exception();
+	}
+
+	if (0 != setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option)))
+	{
+		plog_warn(LOG_PREFIX "Failed to set socket option! (error message: %s)", strerror(errno));
 	}
 
 	server.sin_family      = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port        = htons(port);
 
-	if (-1 == bind(serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server)))
+	if (0 != bind(serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server)))
 	{
-		plog_error(LOG_PREFIX "Socket failed to be binded! (error message: %s)", strerror(errno));
+		plog_error(LOG_PREFIX "Failed to bind socket! (error message: %s)", strerror(errno));
 		close();
 
 		throw std::exception();
 	}
 
-	// TODO: remove this check when a callback is given by the server.
-	if (nullptr != callback)
-	{
-		(*callback)();
-	}
-
+	callback();
 	try
 	{
 		waitConnection();
@@ -116,7 +118,7 @@ void Socket::close(void) noexcept
 	{
 		if (0 != shutdown(serverSocket, SHUT_RDWR))
 		{
-			plog_error(LOG_PREFIX "Server socket failed to be closed! (error message: %s)", strerror(errno));
+			plog_error(LOG_PREFIX "Failed to close server socket! (error message: %s)", strerror(errno));
 		}
 		serverSocket = SOCKET_INVALID;
 	}

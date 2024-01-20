@@ -8,17 +8,17 @@
 #   22.12.2023  Gaina Stefan               Ported to Linux.                                           #
 #   19.01.2024  Gaina Stefan               Changed the way SDL is linked.                             #
 #   19.01.2024  Gaina Stefan               Updated flags.                                             #
+#   20.01.2024  Gaina Stefan               Removed no-implicit-fallthrough flag.                      #
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
-CFLAGS  = -Wextra -Wall -Werror -Wno-implicit-fallthrough
+CFLAGS  = -Wextra -Wall -Werror -pthread
 LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
 		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
 		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
 		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
 		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'    \
-		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
-		  -lpthread
+		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 INCLUDES = -Iinclude                \
 		   -Iinclude/Common         \

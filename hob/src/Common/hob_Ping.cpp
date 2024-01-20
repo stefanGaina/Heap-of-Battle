@@ -23,6 +23,7 @@
  * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Fixed delimitator comment.                                  *
+ * 20.01.2024  Gaina Stefan               Added handleQueue() method.                                 *
  * @details This file implements the class defined in hob_Ping.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -73,30 +74,8 @@ Ping::~Ping(void) noexcept
 
 void Ping::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
-
-	std::string text             = "";
-	Coordinate  textureDimension = {};
-	uint64_t    latency          = 0UL;
-
 	plog_verbose("Ping is being drawn.");
-	while (false == queue.isEmpty())
-	{
-		latency = queue.get();
-		if (latency == previousLatency)
-		{
-			plog_verbose("Ping does not need to be updated.");
-			continue;
-		}
-		previousLatency = latency;
-		text            = std::to_string(latency) + " ms";
-
-		texture.destroy();
-		textureDimension = texture.create(text, font, YELLOW, renderer);
-
-		component.updateTexture(texture);
-		component.updatePosition({ .x = 30 * HSCALE - HSCALE + 7, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
-	}
+	handleQueue(renderer);
 	component.draw(renderer);
 }
 
@@ -146,6 +125,43 @@ void Ping::clean(void) noexcept
 	}
 }
 
+void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
+{
+	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
+
+	std::string text             = {};
+	Coordinate  textureDimension = {};
+	uint64_t    latency          = 0UL;
+
+	plog_verbose("Queue is being handled.");
+	while (false == queue.isEmpty())
+	{
+		latency = queue.get();
+		if (latency == previousLatency)
+		{
+			plog_verbose("Ping does not need to be updated.");
+			continue;
+		}
+
+		try
+		{
+			text = std::to_string(latency) + " ms";
+		}
+		catch (const std::bad_alloc& exception)
+		{
+			plog_error("Failed to allocate memory for ping string!");
+			return;
+		}
+		previousLatency = latency;
+
+		texture.destroy();
+		textureDimension = texture.create(text, font, YELLOW, renderer);
+
+		component.updateTexture(texture);
+		component.updatePosition({ .x = 30 * HSCALE - HSCALE + 7, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
+	}
+}
+
 void Ping::sendPings(const Socket* const socket) noexcept
 {
 	std::unique_lock<std::mutex> lockWait(waitMutex);
@@ -160,7 +176,10 @@ void Ping::sendPings(const Socket* const socket) noexcept
 		socket->sendUpdate(pingMessage);
 
 		plog_verbose("Waiting 1 second.");
-		(void)waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
+		if (true == waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; }))
+		{
+			plog_warn("Ping thread did not wait for the entire time!");
+		}
 
 		if (true == interruptWait)
 		{

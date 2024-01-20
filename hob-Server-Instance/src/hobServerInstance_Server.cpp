@@ -56,7 +56,7 @@ void Server::run(const uint16_t port) noexcept(false)
 	try
 	{
 		init();
-		server.runAsync(port);
+		server.runAsync(port, 1000U);
 	}
 	catch (const std::exception& exception)
 	{

@@ -25,6 +25,7 @@
  * 08.12.2023  Gaina Stefan               Transformed plog_internal from macro to function.           *
  * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
  * 13.01.2024  Gaina Stefan               Updated doxygen.                                            *
+ * 19.01.2024  Gaina Stefan               Added PLOG_STRIP_ALL block.                                 *
  * @details This file defines macros and interfaces of Plog that are meant to be internal.            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -36,6 +37,8 @@
 /******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
+
+#ifndef PLOG_STRIP_ALL
 
 #include <glib.h>
 
@@ -63,5 +66,7 @@ extern void plog_internal(guint8 severity_bit, const gchar* severity_tag, const 
 #ifdef __cplusplus
 }
 #endif
+
+#endif /*< PLOG_STRIP_ALL */
 
 #endif /*< PLOG_INTERNAL_H_ */

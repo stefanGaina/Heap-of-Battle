@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 27.08.2023  Gaina Stefan               Changed the way mutex is locked.                            *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 20.01.2024  Gaina Stefan               Added spurious wakeup warning.                              *
  * @details This file implements the class defined in hobServer_Timer.hpp.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -102,7 +103,10 @@ void Timer::timerFunction(uint16_t timeLeft) noexcept
 		onTimeUpdate(timeLeft);
 
 		plog_verbose(LOG_PREFIX "Waiting 1 second.");
-		(void)waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; });
+		if (true == waitTime.wait_for(lockWait, std::chrono::milliseconds(1000L), [] { return interruptWait; }))
+		{
+			plog_warn(LOG_PREFIX "Timer thread did not wait for the entire time!");
+		}
 
 		if (true == interruptWait)
 		{

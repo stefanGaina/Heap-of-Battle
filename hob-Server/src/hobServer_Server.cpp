@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Made create() throwable.                                    *
+ * 20.01.2024  Gaina Stefan               Added wait when creating socket.                            *
  * @details This file implements the class defined in hobServer_Server.hpp.                           *
  * @todo runAsync() is currently returning before the server is ready to make connections so in the   *
  * case of the local server the client socket might try a connection before hand.                     *
@@ -52,6 +53,12 @@ namespace hobServer
 static constexpr const uint16_t TIME_PER_TURN = 30U;
 
 /******************************************************************************************************
+ * LOCAL VARIABLES                                                                                    *
+ *****************************************************************************************************/
+
+bool Server::isSocketReady = false;
+
+/******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
  *****************************************************************************************************/
 
@@ -59,6 +66,8 @@ Server::Server(void) noexcept
 	: socket     {}
 	, runThread  {}
 	, createAgain{ false }
+	, waitSocket {}
+	, mutex      {}
 {
 	plog_trace(LOG_PREFIX "Server is being constructed.");
 }
@@ -69,7 +78,7 @@ Server::~Server(void) noexcept
 	stop();
 }
 
-void Server::runAsync(const uint16_t port) noexcept(false)
+void Server::runAsync(const uint16_t port, const uint16_t timeout) noexcept(false)
 {
 	plog_info(LOG_PREFIX "Server is running asynchronically (port: %" PRIu16 ")", port);
 	if (true == createAgain.load())
@@ -81,8 +90,24 @@ void Server::runAsync(const uint16_t port) noexcept(false)
 	createAgain.store(true);
 	runThread = std::thread{ std::bind(&Server::runSync, this, port) };
 
-	// TODO: wait until the server is ready to make connections.
-	// Make sure to implement a timeout given as parameter.
+	std::unique_lock<std::mutex> lockWait(mutex);
+	if (false == waitSocket.wait_for(lockWait, std::chrono::milliseconds(timeout), [] { return isSocketReady; }))
+	{
+		plog_warn(LOG_PREFIX "Timeout occured!");
+		stop();
+
+		throw std::exception();
+	}
+
+	if (false == isSocketReady)
+	{
+		plog_error(LOG_PREFIX "Spurious wakeup occured and socket is not ready!");
+		stop();
+
+		throw std::exception();
+	}
+
+	isSocketReady = false;
 }
 
 void Server::stop(void) noexcept
@@ -100,6 +125,32 @@ void Server::stop(void) noexcept
 	}
 }
 
+void Server::onTimeUpdate(const uint16_t timeLeft) noexcept
+{
+	Message timeUpdate = {};
+
+	plog_trace(LOG_PREFIX "Time updates are being sent. (time left: %" PRIu16 ")", timeLeft);
+
+	timeUpdate.type             = MessageType::TIME;
+	timeUpdate.payload.timeLeft = timeLeft;
+
+	socket.sendUpdate(timeUpdate, ClientType::PLAYER_1);
+	socket.sendUpdate(timeUpdate, ClientType::PLAYER_2);
+}
+
+void Server::onTimesUp(uint16_t& timeLeft) const noexcept
+{
+	Message timesUpUpdate = {};
+
+	plog_info(LOG_PREFIX "Time is up!");
+
+	timesUpUpdate.type = MessageType::END_TURN;
+	timeLeft           = TIME_PER_TURN;
+
+	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_1);
+	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_2);
+}
+
 void Server::runSync(const uint16_t port) noexcept
 {
 	std::thread receiveFirstPlayerThread = {};
@@ -109,8 +160,7 @@ void Server::runSync(const uint16_t port) noexcept
 	{
 		try
 		{
-			// TODO: give a callback to be notified when the server is ready to make connections.
-			socket.create(port, nullptr);
+			socket.create(port, std::bind(&Server::onSocketReady, this));
 		}
 		catch (const std::exception& exception)
 		{
@@ -139,6 +189,17 @@ void Server::runSync(const uint16_t port) noexcept
 		plog_info(LOG_PREFIX "Creating socket again!");
 	}
 	plog_info(LOG_PREFIX "Server has been finished!");
+}
+
+void Server::onSocketReady(void) noexcept
+{
+	plog_debug(LOG_PREFIX "Socket is ready to accept connections!");
+
+	mutex.lock();
+	isSocketReady = true;
+	mutex.unlock();
+
+	waitSocket.notify_all();
 }
 
 void Server::receivePlayerUpdates(const ClientType clientType) noexcept
@@ -180,32 +241,6 @@ void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 			}
 		}
 	}
-}
-
-void Server::onTimeUpdate(const uint16_t timeLeft) noexcept
-{
-	Message timeUpdate = {};
-
-	plog_trace(LOG_PREFIX "Time updates are being sent. (time left: %" PRIu16 ")", timeLeft);
-
-	timeUpdate.type             = MessageType::TIME;
-	timeUpdate.payload.timeLeft = timeLeft;
-
-	socket.sendUpdate(timeUpdate, ClientType::PLAYER_1);
-	socket.sendUpdate(timeUpdate, ClientType::PLAYER_2);
-}
-
-void Server::onTimesUp(uint16_t& timeLeft) const noexcept
-{
-	Message timesUpUpdate = {};
-
-	plog_info(LOG_PREFIX "Time is up!");
-
-	timesUpUpdate.type = MessageType::END_TURN;
-	timeLeft           = TIME_PER_TURN;
-
-	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_1);
-	socket.sendUpdate(timesUpUpdate, ClientType::PLAYER_2);
 }
 
 } /*< namespace hobServer */

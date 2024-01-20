@@ -97,7 +97,7 @@ Coordinate Texture::create(const std::string text, TTF_Font* const font, const S
 	Coordinate   dimension        = {};
 
 	plog_verbose("Text texture is being created. (text: %s)", text.c_str());
-	// if (nullptr != rawTexture) <- It is okay not to check for that.
+	// if (nullptr != rawTexture) <- it is okay not to check for that.
 
 	if (nullptr == font)
 	{

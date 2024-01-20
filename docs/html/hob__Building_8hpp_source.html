@@ -92,66 +92,71 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 29.07.2023  Gaina Stefan               Initial version.                                            *</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 17.01.2024  Gaina Stefan               Changed comment.                                            *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the building.                        *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef HOB_BUILDING_HPP_</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define HOB_BUILDING_HPP_</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Component_8hpp.html">hob_Component.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html">   49</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Building.html">Building</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f">   56</a></span>&#160;    <a class="code" href="classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f">Building</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html#a4c746f35daebe0510cae919d2071a905">   62</a></span>&#160;    <a class="code" href="classhob_1_1Building.html#a4c746f35daebe0510cae919d2071a905">~Building</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8">init</a>(SDL_Texture* summerTexture, SDL_Texture* winterTexture, SDL_Texture* alternativeSummerTexture,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        SDL_Texture* alternativeWinterTexture, SDL_Rect destination) noexcept;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#ab45421448a564f1711cc4bb90eb8447f">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1">changeWeather</a>(<span class="keywordtype">bool</span> isWinter) noexcept;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#af186268f51c467e3816458f353dc5f3b">switchTexture</a>(<span class="keywordtype">bool</span> isAlternative) noexcept;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    SDL_Texture* summerTexture;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    SDL_Texture* winterTexture;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    SDL_Texture* alternativeSummerTexture;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    SDL_Texture* alternativeWinterTexture;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a> component;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 20.01.2024  Gaina Stefan               Overloaded changeWeather() method.                          *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the building.                        *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef HOB_BUILDING_HPP_</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define HOB_BUILDING_HPP_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Component_8hpp.html">hob_Component.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html">   50</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Building.html">Building</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f">   57</a></span>&#160;    <a class="code" href="classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f">Building</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classhob_1_1Building.html#a4c746f35daebe0510cae919d2071a905">   63</a></span>&#160;    <a class="code" href="classhob_1_1Building.html#a4c746f35daebe0510cae919d2071a905">~Building</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8">init</a>(SDL_Texture* summerTexture, SDL_Texture* winterTexture, SDL_Texture* alternativeSummerTexture,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        SDL_Texture* alternativeWinterTexture, SDL_Rect destination) noexcept;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#ab45421448a564f1711cc4bb90eb8447f">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1">changeWeather</a>(<span class="keywordtype">bool</span> isWinter) noexcept;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#af186268f51c467e3816458f353dc5f3b">switchTexture</a>(<span class="keywordtype">bool</span> isAlternative) noexcept;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1">changeWeather</a>(SDL_Texture* weatherTexture1, SDL_Texture* weatherTexture2,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        SDL_Texture* weatherTexture3, SDL_Texture* weatherTexture4) noexcept;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    SDL_Texture* summerTexture;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    SDL_Texture* winterTexture;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    SDL_Texture* alternativeSummerTexture;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_BUILDING_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclasshob_1_1Building_html"><div class="ttname"><a href="classhob_1_1Building.html">hob::Building</a></div><div class="ttdoc">Building supporting textures 2 types of textures each with 2 seasons.</div><div class="ttdef"><b>Definition:</b> hob_Building.hpp:50</div></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    SDL_Texture* alternativeWinterTexture;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a> component;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_BUILDING_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclasshob_1_1Building_html"><div class="ttname"><a href="classhob_1_1Building.html">hob::Building</a></div><div class="ttdoc">Building supporting textures 2 types of textures each with 2 seasons.</div><div class="ttdef"><b>Definition:</b> hob_Building.hpp:51</div></div>
 <div class="ttc" id="aclasshob_1_1Building_html_a18c24921f2217a308f362cbd9171cd7f"><div class="ttname"><a href="classhob_1_1Building.html#a18c24921f2217a308f362cbd9171cd7f">hob::Building::Building</a></div><div class="ttdeci">Building(void)=default</div><div class="ttdoc">Constructs building not initializing it implicitly.</div></div>
 <div class="ttc" id="aclasshob_1_1Building_html_a4c746f35daebe0510cae919d2071a905"><div class="ttname"><a href="classhob_1_1Building.html#a4c746f35daebe0510cae919d2071a905">hob::Building::~Building</a></div><div class="ttdeci">~Building(void)=default</div><div class="ttdoc">Does not destroy the textures.</div></div>
-<div class="ttc" id="aclasshob_1_1Building_html_ab45421448a564f1711cc4bb90eb8447f"><div class="ttname"><a href="classhob_1_1Building.html#ab45421448a564f1711cc4bb90eb8447f">hob::Building::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws the current texture.</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:65</div></div>
-<div class="ttc" id="aclasshob_1_1Building_html_abc5622d96d841cfb014ba510ec901ad8"><div class="ttname"><a href="classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8">hob::Building::init</a></div><div class="ttdeci">void init(SDL_Texture *summerTexture, SDL_Texture *winterTexture, SDL_Texture *alternativeSummerTexture, SDL_Texture *alternativeWinterTexture, SDL_Rect destination) noexcept</div><div class="ttdoc">Initializes the building with all textures and destination.</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:44</div></div>
-<div class="ttc" id="aclasshob_1_1Building_html_ad71903de74e643f969b7a1f2ebc445b1"><div class="ttname"><a href="classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1">hob::Building::changeWeather</a></div><div class="ttdeci">void changeWeather(bool isWinter) noexcept</div><div class="ttdoc">Changes the texture that will be drawn (it keeps count if texture is set to alternative).</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:71</div></div>
-<div class="ttc" id="aclasshob_1_1Building_html_af186268f51c467e3816458f353dc5f3b"><div class="ttname"><a href="classhob_1_1Building.html#af186268f51c467e3816458f353dc5f3b">hob::Building::switchTexture</a></div><div class="ttdeci">void switchTexture(bool isAlternative) noexcept</div><div class="ttdoc">Changes the texture that will be drawn (it keeps count of the current weather).</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:142</div></div>
+<div class="ttc" id="aclasshob_1_1Building_html_ab45421448a564f1711cc4bb90eb8447f"><div class="ttname"><a href="classhob_1_1Building.html#ab45421448a564f1711cc4bb90eb8447f">hob::Building::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws the current texture.</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:60</div></div>
+<div class="ttc" id="aclasshob_1_1Building_html_abc5622d96d841cfb014ba510ec901ad8"><div class="ttname"><a href="classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8">hob::Building::init</a></div><div class="ttdeci">void init(SDL_Texture *summerTexture, SDL_Texture *winterTexture, SDL_Texture *alternativeSummerTexture, SDL_Texture *alternativeWinterTexture, SDL_Rect destination) noexcept</div><div class="ttdoc">Initializes the building with all textures and destination.</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:45</div></div>
+<div class="ttc" id="aclasshob_1_1Building_html_ad71903de74e643f969b7a1f2ebc445b1"><div class="ttname"><a href="classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1">hob::Building::changeWeather</a></div><div class="ttdeci">void changeWeather(bool isWinter) noexcept</div><div class="ttdoc">Changes the texture that will be drawn (it keeps count if texture is set to alternative).</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:66</div></div>
+<div class="ttc" id="aclasshob_1_1Building_html_af186268f51c467e3816458f353dc5f3b"><div class="ttname"><a href="classhob_1_1Building.html#af186268f51c467e3816458f353dc5f3b">hob::Building::switchTexture</a></div><div class="ttdeci">void switchTexture(bool isAlternative) noexcept</div><div class="ttdoc">Changes the texture that will be drawn (it keeps count of the current weather).</div><div class="ttdef"><b>Definition:</b> hob_Building.cpp:77</div></div>
 <div class="ttc" id="aclasshob_1_1Component_html"><div class="ttname"><a href="classhob_1_1Component.html">hob::Component</a></div><div class="ttdoc">Packs texture and dimension/position on screen.</div><div class="ttdef"><b>Definition:</b> hob_Component.hpp:53</div></div>
 <div class="ttc" id="aclasshob_1_1IDrawable_html"><div class="ttname"><a href="classhob_1_1IDrawable.html">hob::IDrawable</a></div><div class="ttdoc">Interface of classes that can be drawn.</div><div class="ttdef"><b>Definition:</b> hob_IDrawable.hpp:49</div></div>
 <div class="ttc" id="ahob__Component_8hpp_html"><div class="ttname"><a href="hob__Component_8hpp.html">hob_Component.hpp</a></div></div>

@@ -21,6 +21,7 @@
  * 29.07.2023  Gaina Stefan               Initial version.                                            *
  * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 20.01.2024  Gaina Stefan               Overloaded changeWeather() method.                          *
  * @details This file implements the class defined in hob_Building.hpp.                               *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -42,16 +43,10 @@ namespace hob
 {
 
 void Building::init(SDL_Texture* const summerTexture, SDL_Texture* const winterTexture, SDL_Texture* const alternativeSummerTexture,
-		SDL_Texture* const alternativeWinterTexture, const SDL_Rect destination) noexcept
+	SDL_Texture* const alternativeWinterTexture, const SDL_Rect destination) noexcept
 {
 	plog_trace("Building is being initialized. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
 		destination.x, destination.y, destination.w, destination.h);
-
-	if (nullptr == summerTexture || nullptr == alternativeSummerTexture
-	 || nullptr == winterTexture || nullptr == alternativeWinterTexture)
-	{
-		plog_warn("Building is incomplete!");
-	}
 
 	this->summerTexture            = summerTexture;
 	this->winterTexture            = winterTexture;
@@ -70,144 +65,63 @@ void Building::draw(SDL_Renderer* const renderer) noexcept
 
 void Building::changeWeather(const bool isWinter) noexcept
 {
-	SDL_Texture* const currentTexture = component.getRawTexture();
-
 	plog_trace("Building weather is being changed. (flag: %" PRId32 ")", static_cast<int32_t>(isWinter));
 	if (false == isWinter)
 	{
-		if (currentTexture == summerTexture
-		 || currentTexture == alternativeSummerTexture)
-		{
-			plog_warn("Building weather already changed!");
-			return;
-		}
-
-		if (currentTexture == winterTexture)
-		{
-			if (nullptr == summerTexture)
-			{
-				plog_warn("Building is not changing weather!");
-				return;
-			}
-			component.updateTexture(summerTexture);
-		}
-		else if (currentTexture == alternativeWinterTexture)
-		{
-			if (nullptr == alternativeSummerTexture)
-			{
-				plog_warn("Building is not changing weather!");
-				return;
-			}
-			component.updateTexture(alternativeSummerTexture);
-		}
-		else
-		{
-			plog_error("Building is in an invalid state!");
-		}
+		changeWeather(winterTexture, alternativeWinterTexture, summerTexture, alternativeSummerTexture);
+		return;
 	}
-	else
-	{
-		if (currentTexture == winterTexture
-		 || currentTexture == alternativeWinterTexture)
-		{
-			plog_warn("Building weather already changed!");
-			return;
-		}
-
-		if (currentTexture == summerTexture)
-		{
-			if (nullptr == winterTexture)
-			{
-				plog_warn("Building is not changing weather!");
-				return;
-			}
-			component.updateTexture(winterTexture);
-		}
-		else if (currentTexture == alternativeSummerTexture)
-		{
-			if (nullptr == alternativeWinterTexture)
-			{
-				plog_warn("Building is not changing weather!");
-				return;
-			}
-			component.updateTexture(alternativeWinterTexture);
-		}
-		else
-		{
-			plog_error("Building is in an invalid state!");
-		}
-	}
+	changeWeather(summerTexture, alternativeSummerTexture, winterTexture, alternativeWinterTexture);
 }
 
 void Building::switchTexture(const bool isAlternative) noexcept
 {
-	SDL_Texture* const currentTexture = component.getRawTexture();
-
 	plog_trace("Building texture is being switched. (flag: %" PRId32 ")", static_cast<int32_t>(isAlternative));
 	if (true == isAlternative)
 	{
-		if (currentTexture == alternativeSummerTexture
-		 || currentTexture == alternativeWinterTexture)
-		{
-			plog_warn("Building texture already switched!");
-			return;
-		}
-
-		if (currentTexture == summerTexture)
-		{
-			if (nullptr == alternativeSummerTexture)
-			{
-				plog_error("Building is not switching texture!");
-				return;
-			}
-			component.updateTexture(alternativeSummerTexture);
-		}
-		else if (currentTexture == winterTexture)
-		{
-			if (nullptr == alternativeWinterTexture)
-			{
-				plog_error("Building is not switching texture!");
-				return;
-			}
-			component.updateTexture(alternativeWinterTexture);
-		}
-		else
-		{
-			plog_error("Building is in an invalid state!");
-		}
+		changeWeather(summerTexture, winterTexture, alternativeSummerTexture, alternativeWinterTexture);
+		return;
 	}
-	else
+	changeWeather(alternativeSummerTexture, alternativeWinterTexture, summerTexture, winterTexture);
+}
+
+void Building::changeWeather(SDL_Texture* const weatherTexture1, SDL_Texture* const weatherTexture2,
+	SDL_Texture* const weatherTexture3, SDL_Texture* const weatherTexture4) noexcept
+{
+	SDL_Texture* const currentTexture = component.getRawTexture();
+
+	if (currentTexture == weatherTexture3
+	 || currentTexture == weatherTexture4)
 	{
-		if (currentTexture == summerTexture
-		 || currentTexture == winterTexture)
+		plog_warn("Building weather already changed!");
+		return;
+	}
+
+	if (currentTexture == weatherTexture1)
+	{
+		if (nullptr == weatherTexture3)
 		{
-			plog_warn("Building texture already switched!");
+			plog_warn("Building is not changing weather!");
 			return;
 		}
 
-		if (currentTexture == alternativeSummerTexture)
-		{
-			if (nullptr == summerTexture)
-			{
-				plog_error("Building is not switching texture!");
-				return;
-			}
-			component.updateTexture(summerTexture);
-		}
-		else if (currentTexture == alternativeWinterTexture)
-		{
-			if (nullptr == winterTexture)
-			{
-				plog_error("Building is not switching texture!");
-				return;
-			}
-			component.updateTexture(winterTexture);
-		}
-		else
-		{
-			plog_error("Building is in an invalid state!");
-		}
+		component.updateTexture(weatherTexture3);
+		return;
 	}
+
+	if (currentTexture == weatherTexture2)
+	{
+		if (nullptr == weatherTexture4)
+		{
+			plog_warn("Building is not changing weather!");
+			return;
+		}
+
+		component.updateTexture(weatherTexture4);
+		return;
+	}
+
+	plog_error("Building is in an invalid state!");
 }
 
 } /*< namespace hob */

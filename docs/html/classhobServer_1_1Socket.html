@@ -81,12 +81,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ae08b89f9bdd35d17b57d2b818e803c98"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#ae08b89f9bdd35d17b57d2b818e803c98">CallbackFunction</a> = std::function&lt; void(void)&gt;</td></tr>
-<tr class="memdesc:ae08b89f9bdd35d17b57d2b818e803c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function prototype of the callback when the server is ready to make connections.  <a href="classhobServer_1_1Socket.html#ae08b89f9bdd35d17b57d2b818e803c98">More...</a><br /></td></tr>
-<tr class="separator:ae08b89f9bdd35d17b57d2b818e803c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa49d211a091512cc06a19c13400f8996"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#aa49d211a091512cc06a19c13400f8996">Callback</a> = std::shared_ptr&lt; <a class="el" href="classhobServer_1_1Socket.html#ae08b89f9bdd35d17b57d2b818e803c98">CallbackFunction</a> &gt;</td></tr>
-<tr class="memdesc:aa49d211a091512cc06a19c13400f8996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the callback when the server is ready to make connections.  <a href="classhobServer_1_1Socket.html#aa49d211a091512cc06a19c13400f8996">More...</a><br /></td></tr>
-<tr class="separator:aa49d211a091512cc06a19c13400f8996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb078150531bffec9ea0bbb24ef3dd1e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#adb078150531bffec9ea0bbb24ef3dd1e">Callback</a> = std::function&lt; void(void)&gt;</td></tr>
+<tr class="memdesc:adb078150531bffec9ea0bbb24ef3dd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function prototype of the callback when the server is ready to make connections.  <a href="classhobServer_1_1Socket.html#adb078150531bffec9ea0bbb24ef3dd1e">More...</a><br /></td></tr>
+<tr class="separator:adb078150531bffec9ea0bbb24ef3dd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -96,7 +93,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0c1d51cd794922fc85ce6eb0f28ed0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#ad0c1d51cd794922fc85ce6eb0f28ed0c">~Socket</a> (void) noexcept</td></tr>
 <tr class="memdesc:ad0c1d51cd794922fc85ce6eb0f28ed0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the sockets if they were not already.  <a href="classhobServer_1_1Socket.html#ad0c1d51cd794922fc85ce6eb0f28ed0c">More...</a><br /></td></tr>
 <tr class="separator:ad0c1d51cd794922fc85ce6eb0f28ed0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7acdfd8faaf39d950d73ad135c4da98d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#a7acdfd8faaf39d950d73ad135c4da98d">create</a> (uint16_t port, <a class="el" href="classhobServer_1_1Socket.html#aa49d211a091512cc06a19c13400f8996">Callback</a> callback) noexcept(false)</td></tr>
+<tr class="memitem:a7acdfd8faaf39d950d73ad135c4da98d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#a7acdfd8faaf39d950d73ad135c4da98d">create</a> (uint16_t port, <a class="el" href="classhobServer_1_1Socket.html#adb078150531bffec9ea0bbb24ef3dd1e">Callback</a> callback) noexcept(false)</td></tr>
 <tr class="memdesc:a7acdfd8faaf39d950d73ad135c4da98d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a server socket and waits connections from 2 clients.  <a href="classhobServer_1_1Socket.html#a7acdfd8faaf39d950d73ad135c4da98d">More...</a><br /></td></tr>
 <tr class="separator:a7acdfd8faaf39d950d73ad135c4da98d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e2eb14741b22f33d072d2f766fdf09e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhobServer_1_1Socket.html#a3e2eb14741b22f33d072d2f766fdf09e">close</a> (void) noexcept</td></tr>
@@ -112,35 +109,19 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classhobServer_1_1Server.html" title="Server for matches.">Server</a> socket that supports connections from 2 clients. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae08b89f9bdd35d17b57d2b818e803c98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae08b89f9bdd35d17b57d2b818e803c98">&#9670;&nbsp;</a></span>CallbackFunction</h2>
+<a id="adb078150531bffec9ea0bbb24ef3dd1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb078150531bffec9ea0bbb24ef3dd1e">&#9670;&nbsp;</a></span>Callback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classhobServer_1_1Socket.html#ae08b89f9bdd35d17b57d2b818e803c98">hobServer::Socket::CallbackFunction</a> =  std::function&lt;void(void)&gt;</td>
+          <td class="memname">using <a class="el" href="classhobServer_1_1Socket.html#adb078150531bffec9ea0bbb24ef3dd1e">hobServer::Socket::Callback</a> =  std::function&lt;void(void)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Function prototype of the callback when the server is ready to make connections. </p>
-
-</div>
-</div>
-<a id="aa49d211a091512cc06a19c13400f8996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa49d211a091512cc06a19c13400f8996">&#9670;&nbsp;</a></span>Callback</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classhobServer_1_1Socket.html#aa49d211a091512cc06a19c13400f8996">hobServer::Socket::Callback</a> =  std::shared_ptr&lt;<a class="el" href="classhobServer_1_1Socket.html#ae08b89f9bdd35d17b57d2b818e803c98">CallbackFunction</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pointer to the callback when the server is ready to make connections. </p>
 
 </div>
 </div>
@@ -232,7 +213,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classhobServer_1_1Socket.html#aa49d211a091512cc06a19c13400f8996">Callback</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classhobServer_1_1Socket.html#adb078150531bffec9ea0bbb24ef3dd1e">Callback</a>&#160;</td>
           <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>

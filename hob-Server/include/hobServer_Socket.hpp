@@ -22,6 +22,7 @@
  * 25.08.2023  Gaina Stefan               Made waitConnectionFunction throwable.                      *
  * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Removed callback from waitConnection().                     *
+ * 20.01.2024  Gaina Stefan               Changed callback parameter type.                            *
  * @details This file defines the class and method prototypes of the socket.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -67,12 +68,7 @@ public:
 	/**
 	 * @brief Function prototype of the callback when the server is ready to make connections.
 	*/
-	using CallbackFunction = std::function<void(void)>;
-
-	/**
-	 * @brief Pointer to the callback when the server is ready to make connections.
-	*/
-	using Callback = std::shared_ptr<CallbackFunction>;
+	using Callback = std::function<void(void)>;
 
 	/**
 	 * @brief Does not create the socket implicitly.

@@ -24,6 +24,7 @@
  * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added indexes comments.                                     *
+ * 20.01.2024  Gaina Stefan               Added handleQueue() method.                                 *
  * @details This file implements the class defined in hob_Timer.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -105,10 +106,24 @@ Timer::Timer(SDL_Renderer* const renderer) noexcept
 
 void Timer::draw(SDL_Renderer* const renderer) noexcept
 {
+	plog_verbose("Timer is being drawn.");
+
+	handleQueue();
+	TextureInitializer::draw(renderer);
+}
+
+void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
+{
+	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
+	queue.put({ .seconds = seconds, .isAlliance = isAlliance });
+}
+
+void Timer::handleQueue(void) noexcept
+{
 	TimeFormat timeFormat = {};
 	size_t     modifier   = 0UL;
 
-	plog_verbose("Timer is being drawn.");
+	plog_verbose("Queue is being handled.");
 	while (false == queue.isEmpty())
 	{
 		timeFormat = queue.get();
@@ -126,14 +141,6 @@ void Timer::draw(SDL_Renderer* const renderer) noexcept
 		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_1].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) / 10UL + modifier]);
 		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_2].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) % 10UL + modifier]);
 	}
-
-	TextureInitializer::draw(renderer);
-}
-
-void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
-{
-	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-	queue.put({ .seconds = seconds, .isAlliance = isAlliance });
 }
 
 } /*< namespace hob */

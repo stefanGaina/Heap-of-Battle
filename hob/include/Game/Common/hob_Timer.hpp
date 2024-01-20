@@ -22,6 +22,7 @@
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added indexes.                                              *
+ * 20.01.2024  Gaina Stefan               Added handleQueue() method.                                 *
  * @details This file defines the class and method prototypes of the timer.                           *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -49,10 +50,10 @@ namespace hob
 */
 enum TimerTextureIndex
 {
-	TIMER_TEXTURE_INDEX_ALLIANCE_0    = 0,  /**< TODO */
-	TIMER_TEXTURE_INDEX_DOUBLE_POINTS = 10, /**< TODO */
-	TIMER_TEXTURE_INDEX_HORDE_0       = 11, /**< TODO */
-	TIMER_TEXTURES_COUNT              = 22  /**< How many textures timer loads. */
+	TIMER_TEXTURE_INDEX_ALLIANCE_0    = 0,  /**< Starting index to the timer's alliance textures. */
+	TIMER_TEXTURE_INDEX_DOUBLE_POINTS = 10, /**< Index to the timer's double points texture.      */
+	TIMER_TEXTURE_INDEX_HORDE_0       = 11, /**< Starting index to the timer's horde textures.    */
+	TIMER_TEXTURES_COUNT              = 22  /**< How many textures timer loads.                   */
 };
 
 /**
@@ -60,11 +61,11 @@ enum TimerTextureIndex
 */
 enum TimerComponentIndex
 {
-	TIMER_COMPONENT_INDEX_MINUTE         = 0, /**< TODO */
-	TIMER_COMPONENT_INDEX_DOUBLE_POINTS  = 1,
-	TIMER_COMPONENT_INDEX_SECOND_DIGIT_1 = 2,
-	TIMER_COMPONENT_INDEX_SECOND_DIGIT_2 = 3,
-	TIMER_COMPONENTS_COUNT               = 4  /**< How many components the timer uses. */
+	TIMER_COMPONENT_INDEX_MINUTE         = 0, /**< Index to the timer's minute component.        */
+	TIMER_COMPONENT_INDEX_DOUBLE_POINTS  = 1, /**< Index to the timer's double points component. */
+	TIMER_COMPONENT_INDEX_SECOND_DIGIT_1 = 2, /**< Index to the timer's first digit component.   */
+	TIMER_COMPONENT_INDEX_SECOND_DIGIT_2 = 3, /**< Index to the timer's second digit component.  */
+	TIMER_COMPONENTS_COUNT               = 4  /**< How many components the timer uses.           */
 };
 
 /**
@@ -108,6 +109,14 @@ public:
 	 * @return void
 	*/
 	void update(uint16_t seconds, bool isAlliance) noexcept;
+
+private:
+	/**
+	 * @brief Handles the updates present in queue.
+	 * @param void
+	 * @return void
+	*/
+	void handleQueue(void) noexcept;
 
 private:
 	/**

@@ -23,6 +23,7 @@
  * 17.01.2024  Gaina Stefan               Added faction member.                                       *
  * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
  * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
+ * 20.01.2024  Gaina Stefan               Fixed button up in release mode.                            *
  * @details This file implements the class defined in hob_LocalMenu.hpp.                              *
  * @todo Offer a way for IP address of the host to be inputed (after pressing connect).               *
  * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a     *
@@ -34,7 +35,6 @@
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
 
-#include <unistd.h>
 #include <plog.h>
 
 #include "hob_LocalMenu.hpp"
@@ -162,7 +162,8 @@ void LocalMenu::handleEvent(const SDL_Event& event) noexcept
 		case SDL_MOUSEBUTTONUP:
 		{
 			handleButtonUp();
-			// break; <- omitted so buttons get reselected appropriately.
+			handleMouseMotion();
+			break;
 		}
 		case SDL_MOUSEMOTION:
 		{
@@ -218,9 +219,14 @@ void LocalMenu::handleButtonDown(void) noexcept
 
 void LocalMenu::handleButtonUp(void) noexcept
 {
-	Coordinate click = {};
+	Coordinate     click      = {};
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
-	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", SDL_GetMouseState(&click.x, &click.y), click.x, click.y);
+	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+#ifdef PLOG_STRIP_TRACE
+	(void)mouseState;
+#endif /*< PLOG_STRIP_TRACE */
+
 	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
 	{
 		switch (clickDownIndex)
@@ -247,7 +253,7 @@ void LocalMenu::handleButtonUp(void) noexcept
 					plog_debug("Hosting the game by running the server locally.");
 					try
 					{
-						server.runAsync(8787U);
+						server.runAsync(8787U, 40U);
 					}
 					catch (const std::exception& exception)
 					{
@@ -255,9 +261,6 @@ void LocalMenu::handleButtonUp(void) noexcept
 						soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
 						break;
 					}
-
-					// TODO: Remove this when it is safe to make the client connection.
-					sleep(1);
 
 					componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
 					waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") };
@@ -356,6 +359,7 @@ void LocalMenu::handleQueue(void) noexcept
 {
 	ConnectionStatus connectionStatus = ConnectionStatus::ABORTED;
 
+	plog_verbose("Queue is being handled.");
 	while (false == queue.isEmpty())
 	{
 		connectionStatus = queue.get();

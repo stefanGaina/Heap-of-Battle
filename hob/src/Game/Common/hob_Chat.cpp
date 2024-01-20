@@ -23,7 +23,7 @@
  * 29.08.2023  Gaina Stefan               Removed the use of getRawTexture().                         *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added faction colors as parameters.                         *
- * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
+ * 20.01.2024  Gaina Stefan               Fixed extra compiler warnings.                              *
  * @details This file implements the class defined in hob_Chat.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -53,7 +53,7 @@ Chat::Chat(SDL_Renderer* const renderer, const SDL_Color friendlyColor, const SD
 	, components           {}
 	, messageQueue         {}
 	, font                 { TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12) }
-	, enteringMessage      { "" }
+	, enteringMessage      {}
 	, enteringMessageLength{ 0 }
 	, barTicks             { 0U }
 	, isActive             { false }
@@ -285,6 +285,7 @@ void Chat::handleButtonPress(const SDL_Event& event, SDL_Renderer* const rendere
 			{
 				plog_trace("Escape button was pressed.");
 				deactivate(renderer);
+				break;
 			}
 			default:
 			{

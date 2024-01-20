@@ -26,6 +26,7 @@
  * 15.12.2023  Gaina Stefan               Added buffer size.                                          *
  * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
  * 13.01.2024  Gaina Stefan               Updated doxygen.                                            *
+ * 19.01.2024  Gaina Stefan               Added PLOG_STRIP_ALL block.                                 *
  * @details This file defines the type definitions and public interface of Plog.                      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -247,6 +248,8 @@
  * TYPE DEFINITIONS                                                                                   *
  *****************************************************************************************************/
 
+#ifndef PLOG_STRIP_ALL
+
 /**
  * @brief Enumerates the bits representing if the log severity level is enabled.
 */
@@ -367,5 +370,7 @@ extern gsize plog_get_buffer_size(void);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /*< PLOG_STRIP_ALL */
 
 #endif /*< PLOG_H_ */

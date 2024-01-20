@@ -21,6 +21,7 @@
  * 26.08.2023  Gaina Stefan               Initial version.                                            *
  * 27.08.2023  Gaina Stefan               Added queue.                                                *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 20.01.2024  Gaina Stefan               Added handleQueue() method.                                 *
  * @details This file defines the class and method prototypes of the ping.                            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -90,6 +91,13 @@ public:
 	void clean(void) noexcept;
 
 private:
+	/**
+	 * @brief Handles the updates present in queue.
+	 * @param renderer: Rendering context of the window.
+	 * @param void
+	*/
+	void handleQueue(SDL_Renderer* renderer) noexcept;
+
 	/**
 	 * @brief Sends ping messages every second.
 	 * @param void
