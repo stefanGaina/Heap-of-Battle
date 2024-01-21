@@ -23,6 +23,7 @@
  * 29.08.2023  Gaina Stefan               Added LAN menu.                                             *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 19.01.2024  Gaina Stefan               Changed SDL includes.                                       *
+ * 21.01.2024  Gaina Stefan               Updated logs.                                               *
  * @details This file implements the class defined in hob_Game.hpp.                                   *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -137,7 +138,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_MIXER_MINOR_VERSION != sdlVersionRef->minor
 	 || SDL_MIXER_PATCHLEVEL    != sdlVersionRef->patch)
 	{
-		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION, SDL_MIXER_PATCHLEVEL);
+		plog_warn("SDL mixer version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION, SDL_MIXER_PATCHLEVEL);
 	}
 
 	sdlVersionRef = TTF_Linked_Version();
@@ -145,7 +146,7 @@ void Game::init(void) noexcept(false)
 	 || SDL_TTF_MINOR_VERSION != sdlVersionRef->minor
 	 || SDL_TTF_PATCHLEVEL    != sdlVersionRef->patch)
 	{
-		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
+		plog_warn("SDL TTF version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
 	}
 
 	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
@@ -158,21 +159,21 @@ void Game::init(void) noexcept(false)
 
 	if (0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{
-		plog_fatal("SDL failed to be initialized! (error message: %s)", SDL_GetError());
+		plog_fatal("Failed to initialize SDL! (error message: %s)", SDL_GetError());
 		throw std::exception();
 	}
 
 	if (IMG_INIT_PNG != IMG_Init(IMG_INIT_PNG))
 	{
-		plog_fatal("SDL image failed to be initializzed! (error message: %s)", IMG_GetError());
+		plog_fatal("Failed to initialize SDL image! (error message: %s)", IMG_GetError());
 		SDL_Quit();
 
 		throw std::exception();
 	}
 
-	if (0 > Mix_OpenAudio(44100L, MIX_DEFAULT_FORMAT, 2L, 2048L))
+	if (0 > Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048))
 	{
-		plog_fatal("Mixer failed to be opened! (error message: %s)", Mix_GetError());
+		plog_fatal("Failed to initialize SDL mixer! (error message: %s)", Mix_GetError());
 		IMG_Quit();
 		SDL_Quit();
 
@@ -181,7 +182,7 @@ void Game::init(void) noexcept(false)
 
 	if (0 != TTF_Init())
 	{
-		plog_error("TTF failed to be initialized! (error message: %s)", TTF_GetError());
+		plog_error("Failed to initialize SDL TTF! (error message: %s)", TTF_GetError());
 		Mix_Quit();
 		IMG_Quit();
 		SDL_Quit();
@@ -235,7 +236,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				}
 				catch (const std::bad_alloc& exception)
 				{
-					plog_fatal("Unable to allocate memory for main menu scene! (bytes: %" PRIu64 ")", sizeof(MainMenu));
+					plog_fatal("Failed to allocate memory for main menu scene! (bytes: %" PRIu64 ")", sizeof(MainMenu));
 					return;
 				}
 				break;
@@ -248,7 +249,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				}
 				catch (const std::bad_alloc& exception)
 				{
-					plog_fatal("Unable to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
+					plog_fatal("Failed to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
 					nextScene = Scene::MAIN_MENU;
 				}
 				break;
@@ -261,7 +262,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				}
 				catch (const std::bad_alloc& exception)
 				{
-					plog_fatal("Unable to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
+					plog_fatal("Failed to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
 					nextScene = Scene::MAIN_MENU;
 				}
 				break;

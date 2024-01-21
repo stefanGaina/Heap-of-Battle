@@ -13,15 +13,14 @@
 #######################################################################################################
 
 CFLAGS  = -Wextra -Wall -Werror -pthread
-LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server    \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game      \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'    \
+LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)' \
 		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
-INCLUDES = -Iinclude                \
-		   -Iinclude/Common         \
+INCLUDES = -Iinclude/Common         \
 		   -Iinclude/Game/Common    \
 		   -Iinclude/Game/Scenario1 \
 		   -Iinclude/Main           \

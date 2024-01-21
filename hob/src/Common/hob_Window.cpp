@@ -23,6 +23,7 @@
  * 26.08.2023  Gaina Stefan               Improved logs.                                              *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 19.01.2024  Gaina Stefan               Changed SDL_image include.                                  *
+ * 21.01.2024  Gaina Stefan               Commented setIcon().                                        *
  * @details This file implements the class defined in hob_Window.hpp.                                 *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -33,7 +34,6 @@
  *****************************************************************************************************/
 
 #include <exception>
-#include <SDL2/SDL_image.h>
 #include <plog.h>
 
 #include "hob_Window.hpp"
@@ -97,25 +97,25 @@ void Window::destroy(void) noexcept
 	plog_info("Window was destroyed successfully!");
 }
 
-void Window::setIcon(void) const noexcept
-{
-	static const char* const ICON_FILE_PATH = HOB_TEXTURES_FILE_PATH("miscellaneous/icon");
+// void Window::setIcon(void) const noexcept
+// {
+// 	static const char* const ICON_FILE_PATH = HOB_TEXTURES_FILE_PATH("miscellaneous/icon");
 
-	SDL_Surface* iconSurface = nullptr;
+// 	SDL_Surface* iconSurface = nullptr;
 
-	plog_debug("Window icon is being set.");
+// 	plog_debug("Window icon is being set.");
 
-	iconSurface = IMG_Load(ICON_FILE_PATH);
-	if (nullptr == iconSurface)
-	{
-		plog_error("Failed to load icon! (file path: %s) (SDL error message: %s)", ICON_FILE_PATH, SDL_GetError());
-		return;
-	}
-	plog_info("Window icon has been set successfully!");
+// 	iconSurface = IMG_Load(ICON_FILE_PATH);
+// 	if (nullptr == iconSurface)
+// 	{
+// 		plog_error("Failed to load icon! (file path: %s) (SDL error message: %s)", ICON_FILE_PATH, SDL_GetError());
+// 		return;
+// 	}
+// 	plog_info("Window icon has been set successfully!");
 
-	SDL_SetWindowIcon(window, iconSurface);
-	SDL_FreeSurface(iconSurface);
-}
+// 	SDL_SetWindowIcon(window, iconSurface);
+// 	SDL_FreeSurface(iconSurface);
+// }
 
 #ifdef DEVEL_BUILD
 void Window::logInfo(SDL_Renderer* const renderer) const noexcept

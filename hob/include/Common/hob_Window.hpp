@@ -21,6 +21,7 @@
  * 23.07.2023  Gaina Stefan               Initial version.                                            *
  * 26.08.2023  Gaina Stefan               Added constructor and destructor.                           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
+ * 21.01.2024  Gaina Stefan               Commented setIcon().                                        *
  * @details This file defines the class and method prototypes of the window.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -74,12 +75,12 @@ public:
 	*/
 	void destroy(void) noexcept;
 
-	/**
-	 * @brief Sets the icon of the window.
-	 * @param void
-	 * @return void
-	*/
-	void setIcon(void) const noexcept;
+	// /**
+	//  * @brief Sets the icon of the window.
+	//  * @param void
+	//  * @return void
+	// */
+	// void setIcon(void) const noexcept;
 
 #ifdef DEVEL_BUILD
 	/**

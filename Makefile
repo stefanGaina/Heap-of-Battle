@@ -8,6 +8,7 @@
 #   16.01.2024  Gaina Stefan               Added doxygen.                                             #
 #   18.01.2024  Gaina Stefan               Added compilation timer.                                   #
 #   20.01.2024  Gaina Stefan               Added install_plog rule.                                   #
+#   21.01.2024  Gaina Stefan               Updated unit test rules.                                   #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -17,12 +18,6 @@ export LIB := lib
 export BIN := bin
 
 export INSTALL_DIRECTORY := Heap-of-Battle
-export COVERAGE_REPORT   := coverage_report
-
-GENHTML       = vendor/lcov/genhtml.perl
-GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory coverage_report/
-
-INFO_FILES = $(COVERAGE_REPORT)/?.info
 
 COMPILATION_TIMER = cd vendor/Compilation-Timer && ./compilation-timer
 
@@ -73,15 +68,12 @@ uninstall:
 
 ### MAKE UNIT-TESTS ###
 ut: start_timer ut-clean
-	mkdir -p $(COVERAGE_REPORT)
 	$(MAKE) -C unit-tests
-	$(MAKE) run_tests -C unit-tests
-	perl $(GENHTML) $(INFO_FILES) $(GENHTML_FLAGS)
 	$(COMPILATION_TIMER) end
 
 ### CLEAN UNIT-TESTS ###
 ut-clean:
-	rm -rf $(COVERAGE_REPORT)
+	$(MAKE) clean -C unit-tests
 
 ### MAKE DOXYGEN ###
 doxygen:

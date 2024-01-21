@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['recruit_5finfantry_954',['RECRUIT_INFANTRY',['../namespacehob.html#a578262930f136496ff1b1a5bfdea3700a73431cf2a5f8af401328889d44ced58f',1,'hob']]]
+  ['recruit_5finfantry_1081',['RECRUIT_INFANTRY',['../namespacehob.html#a578262930f136496ff1b1a5bfdea3700a73431cf2a5f8af401328889d44ced58f',1,'hob']]]
 ];

@@ -103,7 +103,7 @@ void Sound::play(void) const noexcept
 	}
 
 	channel = Mix_PlayChannel(-1, chunk, 0);
-	Mix_Volume(channel, volume);
+	(void)Mix_Volume(channel, volume);
 }
 
 void Sound::setVolume(const Volume volume) noexcept
