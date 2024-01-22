@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hobServer_Timer.cpp                                                                          *
@@ -83,7 +83,7 @@ void Timer::stopTimer(void) noexcept
 	interruptWait = true;
 	waitMutex.unlock();
 
-	waitTime.notify_all();
+	waitTime.notify_one();
 
 	if (true == timerThread.joinable())
 	{

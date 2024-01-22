@@ -92,54 +92,62 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 23.07.2023  Gaina Stefan               Initial version.                                            *</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 26.08.2023  Gaina Stefan               Added constructor and destructor.                           *</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the window.                          *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef HOB_WINDOW_HPP_</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define HOB_WINDOW_HPP_</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Types_8hpp.html">hob_Types.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classhob_1_1Window.html">   48</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Window.html">Window</a> final</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classhob_1_1Window.html#a65b7508671d034564f1115a7bb74953f">Window</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classhob_1_1Window.html#a916355fe65f45fc420e8a774f27f7379">   61</a></span>&#160;    <a class="code" href="classhob_1_1Window.html#a916355fe65f45fc420e8a774f27f7379">~Window</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    SDL_Renderer* <a class="code" href="classhob_1_1Window.html#a1326b09c09ffcfb10c0c5458a8c1a473">create</a>(<span class="keywordtype">void</span>) noexcept(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Window.html#ae75de610ef9a5b243b2080163fcf3ee8">destroy</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifdef DEVEL_BUILD</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> logInfo(SDL_Renderer* renderer) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; DEVEL_BUILD */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    SDL_Window* window;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_WINDOW_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclasshob_1_1Window_html"><div class="ttname"><a href="classhob_1_1Window.html">hob::Window</a></div><div class="ttdoc">Class used to set up the screen where graphics will be rendered.</div><div class="ttdef"><b>Definition:</b> hob_Window.hpp:49</div></div>
-<div class="ttc" id="aclasshob_1_1Window_html_a1326b09c09ffcfb10c0c5458a8c1a473"><div class="ttname"><a href="classhob_1_1Window.html#a1326b09c09ffcfb10c0c5458a8c1a473">hob::Window::create</a></div><div class="ttdeci">SDL_Renderer * create(void) noexcept(false)</div><div class="ttdoc">Creates the window where the textures will be renderer.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:53</div></div>
-<div class="ttc" id="aclasshob_1_1Window_html_a65b7508671d034564f1115a7bb74953f"><div class="ttname"><a href="classhob_1_1Window.html#a65b7508671d034564f1115a7bb74953f">hob::Window::Window</a></div><div class="ttdeci">Window(void) noexcept</div><div class="ttdoc">Does not create the window implicitly.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:47</div></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 21.01.2024  Gaina Stefan               Commented setIcon().                                        *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the window.                          *</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef HOB_WINDOW_HPP_</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define HOB_WINDOW_HPP_</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Types_8hpp.html">hob_Types.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classhob_1_1Window.html">   49</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Window.html">Window</a> final</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classhob_1_1Window.html#a85dee581cfee84167cf2893d8a54d4cc">Window</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classhob_1_1Window.html#a916355fe65f45fc420e8a774f27f7379">   62</a></span>&#160;    <a class="code" href="classhob_1_1Window.html#a916355fe65f45fc420e8a774f27f7379">~Window</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SDL_Renderer* <a class="code" href="classhob_1_1Window.html#a2d046837b238a2764de9a2b34479f432">create</a>(<span class="keywordtype">void</span>) noexcept(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Window.html#a48d7b32256efb6228fdc08bda45317d6">destroy</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// /**</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//  * @brief Sets the icon of the window.</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">//  * @param void</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">//  * @return void</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// */</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// void setIcon(void) const noexcept;</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#ifdef DEVEL_BUILD</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> logInfo(SDL_Renderer* renderer) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; DEVEL_BUILD */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    SDL_Window* window;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_WINDOW_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclasshob_1_1Window_html"><div class="ttname"><a href="classhob_1_1Window.html">hob::Window</a></div><div class="ttdoc">Class used to set up the screen where graphics will be rendered.</div><div class="ttdef"><b>Definition:</b> hob_Window.hpp:50</div></div>
+<div class="ttc" id="aclasshob_1_1Window_html_a2d046837b238a2764de9a2b34479f432"><div class="ttname"><a href="classhob_1_1Window.html#a2d046837b238a2764de9a2b34479f432">hob::Window::create</a></div><div class="ttdeci">SDL_Renderer * create(void) noexcept(false)</div><div class="ttdoc">Creates the window where the textures will be renderer.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Window_html_a48d7b32256efb6228fdc08bda45317d6"><div class="ttname"><a href="classhob_1_1Window.html#a48d7b32256efb6228fdc08bda45317d6">hob::Window::destroy</a></div><div class="ttdeci">void destroy(void) noexcept</div><div class="ttdoc">Destroys the created window and renderer.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:91</div></div>
+<div class="ttc" id="aclasshob_1_1Window_html_a85dee581cfee84167cf2893d8a54d4cc"><div class="ttname"><a href="classhob_1_1Window.html#a85dee581cfee84167cf2893d8a54d4cc">hob::Window::Window</a></div><div class="ttdeci">Window(void) noexcept</div><div class="ttdoc">Does not create the window implicitly.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:48</div></div>
 <div class="ttc" id="aclasshob_1_1Window_html_a916355fe65f45fc420e8a774f27f7379"><div class="ttname"><a href="classhob_1_1Window.html#a916355fe65f45fc420e8a774f27f7379">hob::Window::~Window</a></div><div class="ttdeci">~Window(void)=default</div><div class="ttdoc">Does not destroy the window implicitly.</div></div>
-<div class="ttc" id="aclasshob_1_1Window_html_ae75de610ef9a5b243b2080163fcf3ee8"><div class="ttname"><a href="classhob_1_1Window.html#ae75de610ef9a5b243b2080163fcf3ee8">hob::Window::destroy</a></div><div class="ttdeci">void destroy(void) noexcept</div><div class="ttdoc">Destroys the created window and renderer.</div><div class="ttdef"><b>Definition:</b> hob_Window.cpp:90</div></div>
 <div class="ttc" id="ahob__Types_8hpp_html"><div class="ttname"><a href="hob__Types_8hpp.html">hob_Types.hpp</a></div></div>
 <div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:44</div></div>
 </div><!-- fragment --></div><!-- contents -->

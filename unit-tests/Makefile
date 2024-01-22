@@ -3,6 +3,7 @@
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   21.01.2024  Gaina Stefan               Initial version.                                           #
+#   22.01.2024  Gaian                      Added Component, Music and Sound info files.               #
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
 #######################################################################################################
 
@@ -18,7 +19,10 @@ export COVERAGE_REPORT  := ../coverage_report
 GENHTML       = ../vendor/lcov/genhtml.perl
 GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory $(COVERAGE_REPORT)
 
-INFO_FILES = $(COVERAGE_REPORT)/hob_Texture.info \
+INFO_FILES = $(COVERAGE_REPORT)/hob_Component.info \
+			 $(COVERAGE_REPORT)/hob_Music.info     \
+			 $(COVERAGE_REPORT)/hob_Sound.info     \
+			 $(COVERAGE_REPORT)/hob_Texture.info   \
 			 $(COVERAGE_REPORT)/hob_Window.info
 
 ### MAKE SUBDIRECTORIES ###

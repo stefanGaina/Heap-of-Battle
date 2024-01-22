@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hobServer_Server.cpp                                                                         *
@@ -199,7 +199,7 @@ void Server::onSocketReady(void) noexcept
 	isSocketReady = true;
 	mutex.unlock();
 
-	waitSocket.notify_all();
+	waitSocket.notify_one();
 }
 
 void Server::receivePlayerUpdates(const ClientType clientType) noexcept

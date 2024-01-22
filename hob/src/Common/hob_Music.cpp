@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Music.cpp                                                                                *
@@ -24,6 +24,7 @@
  * 29.08.2023  Gaina Stefan               Added use of HOB_MUSIC_FILE_PATH.                           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 17.01.2024  Gaina Stefan               Added missing noexcept/const.                               *
+ * 22.01.2024  Gaina Stefan               Added check when loading song.                              *
  * @details This file implements the class defined in hob_Music.hpp.                                  *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -61,7 +62,8 @@ Music::~Music(void) noexcept
 
 void Music::start(const Song song) noexcept
 {
-	int32_t errorCode = 0;
+	const char* song_file_name = nullptr;
+	int32_t     errorCode      = 0;
 
 	plog_info("Music is being started. (song: %" PRId32 ")", static_cast<int32_t>(song));
 	if (song == playingSong && nullptr != this->song)
@@ -74,23 +76,17 @@ void Music::start(const Song song) noexcept
 	{
 		case Song::MAIN_MENU:
 		{
-			stop();
-			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("main_menu_music"));
-			playingSong = song;
+			song_file_name = HOB_MUSIC_FILE_PATH("main_menu_music");
 			break;
 		}
 		case Song::SCENARIO_ALLIANCE:
 		{
-			stop();
-			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_alliance"));
-			playingSong = song;
+			song_file_name = HOB_MUSIC_FILE_PATH("scenario_music_alliance");
 			break;
 		}
 		case Song::SCENARIO_HORDE:
 		{
-			stop();
-			this->song  = Mix_LoadMUS(HOB_MUSIC_FILE_PATH("scenario_music_horde"));
-			playingSong = song;
+			song_file_name = HOB_MUSIC_FILE_PATH("scenario_music_horde");
 			break;
 		}
 		default:
@@ -99,13 +95,21 @@ void Music::start(const Song song) noexcept
 			return;
 		}
 	}
+	stop();
+
+	this->song = Mix_LoadMUS(song_file_name);
+	if (nullptr == this->song)
+	{
+		plog_error("Failed to load music! (song: %s)", song_file_name);
+		return;
+	}
+	playingSong = song;
 
 	errorCode = Mix_PlayMusic(this->song, -1);
 	if (0 != errorCode)
 	{
 		plog_error("Failed to play music! (error code: %" PRId32 ")", errorCode);
 	}
-
 	(void)Mix_VolumeMusic(volume);
 }
 
@@ -185,7 +189,7 @@ void Music::setVolume(const Volume volume) noexcept
 		}
 	}
 	plog_info("Music volume set! (volume: %" PRId32 ")", this->volume);
-	Mix_VolumeMusic(this->volume);
+	(void)Mix_VolumeMusic(this->volume);
 }
 
 } /*< namespace hob */

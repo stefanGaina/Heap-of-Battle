@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Texture.cpp                                                                              *
@@ -52,7 +52,7 @@ Texture::Texture(void) noexcept
 	plog_trace("Texture is being default constructed.");
 }
 
-Texture::Texture(std::string filePath, SDL_Renderer* const renderer) noexcept
+Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
 	: rawTexture{ nullptr }
 {
 	plog_trace("Texture is being constructed.");

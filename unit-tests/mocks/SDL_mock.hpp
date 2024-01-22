@@ -47,6 +47,7 @@ public:
 	virtual void SDL_FreeSurface(SDL_Surface* surface) = 0;
 	virtual void SDL_DestroyTexture(SDL_Texture* texture) = 0;
 	virtual SDL_RWops* SDL_RWFromFile(const char* file, const char* mode) = 0;
+	virtual int SDL_RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) = 0;
 };
 
 class SDLMock : public SDL
@@ -75,6 +76,7 @@ public:
 	MOCK_METHOD1(SDL_FreeSurface, void(SDL_Surface*));
 	MOCK_METHOD1(SDL_DestroyTexture, void(SDL_Texture*));
 	MOCK_METHOD2(SDL_RWFromFile, SDL_RWops*(const char*, const char*));
+	MOCK_METHOD4(SDL_RenderCopy, int(SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*));
 
 public:
 	static SDLMock* sdlMock;
@@ -200,6 +202,16 @@ SDL_RWops* SDL_RWFromFile(const char* const file, const char* const mode)
 		return nullptr;
 	}
 	return SDLMock::sdlMock->SDL_RWFromFile(file, mode);
+}
+
+int SDL_RenderCopy(SDL_Renderer* const renderer, SDL_Texture* const texture, const SDL_Rect* const srcrect, const SDL_Rect* const dstrect)
+{
+	if (nullptr == SDLMock::sdlMock)
+	{
+		ADD_FAILURE() << "SDL_RenderCopy(): nullptr == SDLMock::sdlMock";
+		return -1;
+	}
+	return SDLMock::sdlMock->SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 }
 
 }

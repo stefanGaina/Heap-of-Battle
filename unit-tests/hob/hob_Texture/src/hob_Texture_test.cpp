@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Texture_test.cpp                                                                         *
@@ -101,6 +101,7 @@ TEST_F(TextureTest, load_success)
 		.WillOnce(testing::Return((SDL_Surface*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Texture*)not_nullptr));
+	EXPECT_CALL(sdlMock, SDL_FreeSurface(testing::_));
 
 	texture.load("test", nullptr);
 	EXPECT_NE(nullptr, texture.getRawTexture()) << "Raw texture is invalid even though the loading succeeded!";
@@ -119,7 +120,7 @@ TEST_F(TextureTest, create_font_fail)
 	hob::Texture    texture   = {};
 	hob::Coordinate dimension = {};
 
-	dimension = texture.create("test", nullptr, { 0, 0, 0, 0 }, nullptr);
+	dimension = texture.create("test", nullptr, (SDL_Color){ 0, 0, 0, 0 }, nullptr);
 	EXPECT_EQ(0, dimension.x) << "Invalid dimension returned!";
 	EXPECT_EQ(0, dimension.y) << "Invalid dimension returned!";
 	EXPECT_EQ(nullptr, texture.getRawTexture()) << "Raw texture is valid even though the creation failed!";
@@ -133,7 +134,7 @@ TEST_F(TextureTest, create_renderText_fail)
 	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_))
 		.WillOnce(testing::Return(nullptr));
 
-	dimension = texture.create("test", (TTF_Font*)not_nullptr, { 0, 0, 0, 0 }, nullptr);
+	dimension = texture.create("test", (TTF_Font*)not_nullptr, (SDL_Color){ 0, 0, 0, 0 }, nullptr);
 	EXPECT_EQ(0, dimension.x) << "Invalid dimension returned!";
 	EXPECT_EQ(0, dimension.y) << "Invalid dimension returned!";
 	EXPECT_EQ(nullptr, texture.getRawTexture()) << "Raw texture is valid even though the creation failed!";
@@ -156,7 +157,7 @@ TEST_F(TextureTest, create_success)
 	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Texture*)not_nullptr));
 
-	dimension = texture.create("test", (TTF_Font*)not_nullptr, { 0, 0, 0, 0 }, nullptr);
+	dimension = texture.create("test", (TTF_Font*)not_nullptr, (SDL_Color){ 0, 0, 0, 0 }, nullptr);
 	EXPECT_EQ(SURFACE_WIDTH, dimension.x) << "Invalid dimension returned!";
 	EXPECT_EQ(SURFACE_WIDTH, dimension.y) << "Invalid dimension returned!";
 	EXPECT_NE(nullptr, texture.getRawTexture()) << "Raw texture is invalid even though the creation succeeded!";
