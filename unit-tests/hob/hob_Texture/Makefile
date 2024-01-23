@@ -3,6 +3,7 @@
 # Module history:                                                                                     #
 #   Date:       Author:                    Reason:                                                    #
 #   21.01.2024  Gaina Stefan               Initial version.                                           #
+#   23.01.2024  Gaina Stefan               Made info file capture only 1 file.                        #
 # Description: This Makefile is used to compile unit-tests for hob_Texture.cpp, run them and generate #
 # coverage report.                                                                                    #
 #######################################################################################################
@@ -43,8 +44,8 @@ copy_results:
 	cp $(OBJ)/$(TESTED_FILE_NAME).gcda $(TESTED_FILE_DIR)
 	cp $(OBJ)/$(TESTED_FILE_NAME).gcno $(TESTED_FILE_DIR)
 	cd $(TESTED_FILE_DIR) && gcov -b $(TESTED_FILE_NAME).cpp
-	cd $(TESTED_FILE_DIR) && perl $(LCOV) --capture $(LCOV_BRANCH_FLAG) --directory . --output-file $(TESTED_FILE_NAME)_all.info
-	cd $(TESTED_FILE_DIR) && perl $(LCOV) --extract $(TESTED_FILE_NAME)_all.info "*.cpp" $(LCOV_BRANCH_FLAG) --output-file $(TESTED_FILE_NAME).info
+	cd $(TESTED_FILE_DIR) && perl $(LCOV) --capture $(LCOV_BRANCH_FLAG) --directory . --no-external --output-file $(TESTED_FILE_NAME)_all.info
+	cd $(TESTED_FILE_DIR) && perl $(LCOV) --extract $(TESTED_FILE_NAME)_all.info "*$(TESTED_FILE_NAME).cpp" $(LCOV_BRANCH_FLAG) --output-file $(TESTED_FILE_NAME).info
 	cp $(TESTED_FILE_DIR)/$(TESTED_FILE_NAME).info ../../$(COVERAGE_REPORT)/$(TESTED_FILE_NAME).info
 
 ### CLEAN ###

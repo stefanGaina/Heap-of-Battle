@@ -24,6 +24,7 @@
  * 29.08.2023  Gaina Stefan               Removed the use of hob:: and getRawTexture().               *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 19.01.2024  Gaina Stefan               Added indexes comments.                                     *
+ * 23.01.2024  Gaina Stefan               Removed an include.                                         *
  * @details This file implements the class defined in hob_Cursor.hpp                                  *
  * @todo Create static variables for the initialization of textures for consistency.                  *
  * @bug No known bugs.                                                                                *
@@ -32,8 +33,6 @@
 /******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
  *****************************************************************************************************/
-
-#include <plog.h>
 
 #include "hob_Cursor.hpp"
 #include "hob_Types.hpp"

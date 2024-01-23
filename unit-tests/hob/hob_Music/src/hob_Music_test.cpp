@@ -19,6 +19,7 @@
  * @file hob_Music_test.cpp                                                                           *
  * @date:      @author:                   Reason for change:                                          *
  * 22.01.2024  Gaina Stefan               Initial version.                                            *
+ * 23.01.2024  Gaina Stefan               Added EXPECT_CALLs.                                         *
  * @details This file unit-tests hob_Music.cpp.                                                       *
  * Current coverage report:                                                                           *
  * Line coverage: 100.0% (63/63)                                                                      *
@@ -128,6 +129,8 @@ TEST_F(MusicTest, pause_success)
 	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_));
 
 	music.start(hob::Song::SCENARIO_HORDE);
+
+	EXPECT_CALL(mixMock, Mix_PauseMusic());
 	music.pause();
 
 	EXPECT_CALL(mixMock, Mix_FreeMusic(testing::_));
@@ -140,7 +143,6 @@ TEST_F(MusicTest, pause_success)
 TEST_F(MusicTest, resume_fail)
 {
 	hob::Music music = {};
-
 	music.resume();
 }
 
@@ -154,6 +156,8 @@ TEST_F(MusicTest, resume_success)
 	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_));
 
 	music.start(hob::Song::SCENARIO_HORDE);
+
+	EXPECT_CALL(mixMock, Mix_ResumeMusic());
 	music.resume();
 
 	EXPECT_CALL(mixMock, Mix_FreeMusic(testing::_));

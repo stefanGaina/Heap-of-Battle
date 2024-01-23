@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.                         *
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_COMPONENT_MOCK_HPP_
+#define HOB_COMPONENT_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES                                                                               *
@@ -24,50 +24,55 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_Component.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
  *****************************************************************************************************/
 
-class TextureDummy
+class ComponentDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~ComponentDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
+	virtual void updateTexture(SDL_Texture* texture) = 0;
+	virtual void updateTexture(const hob::Texture& texture) = 0;
+	virtual void updatePosition(SDL_Rect destination) = 0;
+	virtual void correctPosition(SDL_Rect corrections) = 0;
+	virtual bool isMouseInside(hob::Coordinate mouse, SDL_Rect corrections) = 0;
 	virtual SDL_Texture* getRawTexture(void) = 0;
 };
 
-class TextureMock : public TextureDummy
+class ComponentMock : public ComponentDummy
 {
 public:
-	TextureMock(void)
+	ComponentMock(void)
 	{
-		textureMock = this;
+		componentMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~ComponentMock(void)
 	{
-		textureMock = nullptr;
+		componentMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
+	MOCK_METHOD1(draw, void(SDL_Renderer*));
+	MOCK_METHOD1(updateTexture, void(SDL_Texture*));
+	MOCK_METHOD1(updateTexture, void(const hob::Texture&));
+	MOCK_METHOD1(updatePosition, void(SDL_Rect));
+	MOCK_METHOD1(correctPosition, void(SDL_Rect));
+	MOCK_METHOD2(isMouseInside, bool(hob::Coordinate, SDL_Rect));
 	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
 
 public:
-	static TextureMock* textureMock;
+	static ComponentMock* componentMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES                                                                                    *
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+ComponentMock* ComponentMock::componentMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
@@ -76,52 +81,67 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(void) noexcept
-	: rawTexture{ nullptr }
+Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noexcept
+	: destination{ destination }
+	, texture    { texture }
 {
 }
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
-	: rawTexture{ nullptr }
+void Component::draw(SDL_Renderer* const renderer) noexcept
 {
+	ASSERT_NE(nullptr, ComponentMock::componentMock) << "draw(): nullptr == ComponentMock::componentMock";
+	ComponentMock::componentMock->draw(renderer);
 }
 
-Texture::~Texture(void) noexcept
+void Component::updateTexture(SDL_Texture* const texture) noexcept
 {
+	ASSERT_NE(nullptr, ComponentMock::componentMock) << "updateTexture(): nullptr == ComponentMock::componentMock";
+	ComponentMock::componentMock->updateTexture(texture);
 }
 
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
+void Component::updateTexture(const Texture& texture) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
+	ASSERT_NE(nullptr, ComponentMock::componentMock) << "updateTexture(): nullptr == ComponentMock::componentMock";
+	ComponentMock::componentMock->updateTexture(texture);
 }
 
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
+void Component::updatePosition(const SDL_Rect destination) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
+	ASSERT_NE(nullptr, ComponentMock::componentMock) << "updatePosition(): nullptr == ComponentMock::componentMock";
+	ComponentMock::componentMock->updatePosition(destination);
+}
+
+void Component::correctPosition(const SDL_Rect corrections) noexcept
+{
+	ASSERT_NE(nullptr, ComponentMock::componentMock) << "correctPosition(): nullptr == ComponentMock::componentMock";
+	ComponentMock::componentMock->correctPosition(corrections);
+}
+
+bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections) const noexcept
+{
+	if (nullptr == ComponentMock::componentMock)
 	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return (Coordinate){ 0, 0 };
+		ADD_FAILURE() << "isMouseInside(): nullptr == ComponentMock::componentMock";
+		return false;
 	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	return ComponentMock::componentMock->isMouseInside(mouse, corrections);
 }
 
-void Texture::destroy(void) noexcept
+SDL_Texture* Component::getRawTexture(void) const noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
-}
-
-SDL_Texture* Texture::getRawTexture(void) const noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+	if (nullptr == ComponentMock::componentMock)
 	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
+		ADD_FAILURE() << "getRawTexture(): nullptr == ComponentMock::componentMock";
 		return nullptr;
 	}
-	return TextureMock::textureMock->getRawTexture();
+	return ComponentMock::componentMock->getRawTexture();
+}
+
+bool Component::operator ==(const Texture& texture) const noexcept
+{
+	return false;
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_COMPONENT_MOCK_HPP_ */

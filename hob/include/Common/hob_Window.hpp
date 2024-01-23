@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Window.hpp                                                                               *
@@ -22,6 +22,7 @@
  * 26.08.2023  Gaina Stefan               Added constructor and destructor.                           *
  * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
  * 21.01.2024  Gaina Stefan               Commented setIcon().                                        *
+ * 23.01.2024  Gaina Stefan               Added comment why setIcon() is commented.                   *
  * @details This file defines the class and method prototypes of the window.                          *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -75,6 +76,7 @@ public:
 	*/
 	void destroy(void) noexcept;
 
+	// Commented because Linux window does not have an icon.
 	// /**
 	//  * @brief Sets the icon of the window.
 	//  * @param void

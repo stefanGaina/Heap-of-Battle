@@ -9,6 +9,7 @@
 #   19.01.2024  Gaina Stefan               Changed the way SDL is linked.                             #
 #   19.01.2024  Gaina Stefan               Updated flags.                                             #
 #   20.01.2024  Gaina Stefan               Removed no-implicit-fallthrough flag.                      #
+#   23.01.2024  Gaina Stefan               Added mocks include directory.                             #
 # Description: This Makefile is used to generate the game executable.                                 #
 #######################################################################################################
 
@@ -28,7 +29,8 @@ INCLUDES = -Iinclude/Common         \
 		   -I../hob-Server/include  \
 		   -I../hob-Game/include    \
 		   -I../vendor/Plog/include \
-		   -I../vendor/SDL2/include
+		   -I../vendor/SDL2/include \
+		   -I../unit-tests/mocks
 
 SOURCES    := $(wildcard $(SRC)/*/*.cpp) $(wildcard $(SRC)/*/*/*.cpp)
 OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))

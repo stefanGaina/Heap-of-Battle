@@ -47,6 +47,6 @@ void Window::destroy(void) noexcept
 {
 }
 
-}
+} /*< namespace hob */
 
 #endif /*< HOB_WINDOW_MOCK_HPP_ */

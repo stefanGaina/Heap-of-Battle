@@ -19,6 +19,7 @@
  * @file hob_Texture_test.cpp                                                                         *
  * @date:      @author:                   Reason for change:                                          *
  * 21.01.2024  Gaina Stefan               Initial version.                                            *
+ * 23.01.2024  Gaina Stefan               Added EXPECT_CALL.                                          *
  * @details This file unit-tests hob_Texture.cpp.                                                     *
  * Current coverage report:                                                                           *
  * Line coverage: 100.0% (41/41)                                                                      *
@@ -156,6 +157,7 @@ TEST_F(TextureTest, create_success)
 		.WillOnce(testing::Return(&surface));
 	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Texture*)not_nullptr));
+	EXPECT_CALL(sdlMock, SDL_FreeSurface(testing::_));
 
 	dimension = texture.create("test", (TTF_Font*)not_nullptr, (SDL_Color){ 0, 0, 0, 0 }, nullptr);
 	EXPECT_EQ(SURFACE_WIDTH, dimension.x) << "Invalid dimension returned!";

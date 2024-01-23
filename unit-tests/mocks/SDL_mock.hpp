@@ -48,6 +48,7 @@ public:
 	virtual void SDL_DestroyTexture(SDL_Texture* texture) = 0;
 	virtual SDL_RWops* SDL_RWFromFile(const char* file, const char* mode) = 0;
 	virtual int SDL_RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) = 0;
+	virtual int SDL_ShowCursor(int toggle) = 0;
 };
 
 class SDLMock : public SDL
@@ -77,6 +78,7 @@ public:
 	MOCK_METHOD1(SDL_DestroyTexture, void(SDL_Texture*));
 	MOCK_METHOD2(SDL_RWFromFile, SDL_RWops*(const char*, const char*));
 	MOCK_METHOD4(SDL_RenderCopy, int(SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*));
+	MOCK_METHOD1(SDL_ShowCursor, int(int));
 
 public:
 	static SDLMock* sdlMock;
@@ -212,6 +214,16 @@ int SDL_RenderCopy(SDL_Renderer* const renderer, SDL_Texture* const texture, con
 		return -1;
 	}
 	return SDLMock::sdlMock->SDL_RenderCopy(renderer, texture, srcrect, dstrect);
+}
+
+int SDL_ShowCursor(const int toggle)
+{
+	if (nullptr == SDLMock::sdlMock)
+	{
+		ADD_FAILURE() << "SDL_ShowCursor(): nullptr == SDLMock::sdlMock";
+		return -1;
+	}
+	return SDLMock::sdlMock->SDL_ShowCursor(toggle);
 }
 
 }

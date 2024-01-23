@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Window.cpp                                                                               *
@@ -53,7 +53,7 @@ Window::Window(void) noexcept
 
 SDL_Renderer* Window::create(void) noexcept(false)
 {
-	SDL_Renderer* renderer  = nullptr;
+	SDL_Renderer* renderer = nullptr;
 
 	plog_debug("Window is being created.");
 
