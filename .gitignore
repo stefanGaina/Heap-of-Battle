@@ -25,3 +25,6 @@ Heap-of-Battle
 
 # Compilation timer
 vendor/Compilation-Timer/time
+
+# Logs
+hob_logs.txt*

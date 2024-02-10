@@ -73,7 +73,7 @@ public:
 	 * @brief Default constructor not loading implicitly the sound.
 	 * @param void
 	*/
-	Sound(void) noexcept;
+	Sound(void) = default;
 
 	/**
 	 * @brief Loads sound from a .wav file.

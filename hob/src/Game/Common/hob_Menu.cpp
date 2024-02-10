@@ -79,16 +79,16 @@ Menu::Menu(SDL_Renderer* const renderer, const bool isAlliance, const uint8_t go
 		},
 		{
 			{
-				{ 0             , 0                      , 6 * HSCALE, 15 * HSCALE },
-				{ 0             , 0                      , 3 * HSCALE, 1  * HSCALE },
-				{ 3 * HSCALE    , 0                      , 3 * HSCALE, 1  * HSCALE },
-				{ 5 * HSCALE + 3, 1                      , 1 * HSCALE, 1  * HSCALE },
-				{ 0             , 1 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
-				{ 0             , 3 * HSCALE             , 3 * HSCALE, 1  * HSCALE },
-				{ 0             , 4 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
-				{ 0             , 6 * HSCALE             , 3 * HSCALE, 1  * HSCALE },
-				{ 0             , 7 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE },
-				{ 0             , 0                      , 0         , 0           }
+				{ 0             , 0                      , 6 * HSCALE, 15 * HSCALE }, /*< 0 */
+				{ 0             , 0                      , 3 * HSCALE, 1  * HSCALE }, /*< 1 */
+				{ 3 * HSCALE    , 0                      , 3 * HSCALE, 1  * HSCALE }, /*< 2 */
+				{ 5 * HSCALE + 3, 1                      , 1 * HSCALE, 1  * HSCALE }, /*< 3 */
+				{ 0             , 1 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE }, /*< 4 */
+				{ 0             , 3 * HSCALE             , 3 * HSCALE, 1  * HSCALE }, /*< 5 */
+				{ 0             , 4 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE }, /*< 6 */
+				{ 0             , 6 * HSCALE             , 3 * HSCALE, 1  * HSCALE }, /*< 7 */
+				{ 0             , 7 * HSCALE + HSCALE / 2, 3 * HSCALE, 1  * HSCALE }, /*< 8 */
+				{ 0             , 0                      , 0         , 0           }  /*< 9 */
 			}
 		},
 		renderer
@@ -104,6 +104,7 @@ Menu::Menu(SDL_Renderer* const renderer, const bool isAlliance, const uint8_t go
 void Menu::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Game menu is being drawn.");
+	plog_assert(nullptr != renderer);
 
 	TextureInitializer::draw(renderer);
 	timer.draw(renderer);
@@ -113,8 +114,6 @@ void Menu::draw(SDL_Renderer* const renderer) noexcept
 
 Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
 {
-	size_t index = 0UL;
-
 	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
 	if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
 	{
@@ -122,10 +121,7 @@ Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMod
 		{
 			case hobGame::MenuMode::EMPTY:
 			{
-				for (index = MENU_COMPONENT_INDEX_FRAME_1; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
-				{
-					componentContainer[index].updateTexture(nullptr);
-				}
+				setFramesKeep(nullptr, nullptr);
 				icons.hide();
 				break;
 			}
@@ -135,16 +131,15 @@ Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMod
 			}
 			case hobGame::MenuMode::ALLIANCE_KEEP:
 			{
-				for (index = MENU_COMPONENT_INDEX_FRAME_1; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
-				{
-					componentContainer[index].updateTexture(textureContainer[true == isAlliance
-						? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE]);
-				}
+				setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture(),
+					true == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture() : nullptr);
 				icons.setAllianceKeep(isAlliance);
 				break;
 			}
 			case hobGame::MenuMode::HORDE_KEEP:
 			{
+				setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture(),
+					false == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture() : nullptr);
 				icons.setHordeKeep(isAlliance);
 				break;
 			}
@@ -241,6 +236,17 @@ void Menu::updateTimer(const uint16_t seconds, const bool isAlliance) noexcept
 void Menu::updateGold(const uint8_t amount) noexcept
 {
 	gold.update(amount);
+}
+
+void Menu::setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture2) noexcept
+{
+	size_t index = 0UL;
+
+	componentContainer[MENU_COMPONENT_INDEX_FRAME_1].updateTexture(texture1);
+	for (index = MENU_COMPONENT_INDEX_FRAME_2; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
+	{
+		componentContainer[index].updateTexture(texture2);
+	}
 }
 
 } /*< namespace hob */

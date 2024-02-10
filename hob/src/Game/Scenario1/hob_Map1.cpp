@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_Map1.cpp                                                                                 *
@@ -51,11 +51,15 @@ namespace hob
 
 Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
 	: Loop            { renderer, cursor, ping }
+	, SoundInitializer
+	{
+		{ HOB_SOUNDS_FILE_PATH("error") }
+	}
 	, game            { faction.getFaction() }
 	, tiles           { renderer }
 	, menu            { renderer, faction.getFaction(), game.getGold() }
 	, buildings       { renderer }
-	, chat            { renderer, faction.getFriendlyColor(), faction.getOpponentColor() }
+	, chat            { renderer, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
 	, grid            {}
 	, units           { renderer }
 	, receivingThread { std::bind(&Map1::receivingFunction, this) }
@@ -68,7 +72,6 @@ Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music
 	plog_trace("Map1 is being constructed.");
 
 	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
-
 	cursor.setFaction(faction.getFaction());
 	cursor.setTexture(hobGame::CursorType::IDLE);
 }
@@ -106,63 +109,24 @@ void Map1::draw(void) noexcept
 
 void Map1::handleEvent(const SDL_Event& event) noexcept
 {
-	Coordinate         click      = {};
-	hobServer::Message message    = {};
-	uint32_t           mouseState = 0;
-	Action             action     = Action::NOTHING;
+	Coordinate click = { .x = 0, .y = 0 };
 
 	plog_verbose("Event is being handled.");
 	switch (event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
 		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
-
-			if (1 != SDL_BUTTON(mouseState))
-			{
-				plog_trace("Mouse click is not left click.");
-				return;
-			}
-
-			chat.handleClick(click, renderer);
-
-			action = menu.handleClick(click, game.getMenuMode(click.x, click.y), faction.getFaction());
-			switch (action)
-			{
-				case Action::NOTHING:
-				{
-					break;
-				}
-				case Action::RECRUIT_INFANTRY:
-				{
-					if (true == game.recruit(hobGame::Unit::INFANTRY))
-					{
-						units.add(hobGame::Unit::INFANTRY);
-					}
-					break;
-				}
-				default:
-				{
-					break;
-				}
-			}
+			handleButtonDown();
 			break;
 		}
 		case SDL_MOUSEBUTTONUP:
 		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+			handleButtonUp();
 			break;
 		}
 		case SDL_MOUSEMOTION:
 		{
-			mouseState = SDL_GetMouseState(&click.x, &click.y);
-			plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
-
-			cursor.updatePosition(click);
-			cursor.setTexture(game.getCursorType(click.x, click.y));
-			menu.handleHover(click, faction.getFaction());
+			handleMouseMotion();
 			break;
 		}
 		case SDL_KEYDOWN:
@@ -214,12 +178,7 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 		}
 		case SDL_QUIT:
 		{
-			plog_info("Command to quit game was given!");
-
-			message.type = hobServer::MessageType::END_COMMUNICATION;
-			socket.sendUpdate(message);
-
-			stop(Scene::QUIT);
+			handleQuit();
 			break;
 		}
 		default:
@@ -228,6 +187,94 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 			break;
 		}
 	}
+}
+
+void Map1::handleButtonDown(void) noexcept
+{
+	Coordinate     click      = { .x = 0, .y = 0 };
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+	Action         action     = Action::NOTHING;
+
+	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+#ifdef PLOG_STRIP_TRACE
+	(void)mouseState;
+#endif /*< PLOG_STRIP_TRACE */
+
+	if (1 != SDL_BUTTON(mouseState))
+	{
+		plog_trace("Mouse click is not left click.");
+		return;
+	}
+
+	chat.handleClick(click, renderer);
+
+	action = menu.handleClick(click, game.getMenuMode(click.x, click.y), faction.getFaction());
+	switch (action)
+	{
+		case Action::NOTHING:
+		{
+			break;
+		}
+		case Action::RECRUIT_INFANTRY:
+		{
+			if (true == game.isRecruitPossible(hobGame::Unit::INFANTRY))
+			{
+				try
+				{
+					units.add(hobGame::Unit::INFANTRY, faction.getFaction());
+				}
+				catch (const std::exception& exception)
+				{
+					plog_error("Failed to add infantry unit!");
+				}
+			}
+			break;
+		}
+		case Action::RECRUIT_RANGED:
+		{
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
+}
+
+void Map1::handleButtonUp(void) noexcept
+{
+	Coordinate     click      = { .x = 0, .y = 0 };
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+
+	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+#ifdef PLOG_STRIP_TRACE
+	(void)mouseState;
+#endif /*< PLOG_STRIP_TRACE */
+}
+
+void Map1::handleMouseMotion(void) noexcept
+{
+	Coordinate     click      = { .x = 0, .y = 0 };
+	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
+
+	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+#ifdef PLOG_STRIP_VERBOSE
+	(void)mouseState;
+#endif /*< PLOG_STRIP_VERBOSE */
+
+	cursor.updatePosition(click);
+	cursor.setTexture(game.getCursorType(click.x, click.y));
+	menu.handleHover(click, faction.getFaction());
+}
+
+void Map1::handleQuit(void) noexcept
+{
+	hobServer::Message message = { .type = hobServer::MessageType::END_COMMUNICATION, .payload = {} };
+
+	plog_info("Command to quit game was given!");
+
+	socket.sendUpdate(message);
+	stop(Scene::QUIT);
 }
 
 void Map1::receivingFunction(void) noexcept
@@ -268,6 +315,12 @@ void Map1::receivingFunction(void) noexcept
 				plog_info("End turn message received!");
 				game.endTurn();
 				menu.updateGold(game.getGold());
+				break;
+			}
+			case hobServer::MessageType::ENCRYPT_KEY:
+			{
+				plog_trace("Encrypt key message received.");
+				chat.receivedEncryptKey(receivedMessage.payload.encryptKey, socket);
 				break;
 			}
 			case hobServer::MessageType::END_COMMUNICATION:

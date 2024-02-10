@@ -79,6 +79,8 @@ void Tile::init(SDL_Texture* const summerTexture, SDL_Texture* const autumnTextu
 void Tile::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Tile is being drawn.");
+	plog_assert(nullptr != renderer);
+
 	component.draw(renderer);
 }
 

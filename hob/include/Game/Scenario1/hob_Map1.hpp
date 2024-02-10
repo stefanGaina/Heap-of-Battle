@@ -38,6 +38,7 @@
 #include <atomic>
 
 #include "hob_Loop.hpp"
+#include "hob_SoundInitializer.hpp"
 #include "hob_Music.hpp"
 #include "hob_Faction.hpp"
 #include "hob_Menu.hpp"
@@ -60,6 +61,7 @@ namespace hob
  * @brief Main class of the scenario 1.
 */
 class Map1 final : public Loop
+				 , public SoundInitializer<1UL>
 {
 public:
 	/**
@@ -94,6 +96,34 @@ private:
 	 * @return void
 	*/
 	void draw(void) noexcept override;
+
+	/**
+	 * @brief Handles a button down event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonDown(void) noexcept;
+
+	/**
+	 * @brief Handles a button up event.
+	 * @param void
+	 * @return void
+	*/
+	void handleButtonUp(void) noexcept;
+
+	/**
+	 * @brief Handles a mouse motion event.
+	 * @param void
+	 * @return void
+	*/
+	void handleMouseMotion(void) noexcept;
+
+	/**
+	 * @brief Handles a quit event.
+	 * @param void
+	 * @return void
+	*/
+	void handleQuit(void) noexcept;
 
 	/**
 	 * @brief Receives updates from the server.

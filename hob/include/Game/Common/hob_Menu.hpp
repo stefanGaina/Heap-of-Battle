@@ -71,7 +71,7 @@ enum GameMenuComponentIndex
 	MENU_COMPONENT_INDEX_FRAME_4        = 7, /**< TODO */
 	MENU_COMPONENT_INDEX_FRAME_5        = 8, /**< TODO */
 	MENU_COMPONENT_INDEX_SELECTED_FRAME = 9, /**< TODO */
-	MENU_COMPONENTS_COUNT = 10 /**< How many components the game menu uses. */
+	MENU_COMPONENTS_COUNT               = 10 /**< How many components the game menu uses. */
 };
 
 /**
@@ -80,7 +80,11 @@ enum GameMenuComponentIndex
 enum class Action
 {
 	NOTHING          = 0, /**< TODO */
-	RECRUIT_INFANTRY = 1  /**< TODO */
+	RECRUIT_INFANTRY = 1, /**< TODO */
+	RECRUIT_RANGED   = 2,
+	RECRUIT_CAVALRY  = 3,
+	RECRUIT_AIRCRAFT = 4,
+	RECRUIT_MAGE     = 5
 };
 
 /**
@@ -141,6 +145,9 @@ public:
 	 * @return void
 	*/
 	void updateGold(uint8_t amount) noexcept;
+
+private:
+	void setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture2) noexcept;
 
 private:
 	/**

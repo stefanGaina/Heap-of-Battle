@@ -79,6 +79,13 @@ private:
 	*/
 	void update(SDL_Renderer* renderer) noexcept;
 
+	/**
+	 * @brief Resets the frame count and the frame start time.
+	 * @param frameEndTime: Time when the last counted frame ended.
+	 * @return void
+	*/
+	void reset(const uint64_t frameEndTime) noexcept;
+
 private:
 	/**
 	 * @brief The component of the text display in top right corner.

@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['units_710',['Units',['../classhob_1_1Units.html#a19525cc05784635a0096ea50f7295e0f',1,'hob::Units']]],
-  ['update_711',['update',['../classhob_1_1Ping.html#a657f37a41b50e5caf044a8938bef1050',1,'hob::Ping::update()'],['../classhob_1_1Gold.html#a0b4bb0689f6020dc96d1fa58b50591e2',1,'hob::Gold::update()'],['../classhob_1_1Timer.html#afbba597c16c5dd5f05e77f36e5ade4c2',1,'hob::Timer::update()']]],
-  ['updategold_712',['updateGold',['../classhob_1_1Menu.html#a77eac65dc035945f2177450c747873c6',1,'hob::Menu']]],
-  ['updateposition_713',['updatePosition',['../classhob_1_1Component.html#a8e8d8c3d11c7565f4addb2e75c51cf75',1,'hob::Component::updatePosition()'],['../classhob_1_1Cursor.html#ae7069be7dab9e0e8afc81afe9415466a',1,'hob::Cursor::updatePosition()']]],
-  ['updatetexture_714',['updateTexture',['../classhob_1_1Component.html#ac414e4361908fe7d1837d77deb3a3727',1,'hob::Component::updateTexture(SDL_Texture *texture) noexcept'],['../classhob_1_1Component.html#a8ba40f1c05afb50132a5b3c72bcc46e2',1,'hob::Component::updateTexture(const Texture &amp;texture) noexcept']]],
-  ['updatetimer_715',['updateTimer',['../classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4',1,'hob::Menu']]]
+  ['texture_954',['Texture',['../classhob_1_1Texture.html#ae3bb23bd57542ad2fe38d1fc7018a03b',1,'hob::Texture::Texture(void)=default'],['../classhob_1_1Texture.html#abee85b7cdd22b6fb8a726848e16ffa73',1,'hob::Texture::Texture(std::string filePath, SDL_Renderer *renderer) noexcept']]],
+  ['textureinitializer_955',['TextureInitializer',['../classhob_1_1TextureInitializer.html#a664c847c665ca4c5c49298f5f142f745',1,'hob::TextureInitializer']]],
+  ['tile_956',['Tile',['../classhob_1_1Tile.html#a026dc0e6ea7eb456ab75522cf5354ae6',1,'hob::Tile']]],
+  ['tileinitializer_957',['TileInitializer',['../classhob_1_1TileInitializer.html#a83daf82fff0aa8894f95e4329bd31595',1,'hob::TileInitializer']]],
+  ['tiles1_958',['Tiles1',['../classhob_1_1Tiles1.html#af36a81ca6c141910953dcea56713fcad',1,'hob::Tiles1']]],
+  ['timer_959',['Timer',['../classhob_1_1Timer.html#aca3680df1e0f758d375403a3f6b2591a',1,'hob::Timer']]],
+  ['timerfunction_960',['timerFunction',['../classhobServer_1_1Timer.html#ab2b2d3aa24bd5d110ff72fb4ac1b5978',1,'hobServer::Timer']]]
 ];

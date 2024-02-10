@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file hob_ChatFrame.cpp                                                                            *
@@ -86,6 +86,7 @@ ChatFrame::ChatFrame(SDL_Renderer* const renderer) noexcept
 	}
 {
 	plog_trace("ChatFrame is being constructed.");
+	plog_assert(nullptr != renderer);
 }
 
 bool ChatFrame::isClickInside(const Coordinate click) const noexcept

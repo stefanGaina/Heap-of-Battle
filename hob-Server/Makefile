@@ -1,11 +1,8 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   29.06.2023  Gaina Stefan               Initial version.                                           #
-#   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   19.01.2024  Gaina Stefan               Updated flags.                                             #
-# Description: This Makefile is used to generate the server.                                          #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 29.06.2023
+# Description: This Makefile is used to generate the server.
 #######################################################################################################
 
 CFLAGS = -Wextra -Wall -Werror -fPIC

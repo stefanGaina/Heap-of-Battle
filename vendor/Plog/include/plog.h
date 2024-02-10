@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file plog.h                                                                                       *
@@ -27,6 +27,7 @@
  * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
  * 13.01.2024  Gaina Stefan               Updated doxygen.                                            *
  * 19.01.2024  Gaina Stefan               Added PLOG_STRIP_ALL block.                                 *
+ * 24.01.2024  Gaina Stefan               Added plog_assert().                                        *
  * @details This file defines the type definitions and public interface of Plog.                      *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -87,6 +88,11 @@
  * @brief Strips plog_verbose calls from compilation.
 */
 #define PLOG_STRIP_VERBOSE
+
+/**
+ * @brief Strips plog_assert calls from compilation.
+*/
+#define PLOG_STRIP_ASSERT
 
 #endif /*< PLOG_STRIP_ALL */
 
@@ -241,6 +247,28 @@
  * @return void
 */
 #define plog_verbose(format, ...)
+
+#endif /*< PLOG_STRIP_VERBOSE */
+
+#ifndef PLOG_STRIP_ASSERT
+
+/**
+ * @brief Performs sanity check and prints an error message with the file, function, code line and
+ * the condition that did not pass.
+ * @param condition: The condition that needs to be true for the assertion to pass. Otherwise the program
+ * will be aborted.
+ * @return void
+*/
+#define plog_assert(condition) plog_internal_assert(condition, #condition, __FILE__, __FUNCTION__, __LINE__)
+
+#else
+
+/**
+ * @brief Asserts are stripped from compilation.
+ * @param condition: Does not matter.
+ * @return void
+*/
+#define plog_assert(condition)
 
 #endif /*< PLOG_STRIP_VERBOSE */
 

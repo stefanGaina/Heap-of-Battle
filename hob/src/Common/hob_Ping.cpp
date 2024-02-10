@@ -1,36 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Ping.cpp
+ * @author Gaina Stefan
+ * @date 23.07.2023
+ * @brief This file implements the class defined in hob_Ping.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Ping.cpp                                                                                 *
- * @date:      @author:                   Reason for change:                                          *
- * 26.08.2023  Gaina Stefan               Initial version.                                            *
- * 27.08.2023  Gaina Stefan               Delegated update through queue.                             *
- * 29.08.2023  Gaina Stefan               Refactored the use of the queue.                            *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Fixed delimitator comment.                                  *
- * 20.01.2024  Gaina Stefan               Added handleQueue() method.                                 *
- * @details This file implements the class defined in hob_Ping.hpp.                                   *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <functional>
@@ -40,7 +35,7 @@
 #include "hob_Socket.hpp"
 
 /******************************************************************************************************
- * LOCAL VARIABLES                                                                                    *
+ * LOCAL VARIABLES
  *****************************************************************************************************/
 
 namespace hob
@@ -49,7 +44,7 @@ namespace hob
 bool Ping::interruptWait = true;
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 Ping::Ping(void) noexcept
@@ -75,6 +70,8 @@ Ping::~Ping(void) noexcept
 void Ping::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Ping is being drawn.");
+	plog_assert(nullptr != renderer);
+
 	handleQueue(renderer);
 	component.draw(renderer);
 }
@@ -89,7 +86,7 @@ void Ping::update(const Socket& socket) noexcept
 	plog_verbose("Ping is being updated. (latency: %" PRIu64 ")", latency);
 	if (true == pingThread.joinable())
 	{
-		queue.put(latency);
+		queue.push(latency);
 		return;
 	}
 
@@ -107,7 +104,11 @@ void Ping::clean(void) noexcept
 {
 	plog_debug("Ping is being cleaned!");
 
-	TTF_CloseFont(font);
+	if (nullptr != font)
+	{
+		TTF_CloseFont(font);
+		font = nullptr;
+	}
 	texture.destroy();
 	component.updateTexture(nullptr);
 
@@ -134,9 +135,11 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 	uint64_t    latency          = 0UL;
 
 	plog_verbose("Queue is being handled.");
+	plog_assert(nullptr != renderer);
+
 	while (false == queue.isEmpty())
 	{
-		latency = queue.get();
+		latency = queue.pop();
 		if (latency == previousLatency)
 		{
 			plog_verbose("Ping does not need to be updated.");
@@ -168,6 +171,8 @@ void Ping::sendPings(const Socket* const socket) noexcept
 	hobServer::Message           pingMessage = {};
 
 	plog_trace("Send pings thread has started.");
+	plog_assert(nullptr != socket);
+
 	pingMessage.type = hobServer::MessageType::PING;
 
 	while (true)

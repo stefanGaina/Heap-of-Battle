@@ -1,14 +1,11 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   26.07.2023  Gaina Stefan               Initial version.                                           #
-#   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   19.01.2024  Gaina Stefan               Updated flags.                                             #
-# Description: This Makefile is used to generate the server instance.                                 #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 26.07.2023
+# Description: This Makefile is used to generate the server instance.
 #######################################################################################################
 
-CFLAGS  = -Wextra -Wall -Werror
+CFLAGS  = -Wextra -Wall -Werror -fanalyzer
 LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server
 
 INCLUDES = -Iinclude               \
@@ -20,7 +17,7 @@ OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := HOB-Server
 
 ### DEVELOPMENT ###
-all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -g
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -O0 -g
 all: LDFLAGS += -Wl,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/lib/ -lplog
 all: build
 

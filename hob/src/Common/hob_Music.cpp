@@ -1,37 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Music.cpp
+ * @author Gaina Stefan
+ * @date 23.07.2023
+ * @brief This file implements the class defined in hob_Music.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Music.cpp                                                                                *
- * @date:      @author:                   Reason for change:                                          *
- * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 25.08.2023  Gaina Stefan               Added const keywords.                                       *
- * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 29.08.2023  Gaina Stefan               Added use of HOB_MUSIC_FILE_PATH.                           *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Added missing noexcept/const.                               *
- * 22.01.2024  Gaina Stefan               Added check when loading song.                              *
- * @details This file implements the class defined in hob_Music.hpp.                                  *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <plog.h>
@@ -40,7 +34,7 @@
 #include "hob_Types.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
@@ -92,6 +86,7 @@ void Music::start(const Song song) noexcept
 		default:
 		{
 			plog_error("Invalid music! (song: %" PRId32 ")", static_cast<int32_t>(song));
+			plog_assert(false);
 			return;
 		}
 	}
@@ -185,6 +180,7 @@ void Music::setVolume(const Volume volume) noexcept
 		default:
 		{
 			plog_error("Invalid volume! (volume: %" PRId32 ")", static_cast<int32_t>(volume));
+			plog_assert(false);
 			return;
 		}
 	}

@@ -27,7 +27,7 @@
 namespace hob
 {
 
-class Units final : public TextureInitializer<2UL, 0UL>
+class Units final : public TextureInitializer<268UL, 0UL>
 {
 public:
 	Units(SDL_Renderer* renderer) noexcept;
@@ -36,7 +36,7 @@ public:
 
 	void draw(SDL_Renderer* renderer) noexcept override;
 
-	void add(hobGame::Unit unit) noexcept;
+	void add(hobGame::Unit unit, bool isAlliance) noexcept(false);
 
 private:
 	std::list<Component> components;

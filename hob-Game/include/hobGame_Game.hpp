@@ -51,7 +51,12 @@ enum class MenuMode
 
 enum class Unit
 {
-	INFANTRY = 0
+	NONE     = 0,
+	INFANTRY = 1,
+	RANGED   = 2,
+	CAVALRY  = 3,
+	AIRCRAFT = 4,
+	MAGE     = 5
 };
 
 /**
@@ -87,7 +92,7 @@ public:
 	*/
 	bool getTurn(void) const noexcept;
 
-	bool recruit(Unit unit) noexcept;
+	bool isRecruitPossible(Unit unit) noexcept;
 
 	/**
 	 * @brief

@@ -1,36 +1,32 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Window.cpp
+ * @author Gaina Stefan
+ * @date 23.07.2023
+ * @brief This file implements the class defined in hob_Window.hpp.
+ * @todo Find a way to change executable icon and how it appears in task bar. Also setIcon() is
+ * currently commented because Linux Mint window does not have an icon.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Window.cpp                                                                               *
- * @date:      @author:                   Reason for change:                                          *
- * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
- * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 19.01.2024  Gaina Stefan               Changed SDL_image include.                                  *
- * 21.01.2024  Gaina Stefan               Commented setIcon().                                        *
- * @details This file implements the class defined in hob_Window.hpp.                                 *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <exception>
@@ -39,23 +35,18 @@
 #include "hob_Window.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
 {
-
-Window::Window(void) noexcept
-	: window{ nullptr }
-{
-	plog_trace("Window is being constructed.");
-}
 
 SDL_Renderer* Window::create(void) noexcept(false)
 {
 	SDL_Renderer* renderer = nullptr;
 
 	plog_debug("Window is being created.");
+	plog_assert(nullptr == window);
 
 	window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0U);
 	if (nullptr == window)
@@ -91,6 +82,7 @@ SDL_Renderer* Window::create(void) noexcept(false)
 void Window::destroy(void) noexcept
 {
 	plog_debug("Window is being destroyed.");
+	plog_assert(nullptr != window);
 
 	SDL_DestroyWindow(window);
 	window = nullptr;
@@ -118,6 +110,7 @@ void Window::destroy(void) noexcept
 // }
 
 #ifdef DEVEL_BUILD
+
 void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 {
 	SDL_RendererInfo rendererInfo   = {};
@@ -126,6 +119,7 @@ void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 	int32_t          batteryPercent = 0;
 
 	plog_trace("Information is being logged.");
+	plog_assert(nullptr != renderer);
 
 	if (0 != SDL_GetRendererInfo(renderer, &rendererInfo))
 	{
@@ -140,6 +134,7 @@ void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 	powerState = SDL_GetPowerInfo(&secondsLeft, &batteryPercent);
 	plog_info("Power information! (state: %" PRId32 ", seconds left: %" PRId32 ", battery: %" PRId32 "%%)", powerState, secondsLeft, batteryPercent);
 }
+
 #endif /*< DEVEL_BUILD */
 
 } /*< namespace hob */

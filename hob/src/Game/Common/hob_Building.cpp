@@ -60,6 +60,8 @@ void Building::init(SDL_Texture* const summerTexture, SDL_Texture* const winterT
 void Building::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Building is being drawn.");
+	plog_assert(nullptr != renderer);
+
 	component.draw(renderer);
 }
 

@@ -1,38 +1,33 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hob_LocalMenu.cpp                                                                            *
- * @date:      @author:                   Reason for change:                                          *
- * 29.08.2023  Gaina Stefan               Initial version.                                            *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Added faction member.                                       *
- * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
- * 19.01.2024  Gaina Stefan               Fix extra compiler warning.                                 *
- * 20.01.2024  Gaina Stefan               Fixed button up in release mode.                            *
- * @details This file implements the class defined in hob_LocalMenu.hpp.                              *
- * @todo Offer a way for IP address of the host to be inputed (after pressing connect).               *
- * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a     *
- * crash. That's why it is disabled until no longer hosting. This will be changed when input of IP    *
- * address will be introduced.                                                                        *
+/** ***************************************************************************************************
+ * @file hob_LocalMenu.cpp
+ * @author Gaina Stefan
+ * @date 29.08.2023
+ * @brief This file implements the class defined in hob_LocalMenu.hpp.
+ * @todo Offer a way for IP address of the host to be inputed (after pressing connect).
+ * @bug When waiting for opponent to connect if connect button is pressed quickly it results in a
+ * crash. That's why it is disabled until no longer hosting. This will be changed when input of IP
+ * address will be introduced.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <plog.h>
@@ -44,18 +39,18 @@
 #include "hob_Faction.hpp"
 
 /******************************************************************************************************
- * MACROS                                                                                             *
+ * MACROS
  *****************************************************************************************************/
 
-/**
+/** ***************************************************************************************************
  * @brief Full file path of an image used by the local menu.
  * @param name: The name of the image (without extension).
  * @return The full file path.
-*/
+ *****************************************************************************************************/
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("local_menu/" name)
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
@@ -244,7 +239,7 @@ void LocalMenu::handleButtonUp(void) noexcept
 					while (false == queue.isEmpty())
 					{
 						plog_trace("Ignored status from queue.");
-						(void)queue.get();
+						(void)queue.pop();
 					}
 					componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
 				}
@@ -362,7 +357,7 @@ void LocalMenu::handleQueue(void) noexcept
 	plog_verbose("Queue is being handled.");
 	while (false == queue.isEmpty())
 	{
-		connectionStatus = queue.get();
+		connectionStatus = queue.pop();
 		switch (connectionStatus)
 		{
 			case ConnectionStatus::SUCCESS:
@@ -399,6 +394,7 @@ void LocalMenu::handleQueue(void) noexcept
 			default:
 			{
 				plog_error("Invalid connection status received! (status: %" PRId32 ")", static_cast<int32_t>(connectionStatus));
+				plog_assert(false);
 				break;
 			}
 		}
@@ -462,7 +458,7 @@ void LocalMenu::receivingFunction(void) noexcept
 				if (true == receivingUpdates.load())
 				{
 					receivingUpdates.store(false);
-					queue.put(ConnectionStatus::ABORTED);
+					queue.push(ConnectionStatus::ABORTED);
 				}
 				break;
 			}
@@ -491,13 +487,13 @@ void LocalMenu::waitConnectionFunction(const std::string ipAddress) noexcept
 	catch (const std::exception& exception)
 	{
 		plog_error("Failed to create client socket!");
-		queue.put(ConnectionStatus::FAILED);
+		queue.push(ConnectionStatus::FAILED);
 		return;
 	}
 
 	receivingUpdates.store(true);
 	receivingThread = std::thread{ std::bind(&LocalMenu::receivingFunction, this) };
-	queue.put(ConnectionStatus::SUCCESS);
+	queue.push(ConnectionStatus::SUCCESS);
 }
 
 } /*< namespace hob */

@@ -1,0 +1,9 @@
+<map id="hob::Test" name="hob::Test">
+<area shape="rect" id="node1" title="Static class present only in Debug builds for automated testing purposes." alt="" coords="143,428,223,455"/>
+<area shape="rect" id="node2" title=" " alt="" coords="38,339,143,365"/>
+<area shape="rect" id="node3" title=" " alt="" coords="17,248,164,289"/>
+<area shape="rect" id="node4" title=" " alt="" coords="20,157,161,199"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,81,176,108"/>
+<area shape="rect" id="node6" title=" " alt="" coords="37,5,144,32"/>
+<area shape="rect" id="node7" title=" " alt="" coords="167,339,259,365"/>
+</map>

@@ -1,12 +1,16 @@
 var searchData=
 [
-  ['pause_330',['pause',['../classhob_1_1Music.html#a5b1858cbf2efd844f3cf24e7b332d061',1,'hob::Music']]],
-  ['payload_331',['payload',['../structhobServer_1_1Message.html#a0e91fb28a4428354f96a5f54779a6a1c',1,'hobServer::Message']]],
-  ['ping_332',['Ping',['../classhob_1_1Ping.html',1,'hob::Ping'],['../classhob_1_1Ping.html#ad3110a7d366e71f859395e40e861941b',1,'hob::Ping::Ping()']]],
-  ['ping_333',['ping',['../classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4',1,'hob::Loop']]],
-  ['ping_334',['PING',['../namespacehobServer.html#a3e240bc18c64221f7a14ba0df867983dae07ff41a486c27c095a15898dcca34d1',1,'hobServer']]],
-  ['play_335',['play',['../classhob_1_1Sound.html#a9d84ffcd6d3a70eae60e8898e0f1abac',1,'hob::Sound']]],
-  ['player_5f1_336',['PLAYER_1',['../namespacehobServer.html#ad97cf87afc6ba46fb1cb3ef77aeb252da3dd147c9f3c4ad03ec9bd8e5897eb1b9',1,'hobServer']]],
-  ['player_5f2_337',['PLAYER_2',['../namespacehobServer.html#ad97cf87afc6ba46fb1cb3ef77aeb252dab5efd99f5ff17d0ae0499146c50293ed',1,'hobServer']]],
-  ['put_338',['put',['../classhob_1_1AsyncQueue.html#a27fa0390e125a045ed71c2ab2fb98fb8',1,'hob::AsyncQueue']]]
+  ['oa_431',['OA',['../hobGame__Game_8cpp.html#a7eb94ecc10c009a4a52ba1fee742339e',1,'hobGame_Game.cpp']]],
+  ['of_432',['OF',['../hobGame__Game_8cpp.html#a2b5ed6007baefa284e8d2739fc895275',1,'hobGame_Game.cpp']]],
+  ['ok_433',['OK',['../hobGame__Game_8cpp.html#a90213967b96c62db5f6547b8f231862f',1,'hobGame_Game.cpp']]],
+  ['onsocketready_434',['onSocketReady',['../classhobServer_1_1Server.html#add2be0f110df994b6bac7ada34afbef4',1,'hobServer::Server']]],
+  ['ontimesup_435',['onTimesUp',['../classhobServer_1_1Server.html#a6869fdd966549f856dbcb09aed54e2a6',1,'hobServer::Server::onTimesUp()'],['../classhobServer_1_1Timer.html#a42b00fb2d6b5c85cdeeeeb3cbf8e9703',1,'hobServer::Timer::onTimesUp()']]],
+  ['ontimeupdate_436',['onTimeUpdate',['../classhobServer_1_1Server.html#ac2d14f68e4b340ec44f6b773ae032ef2',1,'hobServer::Server::onTimeUpdate()'],['../classhobServer_1_1Timer.html#abe36537720007430892618d0cc076b58',1,'hobServer::Timer::onTimeUpdate()']]],
+  ['operator_3d_3d_437',['operator==',['../classhob_1_1Component.html#aa03cd6ca7f939c5e645a4e37b8b97477',1,'hob::Component']]],
+  ['opponentcolor_438',['opponentColor',['../classhob_1_1Chat.html#ac8123c88f3afd5aba78b3423eaff9265',1,'hob::Chat']]],
+  ['orc_5faltar_439',['ORC_ALTAR',['../hobGame__Game_8cpp.html#a914440062dc2a740cf4894b3b84a1ba5a618e7b167576acdc177af92d663810fd',1,'hobGame_Game.cpp']]],
+  ['orc_5ffarm_440',['ORC_FARM',['../hobGame__Game_8cpp.html#a914440062dc2a740cf4894b3b84a1ba5adafbaf9081dadb2e99eab247533ca75c',1,'hobGame_Game.cpp']]],
+  ['orc_5fkeep_441',['ORC_KEEP',['../hobGame__Game_8cpp.html#a914440062dc2a740cf4894b3b84a1ba5a71e2314e92a1e0d05ce46bb9bdf766ee',1,'hobGame_Game.cpp']]],
+  ['orc_5ftower_442',['ORC_TOWER',['../hobGame__Game_8cpp.html#a914440062dc2a740cf4894b3b84a1ba5af63639ff3c85ebcc91fa03b13906a053',1,'hobGame_Game.cpp']]],
+  ['ot_443',['OT',['../hobGame__Game_8cpp.html#a467a1d67a89789613c8eda6c7df92472',1,'hobGame_Game.cpp']]]
 ];

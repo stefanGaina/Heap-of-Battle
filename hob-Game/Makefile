@@ -1,14 +1,11 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   29.06.2023  Gaina Stefan               Initial version.                                           #
-#   22.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   19.01.2024  Gaina Stefan               Updated flags.                                             #
-# Description: This Makefile is used to generate the server.                                          #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 29.06.2023
+# Description: This Makefile is used to generate the game library.
 #######################################################################################################
 
-CFLAGS = -Wextra -Wall -Werror -fPIC
+CFLAGS = -Wextra -Wall -Werror -fanalyzer -fPIC
 
 INCLUDES = -Iinclude                \
 		   -I../hob/include/Common  \
@@ -20,7 +17,7 @@ OBJECTS := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 LIBRARY := libHOB_game.so
 
 ### DEVELOPMENT ###
-all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -g
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -O0 -g
 all: LDFLAGS += -Wl,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/lib/ -lplog
 all: build
 

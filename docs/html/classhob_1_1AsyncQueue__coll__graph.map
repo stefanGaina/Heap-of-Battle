@@ -1,0 +1,5 @@
+<map id="hob::AsyncQueue&lt; TYPE &gt;" name="hob::AsyncQueue&lt; TYPE &gt;">
+<area shape="rect" id="node1" title="Thread safe STL queue for one consumer thread and one supplier thread." alt="" coords="56,95,253,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,157,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="182,5,274,32"/>
+</map>

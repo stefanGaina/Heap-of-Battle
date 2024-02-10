@@ -1,36 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hob_Socket.cpp                                                                               *
- * @date:      @author:                   Reason for change:                                          *
- * 25.07.2023  Gaina Stefan               Initial version.                                            *
- * 27.07.2023  Gaina Stefan               Removed WSA.                                                *
- * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 27.08.2023  Gaina Stefan               Simplified recv() error case.                               *
- * 29.08.2023  Gaina Stefan               Solved todo.                                                *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * @details This file implements the class defined in hob_Socket.hpp.                                 *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+/** ***************************************************************************************************
+ * @file hob_Socket.cpp
+ * @author Gaina Stefan
+ * @date 25.07.2023
+ * @brief This file implements the class defined in hob_Socket.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <exception>
@@ -43,20 +38,20 @@
 #include "hob_Version.hpp"
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
- *****************************************************************************************************/
-
-/**
- * @brief The value indicating a socket error/ the socket is closed or in an invalid state.
-*/
-static constexpr const int32_t SOCKET_INVALID = -1;
-
-/******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * CONSTANTS
  *****************************************************************************************************/
 
 namespace hob
 {
+
+/** ***********************************************************************************************
+ * @brief The value indicating a socket error/ the socket is closed or in an invalid state.
+ *************************************************************************************************/
+static constexpr const int32_t SOCKET_INVALID = -1;
+
+/******************************************************************************************************
+ * METHOD DEFINITIONS
+ *****************************************************************************************************/
 
 Socket::Socket(void) noexcept
 	: socket{ SOCKET_INVALID }
@@ -73,7 +68,7 @@ Socket::~Socket(void) noexcept
 void Socket::create(const std::string ipAddress) noexcept(false)
 {
 	sockaddr_in        server         = {};
-	hobServer::Message versionMessage = {};
+	hobServer::Message versionMessage = { .type = hobServer::MessageType::VERSION, .payload = {} };
 
 	plog_debug("Client socket is being created. (IP address: %s)", ipAddress.c_str());
 	if (SOCKET_INVALID != socket)
@@ -101,7 +96,6 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 		throw std::exception();
 	}
 
-	versionMessage.type            = hobServer::MessageType::VERSION;
 	versionMessage.payload.version = hobServer::Version{ VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH };
 	sendUpdate(versionMessage);
 }

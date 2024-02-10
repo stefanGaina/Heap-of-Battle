@@ -1,15 +1,8 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   23.07.2023  Gaina Stefan               Initial version.                                           #
-#   27.07.2023  Gaina Stefan               Added compilation of server.                               #
-#   21.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   16.01.2024  Gaina Stefan               Added doxygen.                                             #
-#   18.01.2024  Gaina Stefan               Added compilation timer.                                   #
-#   20.01.2024  Gaina Stefan               Added install_plog rule.                                   #
-#   21.01.2024  Gaina Stefan               Updated unit test rules.                                   #
-# Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 23.07.2023
+# Description: This Makefile is used to invoke the Makefiles in the subdirectories.
 #######################################################################################################
 
 export SRC := src
@@ -78,6 +71,11 @@ ut-clean:
 ### MAKE DOXYGEN ###
 doxygen:
 	doxygen docs/doxygen.conf
+
+### TEST ###
+tst: start_timer
+	$(MAKE) -C test
+	$(COMPILATION_TIMER) end
 
 ### START TIMER ###
 start_timer:

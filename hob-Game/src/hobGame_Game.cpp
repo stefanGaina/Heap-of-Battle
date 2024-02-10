@@ -94,7 +94,7 @@ bool Game::getTurn(void) const noexcept
 	return turn;
 }
 
-bool Game::recruit(Unit unit) noexcept
+bool Game::isRecruitPossible(Unit unit) noexcept
 {
 	(void)unit;
 	return true;

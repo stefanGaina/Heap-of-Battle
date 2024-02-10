@@ -1,37 +1,32 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hobServer_Socket.cpp                                                                         *
- * @date:      @author:                   Reason for change:                                          *
- * 26.07.2023  Gaina Stefan               Initial version.                                            *
- * 25.08.2023  Gaina Stefan               Added exception handling for waitConnectionFunction.        *
- * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 27.08.2023  Gaina Stefan               Simplified recv error case.                                 *
- * 21.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Removed callback from waitConnection().                     *
- * 20.01.2024  Gaina Stefan               Made socket address reusable.                               *
- * @details This file implements the class defined in hobServer_Socket.hpp.                           *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+/** ***************************************************************************************************
+ * @file hobServer_Socket.cpp
+ * @author Gaina Stefan
+ * @date 26.07.2023
+ * @brief This file implements the class defined in hobServer_Socket.hpp.
+ * @todo N/A.
+ * @bug -fanalyzer has been removed from compilation due to an error. The functionality seems to work
+ * but something might still be wrong.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <exception>
@@ -44,7 +39,7 @@
 #include "hob_Version.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hobServer
@@ -220,7 +215,7 @@ void Socket::waitConnection(void) noexcept(false)
 	const ClientType clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
 	sockaddr_in      client         = {};
 	socklen_t        addressLength  = sizeof(client);
-	Message          message        = {};
+	Message          message        = { .type = MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
 	if (0 != listen(serverSocket, 2))

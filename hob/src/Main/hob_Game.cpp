@@ -1,36 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hob_Game.cpp                                                                                 *
- * @date:      @author:                   Reason for change:                                          *
- * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 27.07.2023  Gaina Stefan               Added WSA.                                                  *
- * 29.08.2023  Gaina Stefan               Added LAN menu.                                             *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 19.01.2024  Gaina Stefan               Changed SDL includes.                                       *
- * 21.01.2024  Gaina Stefan               Updated logs.                                               *
- * @details This file implements the class defined in hob_Game.hpp.                                   *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+/** ***************************************************************************************************
+ * @file hob_Game.cpp
+ * @author Gaina Stefan
+ * @date 23.07.2023
+ * @brief This file implements the class defined in hob_Game.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <iostream>
@@ -46,10 +41,11 @@
 #include "hob_MainMenu.hpp"
 #include "hob_LocalMenu.hpp"
 #include "hob_Map1.hpp"
+#include "hob_Test.hpp"
 #include "hobServer_Version.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
@@ -95,25 +91,27 @@ void Game::run(void) noexcept(false)
 void Game::init(void) noexcept(false)
 {
 #ifndef PLOG_STRIP_ALL
-	plog_Version_t     plogVersion      = plog_get_version();
+	plog_Version_t     plogVersion   = plog_get_version();
 #endif /*< PLOG_STRIP_ALL */
-	SDL_version        sdlVersion       = {};
-	const SDL_version* sdlVersionRef    = IMG_Linked_Version();
-	hobServer::Version serverVersion    = {};
+	SDL_version        sdlVersion    = {};
+	const SDL_version* sdlVersionRef = IMG_Linked_Version();
+	hobServer::Version serverVersion = {};
 
 #ifndef PLOG_STRIP_ALL
+	if (false == plog_init("hob_logs.txt"))
+	{
+		std::cout << "Failed to initialize logger!" << std::endl;
+	}
+
 	if (PLOG_VERSION_MAJOR != plogVersion.major
 	 || PLOG_VERSION_MINOR != plogVersion.minor
 	 || PLOG_VERSION_PATCH != plogVersion.patch)
 	{
 		plog_warn("Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 	}
-
-	plog_init("hob_logs.txt");
-	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
-
-	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 #endif /*< PLOG_STRIP_ALL */
+	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
+	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 	SDL_GetVersion(&sdlVersion);
 	plog_info("Using SDL %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersion.major, sdlVersion.minor, sdlVersion.patch);
@@ -214,25 +212,55 @@ void Game::deinit(void) noexcept
 
 void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 {
-	Scene                 nextScene = Scene::MAIN_MENU;
-	std::unique_ptr<Loop> sceneLoop = nullptr;
-	Cursor                cursor    = { renderer };
-	Music                 music     = {};
-	Faction               faction   = {};
-	hobServer::Server     server    = {};
-	Socket                socket    = {};
-	Ping                  ping      = {};
+	struct PersistentData
+	{
+		PersistentData(SDL_Renderer* const renderer)
+			: nextScene{ Scene::MAIN_MENU }
+			, sceneLoop{ nullptr }
+			, cursor   { renderer }
+			, music    {}
+			, faction  {}
+			, server   {}
+			, socket   {}
+			, ping     {}
+		{
+			plog_trace("Persistent data is being constructed.");
+		}
 
-	plog_debug("Starting scene loop!");
+		Scene                 nextScene;
+		std::unique_ptr<Loop> sceneLoop;
+		Cursor                cursor;
+		Music                 music;
+		Faction               faction;
+		hobServer::Server     server;
+		Socket                socket;
+		Ping                  ping;
+	};
+
+	std::unique_ptr<PersistentData> persistentData = nullptr;
+
+	plog_debug("Scene loop is being started!");
+	plog_assert(nullptr != renderer);
+
+	try
+	{
+		persistentData = std::make_unique<PersistentData>(renderer);
+	}
+	catch (const std::bad_alloc& exception)
+	{
+		plog_fatal("Failed to allocate memory for persistent data! (bytes: %" PRIu64 ")", sizeof(PersistentData));
+		return;
+	}
+
 	while (true)
 	{
-		switch (nextScene)
+		switch (persistentData->nextScene)
 		{
 			case Scene::MAIN_MENU:
 			{
 				try
 				{
-					sceneLoop = std::make_unique<MainMenu>(renderer, cursor, music);
+					persistentData->sceneLoop = std::make_unique<MainMenu>(renderer, persistentData->cursor, persistentData->music);
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -245,12 +273,14 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<LocalMenu>(renderer, cursor, &ping, music, faction, server, socket);
+					persistentData->sceneLoop = std::make_unique<LocalMenu>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
+						persistentData->faction, persistentData->server, persistentData->socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{
 					plog_fatal("Failed to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
-					nextScene = Scene::MAIN_MENU;
+					persistentData->nextScene = Scene::MAIN_MENU;
+					continue;
 				}
 				break;
 			}
@@ -258,12 +288,14 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			{
 				try
 				{
-					sceneLoop = std::make_unique<Map1>(renderer, cursor, &ping, music, faction, server, socket);
+					persistentData->sceneLoop = std::make_unique<Map1>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
+						persistentData->faction, persistentData->server, persistentData->socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{
 					plog_fatal("Failed to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
-					nextScene = Scene::MAIN_MENU;
+					persistentData->nextScene = Scene::MAIN_MENU;
+					continue;
 				}
 				break;
 			}
@@ -274,12 +306,13 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			}
 			default:
 			{
-				plog_fatal("Scene is invalid! (scene: %" PRId32 ")", static_cast<int32_t>(nextScene));
+				plog_fatal("Scene is invalid! (scene: %" PRId32 ")", static_cast<int32_t>(persistentData->nextScene));
+				plog_assert(false);
 				return;
 			}
 		}
-		nextScene = sceneLoop->start();
-		sceneLoop = nullptr;
+		persistentData->nextScene = persistentData->sceneLoop->start();
+		persistentData->sceneLoop = nullptr;
 	}
 }
 

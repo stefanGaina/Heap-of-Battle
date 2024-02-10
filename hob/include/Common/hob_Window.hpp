@@ -51,18 +51,6 @@ class Window final
 {
 public:
 	/**
-	 * @brief Does not create the window implicitly.
-	 * @param void
-	*/
-	Window(void) noexcept;
-
-	/**
-	 * @brief Does not destroy the window implicitly.
-	 * @param void
-	*/
-	~Window(void) = default;
-
-	/**
 	 * @brief Creates the window where the textures will be renderer.
 	 * @param void
 	 * @return The rendering context of the window.
@@ -76,7 +64,6 @@ public:
 	*/
 	void destroy(void) noexcept;
 
-	// Commented because Linux window does not have an icon.
 	// /**
 	//  * @brief Sets the icon of the window.
 	//  * @param void
@@ -85,12 +72,14 @@ public:
 	// void setIcon(void) const noexcept;
 
 #ifdef DEVEL_BUILD
+
 	/**
 	 * @brief Logs information about renderer and power for debugging purposes.
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
 	void logInfo(SDL_Renderer* renderer) const noexcept;
+
 #endif /*< DEVEL_BUILD */
 
 private:

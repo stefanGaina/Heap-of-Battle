@@ -14,6 +14,7 @@ INSTALL_PATH = ../$(INSTALL_DIRECTORY)
 ### INSTALL ###
 install:
 	cp -r assets                                    $(INSTALL_PATH)
+	install Obfuscator/$(LIB)/libobfuscator.so      $(INSTALL_PATH)/$(LIB)
 	install SDL2/$(LIB)/libSDL2-2.0.so              $(INSTALL_PATH)/$(LIB)
 	install SDL2/$(LIB)/libSDL2-2.0.so.0            $(INSTALL_PATH)/$(LIB)
 	install SDL2/$(LIB)/libSDL2-2.0.so.0.18.2       $(INSTALL_PATH)/$(LIB)

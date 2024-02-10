@@ -1,37 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Texture.cpp
+ * @author Gaina Stefan
+ * @date 23.07.2023
+ * @brief This file implements the class defined in hob_Texture.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Texture.cpp                                                                              *
- * @date:      @author:                   Reason for change:                                          *
- * 23.07.2023  Gaina Stefan               Initial version.                                            *
- * 24.07.2023  Gaina Stefan               Updated the renderer get.                                   *
- * 25.08.2023  Gaina Stefan               Added const keyword.                                        *
- * 26.08.2023  Gaina Stefan               Improved logs.                                              *
- * 27.08.2023  Gaina Stefan               Added comment.                                              *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 19.01.2024  Gaina Stefan               Changed SDL_image include.                                  *
- * @details This file implements the class defined in hob_Texture.hpp.                                *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <SDL2/SDL_image.h>
@@ -40,22 +34,18 @@
 #include "hob_Texture.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
 {
 
-Texture::Texture(void) noexcept
-	: rawTexture{ nullptr }
-{
-	plog_trace("Texture is being default constructed.");
-}
-
 Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
 	: rawTexture{ nullptr }
 {
 	plog_trace("Texture is being constructed.");
+	plog_assert(nullptr != renderer);
+
 	load(filePath, renderer);
 }
 
@@ -70,11 +60,8 @@ void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) no
 	SDL_Surface* temporarySurface = nullptr;
 
 	plog_trace("Texture is being loaded. (file path: %s)", filePath.c_str());
-	if (nullptr != rawTexture)
-	{
-		plog_warn("Texture was already loaded!");
-		return;
-	}
+	plog_assert(nullptr != renderer);
+	plog_assert(nullptr == rawTexture);
 
 	temporarySurface = IMG_Load(filePath.c_str());
 	if (nullptr == temporarySurface)
@@ -97,7 +84,9 @@ Coordinate Texture::create(const std::string text, TTF_Font* const font, const S
 	Coordinate   dimension        = {};
 
 	plog_verbose("Text texture is being created. (text: %s)", text.c_str());
-	// if (nullptr != rawTexture) <- it is okay not to check for that.
+	plog_assert(nullptr != font);
+	plog_assert(nullptr != renderer);
+	// plog_assert(nullptr == rawTexture); <- it is okay not to assert this.
 
 	if (nullptr == font)
 	{

@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file plog_internal.h                                                                              *
@@ -26,6 +26,7 @@
  * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
  * 13.01.2024  Gaina Stefan               Updated doxygen.                                            *
  * 19.01.2024  Gaina Stefan               Added PLOG_STRIP_ALL block.                                 *
+ * 24.01.2024  Gaina Stefan               Added plog_internal_assert().                               *
  * @details This file defines macros and interfaces of Plog that are meant to be internal.            *
  * @todo N/A.                                                                                         *
  * @bug No known bugs.                                                                                *
@@ -62,6 +63,18 @@ extern "C" {
  * @return void
 */
 extern void plog_internal(guint8 severity_bit, const gchar* severity_tag, const gchar* function_name, const gchar* format, ...);
+
+/**
+ * @brief Performs sanity check and prints an error message if the condition did not pass.
+ * @param condition: The condition that needs to be true for the assertion to pass. Otherwise the program
+ * will be aborted.
+ * @param message: The message that will be printed if the condition did not pass.
+ * @param file_name: String that contains the name of the caller file.
+ * @param function_name: String that contains the name of the caller function.
+ * @param line: The code line where this function is called.
+ * @return void
+*/
+extern void plog_internal_assert(gboolean condition, const gchar* message, const gchar* file_name, const gchar* function_name, gint32 line);
 
 #ifdef __cplusplus
 }

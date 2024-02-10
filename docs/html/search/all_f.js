@@ -1,12 +1,5 @@
 var searchData=
 [
-  ['readme_2emd_340',['README.md',['../README_8md.html',1,'']]],
-  ['receivedmessage_341',['receivedMessage',['../classhob_1_1Chat.html#a8be95aa301d0a571a16c8736bb3d8716',1,'hob::Chat']]],
-  ['receiveupdate_342',['receiveUpdate',['../classhob_1_1Socket.html#a428689809cc0a72400b637f3c23fb9bd',1,'hob::Socket::receiveUpdate()'],['../classhobServer_1_1Socket.html#abc98460b7a1258ee63d25c64b60d5376',1,'hobServer::Socket::receiveUpdate()']]],
-  ['recruit_343',['recruit',['../classhobGame_1_1Game.html#a4e0c6d5a25e103816629ac48dd61dd58',1,'hobGame::Game']]],
-  ['recruit_5finfantry_344',['RECRUIT_INFANTRY',['../namespacehob.html#a578262930f136496ff1b1a5bfdea3700a73431cf2a5f8af401328889d44ced58f',1,'hob']]],
-  ['renderer_345',['renderer',['../classhob_1_1Loop.html#acd0d580387a7e988f88ce3992bb9c6b6',1,'hob::Loop']]],
-  ['resume_346',['resume',['../classhob_1_1Music.html#a4c69d234e158f2b371b22cee9711011e',1,'hob::Music']]],
-  ['run_347',['run',['../classhob_1_1Game.html#a2709039035c93d19d7dd79b71aaf9ac7',1,'hob::Game::run()'],['../classhobServerInstance_1_1Server.html#a8ca8ab555d2168c3ef6f7fbc817c2f77',1,'hobServerInstance::Server::run()']]],
-  ['runasync_348',['runAsync',['../classhobServer_1_1Server.html#a60b339d224153b5a7347f533c7907846',1,'hobServer::Server']]]
+  ['queue_466',['queue',['../classhob_1_1AsyncQueue.html#ab3ec22bb69293baea3c09c7220887044',1,'hob::AsyncQueue::queue()'],['../classhob_1_1Ping.html#aeb2c762f1e3a1f40a8f3cc9142733811',1,'hob::Ping::queue()'],['../classhob_1_1Gold.html#a59ad392e0b9dc55b4e0401b6f0378d9b',1,'hob::Gold::queue()'],['../classhob_1_1Timer.html#aec22d6fabb0ac66a4d24e59f34e02e5a',1,'hob::Timer::queue()'],['../classhob_1_1LocalMenu.html#a45eaa97a017b571edf05071b27f83c37',1,'hob::LocalMenu::queue()']]],
+  ['quit_467',['QUIT',['../namespacehob.html#adce1020898cd8a4512fe3372fffe0fdfa5dfd352dd6b7a5d118237fcf1e19fcc1',1,'hob']]]
 ];

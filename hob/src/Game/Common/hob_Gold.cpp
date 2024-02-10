@@ -30,6 +30,10 @@
 */
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("game_menu/gold/" name)
 
+/******************************************************************************************************
+ * METHOD DEFINITIONS                                                                                 *
+ *****************************************************************************************************/
+
 namespace hob
 {
 
@@ -57,7 +61,7 @@ Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 				{ 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 0 */
 				{ HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
 				{ 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 2 */
-				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }  /**< 3 */
+				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }  /*< 3 */
 			}
 		},
 		renderer
@@ -71,8 +75,7 @@ Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 	, queue         {}
 	, previousAmount{ amount }
 {
-	--previousAmount;
-	update(previousAmount + 1U);
+	update(--previousAmount + 1U);
 }
 
 void Gold::draw(SDL_Renderer* const renderer) noexcept
@@ -80,9 +83,11 @@ void Gold::draw(SDL_Renderer* const renderer) noexcept
 	uint8_t amount = 0U;
 
 	plog_verbose("Gold is being drawn.");
+	plog_assert(nullptr != renderer);
+
 	while (false == queue.isEmpty())
 	{
-		amount = queue.get();
+		amount = queue.pop();
 
 		componentContainer[2].updateTexture(textureContainer[amount % 10]);
 		amount /= 10;
@@ -120,7 +125,7 @@ void Gold::update(const uint8_t amount) noexcept
 		soundContainer[0].play();
 	}
 	previousAmount = amount;
-	queue.put(previousAmount);
+	queue.push(previousAmount);
 }
 
 } /*< namespace hob */

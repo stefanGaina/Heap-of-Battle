@@ -107,6 +107,7 @@ Timer::Timer(SDL_Renderer* const renderer) noexcept
 void Timer::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Timer is being drawn.");
+	plog_assert(nullptr != renderer);
 
 	handleQueue();
 	TextureInitializer::draw(renderer);
@@ -115,7 +116,7 @@ void Timer::draw(SDL_Renderer* const renderer) noexcept
 void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
 	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
-	queue.put({ .seconds = seconds, .isAlliance = isAlliance });
+	queue.push({ .seconds = seconds, .isAlliance = isAlliance });
 }
 
 void Timer::handleQueue(void) noexcept
@@ -126,7 +127,7 @@ void Timer::handleQueue(void) noexcept
 	plog_verbose("Queue is being handled.");
 	while (false == queue.isEmpty())
 	{
-		timeFormat = queue.get();
+		timeFormat = queue.pop();
 		if (false == timeFormat.isAlliance)
 		{
 			modifier = TIMER_TEXTURE_INDEX_HORDE_0;

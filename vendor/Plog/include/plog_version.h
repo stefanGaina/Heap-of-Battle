@@ -13,7 +13,7 @@
  * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
  *    the original software.                                                                          *
  * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * @file plog_version.h                                                                               *
@@ -26,6 +26,7 @@
  * 20.12.2023  Gaina Stefan               Updated copyright.                                          *
  * 19.01.2024  Gaina Stefan               Added PLOG_STRIP_ALL block.                                 *
  * 19.01.2024  Gaina Stefan               Updated version to 2.0.1.                                   *
+ * 24.01.2024  Gaina Stefan               Updated version to 2.0.2.                                   *
  * @details This file defines the type definitions and function prototype of getting the version of   *
  * Plog.                                                                                              *
  * @todo N/A.                                                                                         *
@@ -60,7 +61,7 @@
 /**
  * @brief The compiled patch version.
 */
-#define PLOG_VERSION_PATCH (guint8)1U
+#define PLOG_VERSION_PATCH (guint8)2U
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

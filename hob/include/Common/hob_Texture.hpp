@@ -56,7 +56,7 @@ public:
 	 * @brief Default constructor not loading implicitly the texture.
 	 * @param void
 	*/
-	Texture(void) noexcept;
+	Texture(void) = default;
 
 	/**
 	 * @brief Loads texture from an image file.

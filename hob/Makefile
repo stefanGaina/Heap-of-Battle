@@ -1,33 +1,26 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   23.07.2023  Gaina Stefan               Initial version.                                           #
-#   27.07.2023  Gaina Stefan               Added winsock linking.                                     #
-#   26.08.2023  Gaina Stefan               Fix gcc depedencies.                                       #
-#   22.12.2023  Gaina Stefan               Ported to Linux.                                           #
-#   19.01.2024  Gaina Stefan               Changed the way SDL is linked.                             #
-#   19.01.2024  Gaina Stefan               Updated flags.                                             #
-#   20.01.2024  Gaina Stefan               Removed no-implicit-fallthrough flag.                      #
-# Description: This Makefile is used to generate the game executable.                                 #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 23.07.2023
+# Description: This Makefile is used to generate the game executable.
 #######################################################################################################
 
-CFLAGS  = -Wextra -Wall -Werror -pthread
-LDFLAGS = -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB) -lHOB_server \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)   -lHOB_game   \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)' \
+CFLAGS  = -Wextra -Wall -Werror -fanalyzer -pthread
+LDFLAGS = -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server \
+		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game   \
+		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/Obfuscator/$(LIB) -lobfuscator \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'                 \
 		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
-INCLUDES = -Iinclude/Common         \
-		   -Iinclude/Game/Common    \
-		   -Iinclude/Game/Scenario1 \
-		   -Iinclude/Main           \
-		   -Iinclude/Menu           \
-		   -I../hob-Server/include  \
-		   -I../hob-Game/include    \
-		   -I../vendor/Plog/include \
+INCLUDES = -Iinclude/Common               \
+		   -Iinclude/Game/Common          \
+		   -Iinclude/Game/Scenario1       \
+		   -Iinclude/Main                 \
+		   -Iinclude/Menu                 \
+		   -I../hob-Server/include        \
+		   -I../hob-Game/include          \
+		   -I../vendor/Plog/include       \
+		   -I../vendor/Obfuscator/include \
 		   -I../vendor/SDL2/include
 
 SOURCES    := $(wildcard $(SRC)/*/*.cpp) $(wildcard $(SRC)/*/*/*.cpp)
@@ -35,7 +28,7 @@ OBJECTS    := $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES))
 EXECUTABLE := Heap-of-Battle
 
 ### DEVELOPMENT ###
-all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -g
+all: CFLAGS  += `pkg-config --cflags glib-2.0` -DDEVEL_BUILD -O0 -g
 all: LDFLAGS += -Wl,-Bdynamic,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/$(LIB) -lplog
 all: build
 

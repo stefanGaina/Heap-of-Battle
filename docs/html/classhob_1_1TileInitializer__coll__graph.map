@@ -1,4 +1,7 @@
 <map id="hob::TileInitializer&lt; TEXTURES_SET_COUNT &gt;" name="hob::TileInitializer&lt; TEXTURES_SET_COUNT &gt;">
-<area shape="rect" id="node1" title="Initializes a list of tiles." alt="" coords="5,80,211,121"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="48,5,168,32"/>
+<area shape="rect" id="node1" title="Initializes a list of tiles." alt="" coords="5,364,211,405"/>
+<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="77,5,197,32"/>
+<area shape="rect" id="node4" href="$classhob_1_1Tile.html" title="HSCALE by HSCALE tile supporting texture for each season." alt="" coords="165,171,243,197"/>
+<area shape="rect" id="node5" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="175,81,305,108"/>
+<area shape="rect" id="node3" title=" " alt="" coords="125,260,283,301"/>
 </map>
