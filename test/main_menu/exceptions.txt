@@ -1,0 +1,7 @@
+1: [parseCommands] [warn] Exception caught while parsing commands!
+3: [destroy] [warn] Texture is not loaded!
+1: [close] [warn] Client socket is already closed.
+2: [close] [warn] [HOB-SERVER] Server socket is already closed!
+2: [closeClient] [warn] [HOB-SERVER] Client socket 0 is already closed!
+2: [closeClient] [warn] [HOB-SERVER] Client socket 1 is already closed!
+1: [stop] [warn] Music is not being played!

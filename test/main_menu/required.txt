@@ -1,0 +1,3 @@
+[plog_init] [info] [PLOG] Plog has initialized successfully!
+[handleQuit] [info] Command to quit game was given!
+[deinit] [info] Plog is being deinitialized!
