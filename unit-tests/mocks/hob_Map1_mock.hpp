@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_MAP1_MOCK_HPP_
+#define HOB_MAP1_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,50 +24,46 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_Map1.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class Map1Dummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~Map1Dummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void draw(void) = 0;
+	virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
-class TextureMock : public TextureDummy
+class Map1Mock : public Map1Dummy
 {
 public:
-	TextureMock(void)
+	Map1Mock(void)
 	{
-		textureMock = this;
+		map1Mock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~Map1Mock(void)
 	{
-		textureMock = nullptr;
+		map1Mock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD0(draw, void(void));
+	MOCK_METHOD1(handleEvent, void(const SDL_Event&));
 
 public:
-	static TextureMock* textureMock;
+	static Map1Mock* map1Mock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+Map1Mock* Map1Mock::map1Mock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -76,46 +72,41 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
-{
-}
-
-Texture::~Texture(void) noexcept
-{
-}
-
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
-{
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
-}
-
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
+	: Loop            { nullptr, cursor, nullptr }
+	, SoundInitializer
 	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
+		{}
 	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	, game            { false }
+	, tiles           { nullptr }
+	, menu            { nullptr, false, 0U }
+	, buildings       { nullptr }
+	, chat            { nullptr, {}, {} }
+	, units           { nullptr }
+	, music           { music }
+	, faction         { faction }
+	, server          { server }
+	, socket          { socket }
+{
 }
 
-void Texture::destroy(void) noexcept
+Map1::~Map1(void) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
 }
 
-SDL_Texture* Texture::getRawTexture(void) const noexcept
+void Map1::draw(void) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
-	}
-	return TextureMock::textureMock->getRawTexture();
+	ASSERT_NE(nullptr, Map1Mock::map1Mock) << "draw(): nullptr == Map1Mock::map1Mock";
+	Map1Mock::map1Mock->draw();
+}
+
+void Map1::handleEvent(const SDL_Event& event) noexcept
+{
+	ASSERT_NE(nullptr, Map1Mock::map1Mock) << "handleEvent(): nullptr == Map1Mock::map1Mock";
+	Map1Mock::map1Mock->handleEvent(event);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_MAP1_MOCK_HPP_ */

@@ -1,22 +1,24 @@
 #######################################################################################################
 # Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
-# Date: 22.01.2024
-# Description: This Makefile is used to compile unit-tests for hob_Music.cpp, run them and generate
-# coverage report.
+# Date: 10.02.2024
+# Description: This Makefile is used to compile unit-tests for hob_Encryptor.cpp, run them and
+# generate coverage report.
 #######################################################################################################
 
-INCLUDES = -I../../../vendor/gtest/include \
-		   -I../../../vendor/gmock/include \
-		   -I../../mocks                   \
-		   -I../../../vendor/Plog/include  \
-		   -I../../../vendor/SDL2/include  \
-		   -I../../../hob/include/Common
+INCLUDES = -I../../../vendor/gtest/include      \
+		   -I../../../vendor/gmock/include      \
+		   -I../../mocks                        \
+		   -I../../../vendor/Plog/include       \
+		   -I../../../vendor/Obfuscator/include \
+		   -I../../../hob/include/Common        \
+		   -I../../../hob/include/Game/Common   \
+		   -I../../../hob-Server/include
 
-TESTED_FILE_DIR  := ../../../hob/$(SRC)/Common
-TEST_FILE_NAME   := hob_Music_test
-TESTED_FILE_NAME := hob_Music
-EXECUTABLE       := hob_Music_ut
+TESTED_FILE_DIR  := ../../../hob/$(SRC)/Game/Common
+TEST_FILE_NAME   := hob_Encryptor_test
+TESTED_FILE_NAME := hob_Encryptor
+EXECUTABLE       := hob_Encryptor_ut
 
 all: | create_dir $(EXECUTABLE)
 
@@ -42,8 +44,9 @@ copy_results:
 	cp $(OBJ)/$(TESTED_FILE_NAME).gcda $(TESTED_FILE_DIR)
 	cp $(OBJ)/$(TESTED_FILE_NAME).gcno $(TESTED_FILE_DIR)
 	cd $(TESTED_FILE_DIR) && gcov -b $(TESTED_FILE_NAME).cpp
-	cd $(TESTED_FILE_DIR) && perl $(LCOV) --capture $(LCOV_BRANCH_FLAG) --directory . --no-external --output-file $(TESTED_FILE_NAME)_all.info
-	cd $(TESTED_FILE_DIR) && perl $(LCOV) --extract $(TESTED_FILE_NAME)_all.info "*$(TESTED_FILE_NAME).cpp" $(LCOV_BRANCH_FLAG) --output-file $(TESTED_FILE_NAME).info
+	cd $(TESTED_FILE_DIR) && perl ../$(LCOV) --capture $(LCOV_BRANCH_FLAG) --directory . --no-external --output-file $(TESTED_FILE_NAME)_all.info
+	cd $(TESTED_FILE_DIR) && perl ../$(LCOV) --extract $(TESTED_FILE_NAME)_all.info "*$(TESTED_FILE_NAME).cpp" $(LCOV_BRANCH_FLAG) \
+		--output-file $(TESTED_FILE_NAME).info
 	cp $(TESTED_FILE_DIR)/$(TESTED_FILE_NAME).info ../../$(COVERAGE_REPORT)/$(TESTED_FILE_NAME).info
 
 ### CLEAN ###

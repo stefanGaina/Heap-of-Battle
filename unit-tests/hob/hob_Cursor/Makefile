@@ -1,10 +1,9 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   23.01.2024  Gaina Stefan               Initial version.                                           #
-# Description: This Makefile is used to compile unit-tests for hob_Cursor.cpp, run them and generate  #
-# coverage report.                                                                                    #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 23.01.2024
+# Description: This Makefile is used to compile unit-tests for hob_Cursor.cpp, run them and generate
+# coverage report.
 #######################################################################################################
 
 INCLUDES = -I../../../vendor/gtest/include \

@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_SERVER_SERVER_MOCK_HPP_
+#define HOB_SERVER_SERVER_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,98 +24,82 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hobServer_Server.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class ServerServerDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~ServerServerDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void runAsync(uint16_t port, uint16_t timeout) = 0;
+	virtual void stop(void) = 0;
 };
 
-class TextureMock : public TextureDummy
+class ServerServerMock : public ServerServerDummy
 {
 public:
-	TextureMock(void)
+	ServerServerMock(void)
 	{
-		textureMock = this;
+		serverServerMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~ServerServerMock(void)
 	{
-		textureMock = nullptr;
+		serverServerMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD2(runAsync, void(uint16_t, uint16_t));
+	MOCK_METHOD0(stop, void(void));
 
 public:
-	static TextureMock* textureMock;
+	static ServerServerMock* serverServerMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+ServerServerMock* ServerServerMock::serverServerMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
  *****************************************************************************************************/
 
-namespace hob
+namespace hobServer
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
-{
-}
-
-Texture::~Texture(void) noexcept
+Server::Server(void) noexcept
 {
 }
 
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
+Server::~Server(void) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
 }
 
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
+void Server::runAsync(const uint16_t port, const uint16_t timeout) noexcept(false)
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
-	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	ASSERT_NE(nullptr, ServerServerMock::serverServerMock) << "runAsync(): nullptr == ServerServerMock::serverServerMock";
+	ServerServerMock::serverServerMock->runAsync(port, timeout);
 }
 
-void Texture::destroy(void) noexcept
+void Server::stop(void) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
+	ASSERT_NE(nullptr, ServerServerMock::serverServerMock) << "stop(): nullptr == ServerServerMock::serverServerMock";
+	ServerServerMock::serverServerMock->stop();
 }
 
-SDL_Texture* Texture::getRawTexture(void) const noexcept
+void Server::onTimeUpdate(const uint16_t timeLeft) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
-	}
-	return TextureMock::textureMock->getRawTexture();
 }
 
-} /*< namespace hob */
+void Server::onTimesUp(uint16_t& timeLeft) const noexcept
+{
+}
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+} /*< namespace hobServer */
+
+#endif /*< HOB_SERVER_SERVER_MOCK_HPP_ */

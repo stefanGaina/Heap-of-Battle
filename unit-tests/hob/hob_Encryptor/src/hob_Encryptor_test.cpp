@@ -16,15 +16,15 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file hob_Sound_test.cpp
+ * @file hob_Encryptor_test.cpp
  * @author Gaina Stefan
- * @date 21.01.2024
- * @brief This file unit-tests hob_Sound.cpp.
+ * @date 10.02.2024
+ * @brief This file unit-tests hob_Encryptor.cpp.
  * @details Current coverage report:
  * <ul>
- * <li> Line coverage: 100.0% (44/44) </li>
- * <li> Functions:     100.0% (6/6)   </li>
- * <li> Branches:      100.0% (11/11) </li>
+ * <li> Line coverage: 100.0% (25/26) </li>
+ * <li> Functions:     100.0% (5/5)   </li>
+ * <li> Branches:      100.0% (3/4)   </li>
  * </ul>
  * @todo N/A.
  * @bug No known bugs.
@@ -36,33 +36,24 @@
 
 #include <gtest/gtest.h>
 
-#include "SDL_mock.hpp"
-#include "SDL_mixer_mock.hpp"
-#include "hob_Sound.hpp"
-
-/******************************************************************************************************
- * CONSTANTS
- *****************************************************************************************************/
-
-/** ***************************************************************************************************
- * @brief Dummy address to pass the != nulllptr check.
- *****************************************************************************************************/
-static constexpr const size_t not_nullptr = 0x1UL;
+#include "hob_Socket_mock.hpp"
+#include "obfuscator_mock.hpp"
+#include "hob_Encryptor.hpp"
 
 /******************************************************************************************************
  * TEST CLASS
  *****************************************************************************************************/
 
-class SoundTest : public testing::Test
+class EncryptorTest : public testing::Test
 {
 public:
-	SoundTest(void)
-		: sdlMock{}
-		, mixMock{}
+	EncryptorTest(void)
+		: socketMock    {}
+		, obfuscatorMock{}
 	{
 	}
 
-	~SoundTest(void) = default;
+	~EncryptorTest(void) = default;
 
 protected:
 	void SetUp(void) override
@@ -74,47 +65,58 @@ protected:
 	}
 
 public:
-	SDLMock sdlMock;
-	MixMock mixMock;
+	SocketMock     socketMock;
+	ObfuscatorMock obfuscatorMock;
 };
 
 /******************************************************************************************************
- * play
+ * receivedKey
  *****************************************************************************************************/
 
-TEST_F(SoundTest, play_fail)
+TEST_F(EncryptorTest, receivedKey_success)
 {
-	hob::Sound sound = {};
-	sound.play();
-}
+	hob::Encryptor encryptor = {};
+	hob::Socket    socket    = {};
 
-TEST_F(SoundTest, play_success)
-{
-	EXPECT_CALL(sdlMock, SDL_RWFromFile(testing::_, testing::_));
-	EXPECT_CALL(mixMock, Mix_LoadWAV_RW(testing::_, testing::_))
-		.WillOnce(testing::Return((Mix_Chunk*)not_nullptr));
-	EXPECT_CALL(mixMock, Mix_PlayChannelTimed(testing::_, testing::_, testing::_, testing::_));
-	EXPECT_CALL(mixMock, Mix_Volume(testing::_, testing::_));
+	EXPECT_CALL(obfuscatorMock, obfuscator_get_base())
+		.WillOnce(testing::Return(2UL));
+	EXPECT_CALL(obfuscatorMock, obfuscator_get_prime_modulus())
+		.Times(3)
+		.WillRepeatedly(testing::Return(2UL));
+	EXPECT_CALL(socketMock, sendUpdate(testing::_));
+	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_))
+		.Times(2);
 
-	hob::Sound sound = { "test" };
-	sound.play();
-
-	EXPECT_CALL(mixMock, Mix_FreeChunk(testing::_));
+	encryptor.receivedKey(0UL, socket);
+	encryptor.receivedKey(0UL, socket);
 }
 
 /******************************************************************************************************
- * setVolume
+ * encryptMessage
  *****************************************************************************************************/
 
-TEST_F(SoundTest, setVolume_success)
+TEST_F(EncryptorTest, encryptMessage_success)
 {
-	hob::Sound sound = {};
+	hob::Encryptor encryptor = {};
+	char           message[] = "dummy";
 
-	sound.setVolume(hob::Volume::MUTED);
-	sound.setVolume(hob::Volume::LOW);
-	sound.setVolume(hob::Volume::MEDIUM);
-	sound.setVolume(hob::Volume::HIGH);
-	sound.setVolume(hob::Volume::VERY_HIGH);
-	sound.setVolume(hob::Volume::MAX);
-	sound.setVolume(static_cast<hob::Volume>(static_cast<int32_t>(hob::Volume::MAX) + 1));
+	EXPECT_CALL(obfuscatorMock, obfuscate_string(testing::_, testing::_));
+	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_));
+
+	encryptor.encryptMessage(message);
+}
+
+/******************************************************************************************************
+ * decryptMessage
+ *****************************************************************************************************/
+
+TEST_F(EncryptorTest, decryptMessage_success)
+{
+	hob::Encryptor encryptor = {};
+	char message[]           = "dummy";
+
+	EXPECT_CALL(obfuscatorMock, deobfuscate_string(testing::_, testing::_));
+	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_));
+
+	encryptor.decryptMessage(message);
 }

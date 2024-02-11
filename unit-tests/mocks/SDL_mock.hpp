@@ -1,32 +1,32 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
 #ifndef SDL_MOCK_HPP_
 #define SDL_MOCK_HPP_
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <gmock/gmock.h>
 #include <SDL2/SDL.h>
 
 /******************************************************************************************************
- * TYPE DEFINITIONS                                                                                   *
+ * TYPE DEFINITIONS
  *****************************************************************************************************/
 
 class SDL
@@ -36,6 +36,7 @@ public:
 
 	virtual void SDL_GetVersion(SDL_version* ver) = 0;
 	virtual int SDL_Init(Uint32 flags) = 0;
+	virtual void SDL_Quit(void) = 0;
 	virtual const char* SDL_GetError(void) = 0;
 	virtual void SDL_DestroyRenderer(SDL_Renderer* renderer) = 0;
 	virtual SDL_Window* SDL_CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags) = 0;
@@ -66,6 +67,7 @@ public:
 
 	MOCK_METHOD1(SDL_GetVersion, void(SDL_version*));
 	MOCK_METHOD1(SDL_Init, int(Uint32));
+	MOCK_METHOD0(SDL_Quit, void(void));
 	MOCK_METHOD0(SDL_GetError, const char*(void));
 	MOCK_METHOD1(SDL_DestroyRenderer, void(SDL_Renderer*));
 	MOCK_METHOD6(SDL_CreateWindow, SDL_Window*(const char*, int, int, int, int, Uint32));
@@ -85,13 +87,13 @@ public:
 };
 
 /******************************************************************************************************
- * LOCAL VARIABLES                                                                                    *
+ * LOCAL VARIABLES
  *****************************************************************************************************/
 
 SDLMock* SDLMock::sdlMock = nullptr;
 
 /******************************************************************************************************
- * FUNCTION DEFINITIONS                                                                               *
+ * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
 extern "C" {
@@ -110,6 +112,12 @@ int SDL_Init(const Uint32 flags)
 		return -1;
 	}
 	return SDLMock::sdlMock->SDL_Init(flags);
+}
+
+void SDL_Quit(void)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_Quit(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_Quit();
 }
 
 const char* SDL_GetError(void)

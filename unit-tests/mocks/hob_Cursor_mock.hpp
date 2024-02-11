@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_CURSOR_MOCK_HPP_
+#define HOB_CURSOR_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,50 +24,50 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_Cursor.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class CursorDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~CursorDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void updatePosition(const hob::Coordinate& mouse) = 0;
+	virtual void draw(SDL_Renderer* renderer) = 0;
+	virtual void setFaction(bool isAlliance) = 0;
+	virtual void setTexture(hobGame::CursorType type) = 0;
 };
 
-class TextureMock : public TextureDummy
+class CursorMock : public CursorDummy
 {
 public:
-	TextureMock(void)
+	CursorMock(void)
 	{
-		textureMock = this;
+		cursorMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~CursorMock(void)
 	{
-		textureMock = nullptr;
+		cursorMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD1(updatePosition, void(const hob::Coordinate&));
+	MOCK_METHOD1(draw, void(SDL_Renderer*));
+	MOCK_METHOD1(setFaction, void(bool));
+	MOCK_METHOD1(setTexture, void(hobGame::CursorType));
 
 public:
-	static TextureMock* textureMock;
+	static CursorMock* cursorMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+CursorMock* CursorMock::cursorMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -76,46 +76,41 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
-{
-}
-
-Texture::~Texture(void) noexcept
-{
-}
-
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
-{
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
-}
-
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+Cursor::Cursor(SDL_Renderer* const renderer) noexcept
+	: TextureInitializer
 	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
+		{},
+		{},
+		{},
+		renderer
 	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+{
 }
 
-void Texture::destroy(void) noexcept
+void Cursor::updatePosition(const Coordinate& mouse) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
+	ASSERT_NE(nullptr, CursorMock::cursorMock) << "updatePosition(): nullptr == CursorMock::cursorMock";
+	CursorMock::cursorMock->updatePosition(mouse);
 }
 
-SDL_Texture* Texture::getRawTexture(void) const noexcept
+void Cursor::draw(SDL_Renderer* const renderer) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
-	}
-	return TextureMock::textureMock->getRawTexture();
+	ASSERT_NE(nullptr, CursorMock::cursorMock) << "draw(): nullptr == CursorMock::cursorMock";
+	CursorMock::cursorMock->draw(renderer);
+}
+
+void Cursor::setFaction(const bool isAlliance) noexcept
+{
+	ASSERT_NE(nullptr, CursorMock::cursorMock) << "setFaction(): nullptr == CursorMock::cursorMock";
+	CursorMock::cursorMock->setFaction(isAlliance);
+}
+
+void Cursor::setTexture(const hobGame::CursorType type) noexcept
+{
+	ASSERT_NE(nullptr, CursorMock::cursorMock) << "setTexture(): nullptr == CursorMock::cursorMock";
+	CursorMock::cursorMock->setTexture(type);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_CURSOR_MOCK_HPP_ */

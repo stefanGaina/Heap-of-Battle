@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_WINDOW_MOCK_HPP_
-#define HOB_WINDOW_MOCK_HPP_
+#ifndef HOB_PING_MOCK_HPP_
+#define HOB_PING_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,7 +24,47 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Window.hpp"
+#include "hob_Ping.hpp"
+
+/******************************************************************************************************
+ * TYPE DEFINITIONS
+ *****************************************************************************************************/
+
+class PingDummy
+{
+public:
+	virtual ~PingDummy(void) = default;
+
+	virtual void draw(SDL_Renderer* renderer) = 0;
+	virtual void update(const hob::Socket& socket) = 0;
+};
+
+class PingMock : public PingDummy
+{
+public:
+	PingMock(void)
+	{
+		pingMock = this;
+	}
+
+	virtual ~PingMock(void)
+	{
+		pingMock = nullptr;
+	}
+
+	MOCK_METHOD1(draw, void(SDL_Renderer*));
+	MOCK_METHOD1(update, void(const hob::Socket&));
+	MOCK_METHOD0(clean, void(void));
+
+public:
+	static PingMock* pingMock;
+};
+
+/******************************************************************************************************
+ * LOCAL VARIABLES
+ *****************************************************************************************************/
+
+PingMock* PingMock::pingMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -33,19 +73,26 @@
 namespace hob
 {
 
-Window::Window(void) noexcept
+Ping::Ping(void) noexcept
 {
 }
 
-SDL_Renderer* Window::create(void) noexcept(false)
+Ping::~Ping(void) noexcept
 {
-	return nullptr;
 }
 
-void Window::destroy(void) noexcept
+void Ping::draw(SDL_Renderer* const renderer) noexcept
 {
+	ASSERT_NE(nullptr, PingMock::pingMock) << "draw(): nullptr == PingMock::pingMock";
+	PingMock::pingMock->draw(renderer);
+}
+
+void Ping::update(const Socket& socket) noexcept
+{
+	ASSERT_NE(nullptr, PingMock::pingMock) << "update(): nullptr == PingMock::pingMock";
+	PingMock::pingMock->update(socket);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_WINDOW_MOCK_HPP_ */
+#endif /*< HOB_PING_MOCK_HPP_ */

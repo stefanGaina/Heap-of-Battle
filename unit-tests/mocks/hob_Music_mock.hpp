@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_MUSIC_MOCK_HPP_
+#define HOB_MUSIC_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,50 +24,52 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_Music.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class MusicDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~MusicDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void start(hob::Song song) = 0;
+	virtual void stop(void) = 0;
+	virtual void pause(void) = 0;
+	virtual void resume(void) = 0;
+	virtual void setVolume(hob::Volume volume) = 0;
 };
 
-class TextureMock : public TextureDummy
+class MusicMock : public MusicDummy
 {
 public:
-	TextureMock(void)
+	MusicMock(void)
 	{
-		textureMock = this;
+		musicMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~MusicMock(void)
 	{
-		textureMock = nullptr;
+		musicMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD1(start, void(hob::Song));
+	MOCK_METHOD0(stop, void(void));
+	MOCK_METHOD0(pause, void(void));
+	MOCK_METHOD0(resume, void(void));
+	MOCK_METHOD1(setVolume, void(hob::Volume));
 
 public:
-	static TextureMock* textureMock;
+	static MusicMock* musicMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+MusicMock* MusicMock::musicMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -76,46 +78,44 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
+Music::Music(void) noexcept
 {
 }
 
-Texture::~Texture(void) noexcept
+Music::~Music(void) noexcept
 {
 }
 
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
+void Music::start(const Song song) noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
+	ASSERT_NE(nullptr, MusicMock::musicMock) << "start(): nullptr == MusicMock::musicMock";
+	MusicMock::musicMock->start(song);
 }
 
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
+void Music::stop(void) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
-	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	ASSERT_NE(nullptr, MusicMock::musicMock) << "stop(): nullptr == MusicMock::musicMock";
+	MusicMock::musicMock->stop();
 }
 
-void Texture::destroy(void) noexcept
+void Music::pause(void) const noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
+	ASSERT_NE(nullptr, MusicMock::musicMock) << "pause(): nullptr == MusicMock::musicMock";
+	MusicMock::musicMock->pause();
 }
 
-SDL_Texture* Texture::getRawTexture(void) const noexcept
+void Music::resume(void) const noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
-	}
-	return TextureMock::textureMock->getRawTexture();
+	ASSERT_NE(nullptr, MusicMock::musicMock) << "resume(): nullptr == MusicMock::musicMock";
+	MusicMock::musicMock->resume();
+}
+
+void Music::setVolume(const Volume volume) noexcept
+{
+	ASSERT_NE(nullptr, MusicMock::musicMock) << "setVolume(): nullptr == MusicMock::musicMock";
+	MusicMock::musicMock->setVolume(volume);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_MUSIC_MOCK_HPP_ */

@@ -1,36 +1,37 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Music_test.cpp
+ * @author Gaina Stefan
+ * @date 23.01.2024
+ * @brief This file unit-tests hob_Music.cpp.
+ * @details Current coverage report:
+ * <ul>
+ * <li> Line coverage: 100.0% (68/68) </li>
+ * <li> Functions:     100.0% (7/7)   </li>
+ * <li> Branches:      100.0% (23/23) </li>
+ * </ul>
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Music_test.cpp                                                                           *
- * @date:      @author:                   Reason for change:                                          *
- * 22.01.2024  Gaina Stefan               Initial version.                                            *
- * 23.01.2024  Gaina Stefan               Added EXPECT_CALLs.                                         *
- * @details This file unit-tests hob_Music.cpp.                                                       *
- * Current coverage report:                                                                           *
- * Line coverage: 100.0% (63/63)                                                                      *
- * Functions:     100.0% (7/7)                                                                        *
- * Branches:      100.0% (20/20)                                                                      *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <gtest/gtest.h>
@@ -39,16 +40,16 @@
 #include "hob_Music.hpp"
 
 /******************************************************************************************************
- * CONSTANTS                                                                                          *
+ * CONSTANTS
  *****************************************************************************************************/
 
-/**
+/** ***************************************************************************************************
  * @brief Dummy address to pass the != nulllptr check.
-*/
+ *****************************************************************************************************/
 static constexpr const size_t not_nullptr = 0x1UL;
 
 /******************************************************************************************************
- * TEST CLASS                                                                                         *
+ * TEST CLASS
  *****************************************************************************************************/
 
 class MusicTest : public testing::Test
@@ -75,7 +76,7 @@ public:
 };
 
 /******************************************************************************************************
- * start                                                                                              *
+ * start
  *****************************************************************************************************/
 
 TEST_F(MusicTest, start_loadMus_fail)
@@ -110,7 +111,7 @@ TEST_F(MusicTest, start_alreadyStarted_success)
 }
 
 /******************************************************************************************************
- * pause                                                                                              *
+ * pause
  *****************************************************************************************************/
 
 TEST_F(MusicTest, pause_fail)
@@ -137,7 +138,7 @@ TEST_F(MusicTest, pause_success)
 }
 
 /******************************************************************************************************
- * resume                                                                                             *
+ * resume
  *****************************************************************************************************/
 
 TEST_F(MusicTest, resume_fail)
@@ -164,7 +165,7 @@ TEST_F(MusicTest, resume_success)
 }
 
 /******************************************************************************************************
- * setVolume                                                                                          *
+ * setVolume
  *****************************************************************************************************/
 
 TEST_F(MusicTest, setVolume_success)

@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_SERVER_VERSION_MOCK_HPP_
+#define HOB_SERVER_VERSION_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,98 +24,94 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hobServer_Version.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class ServerVersionDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~ServerVersionDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual uint8_t getMajor(void) = 0;
+	virtual uint8_t getMinor(void) = 0;
+	virtual uint8_t getPatch(void) = 0;
 };
 
-class TextureMock : public TextureDummy
+class ServerVersionMock : public ServerVersionDummy
 {
 public:
-	TextureMock(void)
+	ServerVersionMock(void)
 	{
-		textureMock = this;
+		serverVersionMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~ServerVersionMock(void)
 	{
-		textureMock = nullptr;
+		serverVersionMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD0(getMajor, uint8_t(void));
+	MOCK_METHOD0(getMinor, uint8_t(void));
+	MOCK_METHOD0(getPatch, uint8_t(void));
 
 public:
-	static TextureMock* textureMock;
+	static ServerVersionMock* serverVersionMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+ServerVersionMock* ServerVersionMock::serverVersionMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
  *****************************************************************************************************/
 
-namespace hob
+namespace hobServer
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
+Version::Version(void) noexcept
 {
 }
 
-Texture::~Texture(void) noexcept
+Version::Version(const uint8_t major, const uint8_t minor, const uint8_t patch) noexcept
 {
 }
 
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
+uint8_t Version::getMajor(void) const noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
-}
-
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+	if (nullptr == ServerVersionMock::serverVersionMock)
 	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
+		ADD_FAILURE() << "getMajor(): nullptr == ServerVersionMock::serverVersionMock";
+		return (uint8_t)0U;
 	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	return ServerVersionMock::serverVersionMock->getMajor();
 }
 
-void Texture::destroy(void) noexcept
+uint8_t Version::getMinor(void) const noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
-}
-
-SDL_Texture* Texture::getRawTexture(void) const noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+	if (nullptr == ServerVersionMock::serverVersionMock)
 	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
+		ADD_FAILURE() << "getMinor(): nullptr == ServerVersionMock::serverVersionMock";
+		return (uint8_t)0U;
 	}
-	return TextureMock::textureMock->getRawTexture();
+	return ServerVersionMock::serverVersionMock->getMinor();
 }
 
-} /*< namespace hob */
+uint8_t Version::getPatch(void) const noexcept
+{
+	if (nullptr == ServerVersionMock::serverVersionMock)
+	{
+		ADD_FAILURE() << "getPatch(): nullptr == ServerVersionMock::serverVersionMock";
+		return (uint8_t)0U;
+	}
+	return ServerVersionMock::serverVersionMock->getPatch();
+}
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+} /*< namespace hobServer */
+
+#endif /*< HOB_SERVER_VERSION_MOCK_HPP_ */

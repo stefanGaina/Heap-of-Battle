@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_SOCKET_MOCK_HPP_
+#define HOB_SOCKET_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,50 +24,50 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_Socket.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class SocketDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~SocketDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void create(std::string ipAddress) = 0;
+	virtual void close(void) = 0;
+	virtual void receiveUpdate(hobServer::Message& updateMessage) = 0;
+	virtual void sendUpdate(const hobServer::Message& updateMessage) = 0;
 };
 
-class TextureMock : public TextureDummy
+class SocketMock : public SocketDummy
 {
 public:
-	TextureMock(void)
+	SocketMock(void)
 	{
-		textureMock = this;
+		socketMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~SocketMock(void)
 	{
-		textureMock = nullptr;
+		socketMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD1(create, void(std::string));
+	MOCK_METHOD0(close, void(void));
+	MOCK_METHOD1(receiveUpdate, void(hobServer::Message&));
+	MOCK_METHOD1(sendUpdate, void(const hobServer::Message&));
 
 public:
-	static TextureMock* textureMock;
+	static SocketMock* socketMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+SocketMock* SocketMock::socketMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -76,46 +76,32 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
+Socket::Socket(void) noexcept
 {
 }
 
-Texture::~Texture(void) noexcept
+Socket::~Socket(void) noexcept
 {
 }
 
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
+void Socket::create(const std::string ipAddress) noexcept(false)
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
+	ASSERT_NE(nullptr, SocketMock::socketMock) << "create(): nullptr == SocketMock::socketMock";
+	SocketMock::socketMock->create(ipAddress);
 }
 
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
+void Socket::close(void) noexcept
 {
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
-	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
+	ASSERT_NE(nullptr, SocketMock::socketMock) << "close(): nullptr == SocketMock::socketMock";
+	SocketMock::socketMock->close();
 }
 
-void Texture::destroy(void) noexcept
+void Socket::sendUpdate(const hobServer::Message& updateMessage) const noexcept
 {
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
-}
-
-SDL_Texture* Texture::getRawTexture(void) const noexcept
-{
-	if (nullptr == TextureMock::textureMock)
-	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
-	}
-	return TextureMock::textureMock->getRawTexture();
+	ASSERT_NE(nullptr, SocketMock::socketMock) << "sendUpdate(): nullptr == SocketMock::socketMock";
+	SocketMock::socketMock->sendUpdate(updateMessage);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_SOCKET_MOCK_HPP_ */

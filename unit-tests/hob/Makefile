@@ -1,16 +1,15 @@
 #######################################################################################################
-# Copyright (C) Heap of Battle 2024                                                                   #
-# Module history:                                                                                     #
-#   Date:       Author:                    Reason:                                                    #
-#   21.01.2024  Gaina Stefan               Initial version.                                           #
-#   22.01.2024  Gaina Stefan               Added Component and Music.                                 #
-#   23.01.2024  Gaina Stefan               Added Cursor.                                              #
-# Description: This Makefile is used to invoke the Makefiles in the subdirectories.                   #
+# Copyright (C) Heap of Battle 2024
+# Author: Gaina Stefan
+# Date: 21.01.2024
+# Description: This Makefile is used to invoke the Makefiles in the subdirectories.
 #######################################################################################################
 
 all:
 	$(MAKE) -C hob_Component
 	$(MAKE) -C hob_Cursor
+	$(MAKE) -C hob_Encryptor
+#	$(MAKE) -C hob_Game
 	$(MAKE) -C hob_Music
 	$(MAKE) -C hob_Sound
 	$(MAKE) -C hob_Texture
@@ -20,6 +19,8 @@ all:
 run_tests:
 	$(MAKE) run_tests -C hob_Component
 	$(MAKE) run_tests -C hob_Cursor
+	$(MAKE) run_tests -C hob_Encryptor
+#	$(MAKE) run_tests -C hob_Game
 	$(MAKE) run_tests -C hob_Music
 	$(MAKE) run_tests -C hob_Sound
 	$(MAKE) run_tests -C hob_Texture
@@ -29,6 +30,8 @@ run_tests:
 clean:
 	$(MAKE) clean -C hob_Component
 	$(MAKE) clean -C hob_Cursor
+	$(MAKE) clean -C hob_Encryptor
+#	$(MAKE) clean -C hob_Game
 	$(MAKE) clean -C hob_Music
 	$(MAKE) clean -C hob_Sound
 	$(MAKE) clean -C hob_Texture

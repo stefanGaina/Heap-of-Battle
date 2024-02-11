@@ -39,7 +39,7 @@ Basic introduction into the code:
 			classes that extend hob/include/Common/hob_Loop.hpp need to implement draw() and handleEvent().
 			In the first methods that draw textures to the screen are called (this is called 60 times per
 			second if possible) and the second is called when a user input is avaialbe.
-		- Utilitary classes:
+		- Utilitary classes
 			hob/include/Common/hob_TextureInitializer.hpp initializes textures and draws them to the screen.
 			hob/include/Common/hob_SoundInitializer.hpp initializes sounds and plays them.
 			hob/include/Game/Common this is where the classes that are used by the game scenes.

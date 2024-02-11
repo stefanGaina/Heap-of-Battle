@@ -15,8 +15,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_TEXTURE_MOCK_HPP_
-#define HOB_TEXTURE_MOCK_HPP_
+#ifndef HOB_MAIN_MENU_MOCK_HPP_
+#define HOB_MAIN_MENU_MOCK_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -24,50 +24,46 @@
 
 #include <gmock/gmock.h>
 
-#include "hob_Texture.hpp"
+#include "hob_MainMenu.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-class TextureDummy
+class MainMenuDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~MainMenuDummy(void) = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
-	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void draw(void) = 0;
+	virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
-class TextureMock : public TextureDummy
+class MainMenuMock : public MainMenuDummy
 {
 public:
-	TextureMock(void)
+	MainMenuMock(void)
 	{
-		textureMock = this;
+		mainMenuMock = this;
 	}
 
-	virtual ~TextureMock(void)
+	virtual ~MainMenuMock(void)
 	{
-		textureMock = nullptr;
+		mainMenuMock = nullptr;
 	}
 
-	MOCK_METHOD2(load, void(const std::string&, SDL_Renderer*));
-	MOCK_METHOD4(create, hob::Coordinate(std::string, TTF_Font*, SDL_Color, SDL_Renderer*));
-	MOCK_METHOD0(destroy, void(void));
-	MOCK_METHOD0(getRawTexture, SDL_Texture*(void));
+	MOCK_METHOD0(draw, void(void));
+	MOCK_METHOD1(handleEvent, void(const SDL_Event&));
 
 public:
-	static TextureMock* textureMock;
+	static MainMenuMock* mainMenuMock;
 };
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-TextureMock* TextureMock::textureMock = nullptr;
+MainMenuMock* MainMenuMock::mainMenuMock = nullptr;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -76,46 +72,35 @@ TextureMock* TextureMock::textureMock = nullptr;
 namespace hob
 {
 
-Texture::Texture(const std::string filePath, SDL_Renderer* const renderer) noexcept
-{
-}
-
-Texture::~Texture(void) noexcept
-{
-}
-
-void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) noexcept
-{
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "load(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->load(filePath, renderer);
-}
-
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+MainMenu::MainMenu(SDL_Renderer* const renderer, Cursor& cursor, Music& music) noexcept
+	: Loop{ nullptr, cursor, nullptr }
+	, TextureInitializer
 	{
-		ADD_FAILURE() << "create(): nullptr == TextureMock::textureMock";
-		return { .x = 0, .y = 0 };
+		{},
+		{},
+		{},
+		nullptr
 	}
-	return TextureMock::textureMock->create(text, font, color, renderer);
-}
-
-void Texture::destroy(void) noexcept
-{
-	ASSERT_NE(nullptr, TextureMock::textureMock) << "destroy(): nullptr == TextureMock::textureMock";
-	TextureMock::textureMock->destroy();
-}
-
-SDL_Texture* Texture::getRawTexture(void) const noexcept
-{
-	if (nullptr == TextureMock::textureMock)
+	, SoundInitializer
 	{
-		ADD_FAILURE() << "getRawTexture(): nullptr == TextureMock::textureMock";
-		return nullptr;
+		{}
 	}
-	return TextureMock::textureMock->getRawTexture();
+	, music{ music }
+{
+}
+
+void MainMenu::draw(void) noexcept
+{
+	ASSERT_NE(nullptr, MainMenuMock::mainMenuMock) << "draw(): nullptr == MainMenuMock::mainMenuMock";
+	MainMenuMock::mainMenuMock->draw();
+}
+
+void MainMenu::handleEvent(const SDL_Event& event) noexcept
+{
+	ASSERT_NE(nullptr, MainMenuMock::mainMenuMock) << "handleEvent(): nullptr == MainMenuMock::mainMenuMock";
+	MainMenuMock::mainMenuMock->handleEvent(event);
 }
 
 } /*< namespace hob */
 
-#endif /*< HOB_TEXTURE_MOCK_HPP_ */
+#endif /*< HOB_MAIN_MENU_MOCK_HPP_ */

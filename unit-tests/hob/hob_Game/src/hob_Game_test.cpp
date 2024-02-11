@@ -15,37 +15,79 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************************************/
 
-#ifndef HOB_WINDOW_MOCK_HPP_
-#define HOB_WINDOW_MOCK_HPP_
+/** ***************************************************************************************************
+ * @file hob_Game_test.cpp
+ * @author Gaina Stefan
+ * @date 24.01.2024
+ * @brief This file unit-tests hob_Game_test.cpp.
+ * @details Current coverage report:
+ * <ul>
+ * <li> Line coverage: 0.0% (0/0) </li>
+ * <li> Functions:     0.0% (0/0) </li>
+ * <li> Branches:      0.0% (0/0) </li>
+ * </ul>
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
-#include "hob_Window.hpp"
+#include "SDL_mock.hpp"
+#include "SDL_image_mock.hpp"
+#include "SDL_mixer_mock.hpp"
+#include "SDL_ttf_mock.hpp"
+#include "hobServer_Version_mock.hpp"
+#include "hob_Window_mock.hpp"
+#include "hob_TextureInitializer_mock.hpp"
+#include "hob_Cursor_mock.hpp"
+#include "hob_Music_mock.hpp"
+#include "hob_Faction_mock.hpp"
+#include "hobServer_Server_mock.hpp"
+#include "hob_Socket_mock.hpp"
+#include "hob_Ping_mock.hpp"
+#include "hob_MainMenu_mock.hpp"
+#include "hob_LocalMenu_mock.hpp"
+#include "hob_Map1_mock.hpp"
+#include "hob_Game.cpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS
+ * TEST CLASS
  *****************************************************************************************************/
 
-namespace hob
+class GameTest : public testing::Test
 {
+public:
+	GameTest(void)
+		: sdlMock{}
+		, imgMock{}
+		, mixMock{}
+		, ttfMock{}
+	{
+	}
 
-Window::Window(void) noexcept
+	~GameTest(void) = default;
+
+protected:
+	void SetUp(void) override
+	{
+	}
+
+	void TearDown(void) override
+	{
+	}
+
+public:
+	SDLMock sdlMock;
+	IMGMock imgMock;
+	MixMock mixMock;
+	TTFMock ttfMock;
+};
+
+TEST_F(GameTest, tralalal)
 {
+	EXPECT_EQ(true, true);
 }
-
-SDL_Renderer* Window::create(void) noexcept(false)
-{
-	return nullptr;
-}
-
-void Window::destroy(void) noexcept
-{
-}
-
-} /*< namespace hob */
-
-#endif /*< HOB_WINDOW_MOCK_HPP_ */

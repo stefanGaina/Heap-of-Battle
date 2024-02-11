@@ -59,7 +59,7 @@ void Encryptor::sendKey(const Socket& socket) noexcept
 		time.tv_nsec = 0x0123456789ABCDEFL;
 	}
 
-	exponent                      = static_cast<uint64_t>(time.tv_nsec) % base;
+	exponent                      = static_cast<uint64_t>(time.tv_nsec) % base + 1UL;
 	keyMessage.payload.encryptKey = diffieHellmanKey(base);
 	socket.sendUpdate(keyMessage);
 }

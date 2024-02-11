@@ -1,22 +1,28 @@
 #######################################################################################################
 # Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
-# Date: 22.01.2024
-# Description: This Makefile is used to compile unit-tests for hob_Music.cpp, run them and generate
+# Date: 23.01.2024
+# Description: This Makefile is used to compile unit-tests for hob_Game.cpp, run them and generate
 # coverage report.
 #######################################################################################################
 
-INCLUDES = -I../../../vendor/gtest/include \
-		   -I../../../vendor/gmock/include \
-		   -I../../mocks                   \
-		   -I../../../vendor/Plog/include  \
-		   -I../../../vendor/SDL2/include  \
-		   -I../../../hob/include/Common
+INCLUDES = -I../../../vendor/gtest/include       \
+		   -I../../../vendor/gmock/include       \
+		   -I../../mocks                         \
+		   -I../../../vendor/Plog/include        \
+		   -I../../../vendor/SDL2/include        \
+		   -I../../../hob/include/Main           \
+		   -I../../../hob/include/Common         \
+		   -I../../../hob/include/Menu           \
+		   -I../../../hob/include/Game/Common    \
+		   -I../../../hob/include/Game/Scenario1 \
+		   -I../../../hob-Game/include           \
+		   -I../../../hob-Server/include
 
-TESTED_FILE_DIR  := ../../../hob/$(SRC)/Common
-TEST_FILE_NAME   := hob_Music_test
-TESTED_FILE_NAME := hob_Music
-EXECUTABLE       := hob_Music_ut
+TESTED_FILE_DIR  := ../../../hob/$(SRC)/Main
+TEST_FILE_NAME   := hob_Game_test
+TESTED_FILE_NAME := hob_Game
+EXECUTABLE       := hob_Game_ut
 
 all: | create_dir $(EXECUTABLE)
 
