@@ -5,7 +5,7 @@
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.
 #######################################################################################################
 
-export LCOV     := ../../../vendor/lcov/lcov.perl
+export LCOV     := ../../../vendor/lcov/lcov.pl
 export VALGRIND := valgrind --leak-check=summary --show-leak-kinds=all
 
 export CXXFLAGS := -DPLOG_STRIP_ALL -fpermissive -fno-inline -O0 -g -fprofile-arcs -ftest-coverage --coverage
@@ -14,7 +14,7 @@ export LDFLAGS  := -L../../../vendor/gtest/$(LIB) -lgtest -lgtest_main -lpthread
 export LCOV_BRANCH_FLAG := --rc lcov_branch_coverage=1
 export COVERAGE_REPORT  := ../coverage_report
 
-GENHTML       = ../vendor/lcov/genhtml.perl
+GENHTML       = ../vendor/lcov/genhtml.pl
 GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory $(COVERAGE_REPORT)
 
 INFO_FILES = $(COVERAGE_REPORT)/hob_Component.info \

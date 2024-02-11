@@ -17,7 +17,7 @@ read_files();
 print_results();
 exit;
 
-sub open_files
+sub open_files()
 {
 	if (-1 == $#ARGV)
 	{
@@ -38,7 +38,7 @@ sub open_files
 	open(exceptions_file, "<$exceptions_file_path") or die "Failed to open \"$exceptions_file_path\" in read mode!";
 }
 
-sub read_files
+sub read_files()
 {
 	$required_index = 0;
 	while (<required_file>)
@@ -97,7 +97,7 @@ sub read_files
 	}
 }
 
-sub print_results
+sub print_results()
 {
 	$required_failed = 0;
 	for (my $temp_index = 0; $temp_index < $required_index; ++$temp_index)
@@ -142,7 +142,7 @@ sub print_results
 	}
 }
 
-sub colored_log
+sub colored_log()
 {
 	my $log_message = join("", @_);
 

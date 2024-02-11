@@ -10,7 +10,7 @@
 #   This program is distributed in the hope that it will be useful, but
 #   WITHOUT ANY WARRANTY;  without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#   General Public License for more details. 
+#   General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program;  if not, see
@@ -322,7 +322,7 @@ if ($os_is_windows) {
 	$dir_sep = "\\";
 	$date = localtime;
 }
-else 
+else
 {
 	$dir_sep = "/";
 	$date = get_date_string();
@@ -348,15 +348,15 @@ Getopt::Long::Configure("default");
 }
 
 # Read configuration file if available
-if (defined($opt_config_file)) 
+if (defined($opt_config_file))
 {
 	$config = read_config($opt_config_file);
-} 
+}
 elsif (defined($ENV{"HOME"}) && (-r $ENV{"HOME"}."/.lcovrc"))
 {
 	$config = read_config($ENV{"HOME"}."/.lcovrc");
 }
-elsif ((!$os_is_windows) and (-r "/etc/lcovrc")) 
+elsif ((!$os_is_windows) and (-r "/etc/lcovrc"))
 {
 	$config = read_config("/etc/lcovrc");
 } elsif ((!$os_is_windows) and (-r "/usr/local/etc/lcovrc"))
@@ -695,17 +695,17 @@ sub resolve_absolute_path($$)
 
 		# Remove \\
 		$path =~ s/\\+/\\/g;
-    
+
 		# Remove .
 		$path =~ s/\\\.\\/\\/g;
 		$path =~ s/\\\.$/\\/g;
-    
+
 		# Remove trailing \
 		$path =~ s/\\+$//g;
-    
+
 		# Solve ..
 		while ($path =~ s/\\[^\\]+\\\.\.\\/\\/) {}
-    
+
 		# Remove preceding ..
 		$path =~ s/^([a-zA-Z]:)\\\.\.\\/$1\\/g;
 	}
@@ -715,20 +715,20 @@ sub resolve_absolute_path($$)
 		{
 			$path = $cwd.$dir_sep.$path;
 		}
-  
+
 		# Remove //
 		$path =~ s/\/+/\//g;
-	
+
 		# Remove .
 		$path =~ s/\/\.\//\//g;
 		$path =~ s/\/\.$/\//g;
-	
+
 		# Remove trailing /
 		$path =~ s/\/+$//g;
-	
+
 		# Solve ..
 		while ($path =~ s/\/[^\/]+\/\.\.\//\//) {}
-	
+
 		# Remove preceding ..
 		$path =~ s/^\/\.\.\//\//g;
 	}
@@ -1050,13 +1050,13 @@ sub gen_html()
 			# Match directory names beginning with one of @dir_prefix
 			$dir_name = apply_prefix($dir_name,@dir_prefix);
 		}
-		
+
 		# Remove leading directory separator
 		$dir_name =~ s/^\Q$dir_sep\E+//;
-		
+
 		# Handle files in root directory gracefully
 		$dir_name = "root" if ($dir_name eq "");
-    
+
 		# Generate name for directory overview HTML page
 		$link_name = $dir_name."/index.$html_ext";
 
@@ -1217,7 +1217,7 @@ sub process_dir($)
 
 	# Match filenames which specify files in this directory, not including
 	# sub-directories
-	foreach $filename ( grep( /^\Q$abs_dir$dir_sep\E[^\Q$dir_sep\E]*$/, keys(%info_data) ) ) 
+	foreach $filename ( grep( /^\Q$abs_dir$dir_sep\E[^\Q$dir_sep\E]*$/, keys(%info_data) ) )
 	{
 		my $page_link;
 		my $func_link;
@@ -1523,7 +1523,7 @@ sub compress_brcount($)
 # %funcdata    : function name -> line number
 # %checkdata   : line number   -> checksum of source code line
 # $brdata      : vector of items: block, branch, taken
-# 
+#
 # Note that .info file sections referring to the same file and test name
 # will automatically be combined by adding all execution counts.
 #
@@ -2388,7 +2388,7 @@ sub combine_info_entries($$$)
 	$result_testfncdata = add_testfncdata($testfncdata1, $testfncdata2);
 	($result_sumfnccount, $fn_found, $fn_hit) =
 		add_fnccount($sumfnccount1, $sumfnccount2);
-	
+
 	# Combine branch coverage data
 	$result_testbrdata = add_testbrdata($testbrdata1, $testbrdata2);
 	($result_sumbrcount, $br_found, $br_hit) =
