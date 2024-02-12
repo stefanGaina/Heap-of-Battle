@@ -30,6 +30,7 @@
 
 #include <exception>
 #include <chrono>
+#define HOB_TEST_HACK_H_
 #include <SDL2/SDL.h>
 #include <plog.h>
 
@@ -38,6 +39,30 @@
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
+
+#ifdef DEVEL_BUILD
+
+/** ***************************************************************************************************
+ * @brief Flag indicating that the coordinates of the mouse and its state need to be overridden.
+ *****************************************************************************************************/
+static bool isMouseOverridden = false;
+
+/** ***************************************************************************************************
+ * @brief The value with which the mouse x coordinate will be overridden.
+ *****************************************************************************************************/
+static int32_t overriddenX = 0;
+
+/** ***************************************************************************************************
+ * @brief The value with which the mouse y coordinate will be overridden.
+ *****************************************************************************************************/
+static int32_t overriddenY = 0;
+
+/** ***************************************************************************************************
+ * @brief The value with which the mouse state will be overridden.
+ *****************************************************************************************************/
+static uint32_t overriddenMouseState = 0U;
+
+#endif /*< DEVEL_BUILD */
 
 namespace hob
 {
@@ -121,9 +146,8 @@ void Test::parseCommands(void) noexcept
 
 void Test::parseCommand(std::string& line) noexcept
 {
-	SDL_Event   event    = {};
-	std::string word     = {};
-	size_t      argument = 0UL;
+	SDL_Event   event = {};
+	std::string word  = {};
 
 	plog_trace("Test command is being parsed.");
 	try
@@ -132,8 +156,7 @@ void Test::parseCommand(std::string& line) noexcept
 		if (0 == line.compare(0, word.size(), word))
 		{
 			plog_debug("Wait command received.");
-			argument = std::stoul(line.substr(word.size()));
-			std::this_thread::sleep_for(std::chrono::milliseconds(argument));
+			std::this_thread::sleep_for(std::chrono::milliseconds(std::stoul(line.substr(word.size()))));
 
 			return;
 		}
@@ -146,10 +169,53 @@ void Test::parseCommand(std::string& line) noexcept
 			if (1 != SDL_PushEvent(&event))
 			{
 				plog_error("Failed to push quit event! (error message: %s)", SDL_GetError());
-				return;
 			}
 
-			SDL_PumpEvents();
+			return;
+		}
+
+		word = "hover";
+		if (0 == line.compare(0, word.size(), word))
+		{
+			plog_debug("Hover command received.");
+			overrideMouse(line.substr(word.size()));
+
+			event.type = SDL_MOUSEMOTION;
+			if (1 != SDL_PushEvent(&event))
+			{
+				plog_error("Failed to push mouse motion event! (error message: %s)", SDL_GetError());
+			}
+
+			return;
+		}
+
+		word = "click";
+		if (0 == line.compare(0, word.size(), word))
+		{
+			plog_debug("Click command received.");
+			overrideMouse(line.substr(word.size()));
+
+			event.type = SDL_MOUSEBUTTONDOWN;
+			if (1 != SDL_PushEvent(&event))
+			{
+				plog_error("Failed to push mouse button down event! (error message: %s)", SDL_GetError());
+			}
+
+			return;
+		}
+
+		word = "release";
+		if (0 == line.compare(0, word.size(), word))
+		{
+			plog_debug("Release command received.");
+			overrideMouse(line.substr(word.size()));
+
+			event.type = SDL_MOUSEBUTTONUP;
+			if (1 != SDL_PushEvent(&event))
+			{
+				plog_error("Failed to push mouse button up event! (error message: %s)", SDL_GetError());
+			}
+
 			return;
 		}
 	}
@@ -164,6 +230,40 @@ void Test::parseCommand(std::string& line) noexcept
 	plog_error("Invalid command! (command: %s)", line.c_str());
 }
 
+void Test::overrideMouse(const std::string& line) noexcept
+{
+	plog_verbose("Mouse is being overridden. (arguments: %s)", line.c_str());
+	overriddenX          = std::stol(line.substr());
+	overriddenY          = std::stol(line.substr(std::to_string(overriddenX).size() + 1UL));
+	overriddenMouseState = std::stoul(line.substr(std::to_string(overriddenX).size() + std::to_string(overriddenY).size() + 2UL));
+	isMouseOverridden    = true;
+}
+
 #endif /*< DEVEL_BUILD */
 
 } /*< namespace hob */
+
+#ifdef DEVEL_BUILD
+
+extern "C" uint32_t hob_getMouseState(int32_t* const x, int32_t* const y)
+{
+	if (false == isMouseOverridden)
+	{
+		return SDL_GetMouseState(x, y);
+	}
+
+	if (nullptr != x)
+	{
+		*x = overriddenX;
+	}
+
+	if (nullptr != y)
+	{
+		*y = overriddenY;
+	}
+
+	isMouseOverridden = false;
+	return overriddenMouseState;
+}
+
+#endif /*< DEVEL_BUILD */

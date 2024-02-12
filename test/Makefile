@@ -8,4 +8,5 @@
 RUN := ./common/run.sh
 
 all:
-	$(RUN) main_menu
+	$(RUN) main_menu_quit
+	$(RUN) main_menu_exit

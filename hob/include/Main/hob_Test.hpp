@@ -94,6 +94,13 @@ private:
 	 *************************************************************************************************/
 	static void parseCommand(std::string& line) noexcept;
 
+	/** ***********************************************************************************************
+	 * @brief Overrides the mouse state, mouse x coordinate and mouse y coordinate.
+	 * @param line: A single line from the test command file.
+	 * @return void
+	 *************************************************************************************************/
+	static void overrideMouse(const std::string& line) noexcept;
+
 private:
 	/** ***********************************************************************************************
 	 * @brief The file containing the test commands.

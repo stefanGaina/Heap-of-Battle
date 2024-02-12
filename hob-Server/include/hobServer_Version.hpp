@@ -69,7 +69,9 @@ public:
 
 	/** ***********************************************************************************************
 	 * @brief Initializes with the current version of the game.
-	 * @param void
+	 * @param major: The major version.
+	 * @param minor: The minor version.
+	 * @param patch: The patch version.
 	 *************************************************************************************************/
 	Version(uint8_t major, uint8_t minor, uint8_t patch) noexcept;
 

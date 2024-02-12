@@ -1,0 +1,9 @@
+[init] [info] Everything initialized successfully!
+[create] [info] Window has been created successfully!
+[sceneLoop] [debug] Scene loop is being started!
+[handleButtonDown] [trace] Mouse (1) was clicked. (coordinates: 700, 550)
+[play] [trace] Sound is being played.
+[handleButtonUp] [trace] Mouse (0) was released. (coordinates: 700, 550)
+[handleButtonUp] [debug] Exit bar was selected, clicked and released.
+[stop] [debug] Loop is being stopped.
+[deinit] [info] Plog is being deinitialized!
