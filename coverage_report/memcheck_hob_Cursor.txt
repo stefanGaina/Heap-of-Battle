@@ -1,0 +1,15 @@
+==45372== Memcheck, a memory error detector
+==45372== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==45372== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==45372== Command: obj/hob_Cursor_ut
+==45372== Parent PID: 45371
+==45372== 
+==45372== 
+==45372== HEAP SUMMARY:
+==45372==     in use at exit: 0 bytes in 0 blocks
+==45372==   total heap usage: 678 allocs, 678 frees, 168,134 bytes allocated
+==45372== 
+==45372== All heap blocks were freed -- no leaks are possible
+==45372== 
+==45372== For lists of detected and suppressed errors, rerun with: -s
+==45372== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
