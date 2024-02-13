@@ -62,7 +62,7 @@ public:
 	 * @param void
 	 * @return void
 	*/
-	void destroy(void) noexcept;
+	void		  destroy(void) noexcept;
 
 	// /**
 	//  * @brief Sets the icon of the window.

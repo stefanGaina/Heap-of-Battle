@@ -46,7 +46,7 @@ void Grid1::draw(SDL_Renderer* const renderer) noexcept
 {
 	static constexpr const uint8_t ALPHA_OPAQUE = 0xA0U;
 
-	SDL_Color color = { .r = 0, .g = 0, .b = 0, .a = 0 };
+	SDL_Color					   color		= { .r = 0, .g = 0, .b = 0, .a = 0 };
 
 	plog_verbose("Grid1 is being drawn.");
 	plog_assert(nullptr != renderer);
@@ -89,7 +89,7 @@ void Grid1::draw(SDL_Renderer* const renderer) noexcept
 
 void Grid1::drawHorizontalNeutralLines(SDL_Renderer* const renderer) const noexcept
 {
-	int32_t row      = 0 * HSCALE;
+	int32_t row		 = 0 * HSCALE;
 	int32_t modifier = 0 * HSCALE;
 
 	plog_verbose("Horizontal neutral lines are being drawn.");
@@ -119,12 +119,12 @@ void Grid1::drawHorizontalNeutralLines(SDL_Renderer* const renderer) const noexc
 		(void)SDL_RenderDrawLine(renderer, 31 * HSCALE, row, 32 * HSCALE, row);
 
 		row += modifier;
-		(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 9  * HSCALE, row);
+		(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 9 * HSCALE, row);
 		(void)SDL_RenderDrawLine(renderer, 13 * HSCALE, row, 25 * HSCALE, row);
 		(void)SDL_RenderDrawLine(renderer, 29 * HSCALE, row, 32 * HSCALE, row);
 
 		row += modifier;
-		(void)SDL_RenderDrawLine(renderer, 9  * HSCALE, row, 10 * HSCALE, row);
+		(void)SDL_RenderDrawLine(renderer, 9 * HSCALE, row, 10 * HSCALE, row);
 		(void)SDL_RenderDrawLine(renderer, 12 * HSCALE, row, 13 * HSCALE, row);
 		(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 26 * HSCALE, row);
 		(void)SDL_RenderDrawLine(renderer, 28 * HSCALE, row, 29 * HSCALE, row);
@@ -137,7 +137,7 @@ void Grid1::drawHorizontalNeutralLines(SDL_Renderer* const renderer) const noexc
 
 void Grid1::drawVerticalNeutralLines(SDL_Renderer* const renderer) const noexcept
 {
-	int32_t column   = 0 * HSCALE;
+	int32_t column	 = 0 * HSCALE;
 	int32_t modifier = 0 * HSCALE;
 
 	plog_verbose("Vertical neutral lines are being drawn.");
@@ -145,19 +145,19 @@ void Grid1::drawVerticalNeutralLines(SDL_Renderer* const renderer) const noexcep
 
 	for (modifier = 1 * HSCALE, column = 6 * HSCALE; modifier > -2 * HSCALE; modifier -= 2 * HSCALE, column = 32 * HSCALE)
 	{
-		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 11 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 11 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 4 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 11 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 5 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 5 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 10 * HSCALE);
 
 		column += modifier;
@@ -165,57 +165,57 @@ void Grid1::drawVerticalNeutralLines(SDL_Renderer* const renderer) const noexcep
 		(void)SDL_RenderDrawLine(renderer, column, 8 * HSCALE, column, 9 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 1  * HSCALE, column, 2  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 6  * HSCALE, column, 9  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 1 * HSCALE, column, 2 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 6 * HSCALE, column, 9 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 13 * HSCALE, column, 14 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 0  * HSCALE, column, 2  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 6  * HSCALE, column, 7  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 8  * HSCALE, column, 9  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 0 * HSCALE, column, 2 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 6 * HSCALE, column, 7 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 8 * HSCALE, column, 9 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 13 * HSCALE, column, 15 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 1  * HSCALE, column, 3  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 5  * HSCALE, column, 6  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 9  * HSCALE, column, 10 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 1 * HSCALE, column, 3 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 5 * HSCALE, column, 6 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 10 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 12 * HSCALE, column, 14 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 2  * HSCALE, column, 6  * HSCALE);
-		(void)SDL_RenderDrawLine(renderer, column, 9  * HSCALE, column, 13 * HSCALE);
-
-		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 2 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 2 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 13 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 2 * HSCALE, column, 6  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 2 * HSCALE, column, 6 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 13 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 3  * HSCALE, column, 5  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 2 * HSCALE, column, 6 * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 13 * HSCALE);
+
+		column += modifier;
+		(void)SDL_RenderDrawLine(renderer, column, 3 * HSCALE, column, 5 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 10 * HSCALE, column, 12 * HSCALE);
 
 		column += modifier;
-		(void)SDL_RenderDrawLine(renderer, column, 3  * HSCALE, column, 5  * HSCALE);
+		(void)SDL_RenderDrawLine(renderer, column, 3 * HSCALE, column, 5 * HSCALE);
 		(void)SDL_RenderDrawLine(renderer, column, 10 * HSCALE, column, 12 * HSCALE);
 	}
 
 	column -= 3 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 3  * HSCALE, column, 4  * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 3 * HSCALE, column, 4 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 11 * HSCALE, column, 12 * HSCALE);
 
 	column -= 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 0  * HSCALE, column, 3  * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 0 * HSCALE, column, 3 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 12 * HSCALE, column, 15 * HSCALE);
 
 	column -= 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 0  * HSCALE, column, 2  * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 0 * HSCALE, column, 2 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 13 * HSCALE, column, 15 * HSCALE);
 
 	column -= 8 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 3  * HSCALE, column, 5  * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 3 * HSCALE, column, 5 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 10 * HSCALE, column, 12 * HSCALE);
 }
 
@@ -231,11 +231,11 @@ void Grid1::drawHorizontalAllianceLines(SDL_Renderer* const renderer) const noex
 	(void)SDL_RenderDrawLine(renderer, 26 * HSCALE, row, 28 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 9  * HSCALE, row, 13 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 9 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 29 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 10 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 10 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 12 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 26 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 28 * HSCALE, row, 29 * HSCALE, row);
@@ -258,7 +258,7 @@ void Grid1::drawHorizontalAllianceLines(SDL_Renderer* const renderer) const noex
 	(void)SDL_RenderDrawLine(renderer, 24 * HSCALE, row, 25 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 11 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 11 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 13 * HSCALE, row, 16 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 22 * HSCALE, row, 25 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 29 * HSCALE, row, 32 * HSCALE, row);
@@ -281,12 +281,12 @@ void Grid1::drawVerticalAllianceLines(SDL_Renderer* const renderer) const noexce
 	(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 15 * HSCALE);
 
 	column += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 9  * HSCALE, column, 10 * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 10 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 12 * HSCALE, column, 13 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 14 * HSCALE, column, 15 * HSCALE);
 
 	column += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 9  * HSCALE, column, 13 * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 13 * HSCALE);
 
 	column += 1 * HSCALE;
 	(void)SDL_RenderDrawLine(renderer, column, 10 * HSCALE, column, 12 * HSCALE);
@@ -312,7 +312,7 @@ void Grid1::drawVerticalAllianceLines(SDL_Renderer* const renderer) const noexce
 	(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 13 * HSCALE);
 
 	column += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, column, 9  * HSCALE, column, 10 * HSCALE);
+	(void)SDL_RenderDrawLine(renderer, column, 9 * HSCALE, column, 10 * HSCALE);
 	(void)SDL_RenderDrawLine(renderer, column, 12 * HSCALE, column, 13 * HSCALE);
 
 	column += 1 * HSCALE;
@@ -340,11 +340,11 @@ void Grid1::drawHorizontalHordeLines(SDL_Renderer* const renderer) const noexcep
 	(void)SDL_RenderDrawLine(renderer, 26 * HSCALE, row, 28 * HSCALE, row);
 
 	row -= 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 9  * HSCALE, row, 13 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 9 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 29 * HSCALE, row);
 
 	row -= 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 10 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 10 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 12 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 26 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 28 * HSCALE, row, 29 * HSCALE, row);
@@ -367,7 +367,7 @@ void Grid1::drawHorizontalHordeLines(SDL_Renderer* const renderer) const noexcep
 	(void)SDL_RenderDrawLine(renderer, 24 * HSCALE, row, 25 * HSCALE, row);
 
 	row -= 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 11 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 11 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 13 * HSCALE, row, 16 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 22 * HSCALE, row, 25 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 29 * HSCALE, row, 32 * HSCALE, row);
@@ -445,25 +445,25 @@ void Grid1::drawHorizontalObjectiveLines(SDL_Renderer* const renderer) const noe
 	plog_assert(nullptr != renderer);
 
 	row = 6 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 9  * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 9 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 13 * HSCALE, row, 16 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 22 * HSCALE, row, 25 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 29 * HSCALE, row, 32 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 9  * HSCALE, row, 10 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 9 * HSCALE, row, 10 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 12 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 26 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 28 * HSCALE, row, 29 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 9  * HSCALE, row, 10 * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 9 * HSCALE, row, 10 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 12 * HSCALE, row, 13 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 25 * HSCALE, row, 26 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 28 * HSCALE, row, 29 * HSCALE, row);
 
 	row += 1 * HSCALE;
-	(void)SDL_RenderDrawLine(renderer, 6  * HSCALE, row, 9  * HSCALE, row);
+	(void)SDL_RenderDrawLine(renderer, 6 * HSCALE, row, 9 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 13 * HSCALE, row, 16 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 22 * HSCALE, row, 25 * HSCALE, row);
 	(void)SDL_RenderDrawLine(renderer, 29 * HSCALE, row, 32 * HSCALE, row);

@@ -43,19 +43,21 @@
 namespace hob
 {
 
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 class TextureInitializer : public hob::IDrawable
 {
 public:
-	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths, std::array<size_t, COMPONENTS_COUNT> textureIndexes,
-		std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* renderer) noexcept;
+	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths,
+					   std::array<size_t, COMPONENTS_COUNT>	   textureIndexes,
+					   std::array<SDL_Rect, COMPONENTS_COUNT>  destinations,
+					   SDL_Renderer*						   renderer) noexcept;
 	virtual ~TextureInitializer(void) = default;
 
 	virtual void draw(SDL_Renderer* renderer) noexcept override;
 
 protected:
 	std::array<hob::Component, COMPONENTS_COUNT> componentContainer;
-	std::array<hob::Texture, TEXTURES_COUNT> textureContainer;
+	std::array<hob::Texture, TEXTURES_COUNT>	 textureContainer;
 };
 
 } /*< namespace hob */
@@ -63,7 +65,7 @@ protected:
 class TextureInitializerDummy
 {
 public:
-	virtual ~TextureInitializerDummy(void) = default;
+	virtual ~TextureInitializerDummy(void)	  = default;
 
 	virtual void draw(SDL_Renderer* renderer) = 0;
 };
@@ -100,13 +102,16 @@ TextureInitializerMock* TextureInitializerMock::textureInitializerMock = nullptr
 namespace hob
 {
 
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
-TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const std::array<std::string, TEXTURES_COUNT> filePaths,
-	const std::array<size_t, COMPONENTS_COUNT> textureIndexes, const std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* const renderer) noexcept
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(
+	const std::array<std::string, TEXTURES_COUNT> filePaths,
+	const std::array<size_t, COMPONENTS_COUNT>	  textureIndexes,
+	const std::array<SDL_Rect, COMPONENTS_COUNT>  destinations,
+	SDL_Renderer* const							  renderer) noexcept
 {
 }
 
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 void TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::draw(SDL_Renderer* const renderer) noexcept
 {
 	ASSERT_NE(nullptr, TextureInitializerMock::textureInitializerMock) << "draw(): nullptr == TextureInitializerMock::textureInitializerMock";

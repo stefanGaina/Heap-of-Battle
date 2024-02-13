@@ -50,26 +50,23 @@ namespace hob
 {
 
 Cursor::Cursor(SDL_Renderer* const renderer) noexcept
-	: TextureInitializer
-	{
-		{
-			TEXTURE_FILE_PATH("alliance_idle")  , /*< 0 */
-			TEXTURE_FILE_PATH("alliance_select"), /*< 1 */
-			TEXTURE_FILE_PATH("alliance_move")  , /*< 2 */
-			TEXTURE_FILE_PATH("alliance_attack"), /*< 3 */
-			TEXTURE_FILE_PATH("horde_idle")     , /*< 4 */
-			TEXTURE_FILE_PATH("horde_select")   , /*< 5 */
-			TEXTURE_FILE_PATH("horde_move")     , /*< 6 */
-			TEXTURE_FILE_PATH("horde_attack")     /*< 7 */
-		},
-		{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }, /*< 0 */
-		{
-			{ SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 } /*< 0 */
-		},
-		renderer
-	}
+	: TextureInitializer{ {
+							  TEXTURE_FILE_PATH("alliance_idle"),	/*< 0 */
+							  TEXTURE_FILE_PATH("alliance_select"), /*< 1 */
+							  TEXTURE_FILE_PATH("alliance_move"),	/*< 2 */
+							  TEXTURE_FILE_PATH("alliance_attack"), /*< 3 */
+							  TEXTURE_FILE_PATH("horde_idle"),		/*< 4 */
+							  TEXTURE_FILE_PATH("horde_select"),	/*< 5 */
+							  TEXTURE_FILE_PATH("horde_move"),		/*< 6 */
+							  TEXTURE_FILE_PATH("horde_attack")		/*< 7 */
+						  },
+						  { CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }, /*< 0 */
+						  { {
+							  { SCREEN_WIDTH, SCREEN_HEIGHT, SCALE / 3, SCALE / 3 } /*< 0 */
+						  } },
+						  renderer }
 	, textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
-	, enabled           { false }
+	, enabled{ false }
 {
 	int32_t errorCode = 0;
 

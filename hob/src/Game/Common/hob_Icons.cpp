@@ -53,40 +53,37 @@ namespace hob
 {
 
 Icons::Icons(SDL_Renderer* const renderer) noexcept
-	: TextureInitializer
-	{
+	: TextureInitializer{
 		{
-			TEXTURE_FILE_PATH("footman_icon")      , /*< 0  */
-			TEXTURE_FILE_PATH("elf_icon")          , /*< 1  */
-			TEXTURE_FILE_PATH("knight_icon")       , /*< 2  */
+			TEXTURE_FILE_PATH("footman_icon"),		 /*< 0  */
+			TEXTURE_FILE_PATH("elf_icon"),			 /*< 1  */
+			TEXTURE_FILE_PATH("knight_icon"),		 /*< 2  */
 			TEXTURE_FILE_PATH("gryphon_rider_icon"), /*< 3  */
-			TEXTURE_FILE_PATH("mage_icon")         , /*< 4  */
-			TEXTURE_FILE_PATH("castle_icon")       , /*< 5  */
-			TEXTURE_FILE_PATH("keep_icon")         , /*< 6  */
-			TEXTURE_FILE_PATH("grunt_icon")        , /*< 7  */
-			TEXTURE_FILE_PATH("troll_icon")        , /*< 8  */
-			TEXTURE_FILE_PATH("death_rider_icon")  , /*< 9  */
-			TEXTURE_FILE_PATH("dragon_icon")       , /*< 10 */
-			TEXTURE_FILE_PATH("ogre_icon")         , /*< 11 */
-			TEXTURE_FILE_PATH("stronghold_icon")   , /*< 12 */
-			TEXTURE_FILE_PATH("hall_icon")           /*< 13 */
+			TEXTURE_FILE_PATH("mage_icon"),			 /*< 4  */
+			TEXTURE_FILE_PATH("castle_icon"),		 /*< 5  */
+			TEXTURE_FILE_PATH("keep_icon"),			 /*< 6  */
+			TEXTURE_FILE_PATH("grunt_icon"),		 /*< 7  */
+			TEXTURE_FILE_PATH("troll_icon"),		 /*< 8  */
+			TEXTURE_FILE_PATH("death_rider_icon"),	 /*< 9  */
+			TEXTURE_FILE_PATH("dragon_icon"),		 /*< 10 */
+			TEXTURE_FILE_PATH("ogre_icon"),			 /*< 11 */
+			TEXTURE_FILE_PATH("stronghold_icon"),	 /*< 12 */
+			TEXTURE_FILE_PATH("hall_icon")			 /*< 13 */
 		},
 		{
-			ICONS_TEXTURE_INDEX_ELF          , /**< 0 */
-			ICONS_TEXTURE_INDEX_KNIGHT       , /**< 1 */
+			ICONS_TEXTURE_INDEX_ELF,		   /**< 0 */
+			ICONS_TEXTURE_INDEX_KNIGHT,		   /**< 1 */
 			ICONS_TEXTURE_INDEX_GRYPHON_RIDER, /**< 2 */
-			ICONS_TEXTURE_INDEX_MAGE         , /**< 3 */
-			ICONS_TEXTURE_INDEX_CASTLE         /**< 4 */
+			ICONS_TEXTURE_INDEX_MAGE,		   /**< 3 */
+			ICONS_TEXTURE_INDEX_CASTLE		   /**< 4 */
 		},
-		{
-			{
-				{ .x = 8, .y = 1 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 0 */
-				{ .x = 8, .y = 3 * HSCALE              + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 1 */
-				{ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 2 */
-				{ .x = 8, .y = 6 * HSCALE              + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 3 */
-				{ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }  /**< 4 */
-			}
-		},
+		{ {
+			{ .x = 8, .y = 1 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 0 */
+			{ .x = 8, .y = 3 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/**< 1 */
+			{ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 2 */
+			{ .x = 8, .y = 6 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/**< 3 */
+			{ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }	/**< 4 */
+		} },
 		renderer
 	}
 {

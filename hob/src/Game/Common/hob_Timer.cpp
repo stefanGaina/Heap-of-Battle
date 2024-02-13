@@ -57,48 +57,43 @@ namespace hob
 {
 
 Timer::Timer(SDL_Renderer* const renderer) noexcept
-	: TextureInitializer
-	{
-		{
-			TEXTURE_FILE_PATH("alliance_0")            , /**< 0  */
-			TEXTURE_FILE_PATH("alliance_1")            , /**< 1  */
-			TEXTURE_FILE_PATH("alliance_2")            , /**< 2  */
-			TEXTURE_FILE_PATH("alliance_3")            , /**< 3  */
-			TEXTURE_FILE_PATH("alliance_4")            , /**< 4  */
-			TEXTURE_FILE_PATH("alliance_5")            , /**< 5  */
-			TEXTURE_FILE_PATH("alliance_6")            , /**< 6  */
-			TEXTURE_FILE_PATH("alliance_7")            , /**< 7  */
-			TEXTURE_FILE_PATH("alliance_8")            , /**< 8  */
-			TEXTURE_FILE_PATH("alliance_9")            , /**< 9  */
-			TEXTURE_FILE_PATH("alliance_double_points"), /**< 10 */
-			TEXTURE_FILE_PATH("horde_0")               , /**< 11 */
-			TEXTURE_FILE_PATH("horde_1")               , /**< 12 */
-			TEXTURE_FILE_PATH("horde_2")               , /**< 13 */
-			TEXTURE_FILE_PATH("horde_3")               , /**< 14 */
-			TEXTURE_FILE_PATH("horde_4")               , /**< 15 */
-			TEXTURE_FILE_PATH("horde_5")               , /**< 16 */
-			TEXTURE_FILE_PATH("horde_6")               , /**< 17 */
-			TEXTURE_FILE_PATH("horde_7")               , /**< 18 */
-			TEXTURE_FILE_PATH("horde_8")               , /**< 19 */
-			TEXTURE_FILE_PATH("horde_9")               , /**< 20 */
-			TEXTURE_FILE_PATH("horde_double_points")     /**< 21 */
-		},
-		{
-			TIMER_TEXTURE_INDEX_ALLIANCE_0   , /**< 0 */
-			TIMER_TEXTURE_INDEX_DOUBLE_POINTS, /**< 1 */
-			TIMER_TEXTURE_INDEX_ALLIANCE_0   , /**< 2 */
-			TIMER_TEXTURE_INDEX_ALLIANCE_0     /**< 3 */
-		},
-		{
-			{
-				{ 3 * HSCALE              + 5, SCALE / 9, SCALE / 3, SCALE / 3 }, /**< 0 */
-				{ 3 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }, /**< 1 */
-				{ 4 * HSCALE + 5             , SCALE / 9, SCALE / 3, SCALE / 3 }, /**< 2 */
-				{ 4 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }  /**< 3 */
-			}
-		},
-		renderer
-	}
+	: TextureInitializer{ {
+							  TEXTURE_FILE_PATH("alliance_0"),			   /**< 0  */
+							  TEXTURE_FILE_PATH("alliance_1"),			   /**< 1  */
+							  TEXTURE_FILE_PATH("alliance_2"),			   /**< 2  */
+							  TEXTURE_FILE_PATH("alliance_3"),			   /**< 3  */
+							  TEXTURE_FILE_PATH("alliance_4"),			   /**< 4  */
+							  TEXTURE_FILE_PATH("alliance_5"),			   /**< 5  */
+							  TEXTURE_FILE_PATH("alliance_6"),			   /**< 6  */
+							  TEXTURE_FILE_PATH("alliance_7"),			   /**< 7  */
+							  TEXTURE_FILE_PATH("alliance_8"),			   /**< 8  */
+							  TEXTURE_FILE_PATH("alliance_9"),			   /**< 9  */
+							  TEXTURE_FILE_PATH("alliance_double_points"), /**< 10 */
+							  TEXTURE_FILE_PATH("horde_0"),				   /**< 11 */
+							  TEXTURE_FILE_PATH("horde_1"),				   /**< 12 */
+							  TEXTURE_FILE_PATH("horde_2"),				   /**< 13 */
+							  TEXTURE_FILE_PATH("horde_3"),				   /**< 14 */
+							  TEXTURE_FILE_PATH("horde_4"),				   /**< 15 */
+							  TEXTURE_FILE_PATH("horde_5"),				   /**< 16 */
+							  TEXTURE_FILE_PATH("horde_6"),				   /**< 17 */
+							  TEXTURE_FILE_PATH("horde_7"),				   /**< 18 */
+							  TEXTURE_FILE_PATH("horde_8"),				   /**< 19 */
+							  TEXTURE_FILE_PATH("horde_9"),				   /**< 20 */
+							  TEXTURE_FILE_PATH("horde_double_points")	   /**< 21 */
+						  },
+						  {
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0,	 /**< 0 */
+							  TIMER_TEXTURE_INDEX_DOUBLE_POINTS, /**< 1 */
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0,	 /**< 2 */
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0	 /**< 3 */
+						  },
+						  { {
+							  { 3 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 },				/**< 0 */
+							  { 3 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }, /**< 1 */
+							  { 4 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 },				/**< 2 */
+							  { 4 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }	/**< 3 */
+						  } },
+						  renderer }
 	, queue{}
 {
 	plog_trace("Timer is being constructed.");
@@ -122,7 +117,7 @@ void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 void Timer::handleQueue(void) noexcept
 {
 	TimeFormat timeFormat = {};
-	size_t     modifier   = 0UL;
+	size_t	   modifier	  = 0UL;
 
 	plog_verbose("Queue is being handled.");
 	while (false == queue.isEmpty())
@@ -137,10 +132,12 @@ void Timer::handleQueue(void) noexcept
 			modifier = TIMER_TEXTURE_INDEX_ALLIANCE_0;
 		}
 
-		componentContainer[TIMER_COMPONENT_INDEX_MINUTE        ].updateTexture(textureContainer[ static_cast<size_t>(timeFormat.seconds) / 60UL         + modifier]);
-		componentContainer[TIMER_COMPONENT_INDEX_DOUBLE_POINTS ].updateTexture(textureContainer[TIMER_TEXTURE_INDEX_DOUBLE_POINTS                       + modifier]);
-		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_1].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) / 10UL + modifier]);
-		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_2].updateTexture(textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) % 10UL + modifier]);
+		componentContainer[TIMER_COMPONENT_INDEX_MINUTE].updateTexture(textureContainer[static_cast<size_t>(timeFormat.seconds) / 60UL + modifier]);
+		componentContainer[TIMER_COMPONENT_INDEX_DOUBLE_POINTS].updateTexture(textureContainer[TIMER_TEXTURE_INDEX_DOUBLE_POINTS + modifier]);
+		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_1].updateTexture(
+			textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) / 10UL + modifier]);
+		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_2].updateTexture(
+			textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) % 10UL + modifier]);
 	}
 }
 

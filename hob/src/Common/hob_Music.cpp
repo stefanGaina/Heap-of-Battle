@@ -41,9 +41,9 @@ namespace hob
 {
 
 Music::Music(void) noexcept
-	: song       { nullptr }
+	: song{ nullptr }
 	, playingSong{ Song::MAIN_MENU }
-	, volume     { MIX_MAX_VOLUME }
+	, volume{ MIX_MAX_VOLUME }
 {
 	plog_trace("Music is being constructed.");
 }
@@ -57,7 +57,7 @@ Music::~Music(void) noexcept
 void Music::start(const Song song) noexcept
 {
 	const char* song_file_name = nullptr;
-	int32_t     errorCode      = 0;
+	int32_t		errorCode	   = 0;
 
 	plog_info("Music is being started. (song: %" PRId32 ")", static_cast<int32_t>(song));
 	if (song == playingSong && nullptr != this->song)
@@ -100,7 +100,7 @@ void Music::start(const Song song) noexcept
 	}
 	playingSong = song;
 
-	errorCode = Mix_PlayMusic(this->song, -1);
+	errorCode	= Mix_PlayMusic(this->song, -1);
 	if (0 != errorCode)
 	{
 		plog_error("Failed to play music! (error code: %" PRId32 ")", errorCode);

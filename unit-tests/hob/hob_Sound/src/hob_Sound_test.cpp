@@ -91,7 +91,7 @@ TEST_F(SoundTest, play_fail)
 TEST_F(SoundTest, play_success)
 {
 	EXPECT_CALL(sdlMock, SDL_RWFromFile(testing::_, testing::_));
-	EXPECT_CALL(mixMock, Mix_LoadWAV_RW(testing::_, testing::_))
+	EXPECT_CALL(mixMock, Mix_LoadWAV_RW(testing::_, testing::_)) /**/
 		.WillOnce(testing::Return((Mix_Chunk*)not_nullptr));
 	EXPECT_CALL(mixMock, Mix_PlayChannelTimed(testing::_, testing::_, testing::_, testing::_));
 	EXPECT_CALL(mixMock, Mix_Volume(testing::_, testing::_));

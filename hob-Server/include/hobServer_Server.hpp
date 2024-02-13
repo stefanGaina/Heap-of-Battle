@@ -114,22 +114,22 @@ private:
 	/** ***********************************************************************************************
 	 * @brief It is static because it is used in a lambda function.
 	 *************************************************************************************************/
-	static bool isSocketReady;
+	static bool				isSocketReady;
 
 	/** ***********************************************************************************************
 	 * @brief Server socket for sending and receiving messages for the players.
 	 *************************************************************************************************/
-	Socket socket;
+	Socket					socket;
 
 	/** ***********************************************************************************************
 	 * @brief The thread that the server is ran on.
 	 *************************************************************************************************/
-	std::thread runThread;
+	std::thread				runThread;
 
 	/** ***********************************************************************************************
 	 * @brief Flag indicating the server is still running after the connections are closed/lost.
 	 *************************************************************************************************/
-	std::atomic<bool> createAgain;
+	std::atomic<bool>		createAgain;
 
 	/** ***********************************************************************************************
 	 * @brief The variable signaled when the socket is ready (to avoid premature connection).
@@ -139,7 +139,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Mutex protecting isSocketReady.
 	 *************************************************************************************************/
-	std::mutex mutex;
+	std::mutex				mutex;
 };
 
 } /*< namespace hobServer */

@@ -67,7 +67,7 @@ Socket::~Socket(void) noexcept
 
 void Socket::create(const std::string ipAddress) noexcept(false)
 {
-	sockaddr_in        server         = {};
+	sockaddr_in		   server		  = {};
 	hobServer::Message versionMessage = { .type = hobServer::MessageType::VERSION, .payload = {} };
 
 	plog_debug("Client socket is being created. (IP address: %s)", ipAddress.c_str());
@@ -84,9 +84,9 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 		throw std::exception();
 	}
 
-	server.sin_family      = AF_INET;
+	server.sin_family	   = AF_INET;
 	server.sin_addr.s_addr = inet_addr(ipAddress.c_str());
-	server.sin_port        = htons(8787U);
+	server.sin_port		   = htons(8787U);
 
 	if (0 != connect(socket, (sockaddr*)&server, sizeof(server)))
 	{

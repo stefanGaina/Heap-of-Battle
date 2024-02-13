@@ -33,10 +33,10 @@
 class ServerServerDummy
 {
 public:
-	virtual ~ServerServerDummy(void) = default;
+	virtual ~ServerServerDummy(void)					   = default;
 
 	virtual void runAsync(uint16_t port, uint16_t timeout) = 0;
-	virtual void stop(void) = 0;
+	virtual void stop(void)								   = 0;
 };
 
 class ServerServerMock : public ServerServerDummy

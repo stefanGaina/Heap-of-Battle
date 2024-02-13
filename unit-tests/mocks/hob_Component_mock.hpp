@@ -33,14 +33,14 @@
 class ComponentDummy
 {
 public:
-	virtual ~ComponentDummy(void) = default;
+	virtual ~ComponentDummy(void)													= default;
 
-	virtual void updateTexture(SDL_Texture* texture) = 0;
-	virtual void updateTexture(const hob::Texture& texture) = 0;
-	virtual void updatePosition(SDL_Rect destination) = 0;
-	virtual void correctPosition(SDL_Rect corrections) = 0;
-	virtual bool isMouseInside(hob::Coordinate mouse, SDL_Rect corrections) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void		 updateTexture(SDL_Texture* texture)						= 0;
+	virtual void		 updateTexture(const hob::Texture& texture)					= 0;
+	virtual void		 updatePosition(SDL_Rect destination)						= 0;
+	virtual void		 correctPosition(SDL_Rect corrections)						= 0;
+	virtual bool		 isMouseInside(hob::Coordinate mouse, SDL_Rect corrections) = 0;
+	virtual SDL_Texture* getRawTexture(void)										= 0;
 };
 
 class ComponentMock : public ComponentDummy
@@ -135,7 +135,7 @@ SDL_Texture* Component::getRawTexture(void) const noexcept
 	return ComponentMock::componentMock->getRawTexture();
 }
 
-bool Component::operator ==(const Texture& texture) const noexcept
+bool Component::operator==(const Texture& texture) const noexcept
 {
 	return false;
 }

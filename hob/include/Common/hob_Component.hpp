@@ -60,7 +60,7 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	 *************************************************************************************************/
-	void draw(SDL_Renderer* renderer) noexcept override;
+	void		 draw(SDL_Renderer* renderer) noexcept override;
 
 	/** ***********************************************************************************************
 	 * @brief Changes the texture of the component or sets it if not already. Does not destroy the old
@@ -68,7 +68,7 @@ public:
 	 * @param texture: Texture of the component.
 	 * @return void
 	 *************************************************************************************************/
-	void updateTexture(SDL_Texture* texture) noexcept;
+	void		 updateTexture(SDL_Texture* texture) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Changes the texture of the component or sets it if not already. Does not destroy the old
@@ -76,21 +76,21 @@ public:
 	 * @param texture: Texture of the component.
 	 * @return void
 	 *************************************************************************************************/
-	void updateTexture(const Texture& texture) noexcept;
+	void		 updateTexture(const Texture& texture) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Changes the destination of the component or sets it if not already.
 	 * @param destination: Position on the screen and dimension of the texture.
 	 * @return void
 	 *************************************************************************************************/
-	void updatePosition(SDL_Rect destination) noexcept;
+	void		 updatePosition(SDL_Rect destination) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Update position and dimension based on current information.
 	 * @param corrections: Values to be added to the destination.
 	 * @return void
 	 *************************************************************************************************/
-	void correctPosition(SDL_Rect corrections) noexcept;
+	void		 correctPosition(SDL_Rect corrections) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Checks if coordinates are inside the component's rectangle destination area.
@@ -99,7 +99,7 @@ public:
 	 * @return true - it is inside area.
 	 * @return false - it is not inside area.
 	 *************************************************************************************************/
-	bool isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0, .y = 0, .w = 0, .h = 0 }) const noexcept;
+	bool		 isMouseInside(Coordinate mouse, SDL_Rect corrections = { .x = 0, .y = 0, .w = 0, .h = 0 }) const noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Queries for the texture that is used for the drawing.
@@ -114,13 +114,13 @@ public:
 	 * @return true - the objects have the same raw texture
 	 * @return false - the object does not have the same raw texture.
 	 *************************************************************************************************/
-	bool operator ==(const Texture& texture) const noexcept;
+	bool		 operator==(const Texture& texture) const noexcept;
 
 private:
 	/** ***********************************************************************************************
 	 * @brief Position on the screen and dimension of the texture.
 	 *************************************************************************************************/
-	SDL_Rect destination;
+	SDL_Rect	 destination;
 
 	/** ***********************************************************************************************
 	 * @brief Texture that will be drawn. The component does not have ownership over it.

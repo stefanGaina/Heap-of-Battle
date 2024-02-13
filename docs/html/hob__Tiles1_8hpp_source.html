@@ -120,12 +120,12 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * @brief How many times of tiles are being used.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">   49</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">TILES1_COUNT</a> = 13UL;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">   49</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#aac687ade8bd1eadd16790f07ee2b275c">TILES1_COUNT</a>            = 13UL;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * @brief How many textures scenario 1 tiles loads.</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">   54</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">TILES1_TEXTURES_COUNT</a> = 34UL;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">   54</a></span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a0d27248e7ebe94eba4fb46239d9f02ad">TILES1_TEXTURES_COUNT</a>   = 34UL;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> * @brief How many components the tiles of scenario 1 uses.</span></div>
@@ -139,8 +139,8 @@ $(function() {
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * @brief Tiles of the scenario 1.</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Tiles1.html">Tiles1</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                   , <span class="keyword">public</span> <a class="code" href="classhob_1_1TileInitializer.html">TileInitializer</a>&lt;TILES1_COUNT&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classhob_1_1Tiles1.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Tiles1.html">Tiles1</a>           final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT&gt;,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                     <span class="keyword">public</span> <a class="code" href="classhob_1_1TileInitializer.html">TileInitializer</a>&lt;TILES1_COUNT&gt;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">public</span>:<span class="comment"></span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">    /**</span></div>

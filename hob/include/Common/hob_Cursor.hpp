@@ -46,15 +46,15 @@ namespace hob
  *****************************************************************************************************/
 enum CursorTextureIndex
 {
-	CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE   = 0, /**< Index to the cursor's alliance idle texture.        */
+	CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE	 = 0, /**< Index to the cursor's alliance idle texture.        */
 	CURSOR_TEXTURE_INDEX_ALLIANCE_SELECT = 1, /**< Index to the cursor's alliance select texture.      */
-	CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE   = 2, /**< Index to the cursor's alliance move text texture.   */
+	CURSOR_TEXTURE_INDEX_ALLIANCE_MOVE	 = 2, /**< Index to the cursor's alliance move text texture.   */
 	CURSOR_TEXTURE_INDEX_ALLIANCE_ATTACK = 3, /**< Index to the cursor's alliance attack text texture. */
-	CURSOR_TEXTURE_INDEX_HORDE_IDLE      = 4, /**< Index to the cursor's horde idle texture.           */
-	CURSOR_TEXTURE_INDEX_HORDE_SELECT    = 5, /**< Index to the cursor's horde select texture.         */
-	CURSOR_TEXTURE_INDEX_HORDE_MOVE      = 6, /**< Index to the cursor's horde move text texture.      */
-	CURSOR_TEXTURE_INDEX_HORDE_ATTACK    = 7, /**< Index to the cursor's horde attack text texture.    */
-	CURSOR_TEXTURES_COUNT                = 8  /**< How many textures cursor loads.                     */
+	CURSOR_TEXTURE_INDEX_HORDE_IDLE		 = 4, /**< Index to the cursor's horde idle texture.           */
+	CURSOR_TEXTURE_INDEX_HORDE_SELECT	 = 5, /**< Index to the cursor's horde select texture.         */
+	CURSOR_TEXTURE_INDEX_HORDE_MOVE		 = 6, /**< Index to the cursor's horde move text texture.      */
+	CURSOR_TEXTURE_INDEX_HORDE_ATTACK	 = 7, /**< Index to the cursor's horde attack text texture.    */
+	CURSOR_TEXTURES_COUNT				 = 8  /**< How many textures cursor loads.                     */
 };
 
 /** ***************************************************************************************************
@@ -62,8 +62,8 @@ enum CursorTextureIndex
  *****************************************************************************************************/
 enum CursorComponentIndex
 {
-	CURSOR_COMPONENT_INDEX  = 0, /**< Index to the cursor's component.     */
-	CURSOR_COMPONENTS_COUNT = 1  /**< How many components the cursor uses. */
+	CURSOR_COMPONENT_INDEX	= 0, /**< Index to the cursor's component.     */
+	CURSOR_COMPONENTS_COUNT = 1	 /**< How many components the cursor uses. */
 };
 
 /** ***************************************************************************************************
@@ -115,7 +115,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Flag indicating if cursor's functionalities are enabled or disabled.
 	 *************************************************************************************************/
-	bool enabled;
+	bool   enabled;
 };
 
 } /*< namespace hob */

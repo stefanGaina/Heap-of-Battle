@@ -41,7 +41,7 @@ namespace hob
 
 Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noexcept
 	: destination{ destination }
-	, texture    { texture }
+	, texture{ texture }
 {
 	plog_trace("Component is being constructed.");
 }
@@ -77,15 +77,15 @@ void Component::updateTexture(const Texture& texture) noexcept
 
 void Component::updatePosition(const SDL_Rect destination) noexcept
 {
-	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
-		destination.x, destination.y, destination.w, destination.h);
+	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", destination.x, destination.y,
+				 destination.w, destination.h);
 	this->destination = destination;
 }
 
 void Component::correctPosition(const SDL_Rect corrections) noexcept
 {
-	plog_verbose("Component is being corrected. (corrections: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
-		corrections.x, corrections.y, corrections.w, corrections.h);
+	plog_verbose("Component is being corrected. (corrections: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", corrections.x, corrections.y, corrections.w,
+				 corrections.h);
 
 	destination.x += corrections.x;
 	destination.y += corrections.y;
@@ -95,16 +95,16 @@ void Component::correctPosition(const SDL_Rect corrections) noexcept
 
 bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections) const noexcept
 {
-	int32_t verticalBeginning   = destination.y                 + corrections.y;
-	int32_t verticalEnding      = destination.y + destination.h + corrections.h;
-	int32_t horizontalBeginning = destination.x                 + corrections.x;
-	int32_t horizontalEnding    = destination.x + destination.w + corrections.w;
+	int32_t verticalBeginning	= destination.y + corrections.y;
+	int32_t verticalEnding		= destination.y + destination.h + corrections.h;
+	int32_t horizontalBeginning = destination.x + corrections.x;
+	int32_t horizontalEnding	= destination.x + destination.w + corrections.w;
 
-	plog_verbose("Checking if mouse is inside component. (mouse: { %" PRId32 ", %" PRId32 " }, corrections: { %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 " })",
-		mouse.x, mouse.y, corrections.x, corrections.y, corrections.w, corrections.h);
+	plog_verbose("Checking if mouse is inside component. (mouse: { %" PRId32 ", %" PRId32 " }, corrections: { %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32
+				 " })",
+				 mouse.x, mouse.y, corrections.x, corrections.y, corrections.w, corrections.h);
 
-	return verticalBeginning   < mouse.y && verticalEnding   > mouse.y
-		&& horizontalBeginning < mouse.x && horizontalEnding > mouse.x;
+	return verticalBeginning < mouse.y && verticalEnding > mouse.y && horizontalBeginning < mouse.x && horizontalEnding > mouse.x;
 }
 
 SDL_Texture* Component::getRawTexture(void) const noexcept
@@ -113,7 +113,7 @@ SDL_Texture* Component::getRawTexture(void) const noexcept
 	return texture;
 }
 
-bool Component::operator ==(const Texture& texture) const noexcept
+bool Component::operator==(const Texture& texture) const noexcept
 {
 	return texture.getRawTexture() == this->texture;
 }

@@ -50,11 +50,11 @@ static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
  *****************************************************************************************************/
 
 FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
-	: component          {}
-	, texture            {}
-	, font               { TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12) }
-	, frameStartTime     { SDL_GetTicks64() - SECOND_IN_MILLISECONDS }
-	, framesCount        { 0U }
+	: component{}
+	, texture{}
+	, font{ TTF_OpenFont("assets/textures/miscellaneous/Anonymous.ttf", 12) }
+	, frameStartTime{ SDL_GetTicks64() - SECOND_IN_MILLISECONDS }
+	, framesCount{ 0U }
 	, previousFramesCount{ 10000U }
 {
 	plog_trace("Frames per second is being constructed.");
@@ -84,11 +84,11 @@ void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 
 void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
+	static constexpr const SDL_Color YELLOW			  = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
 
-	const uint64_t frameEndTime     = SDL_GetTicks64();
-	std::string    text             = {};
-	Coordinate     textureDimension = {};
+	const uint64_t					 frameEndTime	  = SDL_GetTicks64();
+	std::string						 text			  = {};
+	Coordinate						 textureDimension = {};
 
 	plog_verbose("Frames per second is being updated.(start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
 	plog_assert(nullptr != renderer);
@@ -123,14 +123,14 @@ void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 	textureDimension = texture.create(text, font, YELLOW, renderer);
 
 	component.updateTexture(texture);
-	component.updatePosition({.x = 30 * HSCALE + HSCALE / 2, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
+	component.updatePosition({ .x = 30 * HSCALE + HSCALE / 2, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
 
 	reset(frameEndTime);
 }
 
 void FramesPerSecond::reset(const uint64_t frameEndTime) noexcept
 {
-	framesCount    = 0U;
+	framesCount	   = 0U;
 	frameStartTime = frameEndTime;
 }
 

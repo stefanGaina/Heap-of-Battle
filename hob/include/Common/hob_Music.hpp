@@ -48,9 +48,9 @@ namespace hob
 */
 enum class Song
 {
-	MAIN_MENU         = 0, /**< Song associated to the main menu.                */
+	MAIN_MENU		  = 0, /**< Song associated to the main menu.                */
 	SCENARIO_ALLIANCE = 1, /**< Song that is associated to the alliance faction. */
-	SCENARIO_HORDE    = 2  /**< Song that is associated to the horde faction.    */
+	SCENARIO_HORDE	  = 2  /**< Song that is associated to the horde faction.    */
 };
 
 /**
@@ -115,12 +115,12 @@ private:
 	/**
 	 * @brief What song is currently playing.
 	*/
-	Song playingSong;
+	Song	   playingSong;
 
 	/**
 	 * @brief The volume at which all the songs are played.
 	*/
-	int32_t volume;
+	int32_t	   volume;
 };
 
 } /*< namespace hob */

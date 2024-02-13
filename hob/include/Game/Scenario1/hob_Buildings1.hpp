@@ -47,8 +47,8 @@ namespace hob
 /**
  * @brief Graphical representation of all the buildings used in scenario 1.
 */
-class Buildings1 final : public TextureInitializer<29UL, 0UL>
-					   , public BuildingInitializer<18UL>
+class Buildings1 final : public TextureInitializer<29UL, 0UL>,
+						 public BuildingInitializer<18UL>
 {
 public:
 	/**

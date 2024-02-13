@@ -80,7 +80,7 @@ public:
 	 * @param season: What season will the tiles' textures be changed to.
 	 * @return void
 	*/
-	void changeTexture(Season season) noexcept;
+	void		 changeTexture(Season season) noexcept;
 
 	/**
 	 * @brief Calls the draw method of each tile.
@@ -102,10 +102,10 @@ private:
 
 template<size_t TEXTURES_SET_COUNT>
 TileInitializer<TEXTURES_SET_COUNT>::TileInitializer(std::array<SDL_Texture*, 4UL * TEXTURES_SET_COUNT> textures,
-	std::array<size_t, TILES_COUNT> textureIndexes) noexcept
+													 std::array<size_t, TILES_COUNT>					textureIndexes) noexcept
 	: tileContainer{}
 {
-	size_t index        = 0UL;
+	size_t index		= 0UL;
 	size_t textureIndex = 0UL;
 
 	plog_trace("TileInitializer is being constructed.");
@@ -113,8 +113,8 @@ TileInitializer<TEXTURES_SET_COUNT>::TileInitializer(std::array<SDL_Texture*, 4U
 	{
 		textureIndex = 4UL * textureIndexes[index];
 
-		tileContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL],
-			textures[textureIndex + 3UL], { static_cast<int32_t>(index) % 26, static_cast<int32_t>(index) / 26 });
+		tileContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL], textures[textureIndex + 3UL],
+								  { static_cast<int32_t>(index) % 26, static_cast<int32_t>(index) / 26 });
 	}
 }
 

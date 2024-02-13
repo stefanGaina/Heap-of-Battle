@@ -67,7 +67,7 @@ public:
 	 * @param isAlliance: true - alliance, false - horde.
 	 * @return void
 	*/
-	void setFaction(bool isAlliance) noexcept;
+	void			 setFaction(bool isAlliance) noexcept;
 
 	/**
 	 * @brief Gets the faction the user has been assigned to.
@@ -75,7 +75,7 @@ public:
 	 * @return true - alliance.
 	 * @return false - horde.
 	*/
-	bool getFaction(void) const noexcept;
+	bool			 getFaction(void) const noexcept;
 
 	/**
 	 * @brief Gets the color used for neutral related text.
@@ -103,14 +103,14 @@ public:
 	 * @param void
 	 * @return Color associated to the user.
 	*/
-	SDL_Color getFriendlyColor(void) const noexcept;
+	SDL_Color		 getFriendlyColor(void) const noexcept;
 
 	/**
 	 * @brief Gets the color associated to the opponent.
 	 * @param void
 	 * @return Color associated to the opponent.
 	*/
-	SDL_Color getOpponentColor(void) const noexcept;
+	SDL_Color		 getOpponentColor(void) const noexcept;
 
 private:
 	/**

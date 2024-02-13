@@ -59,7 +59,7 @@ void Timer::startTimer(const uint16_t seconds) noexcept
 	stopTimer(); /*< If timer is already started or timer thread is hanging. */
 
 	interruptWait = false;
-	timerThread   = std::thread{ std::bind(&Timer::timerFunction, this, seconds) };
+	timerThread	  = std::thread{ std::bind(&Timer::timerFunction, this, seconds) };
 }
 
 void Timer::stopTimer(void) noexcept

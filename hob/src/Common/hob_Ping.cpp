@@ -48,15 +48,15 @@ bool Ping::interruptWait = true;
  *****************************************************************************************************/
 
 Ping::Ping(void) noexcept
-	: queue           {}
-	, component       {}
-	, texture         {}
-	, font            { nullptr }
-	, pingThread      {}
-	, waitTime        {}
-	, waitMutex       {}
+	: queue{}
+	, component{}
+	, texture{}
+	, font{ nullptr }
+	, pingThread{}
+	, waitTime{}
+	, waitMutex{}
 	, messageStartTime{ 0UL }
-	, previousLatency { 1000U }
+	, previousLatency{ 1000U }
 {
 	plog_trace("Ping is being constructed.");
 }
@@ -80,8 +80,8 @@ void Ping::update(const Socket& socket) noexcept
 {
 	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
-	const uint64_t pingEndTime = SDL_GetTicks64();
-	const uint64_t latency     = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
+	const uint64_t					pingEndTime			   = SDL_GetTicks64();
+	const uint64_t latency = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
 
 	plog_verbose("Ping is being updated. (latency: %" PRIu64 ")", latency);
 	if (true == pingThread.joinable())
@@ -97,7 +97,7 @@ void Ping::update(const Socket& socket) noexcept
 		return;
 	}
 	interruptWait = false;
-	pingThread    = std::thread{ std::bind(&Ping::sendPings, this, &socket) };
+	pingThread	  = std::thread{ std::bind(&Ping::sendPings, this, &socket) };
 }
 
 void Ping::clean(void) noexcept
@@ -128,11 +128,11 @@ void Ping::clean(void) noexcept
 
 void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
+	static constexpr const SDL_Color YELLOW			  = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
-	std::string text             = {};
-	Coordinate  textureDimension = {};
-	uint64_t    latency          = 0UL;
+	std::string						 text			  = {};
+	Coordinate						 textureDimension = {};
+	uint64_t						 latency		  = 0UL;
 
 	plog_verbose("Queue is being handled.");
 	plog_assert(nullptr != renderer);
@@ -168,7 +168,7 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 void Ping::sendPings(const Socket* const socket) noexcept
 {
 	std::unique_lock<std::mutex> lockWait(waitMutex);
-	hobServer::Message           pingMessage = {};
+	hobServer::Message			 pingMessage = {};
 
 	plog_trace("Send pings thread has started.");
 	plog_assert(nullptr != socket);

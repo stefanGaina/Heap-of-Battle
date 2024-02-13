@@ -50,7 +50,7 @@ enum class Season
 	SUMMER = 0, /**< Summer season. */
 	AUTUMN = 1, /**< Autumn season. */
 	WINTER = 2, /**< Winter season. */
-	SPRING = 3  /**< Spring season. */
+	SPRING = 3	/**< Spring season. */
 };
 
 /**
@@ -120,7 +120,7 @@ private:
 	/**
 	 * @brief Component used to draw the tile.
 	*/
-	Component component;
+	Component	 component;
 };
 
 } /*< namespace hob */

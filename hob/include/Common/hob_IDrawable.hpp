@@ -52,7 +52,7 @@ public:
 	 * @brief Virtual destructor to avoid polymorphically delete undefined behavior.
 	 * @param void
 	*/
-	virtual ~IDrawable(void) = default;
+	virtual ~IDrawable(void)						   = default;
 
 	/**
 	 * @brief Abstract method, drawing objects to the screen.

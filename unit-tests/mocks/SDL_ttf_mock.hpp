@@ -32,12 +32,12 @@
 class TTF
 {
 public:
-	virtual ~TTF(void) = default;
+	virtual ~TTF(void)																				  = default;
 
-	virtual const SDL_version* TTF_Linked_Version(void) = 0;
-	virtual int TTF_Init(void) = 0;
-	virtual void TTF_Quit(void) = 0;
-	virtual SDL_Surface* TTF_RenderText_Blended(TTF_Font* font, const char* text, SDL_Color fg) = 0;
+	virtual const SDL_version* TTF_Linked_Version(void)												  = 0;
+	virtual int				   TTF_Init(void)														  = 0;
+	virtual void			   TTF_Quit(void)														  = 0;
+	virtual SDL_Surface*	   TTF_RenderText_Blended(TTF_Font* font, const char* text, SDL_Color fg) = 0;
 };
 
 class TTFMock : public TTF
@@ -72,44 +72,44 @@ TTFMock* TTFMock::ttfMock = nullptr;
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-extern "C" {
-
-const SDL_version* TTF_Linked_Version(void)
+extern "C"
 {
-	if (nullptr == TTFMock::ttfMock)
+
+	const SDL_version* TTF_Linked_Version(void)
 	{
-		ADD_FAILURE() << "TTF_Linked_Version(): nullptr == TTFMock::ttfMock";
-		return nullptr;
+		if (nullptr == TTFMock::ttfMock)
+		{
+			ADD_FAILURE() << "TTF_Linked_Version(): nullptr == TTFMock::ttfMock";
+			return nullptr;
+		}
+		return TTFMock::ttfMock->TTF_Linked_Version();
 	}
-	return TTFMock::ttfMock->TTF_Linked_Version();
-}
 
-int TTF_Init(void)
-{
-	if (nullptr == TTFMock::ttfMock)
+	int TTF_Init(void)
 	{
-		ADD_FAILURE() << "TTF_Init(): nullptr == TTFMock::ttfMock";
-		return -1;
+		if (nullptr == TTFMock::ttfMock)
+		{
+			ADD_FAILURE() << "TTF_Init(): nullptr == TTFMock::ttfMock";
+			return -1;
+		}
+		return TTFMock::ttfMock->TTF_Init();
 	}
-	return TTFMock::ttfMock->TTF_Init();
-}
 
-void TTF_Quit(void)
-{
-	ASSERT_NE(nullptr, TTFMock::ttfMock) << "TTF_Quit(): nullptr == TTFMock::ttfMock";
-	TTFMock::ttfMock->TTF_Quit();
-}
-
-SDL_Surface* TTF_RenderText_Blended(TTF_Font* const font, const char* const text, const SDL_Color fg)
-{
-	if (nullptr == TTFMock::ttfMock)
+	void TTF_Quit(void)
 	{
-		ADD_FAILURE() << "TTF_RenderText_Blended(): nullptr == TTFMock::ttfMock";
-		return nullptr;
+		ASSERT_NE(nullptr, TTFMock::ttfMock) << "TTF_Quit(): nullptr == TTFMock::ttfMock";
+		TTFMock::ttfMock->TTF_Quit();
 	}
-	return TTFMock::ttfMock->TTF_RenderText_Blended(font, text, fg);
-}
 
+	SDL_Surface* TTF_RenderText_Blended(TTF_Font* const font, const char* const text, const SDL_Color fg)
+	{
+		if (nullptr == TTFMock::ttfMock)
+		{
+			ADD_FAILURE() << "TTF_RenderText_Blended(): nullptr == TTFMock::ttfMock";
+			return nullptr;
+		}
+		return TTFMock::ttfMock->TTF_RenderText_Blended(font, text, fg);
+	}
 }
 
 #endif /*< SDL_TTF_MOCK_HPP_ */

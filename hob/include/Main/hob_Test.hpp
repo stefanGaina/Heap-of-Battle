@@ -111,7 +111,7 @@ private:
 	 * @brief Thread created at start() of test and joined at deinitialization on which the parsing of
 	 * commands is being done.
 	 *************************************************************************************************/
-	static std::thread thread;
+	static std::thread	 thread;
 };
 
 #endif /*< DEVEL_BUILD */

@@ -45,17 +45,17 @@
 /** ***************************************************************************************************
  * @brief Flag indicating that the coordinates of the mouse and its state need to be overridden.
  *****************************************************************************************************/
-static bool isMouseOverridden = false;
+static bool		isMouseOverridden	 = false;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse x coordinate will be overridden.
  *****************************************************************************************************/
-static int32_t overriddenX = 0;
+static int32_t	overriddenX			 = 0;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse y coordinate will be overridden.
  *****************************************************************************************************/
-static int32_t overriddenY = 0;
+static int32_t	overriddenY			 = 0;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse state will be overridden.
@@ -70,11 +70,15 @@ namespace hob
 #ifdef DEVEL_BUILD
 
 std::ifstream Test::file   = {};
-std::thread   Test::thread = {};
+std::thread	  Test::thread = {};
+
+#endif /*< DEVEL_BUILD */
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
  *****************************************************************************************************/
+
+#ifdef DEVEL_BUILD
 
 void Test::init(const char* file_path) noexcept(false)
 {
@@ -146,7 +150,7 @@ void Test::parseCommands(void) noexcept
 
 void Test::parseCommand(std::string& line) noexcept
 {
-	SDL_Event   event = {};
+	SDL_Event	event = {};
 	std::string word  = {};
 
 	plog_trace("Test command is being parsed.");
@@ -233,10 +237,10 @@ void Test::parseCommand(std::string& line) noexcept
 void Test::overrideMouse(const std::string& line) noexcept
 {
 	plog_verbose("Mouse is being overridden. (arguments: %s)", line.c_str());
-	overriddenX          = std::stol(line.substr());
-	overriddenY          = std::stol(line.substr(std::to_string(overriddenX).size() + 1UL));
+	overriddenX			 = std::stol(line.substr());
+	overriddenY			 = std::stol(line.substr(std::to_string(overriddenX).size() + 1UL));
 	overriddenMouseState = std::stoul(line.substr(std::to_string(overriddenX).size() + std::to_string(overriddenY).size() + 2UL));
-	isMouseOverridden    = true;
+	isMouseOverridden	 = true;
 }
 
 #endif /*< DEVEL_BUILD */

@@ -53,7 +53,7 @@ namespace hob
 /**
  * @brief Initializes a list of textures and components.
 */
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 class TextureInitializer : public IDrawable
 {
 public:
@@ -65,8 +65,10 @@ public:
 	 * @param[in] destinations: Positions on the screen and dimensions of the textures.
 	 * @param renderer: Rendering context of the window.
 	*/
-	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths, std::array<size_t, COMPONENTS_COUNT> textureIndexes,
-		std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* renderer) noexcept;
+	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths,
+					   std::array<size_t, COMPONENTS_COUNT>	   textureIndexes,
+					   std::array<SDL_Rect, COMPONENTS_COUNT>  destinations,
+					   SDL_Renderer*						   renderer) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.
@@ -90,18 +92,21 @@ protected:
 	/**
 	 * @brief Holds all the textures needed.
 	*/
-	std::array<Texture, TEXTURES_COUNT> textureContainer;
+	std::array<Texture, TEXTURES_COUNT>		textureContainer;
 };
 
 /******************************************************************************************************
  * METHOD DEFINITIONS                                                                                 *
  *****************************************************************************************************/
 
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
-TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const std::array<std::string, TEXTURES_COUNT> filePaths,
-	const std::array<size_t, COMPONENTS_COUNT> textureIndexes, const std::array<SDL_Rect, COMPONENTS_COUNT> destinations, SDL_Renderer* const renderer) noexcept
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(
+	const std::array<std::string, TEXTURES_COUNT> filePaths,
+	const std::array<size_t, COMPONENTS_COUNT>	  textureIndexes,
+	const std::array<SDL_Rect, COMPONENTS_COUNT>  destinations,
+	SDL_Renderer* const							  renderer) noexcept
 	: componentContainer{}
-	, textureContainer  {}
+	, textureContainer{}
 {
 	size_t index = 0UL;
 
@@ -118,7 +123,7 @@ TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::TextureInitializer(const s
 	}
 }
 
-template <size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
+template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
 void TextureInitializer<TEXTURES_COUNT, COMPONENTS_COUNT>::draw(SDL_Renderer* const renderer) noexcept
 {
 	size_t index = 0UL;

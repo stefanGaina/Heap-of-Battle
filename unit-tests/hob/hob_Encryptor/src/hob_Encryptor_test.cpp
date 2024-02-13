@@ -48,7 +48,7 @@ class EncryptorTest : public testing::Test
 {
 public:
 	EncryptorTest(void)
-		: socketMock    {}
+		: socketMock{}
 		, obfuscatorMock{}
 	{
 	}
@@ -65,7 +65,7 @@ protected:
 	}
 
 public:
-	SocketMock     socketMock;
+	SocketMock	   socketMock;
 	ObfuscatorMock obfuscatorMock;
 };
 
@@ -76,15 +76,15 @@ public:
 TEST_F(EncryptorTest, receivedKey_success)
 {
 	hob::Encryptor encryptor = {};
-	hob::Socket    socket    = {};
+	hob::Socket	   socket	 = {};
 
-	EXPECT_CALL(obfuscatorMock, obfuscator_get_base())
+	EXPECT_CALL(obfuscatorMock, obfuscator_get_base()) /**/
 		.WillOnce(testing::Return(2UL));
-	EXPECT_CALL(obfuscatorMock, obfuscator_get_prime_modulus())
+	EXPECT_CALL(obfuscatorMock, obfuscator_get_prime_modulus()) /**/
 		.Times(3)
 		.WillRepeatedly(testing::Return(2UL));
 	EXPECT_CALL(socketMock, sendUpdate(testing::_));
-	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_))
+	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_)) /**/
 		.Times(2);
 
 	encryptor.receivedKey(0UL, socket);
@@ -98,7 +98,7 @@ TEST_F(EncryptorTest, receivedKey_success)
 TEST_F(EncryptorTest, encryptMessage_success)
 {
 	hob::Encryptor encryptor = {};
-	char           message[] = "dummy";
+	char		   message[] = "dummy";
 
 	EXPECT_CALL(obfuscatorMock, obfuscate_string(testing::_, testing::_));
 	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_));
@@ -113,7 +113,7 @@ TEST_F(EncryptorTest, encryptMessage_success)
 TEST_F(EncryptorTest, decryptMessage_success)
 {
 	hob::Encryptor encryptor = {};
-	char message[]           = "dummy";
+	char		   message[] = "dummy";
 
 	EXPECT_CALL(obfuscatorMock, deobfuscate_string(testing::_, testing::_));
 	EXPECT_CALL(obfuscatorMock, obfuscator_update_key(testing::_));

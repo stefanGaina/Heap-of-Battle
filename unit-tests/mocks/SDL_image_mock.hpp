@@ -32,12 +32,12 @@
 class IMG
 {
 public:
-	virtual ~IMG(void) = default;
+	virtual ~IMG(void)									  = default;
 
-	virtual const SDL_version* IMG_Linked_Version(void) = 0;
-	virtual int IMG_Init(int flags) = 0;
-	virtual void IMG_Quit(void) = 0;
-	virtual SDL_Surface* IMG_Load(const char* file) = 0;
+	virtual const SDL_version* IMG_Linked_Version(void)	  = 0;
+	virtual int				   IMG_Init(int flags)		  = 0;
+	virtual void			   IMG_Quit(void)			  = 0;
+	virtual SDL_Surface*	   IMG_Load(const char* file) = 0;
 };
 
 class IMGMock : public IMG
@@ -72,44 +72,44 @@ IMGMock* IMGMock::imgMock = nullptr;
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-extern "C" {
-
-const SDL_version* IMG_Linked_Version(void)
+extern "C"
 {
-	if (nullptr == IMGMock::imgMock)
+
+	const SDL_version* IMG_Linked_Version(void)
 	{
-		ADD_FAILURE() << "IMG_Linked_Version(): nullptr == IMGMock::imgMock";
-		return nullptr;
+		if (nullptr == IMGMock::imgMock)
+		{
+			ADD_FAILURE() << "IMG_Linked_Version(): nullptr == IMGMock::imgMock";
+			return nullptr;
+		}
+		return IMGMock::imgMock->IMG_Linked_Version();
 	}
-	return IMGMock::imgMock->IMG_Linked_Version();
-}
 
-int IMG_Init(const int flags)
-{
-	if (nullptr == IMGMock::imgMock)
+	int IMG_Init(const int flags)
 	{
-		ADD_FAILURE() << "IMG_Init(): nullptr == IMGMock::imgMock";
-		return -1;
+		if (nullptr == IMGMock::imgMock)
+		{
+			ADD_FAILURE() << "IMG_Init(): nullptr == IMGMock::imgMock";
+			return -1;
+		}
+		return IMGMock::imgMock->IMG_Init(flags);
 	}
-	return IMGMock::imgMock->IMG_Init(flags);
-}
 
-void IMG_Quit(void)
-{
-	ASSERT_NE(nullptr, IMGMock::imgMock) << "IMG_Quit(): nullptr == IMGMock::imgMock";
-	IMGMock::imgMock->IMG_Quit();
-}
-
-SDL_Surface* IMG_Load(const char* const file)
-{
-	if (nullptr == IMGMock::imgMock)
+	void IMG_Quit(void)
 	{
-		ADD_FAILURE() << "IMG_Load(): nullptr == IMGMock::imgMock";
-		return nullptr;
+		ASSERT_NE(nullptr, IMGMock::imgMock) << "IMG_Quit(): nullptr == IMGMock::imgMock";
+		IMGMock::imgMock->IMG_Quit();
 	}
-	return IMGMock::imgMock->IMG_Load(file);
-}
 
+	SDL_Surface* IMG_Load(const char* const file)
+	{
+		if (nullptr == IMGMock::imgMock)
+		{
+			ADD_FAILURE() << "IMG_Load(): nullptr == IMGMock::imgMock";
+			return nullptr;
+		}
+		return IMGMock::imgMock->IMG_Load(file);
+	}
 }
 
 #endif /*< SDL_IMAGE_MOCK_HPP_ */

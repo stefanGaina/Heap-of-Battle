@@ -83,7 +83,7 @@ TEST_F(MusicTest, start_loadMus_fail)
 {
 	hob::Music music = {};
 
-	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_))
+	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 
 	music.start(hob::Song::MAIN_MENU);
@@ -99,7 +99,7 @@ TEST_F(MusicTest, start_alreadyStarted_success)
 {
 	hob::Music music = {};
 
-	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_))
+	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_)) /**/
 		.WillOnce(testing::Return((Mix_Music*)not_nullptr));
 	EXPECT_CALL(mixMock, Mix_PlayMusic(testing::_, testing::_));
 	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_));
@@ -124,7 +124,7 @@ TEST_F(MusicTest, pause_success)
 {
 	hob::Music music = {};
 
-	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_))
+	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_)) /**/
 		.WillOnce(testing::Return((Mix_Music*)not_nullptr));
 	EXPECT_CALL(mixMock, Mix_PlayMusic(testing::_, testing::_));
 	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_));
@@ -151,7 +151,7 @@ TEST_F(MusicTest, resume_success)
 {
 	hob::Music music = {};
 
-	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_))
+	EXPECT_CALL(mixMock, Mix_LoadMUS(testing::_)) /**/
 		.WillOnce(testing::Return((Mix_Music*)not_nullptr));
 	EXPECT_CALL(mixMock, Mix_PlayMusic(testing::_, testing::_));
 	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_));
@@ -172,7 +172,7 @@ TEST_F(MusicTest, setVolume_success)
 {
 	hob::Music music = {};
 
-	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_))
+	EXPECT_CALL(mixMock, Mix_VolumeMusic(testing::_)) /**/
 		.Times(6);
 
 	music.setVolume(hob::Volume::MUTED);

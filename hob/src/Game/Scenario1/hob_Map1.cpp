@@ -50,24 +50,21 @@ namespace hob
 {
 
 Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
-	: Loop            { renderer, cursor, ping }
-	, SoundInitializer
-	{
-		{ HOB_SOUNDS_FILE_PATH("error") }
-	}
-	, game            { faction.getFaction() }
-	, tiles           { renderer }
-	, menu            { renderer, faction.getFaction(), game.getGold() }
-	, buildings       { renderer }
-	, chat            { renderer, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
-	, grid            {}
-	, units           { renderer }
-	, receivingThread { std::bind(&Map1::receivingFunction, this) }
+	: Loop{ renderer, cursor, ping }
+	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("error") } }
+	, game{ faction.getFaction() }
+	, tiles{ renderer }
+	, menu{ renderer, faction.getFaction(), game.getGold() }
+	, buildings{ renderer }
+	, chat{ renderer, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
+	, grid{}
+	, units{ renderer }
+	, receivingThread{ std::bind(&Map1::receivingFunction, this) }
 	, receivingUpdates{ true }
-	, music           { music }
-	, faction         { faction }
-	, server          { server }
-	, socket          { socket }
+	, music{ music }
+	, faction{ faction }
+	, server{ server }
+	, socket{ socket }
 {
 	plog_trace("Map1 is being constructed.");
 
@@ -191,9 +188,9 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 
 void Map1::handleButtonDown(void) noexcept
 {
-	Coordinate     click      = { .x = 0, .y = 0 };
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	Action         action     = Action::NOTHING;
+	Action		   action	  = Action::NOTHING;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 #ifdef PLOG_STRIP_TRACE
@@ -243,7 +240,7 @@ void Map1::handleButtonDown(void) noexcept
 
 void Map1::handleButtonUp(void) noexcept
 {
-	Coordinate     click      = { .x = 0, .y = 0 };
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
@@ -254,7 +251,7 @@ void Map1::handleButtonUp(void) noexcept
 
 void Map1::handleMouseMotion(void) noexcept
 {
-	Coordinate     click      = { .x = 0, .y = 0 };
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
@@ -332,8 +329,8 @@ void Map1::receivingFunction(void) noexcept
 			}
 			case hobServer::MessageType::VERSION:
 			{
-				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
-					receivedMessage.payload.version.getMajor(), receivedMessage.payload.version.getMinor(), receivedMessage.payload.version.getPatch());
+				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", receivedMessage.payload.version.getMajor(),
+						   receivedMessage.payload.version.getMinor(), receivedMessage.payload.version.getPatch());
 				break;
 			}
 			default:

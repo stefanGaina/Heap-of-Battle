@@ -60,8 +60,8 @@ namespace hob
 /**
  * @brief Main class of the scenario 1.
 */
-class Map1 final : public Loop
-				 , public SoundInitializer<1UL>
+class Map1 final : public Loop,
+				   public SoundInitializer<1UL>
 {
 public:
 	/**
@@ -136,57 +136,57 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	hobGame::Game game;
+	hobGame::Game	   game;
 
 	/**
 	 * @brief Playing board background.
 	*/
-	Tiles1 tiles;
+	Tiles1			   tiles;
 
 	/**
 	 * @brief Menu background.
 	*/
-	Menu menu;
+	Menu			   menu;
 
 	/**
 	 * @brief Graphical representation of the buildings.
 	*/
-	Buildings1 buildings;
+	Buildings1		   buildings;
 
 	/**
 	 * @brief Visual representation of chat box and messages.
 	*/
-	Chat chat;
+	Chat			   chat;
 
 	/**
 	 * @brief Lines between tiles and buildings.
 	*/
-	Grid1 grid;
+	Grid1			   grid;
 
 	/**
 	 * @brief TODO
 	*/
-	Units units;
+	Units			   units;
 
 	/**
 	 * @brief Thread for receiving updates from the server.
 	*/
-	std::thread receivingThread;
+	std::thread		   receivingThread;
 
 	/**
 	 * @brief Flag indicating if the receiving thread should still execute.
 	*/
-	std::atomic<bool> receivingUpdates;
+	std::atomic<bool>  receivingUpdates;
 
 	/**
 	 * @brief TODO
 	*/
-	Music& music;
+	Music&			   music;
 
 	/**
 	 * @brief TODO
 	*/
-	const Faction& faction;
+	const Faction&	   faction;
 
 	/**
 	 * @brief TODO
@@ -196,7 +196,7 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	Socket& socket;
+	Socket&			   socket;
 };
 
 } /*< namespace hob */

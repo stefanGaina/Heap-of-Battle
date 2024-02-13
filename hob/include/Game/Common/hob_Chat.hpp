@@ -53,8 +53,8 @@ namespace hob
 enum ChatTextureIndex
 {
 	CHAT_TEXTURE_INDEX_ENTERING_MESSAGE = 0,  /**< Index to the chat's entering message texture. */
-	CHAT_TEXTURE_INDEX_BAR              = 19, /**< Index to the chat's bar texture.              */
-	CHAT_TEXTURES_COUNT                 = 20  /**< How many textures chat loads.                 */
+	CHAT_TEXTURE_INDEX_BAR				= 19, /**< Index to the chat's bar texture.              */
+	CHAT_TEXTURES_COUNT					= 20  /**< How many textures chat loads.                 */
 };
 
 /** ***************************************************************************************************
@@ -63,7 +63,7 @@ enum ChatTextureIndex
 enum ChatSoundIndex
 {
 	CHAT_SOUND_INDEX_MESSAGE_RECEIVED = 0, /**< Index to the chat's message received sound. */
-	CHAT_SOUNDS_COUNT                 = 1  /**< How many sounds the chat loads.             */
+	CHAT_SOUNDS_COUNT				  = 1  /**< How many sounds the chat loads.             */
 };
 
 /** ***************************************************************************************************
@@ -71,8 +71,8 @@ enum ChatSoundIndex
  * @details Abstracts the user's input (handling clicks, keys, shift + key combinations, commands)
  * showing the received messages and also sending messages.
  *****************************************************************************************************/
-class Chat final : public IDrawable
-				 , public SoundInitializer<CHAT_SOUNDS_COUNT>
+class Chat final : public IDrawable,
+				   public SoundInitializer<CHAT_SOUNDS_COUNT>
 {
 public:
 	/** ***********************************************************************************************
@@ -209,28 +209,28 @@ private:
 	/** ***********************************************************************************************
 	 * @brief The color assigned to the user.
 	 *************************************************************************************************/
-	const SDL_Color friendlyColor;
+	const SDL_Color							   friendlyColor;
 
 	/** ***********************************************************************************************
 	 * @brief The color assigned to the opponent.
 	 *************************************************************************************************/
-	const SDL_Color opponentColor;
+	const SDL_Color							   opponentColor;
 
 	/** ***********************************************************************************************
 	 * @brief Visual of the chat frame and background.
 	 *************************************************************************************************/
-	ChatFrame chatFrame;
+	ChatFrame								   chatFrame;
 
 	/** ***********************************************************************************************
 	 * @brief Encrypts messages before they are being sent and decrypts the messages received from the
 	 * other player.
 	 *************************************************************************************************/
-	Encryptor encryptor;
+	Encryptor								   encryptor;
 
 	/** ***********************************************************************************************
 	 * @brief Contains and manages the life of the text textures.
 	 *************************************************************************************************/
-	std::array<Texture, CHAT_TEXTURES_COUNT> textures;
+	std::array<Texture, CHAT_TEXTURES_COUNT>   textures;
 
 	/** ***********************************************************************************************
 	 * @brief Contains the text components.
@@ -240,37 +240,37 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Thread safe queue for buffering messages.
 	 *************************************************************************************************/
-	AsyncQueue<std::string> messageQueue;
+	AsyncQueue<std::string>					   messageQueue;
 
 	/** ***********************************************************************************************
 	 * @brief Font with which text will be written.
 	 *************************************************************************************************/
-	TTF_Font* const font;
+	TTF_Font* const							   font;
 
 	/** ***********************************************************************************************
 	 * @brief The message that is being entered by the user.
 	 *************************************************************************************************/
-	std::string enteringMessage;
+	std::string								   enteringMessage;
 
 	/** ***********************************************************************************************
 	 * @brief The length of the message entered by the user (pixels).
 	 *************************************************************************************************/
-	int32_t enteringMessageLength;
+	int32_t									   enteringMessageLength;
 
 	/** ***********************************************************************************************
 	 * @brief How many frames passed since the bar appeared / dissapeared.
 	 *************************************************************************************************/
-	uint8_t barTicks;
+	uint8_t									   barTicks;
 
 	/** ***********************************************************************************************
 	 * @brief Flag determining if chat is active (receives input) or not.
 	 *************************************************************************************************/
-	bool isActive;
+	bool									   isActive;
 
 	/** ***********************************************************************************************
 	 * @brief Flag indicating if the chat is muted (receives messages) or not.
 	 *************************************************************************************************/
-	bool isMuted;
+	bool									   isMuted;
 };
 
 } /*< namespace hob */

@@ -183,32 +183,32 @@ $(function() {
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">     * @brief It is static because it is used in a lambda function.</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a74fa83faa270b9f79c513110977ec2d1">  112</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classhob_1_1Ping.html#a74fa83faa270b9f79c513110977ec2d1">interruptWait</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a74fa83faa270b9f79c513110977ec2d1">  112</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>             <a class="code" href="classhob_1_1Ping.html#a74fa83faa270b9f79c513110977ec2d1">interruptWait</a>;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     * @brief Thread safe queue for buffering updates.</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#aeb2c762f1e3a1f40a8f3cc9142733811">  117</a></span>&#160;    <a class="code" href="classhob_1_1AsyncQueue.html">AsyncQueue&lt;uint64_t&gt;</a> <a class="code" href="classhob_1_1Ping.html#aeb2c762f1e3a1f40a8f3cc9142733811">queue</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#aeb2c762f1e3a1f40a8f3cc9142733811">  117</a></span>&#160;    <a class="code" href="classhob_1_1AsyncQueue.html">AsyncQueue&lt;uint64_t&gt;</a>    <a class="code" href="classhob_1_1Ping.html#aeb2c762f1e3a1f40a8f3cc9142733811">queue</a>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">     * @brief The component of the text display in top right corner.</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a3cbce2af4ba319c0500a970c3eb71498">  122</a></span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a> <a class="code" href="classhob_1_1Ping.html#a3cbce2af4ba319c0500a970c3eb71498">component</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a3cbce2af4ba319c0500a970c3eb71498">  122</a></span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a>               <a class="code" href="classhob_1_1Ping.html#a3cbce2af4ba319c0500a970c3eb71498">component</a>;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">     * @brief The texture of the displayed text.</span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#ac5ddd3bcd55f6519aa854de74b611697">  127</a></span>&#160;    <a class="code" href="classhob_1_1Texture.html">Texture</a> <a class="code" href="classhob_1_1Ping.html#ac5ddd3bcd55f6519aa854de74b611697">texture</a>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#ac5ddd3bcd55f6519aa854de74b611697">  127</a></span>&#160;    <a class="code" href="classhob_1_1Texture.html">Texture</a>                 <a class="code" href="classhob_1_1Ping.html#ac5ddd3bcd55f6519aa854de74b611697">texture</a>;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     * @brief The font of the text written in the texture.</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a338a7e4ba45f864009d89ded19d23e5c">  132</a></span>&#160;    TTF_Font* <a class="code" href="classhob_1_1Ping.html#a338a7e4ba45f864009d89ded19d23e5c">font</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a338a7e4ba45f864009d89ded19d23e5c">  132</a></span>&#160;    TTF_Font*               <a class="code" href="classhob_1_1Ping.html#a338a7e4ba45f864009d89ded19d23e5c">font</a>;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">     * @brief The thread on which the ping messages are being sent.</span></div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#af91dc5a3cd367db94731f1dd2d06a02c">  137</a></span>&#160;    std::thread <a class="code" href="classhob_1_1Ping.html#af91dc5a3cd367db94731f1dd2d06a02c">pingThread</a>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#af91dc5a3cd367db94731f1dd2d06a02c">  137</a></span>&#160;    std::thread             <a class="code" href="classhob_1_1Ping.html#af91dc5a3cd367db94731f1dd2d06a02c">pingThread</a>;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">     * @brief The variable signaled when the timer is stopped (to avoid waiting the remaining second).</span></div>
@@ -218,17 +218,17 @@ $(function() {
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">     * @brief Mutex protecting interruptWait.</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a4f34e1b409f255a195a22000ace48896">  147</a></span>&#160;    std::mutex <a class="code" href="classhob_1_1Ping.html#a4f34e1b409f255a195a22000ace48896">waitMutex</a>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a4f34e1b409f255a195a22000ace48896">  147</a></span>&#160;    std::mutex              <a class="code" href="classhob_1_1Ping.html#a4f34e1b409f255a195a22000ace48896">waitMutex</a>;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">     * @brief The time when the ping message is being sent.</span></div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a8ea994a5cd4235a9aff75c1c3e0e927d">  152</a></span>&#160;    uint64_t <a class="code" href="classhob_1_1Ping.html#a8ea994a5cd4235a9aff75c1c3e0e927d">messageStartTime</a>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a8ea994a5cd4235a9aff75c1c3e0e927d">  152</a></span>&#160;    uint64_t                <a class="code" href="classhob_1_1Ping.html#a8ea994a5cd4235a9aff75c1c3e0e927d">messageStartTime</a>;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">     * @brief The previous latency to not recreate the same texture.</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a1698a2aa0db28eb3f8f24d751f71a531">  157</a></span>&#160;    uint16_t <a class="code" href="classhob_1_1Ping.html#a1698a2aa0db28eb3f8f24d751f71a531">previousLatency</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="classhob_1_1Ping.html#a1698a2aa0db28eb3f8f24d751f71a531">  157</a></span>&#160;    uint16_t                <a class="code" href="classhob_1_1Ping.html#a1698a2aa0db28eb3f8f24d751f71a531">previousLatency</a>;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;};</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>

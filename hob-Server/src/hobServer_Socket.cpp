@@ -46,7 +46,7 @@ namespace hobServer
 {
 
 Socket::Socket(void) noexcept
-	: serverSocket { SOCKET_INVALID }
+	: serverSocket{ SOCKET_INVALID }
 	, clientSockets{ SOCKET_INVALID, SOCKET_INVALID }
 {
 	plog_debug(LOG_PREFIX "Socket is being constructed.");
@@ -61,7 +61,7 @@ Socket::~Socket(void) noexcept
 void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 {
 	sockaddr_in server = {};
-	int32_t     option = 1;
+	int32_t		option = 1;
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
 	if (SOCKET_INVALID != serverSocket || SOCKET_INVALID != clientSockets[0] || SOCKET_INVALID != clientSockets[1])
@@ -82,9 +82,9 @@ void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 		plog_warn(LOG_PREFIX "Failed to set socket option! (error message: %s)", strerror(errno));
 	}
 
-	server.sin_family      = AF_INET;
+	server.sin_family	   = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port        = htons(port);
+	server.sin_port		   = htons(port);
 
 	if (0 != bind(serverSocket, reinterpret_cast<sockaddr*>(&server), sizeof(server)))
 	{
@@ -129,7 +129,7 @@ void Socket::close(void) noexcept
 void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) const noexcept
 {
 	ssize_t receivedBytes = 0L;
-	size_t  index         = 0UL;
+	size_t	index		  = 0UL;
 
 	plog_verbose(LOG_PREFIX "Querrying for updates. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
 	switch (clientType)
@@ -167,16 +167,15 @@ void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) 
 		return;
 	}
 
-	plog_debug(LOG_PREFIX "Received an updated! (type: %" PRId32 ") (bytes: %" PRId64 ")",
-		static_cast<int32_t>(updateMessage.type), receivedBytes);
+	plog_debug(LOG_PREFIX "Received an updated! (type: %" PRId32 ") (bytes: %" PRId64 ")", static_cast<int32_t>(updateMessage.type), receivedBytes);
 }
 
 void Socket::sendUpdate(const Message& updateMessage, const ClientType clientType) const noexcept
 {
 	size_t index = 0UL;
 
-	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")",
-		static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType));
+	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")", static_cast<int32_t>(updateMessage.type),
+			   static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
@@ -204,18 +203,18 @@ void Socket::sendUpdate(const Message& updateMessage, const ClientType clientTyp
 
 	if (-1L == send(clientSockets[index], reinterpret_cast<const char*>(&updateMessage), sizeof(Message), 0))
 	{
-		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (error message: %s)",
-			static_cast<int32_t>(updateMessage.type), static_cast<int32_t>(clientType), strerror(errno));
+		plog_error(LOG_PREFIX "Message failed to be sent! (type: %" PRId32 ") (player: %" PRId32 ") (error message: %s)", static_cast<int32_t>(updateMessage.type),
+				   static_cast<int32_t>(clientType), strerror(errno));
 	}
 }
 
 void Socket::waitConnection(void) noexcept(false)
 {
-	size_t           index          = 0UL;
+	size_t			 index			= 0UL;
 	const ClientType clientTypes[2] = { ClientType::PLAYER_1, ClientType::PLAYER_2 };
-	sockaddr_in      client         = {};
-	socklen_t        addressLength  = sizeof(client);
-	Message          message        = { .type = MessageType::END_COMMUNICATION, .payload = {} };
+	sockaddr_in		 client			= {};
+	socklen_t		 addressLength	= sizeof(client);
+	Message			 message		= { .type = MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
 	if (0 != listen(serverSocket, 2))
@@ -252,11 +251,10 @@ void Socket::waitConnection(void) noexcept(false)
 			goto ABORT_CONNECTION;
 		}
 
-		plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
-			message.payload.version.getMajor(), message.payload.version.getMinor(), message.payload.version.getPatch());
-		if (hob::VERSION_MAJOR != message.payload.version.getMajor()
-		 || hob::VERSION_MINOR != message.payload.version.getMinor()
-		 || hob::VERSION_PATCH != message.payload.version.getPatch())
+		plog_info(LOG_PREFIX "Version message received! (version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", message.payload.version.getMajor(),
+				  message.payload.version.getMinor(), message.payload.version.getPatch());
+		if (hob::VERSION_MAJOR != message.payload.version.getMajor() || hob::VERSION_MINOR != message.payload.version.getMinor() ||
+			hob::VERSION_PATCH != message.payload.version.getPatch())
 		{
 			plog_error(LOG_PREFIX "Versions are not matching!");
 			goto ABORT_CONNECTION;
@@ -285,7 +283,7 @@ void Socket::closeClient(const ClientType clientType) noexcept
 {
 	size_t index = 0UL;
 
-	plog_debug(LOG_PREFIX  "Client socket is being closed. (client type: %" PRId32 ")", static_cast<int32_t>(clientType));
+	plog_debug(LOG_PREFIX "Client socket is being closed. (client type: %" PRId32 ")", static_cast<int32_t>(clientType));
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:

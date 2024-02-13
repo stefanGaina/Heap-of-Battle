@@ -54,16 +54,16 @@ namespace hob
 */
 enum LocalMenuTextureIndex
 {
-	LOCAL_MENU_TEXTURE_INDEX_BACKGROUND      = 0, /**< Index to the local menu's background texture.           */
-	LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE     = 1, /**< Index to the local menu's idle button texture.          */
-	LOCAL_MENU_TEXTURE_INDEX_BUTTON_ACTIVE   = 2, /**< Index to the local menu's active button texture.        */
-	LOCAL_MENU_TEXTURE_INDEX_BUTTON_PRESSED  = 3, /**< Index to the local menu's pressed button texture.       */
-	LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT  = 4, /**< Index to the local menu's "HOST GAME" text texture.     */
-	LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT    = 5, /**< Index to the local menu's "CONNECT" text texture.       */
-	LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT       = 6, /**< Index to the local menu's "BACK" text texture.          */
-	LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT    = 7, /**< Index to the local menu's "WAITING..." text texture.    */
+	LOCAL_MENU_TEXTURE_INDEX_BACKGROUND		 = 0, /**< Index to the local menu's background texture.           */
+	LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE	 = 1, /**< Index to the local menu's idle button texture.          */
+	LOCAL_MENU_TEXTURE_INDEX_BUTTON_ACTIVE	 = 2, /**< Index to the local menu's active button texture.        */
+	LOCAL_MENU_TEXTURE_INDEX_BUTTON_PRESSED	 = 3, /**< Index to the local menu's pressed button texture.       */
+	LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT	 = 4, /**< Index to the local menu's "HOST GAME" text texture.     */
+	LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT	 = 5, /**< Index to the local menu's "CONNECT" text texture.       */
+	LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT		 = 6, /**< Index to the local menu's "BACK" text texture.          */
+	LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT	 = 7, /**< Index to the local menu's "WAITING..." text texture.    */
 	LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT = 8, /**< Index to the local menu's "CONNECTING..." text texture. */
-	LOCAL_MENU_TEXTURES_COUNT                = 9  /**< How many textures local menu loads.                     */
+	LOCAL_MENU_TEXTURES_COUNT				 = 9  /**< How many textures local menu loads.                     */
 };
 
 /**
@@ -72,11 +72,11 @@ enum LocalMenuTextureIndex
 enum LocalMenuComponentIndex
 {
 	LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME = 1, /**< Index to the local menu's host game button component. */
-	LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT   = 2, /**< Index to the local menu's connect button component.   */
-	LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK      = 3, /**< Index to the local menu's back button component.      */
-	LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT   = 4, /**< Index to the local menu's host game text component.   */
-	LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT     = 5, /**< Index to the local menu's connect text component.     */
-	LOCAL_MENU_COMPONENTS_COUNT                 = 7  /**< How many components the local menu uses.              */
+	LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT	= 2, /**< Index to the local menu's connect button component.   */
+	LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK		= 3, /**< Index to the local menu's back button component.      */
+	LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT	= 4, /**< Index to the local menu's host game text component.   */
+	LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT		= 5, /**< Index to the local menu's connect text component.     */
+	LOCAL_MENU_COMPONENTS_COUNT					= 7	 /**< How many components the local menu uses.              */
 };
 
 /**
@@ -86,7 +86,7 @@ enum LocalMenuSoundIndex
 {
 	LOCAL_MENU_SOUND_INDEX_CLICK = 0, /**< Index to the local menu's click sound. */
 	LOCAL_MENU_SOUND_INDEX_ERROR = 1, /**< Index to the local menu's error sound. */
-	LOCAL_MENU_SOUNDS_COUNT      = 2  /**< How many sounds the local menu loads.  */
+	LOCAL_MENU_SOUNDS_COUNT		 = 2  /**< How many sounds the local menu loads.  */
 };
 
 /**
@@ -95,16 +95,17 @@ enum LocalMenuSoundIndex
 enum class ConnectionStatus
 {
 	SUCCESS = 0, /**< The connection has been established successfully.    */
-	FAILED  = 1, /**< The connection/creation of the client socket failed. */
-	ABORTED = 2  /**< The connection has been established, but lost.       */
+	FAILED	= 1, /**< The connection/creation of the client socket failed. */
+	ABORTED = 2	 /**< The connection has been established, but lost.       */
 };
 
 /**
  * @brief LAN scene.
 */
-class LocalMenu final : public Loop
-					  , public TextureInitializer<LOCAL_MENU_TEXTURES_COUNT, LOCAL_MENU_COMPONENTS_COUNT>
-					  , public SoundInitializer<LOCAL_MENU_SOUNDS_COUNT>
+class LocalMenu final
+	: public Loop,
+	  public TextureInitializer<LOCAL_MENU_TEXTURES_COUNT, LOCAL_MENU_COMPONENTS_COUNT>,
+	  public SoundInitializer<LOCAL_MENU_SOUNDS_COUNT>
 {
 public:
 	/**
@@ -212,42 +213,42 @@ private:
 	/**
 	 * @brief The thread that will be created if the waiting of connections is be done asynchronically.
 	*/
-	std::thread waitConnectionThread;
+	std::thread					 waitConnectionThread;
 
 	/**
 	 * @brief Thread for receiving updates from the server.
 	*/
-	std::thread receivingThread;
+	std::thread					 receivingThread;
 
 	/**
 	 * @brief Flag indicating if the receiving thread should still execute.
 	*/
-	std::atomic<bool> receivingUpdates;
+	std::atomic<bool>			 receivingUpdates;
 
 	/**
 	 * @brief Holds the index of the component that was previously pressed.
 	*/
-	size_t clickDownIndex;
+	size_t						 clickDownIndex;
 
 	/**
 	 * @brief Reference to the music object.
 	*/
-	Music& music;
+	Music&						 music;
 
 	/**
 	 * @brief Reference to the faction object.
 	*/
-	Faction& faction;
+	Faction&					 faction;
 
 	/**
 	 * @brief Reference to the server object.
 	*/
-	hobServer::Server& server;
+	hobServer::Server&			 server;
 
 	/**
 	 * @brief Reference to the socket object.
 	*/
-	Socket& socket;
+	Socket&						 socket;
 };
 
 } /*< namespace hob */

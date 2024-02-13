@@ -50,10 +50,10 @@ class CursorTest : public testing::Test
 {
 public:
 	CursorTest(void)
-		: sdlMock               {}
+		: sdlMock{}
 		, textureInitializerMock{}
-		, textureMock           {}
-		, componentMock         {}
+		, textureMock{}
+		, componentMock{}
 	{
 	}
 
@@ -69,10 +69,10 @@ protected:
 	}
 
 public:
-	SDLMock                sdlMock;
+	SDLMock				   sdlMock;
 	TextureInitializerMock textureInitializerMock;
-	TextureMock            textureMock;
-	ComponentMock          componentMock;
+	TextureMock			   textureMock;
+	ComponentMock		   componentMock;
 };
 
 /******************************************************************************************************
@@ -81,10 +81,10 @@ public:
 
 TEST_F(CursorTest, updatePosition_success)
 {
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_)) /**/
 		.WillOnce(testing::Return(-1));
 
-	hob::Cursor     cursor     = { nullptr };
+	hob::Cursor		cursor	   = { nullptr };
 	hob::Coordinate coordinate = { .x = 0, .y = 0 };
 
 	EXPECT_CALL(componentMock, updatePosition(testing::_));
@@ -107,9 +107,9 @@ TEST_F(CursorTest, updatePosition_success)
 
 TEST_F(CursorTest, draw_cursorHidden_success)
 {
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_QUERY))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_QUERY)) /**/
 		.WillOnce(testing::Return(SDL_ENABLE));
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_DISABLE))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_DISABLE)) /**/
 		.WillOnce(testing::Return(-1));
 
 	hob::Cursor cursor = { nullptr };
@@ -118,9 +118,9 @@ TEST_F(CursorTest, draw_cursorHidden_success)
 
 TEST_F(CursorTest, draw_success)
 {
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_QUERY))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_QUERY)) /**/
 		.WillOnce(testing::Return(SDL_ENABLE));
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_DISABLE))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(SDL_DISABLE)) /**/
 		.WillOnce(testing::Return(SDL_DISABLE));
 
 	hob::Cursor cursor = { nullptr };
@@ -135,7 +135,7 @@ TEST_F(CursorTest, draw_success)
 
 TEST_F(CursorTest, setFaction_success)
 {
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_)) /**/
 		.WillOnce(testing::Return(SDL_DISABLE));
 
 	hob::Cursor cursor = { nullptr };
@@ -150,12 +150,12 @@ TEST_F(CursorTest, setFaction_success)
 
 TEST_F(CursorTest, setTexture_success)
 {
-	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_))
+	EXPECT_CALL(sdlMock, SDL_ShowCursor(testing::_)) /**/
 		.WillOnce(testing::Return(SDL_DISABLE));
 
 	hob::Cursor cursor = { nullptr };
 
-	EXPECT_CALL(componentMock, updateTexture(testing::Matcher<const hob::Texture&>((testing::_))))
+	EXPECT_CALL(componentMock, updateTexture(testing::Matcher<const hob::Texture&>((testing::_)))) /**/
 		.Times(4);
 
 	cursor.setTexture(hobGame::CursorType::IDLE);

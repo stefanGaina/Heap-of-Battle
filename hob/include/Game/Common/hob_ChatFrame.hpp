@@ -48,12 +48,12 @@ namespace hob
 enum ChatFrameTextureIndex
 {
 	CHAT_FRAME_TEXTURE_INDEX_FRAME_INPUT  = 0, /**< Index to the chat frame's input box texture.       */
-	CHAT_FRAME_TEXTURE_INDEX_FRAME_CORE   = 1, /**< Index to the chat frame's fill background texture. */
-	CHAT_FRAME_TEXTURE_INDEX_FRAME_TOP    = 2, /**< Index to the chat frame's top frame texture.       */
+	CHAT_FRAME_TEXTURE_INDEX_FRAME_CORE	  = 1, /**< Index to the chat frame's fill background texture. */
+	CHAT_FRAME_TEXTURE_INDEX_FRAME_TOP	  = 2, /**< Index to the chat frame's top frame texture.       */
 	CHAT_FRAME_TEXTURE_INDEX_FRAME_BOTTOM = 3, /**< Index to the chat frame's bottom frame texture.    */
-	CHAT_FRAME_TEXTURE_INDEX_FRAME_LEFT   = 4, /**< Index to the chat frame's left frame texture.      */
+	CHAT_FRAME_TEXTURE_INDEX_FRAME_LEFT	  = 4, /**< Index to the chat frame's left frame texture.      */
 	CHAT_FRAME_TEXTURE_INDEX_FRAME_RIGHT  = 5, /**< Index to the chat frame's right frame texture.     */
-	CHAT_FRAME_TEXTURES_COUNT             = 6  /**< How many textures chat frame loads.                */
+	CHAT_FRAME_TEXTURES_COUNT			  = 6  /**< How many textures chat frame loads.                */
 };
 
 /**
@@ -61,13 +61,13 @@ enum ChatFrameTextureIndex
 */
 enum ChatFrameComponentIndex
 {
-	CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE   = 0, /**< Index to the chat frame's input box component.       */
+	CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE	= 0, /**< Index to the chat frame's input box component.       */
 	CHAT_FRAME_COMPONENT_INDEX_FRAME_BOTTOM = 1, /**< Index to the chat frame's fill background component. */
-	CHAT_FRAME_COMPONENT_INDEX_FRAME_LEFT   = 2, /**< Index to the chat frame's top frame component.       */
-	CHAT_FRAME_COMPONENT_INDEX_FRAME_TOP    = 3, /**< Index to the chat frame's bottom frame component.    */
-	CHAT_FRAME_COMPONENT_INDEX_FRAME_RIGHT  = 4, /**< Index to the chat frame's left frame component.      */
-	CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT  = 5, /**< Index to the chat frame's right frame component.     */
-	CHAT_FRAME_COMPONENTS_COUNT             = 6  /**< How many components the chat frame uses.             */
+	CHAT_FRAME_COMPONENT_INDEX_FRAME_LEFT	= 2, /**< Index to the chat frame's top frame component.       */
+	CHAT_FRAME_COMPONENT_INDEX_FRAME_TOP	= 3, /**< Index to the chat frame's bottom frame component.    */
+	CHAT_FRAME_COMPONENT_INDEX_FRAME_RIGHT	= 4, /**< Index to the chat frame's left frame component.      */
+	CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT	= 5, /**< Index to the chat frame's right frame component.     */
+	CHAT_FRAME_COMPONENTS_COUNT				= 6	 /**< How many components the chat frame uses.             */
 };
 
 /**

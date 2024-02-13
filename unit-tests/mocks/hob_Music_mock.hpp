@@ -33,12 +33,12 @@
 class MusicDummy
 {
 public:
-	virtual ~MusicDummy(void) = default;
+	virtual ~MusicDummy(void)				   = default;
 
-	virtual void start(hob::Song song) = 0;
-	virtual void stop(void) = 0;
-	virtual void pause(void) = 0;
-	virtual void resume(void) = 0;
+	virtual void start(hob::Song song)		   = 0;
+	virtual void stop(void)					   = 0;
+	virtual void pause(void)				   = 0;
+	virtual void resume(void)				   = 0;
 	virtual void setVolume(hob::Volume volume) = 0;
 };
 

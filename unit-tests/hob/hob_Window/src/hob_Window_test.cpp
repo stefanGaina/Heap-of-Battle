@@ -83,7 +83,7 @@ TEST_F(WindowTest, create_createWindow_fail)
 {
 	hob::Window window = {};
 
-	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 
 	try
@@ -104,7 +104,7 @@ TEST_F(WindowTest, create_createRenderer_fail)
 
 	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Window*)not_nullptr));
-	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 	EXPECT_CALL(sdlMock, SDL_DestroyWindow(testing::_));
 
@@ -126,7 +126,7 @@ TEST_F(WindowTest, create_success)
 
 	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Window*)not_nullptr));
-	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return((SDL_Renderer*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_SetRenderDrawBlendMode(testing::_, testing::_));
 	EXPECT_CALL(sdlMock, SDL_SetRenderDrawColor(testing::_, testing::_, testing::_, testing::_, testing::_));

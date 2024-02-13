@@ -8,6 +8,8 @@ Heap-of-Battle is open to contributors. All you need to do is:
 		- For running the automated tests you need bash and perl installed.
 		- For generating the documentation you need doxygen installed.
 			Debian command: sudo apt install doxygen
+		- For formatting the code you need clang-format installed.
+			Debian command: sudo apt install clang-format
 	2. Build:
 		- Debug build: make
 		- The documentation is present in docs/html/index.html.

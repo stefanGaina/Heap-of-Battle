@@ -90,12 +90,12 @@ private:
 	/**
 	 * @brief The component of the text display in top right corner.
 	*/
-	Component component;
+	Component		component;
 
 	/**
 	 * @brief The texture of the displayed text.
 	*/
-	Texture texture;
+	Texture			texture;
 
 	/**
 	 * @brief The font of the text written in the texture.
@@ -105,17 +105,17 @@ private:
 	/**
 	 * @brief The time when the first counted frame started.
 	*/
-	uint64_t frameStartTime;
+	uint64_t		frameStartTime;
 
 	/**
 	 * @brief How many frames were counted in a second.
 	*/
-	uint16_t framesCount;
+	uint16_t		framesCount;
 
 	/**
 	 * @brief The previous frames count to not recreate the same texture.
 	*/
-	uint16_t previousFramesCount;
+	uint16_t		previousFramesCount;
 };
 
 } /*< namespace hob */

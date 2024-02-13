@@ -51,13 +51,13 @@ namespace hob
 */
 enum GameMenuTextureIndex
 {
-	MENU_TEXTURE_INDEX_BACKGROUND                = 0, /**< Index to the game menu's background texture. */
-	MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE   = 1, /**< Index to the game menu's background variation texture. */
-	MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE      = 2, /**< TODO */
+	MENU_TEXTURE_INDEX_BACKGROUND				 = 0, /**< Index to the game menu's background texture. */
+	MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE	 = 1, /**< Index to the game menu's background variation texture. */
+	MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE		 = 2, /**< TODO */
 	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE = 3, /**< TODO */
-	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE    = 4, /**< TODO */
-	MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE        = 5, /**< TODO */
-	MENU_TEXTURES_COUNT                          = 6  /**< How many textures game menu loads.                     */
+	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE	 = 4, /**< TODO */
+	MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE		 = 5, /**< TODO */
+	MENU_TEXTURES_COUNT							 = 6  /**< How many textures game menu loads.                     */
 };
 
 /**
@@ -65,13 +65,13 @@ enum GameMenuTextureIndex
 */
 enum GameMenuComponentIndex
 {
-	MENU_COMPONENT_INDEX_FRAME_1        = 4, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_2        = 5, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_3        = 6, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_4        = 7, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_5        = 8, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_1		= 4, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_2		= 5, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_3		= 6, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_4		= 7, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_5		= 8, /**< TODO */
 	MENU_COMPONENT_INDEX_SELECTED_FRAME = 9, /**< TODO */
-	MENU_COMPONENTS_COUNT               = 10 /**< How many components the game menu uses. */
+	MENU_COMPONENTS_COUNT				= 10 /**< How many components the game menu uses. */
 };
 
 /**
@@ -79,12 +79,12 @@ enum GameMenuComponentIndex
 */
 enum class Action
 {
-	NOTHING          = 0, /**< TODO */
+	NOTHING			 = 0, /**< TODO */
 	RECRUIT_INFANTRY = 1, /**< TODO */
-	RECRUIT_RANGED   = 2,
-	RECRUIT_CAVALRY  = 3,
+	RECRUIT_RANGED	 = 2,
+	RECRUIT_CAVALRY	 = 3,
 	RECRUIT_AIRCRAFT = 4,
-	RECRUIT_MAGE     = 5
+	RECRUIT_MAGE	 = 5
 };
 
 /**
@@ -112,7 +112,7 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void draw(SDL_Renderer* renderer) noexcept override;
+	void   draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief TODO
@@ -129,7 +129,7 @@ public:
 	 * @param isAlliance: TODO
 	 * @return void
 	*/
-	void handleHover(Coordinate mouse, bool isAlliance) noexcept;
+	void   handleHover(Coordinate mouse, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
@@ -137,14 +137,14 @@ public:
 	 * @param isAlliance: TODO
 	 * @return void
 	*/
-	void updateTimer(uint16_t seconds, bool isAlliance) noexcept;
+	void   updateTimer(uint16_t seconds, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
 	 * @param amount: TODO
 	 * @return void
 	*/
-	void updateGold(uint8_t amount) noexcept;
+	void   updateGold(uint8_t amount) noexcept;
 
 private:
 	void setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture2) noexcept;
@@ -158,7 +158,7 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	Gold gold;
+	Gold  gold;
 
 	/**
 	 * @brief TODO

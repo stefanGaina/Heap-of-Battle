@@ -53,7 +53,7 @@ namespace hob
 
 void Game::run(void) noexcept(false)
 {
-	Window        window   = {};
+	Window		  window   = {};
 	SDL_Renderer* renderer = nullptr;
 
 	try
@@ -91,9 +91,9 @@ void Game::run(void) noexcept(false)
 void Game::init(void) noexcept(false)
 {
 #ifndef PLOG_STRIP_ALL
-	plog_Version_t     plogVersion   = plog_get_version();
+	plog_Version_t plogVersion = plog_get_version();
 #endif /*< PLOG_STRIP_ALL */
-	SDL_version        sdlVersion    = {};
+	SDL_version		   sdlVersion	 = {};
 	const SDL_version* sdlVersionRef = IMG_Linked_Version();
 	hobServer::Version serverVersion = {};
 
@@ -103,9 +103,7 @@ void Game::init(void) noexcept(false)
 		std::cout << "Failed to initialize logger!" << std::endl;
 	}
 
-	if (PLOG_VERSION_MAJOR != plogVersion.major
-	 || PLOG_VERSION_MINOR != plogVersion.minor
-	 || PLOG_VERSION_PATCH != plogVersion.patch)
+	if (PLOG_VERSION_MAJOR != plogVersion.major || PLOG_VERSION_MINOR != plogVersion.minor || PLOG_VERSION_PATCH != plogVersion.patch)
 	{
 		plog_warn("Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 	}
@@ -115,44 +113,39 @@ void Game::init(void) noexcept(false)
 
 	SDL_GetVersion(&sdlVersion);
 	plog_info("Using SDL %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersion.major, sdlVersion.minor, sdlVersion.patch);
-	if (SDL_MAJOR_VERSION != sdlVersion.major
-	 || SDL_MINOR_VERSION != sdlVersion.minor
-	 || SDL_PATCHLEVEL    != sdlVersion.patch)
+	if (SDL_MAJOR_VERSION != sdlVersion.major || SDL_MINOR_VERSION != sdlVersion.minor || SDL_PATCHLEVEL != sdlVersion.patch)
 	{
 		plog_warn("SDL version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
 	}
 
 	plog_info("Using SDL image %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersionRef->major, sdlVersionRef->minor, sdlVersionRef->patch);
-	if (SDL_IMAGE_MAJOR_VERSION != sdlVersionRef->major
-	 || SDL_IMAGE_MINOR_VERSION != sdlVersionRef->minor
-	 || SDL_IMAGE_PATCHLEVEL    != sdlVersionRef->patch)
+	if (SDL_IMAGE_MAJOR_VERSION != sdlVersionRef->major || SDL_IMAGE_MINOR_VERSION != sdlVersionRef->minor || SDL_IMAGE_PATCHLEVEL != sdlVersionRef->patch)
 	{
-		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_IMAGE_MAJOR_VERSION, SDL_IMAGE_MINOR_VERSION, SDL_IMAGE_PATCHLEVEL);
+		plog_warn("SDL image version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_IMAGE_MAJOR_VERSION, SDL_IMAGE_MINOR_VERSION,
+				  SDL_IMAGE_PATCHLEVEL);
 	}
 
 	sdlVersionRef = Mix_Linked_Version();
 	plog_info("Using SDL mixer %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", sdlVersionRef->major, sdlVersionRef->minor, sdlVersionRef->patch);
-	if (SDL_MIXER_MAJOR_VERSION != sdlVersionRef->major
-	 || SDL_MIXER_MINOR_VERSION != sdlVersionRef->minor
-	 || SDL_MIXER_PATCHLEVEL    != sdlVersionRef->patch)
+	if (SDL_MIXER_MAJOR_VERSION != sdlVersionRef->major || SDL_MIXER_MINOR_VERSION != sdlVersionRef->minor || SDL_MIXER_PATCHLEVEL != sdlVersionRef->patch)
 	{
-		plog_warn("SDL mixer version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION, SDL_MIXER_PATCHLEVEL);
+		plog_warn("SDL mixer version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_MIXER_MAJOR_VERSION, SDL_MIXER_MINOR_VERSION,
+				  SDL_MIXER_PATCHLEVEL);
 	}
 
 	sdlVersionRef = TTF_Linked_Version();
-	if (SDL_TTF_MAJOR_VERSION != sdlVersionRef->major
-	 || SDL_TTF_MINOR_VERSION != sdlVersionRef->minor
-	 || SDL_TTF_PATCHLEVEL    != sdlVersionRef->patch)
+	if (SDL_TTF_MAJOR_VERSION != sdlVersionRef->major || SDL_TTF_MINOR_VERSION != sdlVersionRef->minor || SDL_TTF_PATCHLEVEL != sdlVersionRef->patch)
 	{
-		plog_warn("SDL TTF version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
+		plog_warn("SDL TTF version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION,
+				  SDL_TTF_PATCHLEVEL);
 	}
 
 	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
-	if (hobServer::VERSION_MAJOR != serverVersion.getMajor()
-	 || hobServer::VERSION_MINOR != serverVersion.getMinor()
-	 || hobServer::VERSION_PATCH != serverVersion.getPatch())
+	if (hobServer::VERSION_MAJOR != serverVersion.getMajor() || hobServer::VERSION_MINOR != serverVersion.getMinor() ||
+		hobServer::VERSION_PATCH != serverVersion.getPatch())
 	{
-		plog_warn("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
+		plog_warn("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR,
+				  hobServer::VERSION_PATCH);
 	}
 
 	if (0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
@@ -217,24 +210,24 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 		PersistentData(SDL_Renderer* const renderer)
 			: nextScene{ Scene::MAIN_MENU }
 			, sceneLoop{ nullptr }
-			, cursor   { renderer }
-			, music    {}
-			, faction  {}
-			, server   {}
-			, socket   {}
-			, ping     {}
+			, cursor{ renderer }
+			, music{}
+			, faction{}
+			, server{}
+			, socket{}
+			, ping{}
 		{
 			plog_trace("Persistent data is being constructed.");
 		}
 
-		Scene                 nextScene;
+		Scene				  nextScene;
 		std::unique_ptr<Loop> sceneLoop;
-		Cursor                cursor;
-		Music                 music;
-		Faction               faction;
-		hobServer::Server     server;
-		Socket                socket;
-		Ping                  ping;
+		Cursor				  cursor;
+		Music				  music;
+		Faction				  faction;
+		hobServer::Server	  server;
+		Socket				  socket;
+		Ping				  ping;
 	};
 
 	std::unique_ptr<PersistentData> persistentData = nullptr;
@@ -274,7 +267,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				try
 				{
 					persistentData->sceneLoop = std::make_unique<LocalMenu>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
-						persistentData->faction, persistentData->server, persistentData->socket);
+																			persistentData->faction, persistentData->server, persistentData->socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{
@@ -289,7 +282,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				try
 				{
 					persistentData->sceneLoop = std::make_unique<Map1>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
-						persistentData->faction, persistentData->server, persistentData->socket);
+																	   persistentData->faction, persistentData->server, persistentData->socket);
 				}
 				catch (const std::bad_alloc& exception)
 				{

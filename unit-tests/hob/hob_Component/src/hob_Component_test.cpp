@@ -57,7 +57,7 @@ class ComponentTest : public testing::Test
 {
 public:
 	ComponentTest(void)
-		: sdlMock    {}
+		: sdlMock{}
 		, textureMock{}
 	{
 	}
@@ -74,7 +74,7 @@ protected:
 	}
 
 public:
-	SDLMock     sdlMock;
+	SDLMock		sdlMock;
 	TextureMock textureMock;
 };
 
@@ -92,7 +92,7 @@ TEST_F(ComponentTest, draw_success)
 {
 	hob::Component component = { (SDL_Texture*)not_nullptr };
 
-	EXPECT_CALL(sdlMock, SDL_RenderCopy(testing::_, testing::_, testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_RenderCopy(testing::_, testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(0));
 
 	component.draw(nullptr);
@@ -105,9 +105,9 @@ TEST_F(ComponentTest, draw_success)
 TEST_F(ComponentTest, updateTexture_success)
 {
 	hob::Component component = {};
-	hob::Texture   texture   = {};
+	hob::Texture   texture	 = {};
 
-	EXPECT_CALL(textureMock, getRawTexture())
+	EXPECT_CALL(textureMock, getRawTexture()) /**/
 		.WillRepeatedly(testing::Return((SDL_Texture*)not_nullptr));
 
 	component.updateTexture(nullptr);

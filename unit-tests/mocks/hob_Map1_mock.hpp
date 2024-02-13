@@ -33,9 +33,9 @@
 class Map1Dummy
 {
 public:
-	virtual ~Map1Dummy(void) = default;
+	virtual ~Map1Dummy(void)						 = default;
 
-	virtual void draw(void) = 0;
+	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
@@ -73,21 +73,18 @@ namespace hob
 {
 
 Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
-	: Loop            { nullptr, cursor, nullptr }
-	, SoundInitializer
-	{
-		{}
-	}
-	, game            { false }
-	, tiles           { nullptr }
-	, menu            { nullptr, false, 0U }
-	, buildings       { nullptr }
-	, chat            { nullptr, {}, {} }
-	, units           { nullptr }
-	, music           { music }
-	, faction         { faction }
-	, server          { server }
-	, socket          { socket }
+	: Loop{ nullptr, cursor, nullptr }
+	, SoundInitializer{ {} }
+	, game{ false }
+	, tiles{ nullptr }
+	, menu{ nullptr, false, 0U }
+	, buildings{ nullptr }
+	, chat{ nullptr, {}, {} }
+	, units{ nullptr }
+	, music{ music }
+	, faction{ faction }
+	, server{ server }
+	, socket{ socket }
 {
 }
 

@@ -170,7 +170,7 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> BUILDINGS_COUNT&gt;</div>
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classhob_1_1BuildingInitializer.html#a57b9f2735cc5da4baf507b07941f6154">   98</a></span>&#160;<a class="code" href="classhob_1_1BuildingInitializer.html#a57b9f2735cc5da4baf507b07941f6154">BuildingInitializer&lt;BUILDINGS_COUNT&gt;::BuildingInitializer</a>(std::array&lt;SDL_Texture*, SEASONS_COUNT * BUILDINGS_COUNT&gt; textures,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    std::array&lt;SDL_Rect, BUILDINGS_COUNT&gt; destinations) noexcept</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                          std::array&lt;SDL_Rect, BUILDINGS_COUNT&gt;                     destinations) noexcept</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    : buildingContainer{}</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">size_t</span> index        = 0UL;</div>
@@ -181,8 +181,8 @@ $(function() {
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    {</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        textureIndex = <a class="code" href="namespacehob.html#a9a3a82dd6f3d9839aeb54fc671ac4927">SEASONS_COUNT</a> * index;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        buildingContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL],</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            textures[textureIndex + 3UL], destinations[index]);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        buildingContainer[index].init(</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL], textures[textureIndex + 3UL], destinations[index]);</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>

@@ -38,41 +38,29 @@ namespace hob
 {
 
 Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
-	: TextureInitializer
-	{
-		{
-			TEXTURE_FILE_PATH("gold_0"), /*< 0  */
-			TEXTURE_FILE_PATH("gold_1"), /*< 1  */
-			TEXTURE_FILE_PATH("gold_2"), /*< 2  */
-			TEXTURE_FILE_PATH("gold_3"), /*< 3  */
-			TEXTURE_FILE_PATH("gold_4"), /*< 4  */
-			TEXTURE_FILE_PATH("gold_5"), /*< 5  */
-			TEXTURE_FILE_PATH("gold_6"), /*< 6  */
-			TEXTURE_FILE_PATH("gold_7"), /*< 7  */
-			TEXTURE_FILE_PATH("gold_8"), /*< 8  */
-			TEXTURE_FILE_PATH("gold_9"), /*< 9  */
-			TEXTURE_FILE_PATH("gold")    /*< 10 */
-		},
-		{
-			0UL, 0UL, 0UL, 10UL
-		},
-		{
-			{
-				{ 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 0 */
-				{ HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
-				{ 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 2 */
-				{ 2 * HSCALE + 5 , SCALE / 9, SCALE / 3, SCALE / 3 }  /*< 3 */
-			}
-		},
-		renderer
-	}
-	, SoundInitializer
-	{
-		{
-			HOB_SOUNDS_FILE_PATH("gold_received")
-		}
-	}
-	, queue         {}
+	: TextureInitializer{ {
+							  TEXTURE_FILE_PATH("gold_0"), /*< 0  */
+							  TEXTURE_FILE_PATH("gold_1"), /*< 1  */
+							  TEXTURE_FILE_PATH("gold_2"), /*< 2  */
+							  TEXTURE_FILE_PATH("gold_3"), /*< 3  */
+							  TEXTURE_FILE_PATH("gold_4"), /*< 4  */
+							  TEXTURE_FILE_PATH("gold_5"), /*< 5  */
+							  TEXTURE_FILE_PATH("gold_6"), /*< 6  */
+							  TEXTURE_FILE_PATH("gold_7"), /*< 7  */
+							  TEXTURE_FILE_PATH("gold_8"), /*< 8  */
+							  TEXTURE_FILE_PATH("gold_9"), /*< 9  */
+							  TEXTURE_FILE_PATH("gold")	   /*< 10 */
+						  },
+						  { 0UL, 0UL, 0UL, 10UL },
+						  { {
+							  { 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 0 */
+							  { HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
+							  { 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 2 */
+							  { 2 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 }	/*< 3 */
+						  } },
+						  renderer }
+	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("gold_received") } }
+	, queue{}
 	, previousAmount{ amount }
 {
 	update(--previousAmount + 1U);

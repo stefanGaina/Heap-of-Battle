@@ -56,60 +56,54 @@
 namespace hob
 {
 
-LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music,
-	Faction& faction, hobServer::Server& server, Socket& socket) noexcept
+LocalMenu::LocalMenu(SDL_Renderer* const renderer,
+					 Cursor&			 cursor,
+					 Ping* const		 ping,
+					 Music&				 music,
+					 Faction&			 faction,
+					 hobServer::Server&	 server,
+					 Socket&			 socket) noexcept
 	: Loop{ renderer, cursor, ping }
-	, TextureInitializer
-	{
-		{
-			MENU_TEXTURE_PATH_BACKGROUND       , /*< 0 */
-			MENU_TEXTURE_PATH_BUTTON_IDLE      , /*< 1 */
-			MENU_TEXTURE_PATH_BUTTON_ACTIVE    , /*< 2 */
-			MENU_TEXTURE_PATH_BUTTON_PRESSED   , /*< 3 */
-			TEXTURE_FILE_PATH("host_game_text"), /*< 4 */
-			TEXTURE_FILE_PATH("connect_text")  , /*< 5 */
-			TEXTURE_FILE_PATH("back_text")     , /*< 6 */
-			TEXTURE_FILE_PATH("waiting_text")  , /*< 7 */
-			TEXTURE_FILE_PATH("connecting_text") /*< 8 */
-		},
-		{
-			LOCAL_MENU_TEXTURE_INDEX_BACKGROUND    , /*< 0 */
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 1 */
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 2 */
-			LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE   , /*< 3 */
-			LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT, /*< 4 */
-			LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT  , /*< 5 */
-			LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT       /*< 6 */
-		},
-		{
-			{
-				{ 0                                          , 0                                    , SCREEN_WIDTH      , SCREEN_HEIGHT   }, /*< 0 */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2                , BAR_WIDTH         , BAR_HEIGHT      }, /*< 1 */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      }, /*< 2 */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT      }, /*< 3 */
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4                , BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT }, /*< 4 */
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT }, /*< 5 */
-				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT }  /*< 6 */
-			}
-		},
-		renderer
-	}
-	, SoundInitializer
-	{
-		{
-			MENU_SOUND_PATH_CLICK,
-			HOB_SOUNDS_FILE_PATH("error")
-		}
-	}
-	, queue               {}
+	, TextureInitializer{ {
+							  MENU_TEXTURE_PATH_BACKGROUND,		   /*< 0 */
+							  MENU_TEXTURE_PATH_BUTTON_IDLE,	   /*< 1 */
+							  MENU_TEXTURE_PATH_BUTTON_ACTIVE,	   /*< 2 */
+							  MENU_TEXTURE_PATH_BUTTON_PRESSED,	   /*< 3 */
+							  TEXTURE_FILE_PATH("host_game_text"), /*< 4 */
+							  TEXTURE_FILE_PATH("connect_text"),   /*< 5 */
+							  TEXTURE_FILE_PATH("back_text"),	   /*< 6 */
+							  TEXTURE_FILE_PATH("waiting_text"),   /*< 7 */
+							  TEXTURE_FILE_PATH("connecting_text") /*< 8 */
+						  },
+						  {
+							  LOCAL_MENU_TEXTURE_INDEX_BACKGROUND,	   /*< 0 */
+							  LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 1 */
+							  LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 2 */
+							  LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 3 */
+							  LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT, /*< 4 */
+							  LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT,   /*< 5 */
+							  LOCAL_MENU_TEXTURE_INDEX_BACK_TEXT	   /*< 6 */
+						  },
+						  { {
+							  { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT },																					  /*< 0 */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2, BAR_WIDTH, BAR_HEIGHT },												  /*< 1 */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH, BAR_HEIGHT },								  /*< 2 */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH, BAR_HEIGHT },								  /*< 3 */
+							  { BAR_HORIZONTAL_CENTERED + SCALE, 4 * SCALE + SCALE / 4, BAR_TEXT_WIDTH, BAR_TEXT_HEIGHT },								  /*< 4 */
+							  { BAR_HORIZONTAL_CENTERED + SCALE, 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH, BAR_TEXT_HEIGHT },				  /*< 5 */
+							  { BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT } /*< 6 */
+						  } },
+						  renderer }
+	, SoundInitializer{ { MENU_SOUND_PATH_CLICK, HOB_SOUNDS_FILE_PATH("error") } }
+	, queue{}
 	, waitConnectionThread{}
-	, receivingThread     {}
-	, receivingUpdates    { false }
-	, clickDownIndex      { 0UL }
-	, music               { music }
-	, faction             { faction }
-	, server              { server }
-	, socket              { socket }
+	, receivingThread{}
+	, receivingUpdates{ false }
+	, clickDownIndex{ 0UL }
+	, music{ music }
+	, faction{ faction }
+	, server{ server }
+	, socket{ socket }
 {
 	plog_trace("Local menu is being constructed.");
 
@@ -187,9 +181,9 @@ void LocalMenu::handleEvent(const SDL_Event& event) noexcept
 
 void LocalMenu::handleButtonDown(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	size_t         index      = 0UL;
+	size_t		   index	  = 0UL;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 	if (1 != SDL_BUTTON(mouseState))
@@ -214,7 +208,7 @@ void LocalMenu::handleButtonDown(void) noexcept
 
 void LocalMenu::handleButtonUp(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
@@ -317,9 +311,9 @@ void LocalMenu::handleButtonUp(void) noexcept
 
 void LocalMenu::handleMouseMotion(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	size_t         index      = 0UL;
+	size_t		   index	  = 0UL;
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 	cursor.updatePosition(click);
@@ -464,8 +458,8 @@ void LocalMenu::receivingFunction(void) noexcept
 			}
 			case hobServer::MessageType::VERSION:
 			{
-				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")",
-					receivedMessage.payload.version.getMajor(), receivedMessage.payload.version.getMinor(), receivedMessage.payload.version.getPatch());
+				plog_error("Version message type received! (opponent version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", receivedMessage.payload.version.getMajor(),
+						   receivedMessage.payload.version.getMinor(), receivedMessage.payload.version.getPatch());
 				break;
 			}
 			default:

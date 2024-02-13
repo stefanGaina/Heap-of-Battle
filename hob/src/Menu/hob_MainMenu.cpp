@@ -55,62 +55,52 @@ namespace hob
 
 MainMenu::MainMenu(SDL_Renderer* const renderer, Cursor& cursor, Music& music) noexcept
 	: Loop{ renderer, cursor, nullptr }
-	, TextureInitializer
-	{
-		{
-			MENU_TEXTURE_PATH_BACKGROUND        , /*< 0  */
-			TEXTURE_FILE_PATH("logo")           , /*< 1  */
-			TEXTURE_FILE_PATH("heap_text")      , /*< 2  */
-			TEXTURE_FILE_PATH("of_text")        , /*< 3  */
-			TEXTURE_FILE_PATH("battle_text")    , /*< 4  */
-			TEXTURE_FILE_PATH("2_text")         , /*< 5  */
-			MENU_TEXTURE_PATH_BUTTON_IDLE       , /*< 6  */
-			MENU_TEXTURE_PATH_BUTTON_ACTIVE     , /*< 7  */
-			MENU_TEXTURE_PATH_BUTTON_PRESSED    , /*< 8  */
-			TEXTURE_FILE_PATH("start_game_text"), /*< 9  */
-			TEXTURE_FILE_PATH("settings_text")  , /*< 10 */
-			TEXTURE_FILE_PATH("exit_text")        /*< 11 */
-		},
-		{
-			MAIN_MENU_TEXTURE_INDEX_BACKGROUND     , /*< 0  */
-			MAIN_MENU_TEXTURE_INDEX_LOGO           , /*< 1  */
-			MAIN_MENU_TEXTURE_INDEX_HEAP_TEXT      , /*< 2  */
-			MAIN_MENU_TEXTURE_INDEX_OF_TEXT        , /*< 3  */
-			MAIN_MENU_TEXTURE_INDEX_BATTLE_TEXT    , /*< 4  */
-			MAIN_MENU_TEXTURE_INDEX_2_TEXT         , /*< 5  */
-			MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE    , /*< 6  */
-			MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE    , /*< 7  */
-			MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE    , /*< 8  */
-			MAIN_MENU_TEXTURE_INDEX_START_GAME_TEXT, /*< 9  */
-			MAIN_MENU_TEXTURE_INDEX_SETTINGS_TEXT  , /*< 10 */
-			MAIN_MENU_TEXTURE_INDEX_EXIT_TEXT        /*< 11 */
-		},
-		{
-			{
-				{ 0                                          , 0                                    , SCREEN_WIDTH      , SCREEN_HEIGHT     }, /*< 0  */
-				{ 4 * SCALE                                  , 0                                    , 2 * BAR_WIDTH     , 2 * BAR_HEIGHT    }, /*< 1  */
-				{ 4 * SCALE + SCALE / 2 + SCALE / 4          , SCALE + SCALE / 2                    , 3 * SCALE         , SCALE + SCALE / 2 }, /*< 2  */
-				{ 7 * SCALE + SCALE / 2                      , 2 * SCALE                            , SCALE             , SCALE + SCALE / 2 }, /*< 3  */
-				{ 8 * SCALE + SCALE / 3                      , SCALE + SCALE / 2                    , 3 * SCALE         , SCALE + SCALE / 2 }, /*< 4  */
-				{ 7 * SCALE + SCALE / 2 - 2                  , SCALE / 2 - 8                        , SCALE             , SCALE + SCALE / 2 }, /*< 5  */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2                , BAR_WIDTH         , BAR_HEIGHT        }, /*< 6  */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT        }, /*< 7  */
-				{ BAR_HORIZONTAL_CENTERED                    , 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH         , BAR_HEIGHT        }, /*< 8  */
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4                , BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT   }, /*< 9  */
-				{ BAR_HORIZONTAL_CENTERED + SCALE            , 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH    , BAR_TEXT_HEIGHT   }, /*< 10 */
-				{ BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT   }  /*< 11 */
-			}
-		},
-		renderer
-	}
-	, SoundInitializer
-	{
-		{
-			MENU_SOUND_PATH_CLICK
-		}
-	}
+	, TextureInitializer{ {
+							  MENU_TEXTURE_PATH_BACKGROUND,			/*< 0  */
+							  TEXTURE_FILE_PATH("logo"),			/*< 1  */
+							  TEXTURE_FILE_PATH("heap_text"),		/*< 2  */
+							  TEXTURE_FILE_PATH("of_text"),			/*< 3  */
+							  TEXTURE_FILE_PATH("battle_text"),		/*< 4  */
+							  TEXTURE_FILE_PATH("2_text"),			/*< 5  */
+							  MENU_TEXTURE_PATH_BUTTON_IDLE,		/*< 6  */
+							  MENU_TEXTURE_PATH_BUTTON_ACTIVE,		/*< 7  */
+							  MENU_TEXTURE_PATH_BUTTON_PRESSED,		/*< 8  */
+							  TEXTURE_FILE_PATH("start_game_text"), /*< 9  */
+							  TEXTURE_FILE_PATH("settings_text"),	/*< 10 */
+							  TEXTURE_FILE_PATH("exit_text")		/*< 11 */
+						  },
+						  {
+							  MAIN_MENU_TEXTURE_INDEX_BACKGROUND,	   /*< 0  */
+							  MAIN_MENU_TEXTURE_INDEX_LOGO,			   /*< 1  */
+							  MAIN_MENU_TEXTURE_INDEX_HEAP_TEXT,	   /*< 2  */
+							  MAIN_MENU_TEXTURE_INDEX_OF_TEXT,		   /*< 3  */
+							  MAIN_MENU_TEXTURE_INDEX_BATTLE_TEXT,	   /*< 4  */
+							  MAIN_MENU_TEXTURE_INDEX_2_TEXT,		   /*< 5  */
+							  MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 6  */
+							  MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 7  */
+							  MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE,	   /*< 8  */
+							  MAIN_MENU_TEXTURE_INDEX_START_GAME_TEXT, /*< 9  */
+							  MAIN_MENU_TEXTURE_INDEX_SETTINGS_TEXT,   /*< 10 */
+							  MAIN_MENU_TEXTURE_INDEX_EXIT_TEXT		   /*< 11 */
+						  },
+						  { {
+							  { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT },																					  /*< 0  */
+							  { 4 * SCALE, 0, 2 * BAR_WIDTH, 2 * BAR_HEIGHT },																			  /*< 1  */
+							  { 4 * SCALE + SCALE / 2 + SCALE / 4, SCALE + SCALE / 2, 3 * SCALE, SCALE + SCALE / 2 },									  /*< 2  */
+							  { 7 * SCALE + SCALE / 2, 2 * SCALE, SCALE, SCALE + SCALE / 2 },															  /*< 3  */
+							  { 8 * SCALE + SCALE / 3, SCALE + SCALE / 2, 3 * SCALE, SCALE + SCALE / 2 },												  /*< 4  */
+							  { 7 * SCALE + SCALE / 2 - 2, SCALE / 2 - 8, SCALE, SCALE + SCALE / 2 },													  /*< 5  */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2, BAR_WIDTH, BAR_HEIGHT },												  /*< 6  */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2 + 4 * SCALE / 3, BAR_WIDTH, BAR_HEIGHT },								  /*< 7  */
+							  { BAR_HORIZONTAL_CENTERED, 3 * SCALE + SCALE / 2 + 8 * SCALE / 3, BAR_WIDTH, BAR_HEIGHT },								  /*< 8  */
+							  { BAR_HORIZONTAL_CENTERED + SCALE, 4 * SCALE + SCALE / 4, BAR_TEXT_WIDTH, BAR_TEXT_HEIGHT },								  /*< 9  */
+							  { BAR_HORIZONTAL_CENTERED + SCALE, 4 * SCALE + SCALE / 4 + 4 * SCALE / 3, BAR_TEXT_WIDTH, BAR_TEXT_HEIGHT },				  /*< 10 */
+							  { BAR_HORIZONTAL_CENTERED + SCALE + SCALE / 2, 6 * SCALE + 2 * SCALE / 3 + SCALE / 4, BAR_TEXT_WIDTH / 2, BAR_TEXT_HEIGHT } /*< 11 */
+						  } },
+						  renderer }
+	, SoundInitializer{ { MENU_SOUND_PATH_CLICK } }
 	, clickDownIndex{ 0UL }
-	, music         { music }
+	, music{ music }
 {
 	plog_trace("Main menu is being constructed.");
 
@@ -165,9 +155,9 @@ void MainMenu::handleEvent(const SDL_Event& event) noexcept
 
 void MainMenu::handleButtonDown(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = {};
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	size_t         index      = 0UL;
+	size_t		   index	  = 0UL;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 	if (1 != SDL_BUTTON(mouseState))
@@ -192,7 +182,7 @@ void MainMenu::handleButtonDown(void) noexcept
 
 void MainMenu::handleButtonUp(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = {};
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
@@ -234,9 +224,9 @@ void MainMenu::handleButtonUp(void) noexcept
 
 void MainMenu::handleMouseMotion(void) noexcept
 {
-	Coordinate     click      = {};
+	Coordinate	   click	  = {};
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	size_t         index      = 0UL;
+	size_t		   index	  = 0UL;
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 	cursor.updatePosition(click);

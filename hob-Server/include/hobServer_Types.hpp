@@ -48,12 +48,12 @@ namespace hobServer
 enum class MessageType
 {
 	END_COMMUNICATION = 0, /**< The communication is no longer needed/possible.             */
-	VERSION           = 1, /**< The payload contains the version of the game.               */
-	TEXT              = 2, /**< The payload contains a text message written by a player.    */
-	END_TURN          = 3, /**< The current turn has ended.                                 */
-	TIME              = 4, /**< The payload contains how many seconds are left in the turn. */
-	PING              = 5, /**< The client is still listening.                              */
-	ENCRYPT_KEY       = 6  /**< The payload contains the encryption key.                    */
+	VERSION			  = 1, /**< The payload contains the version of the game.               */
+	TEXT			  = 2, /**< The payload contains a text message written by a player.    */
+	END_TURN		  = 3, /**< The current turn has ended.                                 */
+	TIME			  = 4, /**< The payload contains how many seconds are left in the turn. */
+	PING			  = 5, /**< The client is still listening.                              */
+	ENCRYPT_KEY		  = 6  /**< The payload contains the encryption key.                    */
 };
 
 /** ***************************************************************************************************
@@ -61,9 +61,9 @@ enum class MessageType
  *****************************************************************************************************/
 union MessagePayload
 {
-	char     text[128];   /**< Text message written by a player.           */
-	Version  version;     /**< The version of the game.                    */
-	uint16_t timeLeft;    /**< How many seconds are left in the turn.      */
+	char	 text[128];	 /**< Text message written by a player.           */
+	Version	 version;	 /**< The version of the game.                    */
+	uint16_t timeLeft;	 /**< How many seconds are left in the turn.      */
 	uint64_t encryptKey; /**< The key needed for encrypting text messages. */
 };
 
@@ -72,7 +72,7 @@ union MessagePayload
  *****************************************************************************************************/
 struct Message
 {
-	MessageType    type;    /**< The type of message that has been transmitted. */
+	MessageType	   type;	/**< The type of message that has been transmitted. */
 	MessagePayload payload; /**< The actual data.                               */
 };
 

@@ -48,12 +48,12 @@ namespace hob
 */
 enum class Volume
 {
-	MUTED     = 0, /**< Muted volume.           */
-	LOW       = 1, /**< Low level volume.       */
-	MEDIUM    = 2, /**< Medium level volume.    */
-	HIGH      = 3, /**< High level volume.      */
+	MUTED	  = 0, /**< Muted volume.           */
+	LOW		  = 1, /**< Low level volume.       */
+	MEDIUM	  = 2, /**< Medium level volume.    */
+	HIGH	  = 3, /**< High level volume.      */
 	VERY_HIGH = 4, /**< Very high level volume. */
-	MAX       = 5  /**< Maximum level volume.   */
+	MAX		  = 5  /**< Maximum level volume.   */
 };
 
 /**
@@ -117,7 +117,7 @@ private:
 	/**
 	 * @brief Handle to SDL chunk object.
 	*/
-	Mix_Chunk* chunk;
+	Mix_Chunk*	   chunk;
 };
 
 } /*< namespace hob */

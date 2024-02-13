@@ -46,12 +46,12 @@ namespace hob
 /**
  * @brief How many times of tiles are being used.
 */
-constexpr const size_t TILES1_COUNT = 13UL;
+constexpr const size_t TILES1_COUNT			   = 13UL;
 
 /**
  * @brief How many textures scenario 1 tiles loads.
 */
-constexpr const size_t TILES1_TEXTURES_COUNT = 34UL;
+constexpr const size_t TILES1_TEXTURES_COUNT   = 34UL;
 
 /**
  * @brief How many components the tiles of scenario 1 uses.
@@ -65,8 +65,8 @@ constexpr const size_t TILES1_COMPONENTS_COUNT = 0UL;
 /**
  * @brief Tiles of the scenario 1.
 */
-class Tiles1 final : public TextureInitializer<TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT>
-				   , public TileInitializer<TILES1_COUNT>
+class Tiles1		   final : public TextureInitializer<TILES1_TEXTURES_COUNT, TILES1_COMPONENTS_COUNT>,
+					 public TileInitializer<TILES1_COUNT>
 {
 public:
 	/**

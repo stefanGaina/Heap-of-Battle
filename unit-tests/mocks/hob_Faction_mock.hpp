@@ -33,15 +33,15 @@
 class FactionDummy
 {
 public:
-	virtual ~FactionDummy(void) = default;
+	virtual ~FactionDummy(void)					  = default;
 
-	virtual void setFaction(bool isAlliance) = 0;
-	virtual bool getFaction(void) = 0;
-	virtual SDL_Color getNeutralColor(void) = 0;
-	virtual SDL_Color getAllianceColor(void) = 0;
-	virtual SDL_Color getHordeColor(void) = 0;
-	virtual SDL_Color getFriendlyColor(void) = 0;
-	virtual SDL_Color getOpponentColor(void) = 0;
+	virtual void	  setFaction(bool isAlliance) = 0;
+	virtual bool	  getFaction(void)			  = 0;
+	virtual SDL_Color getNeutralColor(void)		  = 0;
+	virtual SDL_Color getAllianceColor(void)	  = 0;
+	virtual SDL_Color getHordeColor(void)		  = 0;
+	virtual SDL_Color getFriendlyColor(void)	  = 0;
+	virtual SDL_Color getOpponentColor(void)	  = 0;
 };
 
 class FactionMock : public FactionDummy

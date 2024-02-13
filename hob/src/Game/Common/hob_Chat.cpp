@@ -43,20 +43,20 @@ namespace hob
 {
 
 Chat::Chat(SDL_Renderer* const renderer, const Socket* const socket, const SDL_Color friendlyColor, const SDL_Color opponentColor) noexcept
-	: SoundInitializer     { { HOB_SOUNDS_FILE_PATH("message_received") } }
-	, friendlyColor        { friendlyColor }
-	, opponentColor        { opponentColor }
-	, chatFrame            { renderer }
-	, encryptor            {}
-	, textures             {}
-	, components           {}
-	, messageQueue         {}
-	, font                 { TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12) }
-	, enteringMessage      {}
+	: SoundInitializer{ { HOB_SOUNDS_FILE_PATH("message_received") } }
+	, friendlyColor{ friendlyColor }
+	, opponentColor{ opponentColor }
+	, chatFrame{ renderer }
+	, encryptor{}
+	, textures{}
+	, components{}
+	, messageQueue{}
+	, font{ TTF_OpenFont("assets/textures/chat/Anonymous.ttf", 12) }
+	, enteringMessage{}
 	, enteringMessageLength{ 0 }
-	, barTicks             { 0U }
-	, isActive             { false }
-	, isMuted              { false }
+	, barTicks{ 0U }
+	, isActive{ false }
+	, isMuted{ false }
 {
 	Coordinate dimension = { .x = 0, .y = 0 };
 
@@ -90,10 +90,10 @@ Chat::~Chat(void) noexcept
 
 void Chat::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint8_t BAR_FREQUENCY = 40U;
+	static constexpr const uint8_t BAR_FREQUENCY   = 40U;
 
-	size_t      index           = 0UL;
-	std::string opponentMessage = {};
+	size_t						   index		   = 0UL;
+	std::string					   opponentMessage = {};
 
 	plog_verbose("Chat is being drawn.");
 	plog_assert(nullptr != renderer);
@@ -181,8 +181,8 @@ void Chat::handleClick(const Coordinate click, SDL_Renderer* const renderer) noe
 
 void Chat::handleButtonPress(const SDL_Event& event, SDL_Renderer* const renderer, const Socket& socket) noexcept
 {
-	char        showedKey[] = "\0";
-	const char* keyName     = nullptr;
+	char		showedKey[] = "\0";
+	const char* keyName		= nullptr;
 
 	plog_verbose("Handling key event.");
 	plog_assert(nullptr != renderer);
@@ -233,7 +233,7 @@ void Chat::updateEnteringMessage(SDL_Renderer* const renderer) noexcept
 	components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x + 8, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = 4, .h = 15 });
 	enteringMessageLength = dimension.x;
 
-	barTicks = 0U;
+	barTicks			  = 0U;
 }
 
 void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexcept
@@ -276,7 +276,7 @@ void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexc
 void Chat::enterMessage(const std::string& message, const SDL_Color color, SDL_Renderer* const renderer) noexcept
 {
 	Coordinate dimension = { .x = 0, .y = 0 };
-	size_t     index     = 0UL;
+	size_t	   index	 = 0UL;
 
 	plog_info("Message is being entered! (message: %s)", message.c_str());
 	plog_assert(nullptr != renderer);
@@ -292,7 +292,7 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color, SDL_R
 		{
 			continue;
 		}
-		textures  [index] = textures[index - 1UL];
+		textures[index]	  = textures[index - 1UL];
 		components[index] = components[index - 1UL];
 		components[index].correctPosition({ .x = 0, .y = -10, .w = 0, .h = 0 });
 	}
@@ -322,20 +322,19 @@ void Chat::deactivate(SDL_Renderer* const renderer) noexcept
 
 char Chat::handleCharacterKey(const char* const keyName) noexcept
 {
-	const char       digitShiftCharacters   [] = ")!@#$%^&*(";
-	const char       specialShiftCharacters1[] = "<_>?";
-	const char       specialShiftCharacters2[] = "{|}";
-	const SDL_Keymod keyMod                    = SDL_GetModState();
+	const char		 digitShiftCharacters[]	   = ")!@#$%^&*(";
+	const char		 specialShiftCharacters1[] = "<_>?";
+	const char		 specialShiftCharacters2[] = "{|}";
+	const SDL_Keymod keyMod					   = SDL_GetModState();
 
 	plog_assert(nullptr != keyName);
 	plog_trace("Character key is being handled. (key name: %s)", keyName);
 
-	if ((keyName[0] >= 'a' && keyName[0] <= 'z')
-	 || (keyName[0] >= 'A' && keyName[0] <= 'Z'))
+	if ((keyName[0] >= 'a' && keyName[0] <= 'z') || (keyName[0] >= 'A' && keyName[0] <= 'Z'))
 	{
 		plog_verbose("Inputed character is alphabetical.");
-		if ((0 == (KMOD_CAPS & keyMod) &&  0 == (KMOD_LSHIFT & keyMod) && 0 == (KMOD_RSHIFT & keyMod))
-		 || (0 != (KMOD_CAPS & keyMod) && (0 != (KMOD_LSHIFT & keyMod) || 0 != (KMOD_RSHIFT & keyMod))))
+		if ((0 == (KMOD_CAPS & keyMod) && 0 == (KMOD_LSHIFT & keyMod) && 0 == (KMOD_RSHIFT & keyMod)) ||
+			(0 != (KMOD_CAPS & keyMod) && (0 != (KMOD_LSHIFT & keyMod) || 0 != (KMOD_RSHIFT & keyMod))))
 		{
 			return keyName[0] + 'a' - 'A';
 		}
@@ -434,7 +433,7 @@ char Chat::handleSpecialKey(const SDL_Keycode keyCode, SDL_Renderer* const rende
 void Chat::handleUserCommand(SDL_Renderer* const renderer) noexcept
 {
 	Coordinate dimension = { .x = 0, .y = 0 };
-	size_t     index     = 0UL;
+	size_t	   index	 = 0UL;
 
 	plog_trace("User command is being handled.");
 	plog_assert(nullptr != renderer);
@@ -457,7 +456,7 @@ void Chat::handleUserCommand(SDL_Renderer* const renderer) noexcept
 	if ("./mute" == enteringMessage)
 	{
 		plog_info("Chat is being muted!");
-		isMuted = true;
+		isMuted	  = true;
 
 		dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Chat is muted: ./unmute", font, Faction::getNeutralColor(), renderer);
 		components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);

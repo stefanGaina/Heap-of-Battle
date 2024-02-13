@@ -35,7 +35,7 @@ enum class CursorType
 	IDLE   = 0, /**< Default type, does not indicate anything. */
 	SELECT = 1, /**< Indicates a selection can be done.        */
 	MOVE   = 2, /**< Indicates a move is possible.             */
-	ATTACK = 3  /**< Indicates an attack is possible.          */
+	ATTACK = 3	/**< Indicates an attack is possible.          */
 };
 
 /**
@@ -43,20 +43,20 @@ enum class CursorType
 */
 enum class MenuMode
 {
-	EMPTY         = 0, /**< */
-	UNCHANGED     = 1, /**< */
+	EMPTY		  = 0, /**< */
+	UNCHANGED	  = 1, /**< */
 	ALLIANCE_KEEP = 2, /**< */
-	HORDE_KEEP    = 3  /**< */
+	HORDE_KEEP	  = 3  /**< */
 };
 
 enum class Unit
 {
-	NONE     = 0,
+	NONE	 = 0,
 	INFANTRY = 1,
-	RANGED   = 2,
-	CAVALRY  = 3,
+	RANGED	 = 2,
+	CAVALRY	 = 3,
 	AIRCRAFT = 4,
-	MAGE     = 5
+	MAGE	 = 5
 };
 
 /**
@@ -82,7 +82,7 @@ public:
 	 * @param void
 	 * @return void
 	*/
-	void endTurn(void) noexcept;
+	void	   endTurn(void) noexcept;
 
 	/**
 	 * @brief
@@ -90,9 +90,9 @@ public:
 	 * @return true - it is user's turn.
 	 * @return false - it is opponent's turn.
 	*/
-	bool getTurn(void) const noexcept;
+	bool	   getTurn(void) const noexcept;
 
-	bool isRecruitPossible(Unit unit) noexcept;
+	bool	   isRecruitPossible(Unit unit) noexcept;
 
 	/**
 	 * @brief
@@ -102,18 +102,18 @@ public:
 	/**
 	 * @brief
 	*/
-	MenuMode getMenuMode(int32_t x, int32_t y) const noexcept;
+	MenuMode   getMenuMode(int32_t x, int32_t y) const noexcept;
 
 	/**
 	 * @brief
 	*/
-	uint8_t getGold(void) const noexcept;
+	uint8_t	   getGold(void) const noexcept;
 
 private:
 	/**
 	 * @brief Flag indicating if it is the user's turn.
 	*/
-	bool turn;
+	bool	turn;
 
 	/**
 	 * @brief TODO

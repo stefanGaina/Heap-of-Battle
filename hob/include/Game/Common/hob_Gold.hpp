@@ -28,8 +28,8 @@ namespace hob
 /**
  * @brief TODO
 */
-class Gold final : public TextureInitializer<11UL, 4UL>
-				 , public SoundInitializer<1UL>
+class Gold final : public TextureInitializer<11UL, 4UL>,
+				   public SoundInitializer<1UL>
 {
 public:
 	/**
@@ -62,7 +62,7 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	uint8_t previousAmount;
+	uint8_t				previousAmount;
 };
 
 } /*< namespace hob */

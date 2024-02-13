@@ -43,9 +43,9 @@ namespace hob
 {
 
 Loop::Loop(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping) noexcept
-	: renderer { renderer }
-	, cursor   { cursor }
-	, ping     { ping }
+	: renderer{ renderer }
+	, cursor{ cursor }
+	, ping{ ping }
 	, nextScene{ Scene::QUIT }
 	, isRunning{ false }
 {

@@ -42,14 +42,17 @@
 namespace hob
 {
 
-void Building::init(SDL_Texture* const summerTexture, SDL_Texture* const winterTexture, SDL_Texture* const alternativeSummerTexture,
-	SDL_Texture* const alternativeWinterTexture, const SDL_Rect destination) noexcept
+void Building::init(SDL_Texture* const summerTexture,
+					SDL_Texture* const winterTexture,
+					SDL_Texture* const alternativeSummerTexture,
+					SDL_Texture* const alternativeWinterTexture,
+					const SDL_Rect	   destination) noexcept
 {
-	plog_trace("Building is being initialized. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")",
-		destination.x, destination.y, destination.w, destination.h);
+	plog_trace("Building is being initialized. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", destination.x, destination.y, destination.w,
+			   destination.h);
 
-	this->summerTexture            = summerTexture;
-	this->winterTexture            = winterTexture;
+	this->summerTexture			   = summerTexture;
+	this->winterTexture			   = winterTexture;
 	this->alternativeSummerTexture = alternativeSummerTexture;
 	this->alternativeWinterTexture = alternativeWinterTexture;
 
@@ -87,13 +90,14 @@ void Building::switchTexture(const bool isAlternative) noexcept
 	changeWeather(alternativeSummerTexture, alternativeWinterTexture, summerTexture, winterTexture);
 }
 
-void Building::changeWeather(SDL_Texture* const weatherTexture1, SDL_Texture* const weatherTexture2,
-	SDL_Texture* const weatherTexture3, SDL_Texture* const weatherTexture4) noexcept
+void Building::changeWeather(SDL_Texture* const weatherTexture1,
+							 SDL_Texture* const weatherTexture2,
+							 SDL_Texture* const weatherTexture3,
+							 SDL_Texture* const weatherTexture4) noexcept
 {
 	SDL_Texture* const currentTexture = component.getRawTexture();
 
-	if (currentTexture == weatherTexture3
-	 || currentTexture == weatherTexture4)
+	if (currentTexture == weatherTexture3 || currentTexture == weatherTexture4)
 	{
 		plog_warn("Building weather already changed!");
 		return;

@@ -109,32 +109,32 @@ private:
 	/**
 	 * @brief It is static because it is used in a lambda function.
 	*/
-	static bool interruptWait;
+	static bool				interruptWait;
 
 	/**
 	 * @brief Thread safe queue for buffering updates.
 	*/
-	AsyncQueue<uint64_t> queue;
+	AsyncQueue<uint64_t>	queue;
 
 	/**
 	 * @brief The component of the text display in top right corner.
 	*/
-	Component component;
+	Component				component;
 
 	/**
 	 * @brief The texture of the displayed text.
 	*/
-	Texture texture;
+	Texture					texture;
 
 	/**
 	 * @brief The font of the text written in the texture.
 	*/
-	TTF_Font* font;
+	TTF_Font*				font;
 
 	/**
 	 * @brief The thread on which the ping messages are being sent.
 	*/
-	std::thread pingThread;
+	std::thread				pingThread;
 
 	/**
 	 * @brief The variable signaled when the timer is stopped (to avoid waiting the remaining second).
@@ -144,17 +144,17 @@ private:
 	/**
 	 * @brief Mutex protecting interruptWait.
 	*/
-	std::mutex waitMutex;
+	std::mutex				waitMutex;
 
 	/**
 	 * @brief The time when the ping message is being sent.
 	*/
-	uint64_t messageStartTime;
+	uint64_t				messageStartTime;
 
 	/**
 	 * @brief The previous latency to not recreate the same texture.
 	*/
-	uint16_t previousLatency;
+	uint16_t				previousLatency;
 };
 
 } /*< namespace hob */

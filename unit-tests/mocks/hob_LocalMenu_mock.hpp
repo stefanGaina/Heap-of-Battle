@@ -33,9 +33,9 @@
 class LocalMenuDummy
 {
 public:
-	virtual ~LocalMenuDummy(void) = default;
+	virtual ~LocalMenuDummy(void)					 = default;
 
-	virtual void draw(void) = 0;
+	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
@@ -72,24 +72,20 @@ LocalMenuMock* LocalMenuMock::localMenuMock = nullptr;
 namespace hob
 {
 
-LocalMenu::LocalMenu(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music,
-	Faction& faction, hobServer::Server& server, Socket& socket) noexcept
+LocalMenu::LocalMenu(SDL_Renderer* const renderer,
+					 Cursor&			 cursor,
+					 Ping* const		 ping,
+					 Music&				 music,
+					 Faction&			 faction,
+					 hobServer::Server&	 server,
+					 Socket&			 socket) noexcept
 	: Loop{ nullptr, cursor, nullptr }
-	, TextureInitializer
-	{
-		{},
-		{},
-		{},
-		nullptr
-	}
-	, SoundInitializer
-	{
-		{}
-	}
-	, music  { music }
+	, TextureInitializer{ {}, {}, {}, nullptr }
+	, SoundInitializer{ {} }
+	, music{ music }
 	, faction{ faction }
-	, server { server }
-	, socket { socket }
+	, server{ server }
+	, socket{ socket }
 {
 }
 

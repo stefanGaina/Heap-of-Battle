@@ -87,7 +87,7 @@ public:
 
 TEST_F(TextureTest, load_imgLoad_fail)
 {
-	EXPECT_CALL(imgMock, IMG_Load(testing::_))
+	EXPECT_CALL(imgMock, IMG_Load(testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 
 	hob::Texture texture = { "test", nullptr };
@@ -96,12 +96,12 @@ TEST_F(TextureTest, load_imgLoad_fail)
 
 TEST_F(TextureTest, load_success)
 {
-	hob::Texture      texture = {};
+	hob::Texture	  texture = {};
 	const std::string string  = "test";
 
-	EXPECT_CALL(imgMock, IMG_Load(testing::_))
+	EXPECT_CALL(imgMock, IMG_Load(testing::_)) /**/
 		.WillOnce(testing::Return((SDL_Surface*)not_nullptr));
-	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_)) /**/
 		.WillOnce(testing::Return((SDL_Texture*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_FreeSurface(testing::_));
 
@@ -117,10 +117,10 @@ TEST_F(TextureTest, load_success)
 
 TEST_F(TextureTest, create_font_fail)
 {
-	hob::Texture    texture   = {};
+	hob::Texture	texture	  = {};
 	hob::Coordinate dimension = {};
 
-	dimension = texture.create("test", nullptr, { .r = 0, .g = 0, .b = 0, .a = 0 }, nullptr);
+	dimension				  = texture.create("test", nullptr, { .r = 0, .g = 0, .b = 0, .a = 0 }, nullptr);
 	EXPECT_EQ(0, dimension.x) << "Invalid dimension returned!";
 	EXPECT_EQ(0, dimension.y) << "Invalid dimension returned!";
 	EXPECT_EQ(nullptr, texture.getRawTexture()) << "Raw texture is valid even though the creation failed!";
@@ -128,10 +128,10 @@ TEST_F(TextureTest, create_font_fail)
 
 TEST_F(TextureTest, create_renderText_fail)
 {
-	hob::Texture    texture   = {};
+	hob::Texture	texture	  = {};
 	hob::Coordinate dimension = {};
 
-	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_))
+	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 
 	dimension = texture.create("test", (TTF_Font*)not_nullptr, { .r = 0, .g = 0, .b = 0, .a = 0 }, nullptr);
@@ -145,16 +145,16 @@ TEST_F(TextureTest, create_success)
 	static constexpr const int32_t SURFACE_WIDTH  = 10;
 	static constexpr const int32_t SURFACE_HEIGHT = 10;
 
-	hob::Texture    texture   = {};
-	hob::Coordinate dimension = {};
-	SDL_Surface     surface   = {};
+	hob::Texture				   texture		  = {};
+	hob::Coordinate				   dimension	  = {};
+	SDL_Surface					   surface		  = {};
 
-	surface.w = SURFACE_WIDTH;
-	surface.h = SURFACE_HEIGHT;
+	surface.w									  = SURFACE_WIDTH;
+	surface.h									  = SURFACE_HEIGHT;
 
-	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_))
+	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(&surface));
-	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_))
+	EXPECT_CALL(sdlMock, SDL_CreateTextureFromSurface(testing::_, testing::_)) /**/
 		.WillOnce(testing::Return((SDL_Texture*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_FreeSurface(testing::_));
 

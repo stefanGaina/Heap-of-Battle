@@ -33,12 +33,12 @@
 class TextureDummy
 {
 public:
-	virtual ~TextureDummy(void) = default;
+	virtual ~TextureDummy(void)																				  = default;
 
-	virtual void load(const std::string& filePath, SDL_Renderer* renderer) = 0;
+	virtual void			load(const std::string& filePath, SDL_Renderer* renderer)						  = 0;
 	virtual hob::Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) = 0;
-	virtual void destroy(void) = 0;
-	virtual SDL_Texture* getRawTexture(void) = 0;
+	virtual void			destroy(void)																	  = 0;
+	virtual SDL_Texture*	getRawTexture(void)																  = 0;
 };
 
 class TextureMock : public TextureDummy

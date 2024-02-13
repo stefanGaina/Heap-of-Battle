@@ -164,14 +164,14 @@ $(function() {
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     * @param void</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Loop.html#a2f426a4ac8b4848b4675b67a016f797c">handleEvents</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span>         <a class="code" href="classhob_1_1Loop.html#a2f426a4ac8b4848b4675b67a016f797c">handleEvents</a>(<span class="keywordtype">void</span>) noexcept;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">     * @brief Clears renderer buffer and presents it to the screen after it draws desired objects.</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * @param void</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Loop.html#ab345f4fac67468457204a485e203c4ec">render</a>(<span class="keywordtype">void</span>) noexcept(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span>         <a class="code" href="classhob_1_1Loop.html#ab345f4fac67468457204a485e203c4ec">render</a>(<span class="keywordtype">void</span>) noexcept(<span class="keyword">false</span>);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">     * @brief Abstract method, handling an event.</span></div>
@@ -185,7 +185,7 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">     * @param void</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#a7ac1a6e4cb2965eecd27d4c8c7e53045">  114</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Loop.html#a7ac1a6e4cb2965eecd27d4c8c7e53045">draw</a>(<span class="keywordtype">void</span>) noexcept = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#a7ac1a6e4cb2965eecd27d4c8c7e53045">  114</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Loop.html#a7ac1a6e4cb2965eecd27d4c8c7e53045">draw</a>(<span class="keywordtype">void</span>) noexcept                          = 0;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">protected</span>:<span class="comment"></span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">    /**</span></div>
@@ -196,18 +196,18 @@ $(function() {
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">     * @brief Reference to the cursor object.</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">  125</a></span>&#160;    <a class="code" href="classhob_1_1Cursor.html">Cursor</a>&amp; <a class="code" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">cursor</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">  125</a></span>&#160;    <a class="code" href="classhob_1_1Cursor.html">Cursor</a>&amp;             <a class="code" href="classhob_1_1Loop.html#a94a2ff7e065743776569aabef6cd1869">cursor</a>;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">     * @brief Displays the latency for multiplayer scenes.</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">  130</a></span>&#160;    <a class="code" href="classhob_1_1Ping.html">Ping</a>* <span class="keyword">const</span> <a class="code" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">ping</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">  130</a></span>&#160;    <a class="code" href="classhob_1_1Ping.html">Ping</a>* <span class="keyword">const</span>         <a class="code" href="classhob_1_1Loop.html#ab1c071aad9aea8eff01cd7d6414841a4">ping</a>;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">     * @brief The scene that will follow after the current one is finished.</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#abf006fefa5265c3074efa2eefdef5e3b">  136</a></span>&#160;    <a class="code" href="namespacehob.html#adce1020898cd8a4512fe3372fffe0fdf">Scene</a> <a class="code" href="classhob_1_1Loop.html#abf006fefa5265c3074efa2eefdef5e3b">nextScene</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="classhob_1_1Loop.html#abf006fefa5265c3074efa2eefdef5e3b">  136</a></span>&#160;    <a class="code" href="namespacehob.html#adce1020898cd8a4512fe3372fffe0fdf">Scene</a>             <a class="code" href="classhob_1_1Loop.html#abf006fefa5265c3074efa2eefdef5e3b">nextScene</a>;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">     * @brief Flag indicating if the loop is running or is stopped.</span></div>

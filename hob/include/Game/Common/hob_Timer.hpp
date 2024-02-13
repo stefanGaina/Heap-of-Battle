@@ -50,10 +50,10 @@ namespace hob
 */
 enum TimerTextureIndex
 {
-	TIMER_TEXTURE_INDEX_ALLIANCE_0    = 0,  /**< Starting index to the timer's alliance textures. */
+	TIMER_TEXTURE_INDEX_ALLIANCE_0	  = 0,	/**< Starting index to the timer's alliance textures. */
 	TIMER_TEXTURE_INDEX_DOUBLE_POINTS = 10, /**< Index to the timer's double points texture.      */
-	TIMER_TEXTURE_INDEX_HORDE_0       = 11, /**< Starting index to the timer's horde textures.    */
-	TIMER_TEXTURES_COUNT              = 22  /**< How many textures timer loads.                   */
+	TIMER_TEXTURE_INDEX_HORDE_0		  = 11, /**< Starting index to the timer's horde textures.    */
+	TIMER_TEXTURES_COUNT			  = 22	/**< How many textures timer loads.                   */
 };
 
 /**
@@ -61,11 +61,11 @@ enum TimerTextureIndex
 */
 enum TimerComponentIndex
 {
-	TIMER_COMPONENT_INDEX_MINUTE         = 0, /**< Index to the timer's minute component.        */
-	TIMER_COMPONENT_INDEX_DOUBLE_POINTS  = 1, /**< Index to the timer's double points component. */
+	TIMER_COMPONENT_INDEX_MINUTE		 = 0, /**< Index to the timer's minute component.        */
+	TIMER_COMPONENT_INDEX_DOUBLE_POINTS	 = 1, /**< Index to the timer's double points component. */
 	TIMER_COMPONENT_INDEX_SECOND_DIGIT_1 = 2, /**< Index to the timer's first digit component.   */
 	TIMER_COMPONENT_INDEX_SECOND_DIGIT_2 = 3, /**< Index to the timer's second digit component.  */
-	TIMER_COMPONENTS_COUNT               = 4  /**< How many components the timer uses.           */
+	TIMER_COMPONENTS_COUNT				 = 4  /**< How many components the timer uses.           */
 };
 
 /**
@@ -73,8 +73,8 @@ enum TimerComponentIndex
 */
 struct TimeFormat
 {
-	uint16_t seconds;    /**< How many seconds are left. */
-	bool     isAlliance; /**< Whose turn is it.          */
+	uint16_t seconds;	 /**< How many seconds are left. */
+	bool	 isAlliance; /**< Whose turn is it.          */
 };
 
 /**

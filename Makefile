@@ -12,11 +12,12 @@ export BIN := bin
 
 export INSTALL_DIRECTORY := Heap-of-Battle
 
+FORMAT            = clang-format -i
 COMPILATION_TIMER = cd vendor/Compilation-Timer && ./compilation-timer
 
 ### MAKE SUBDIRECTORIES ###
-all: start_timer debug install install_plog doxygen end_timer
-production: start_timer release uninstall install doxygen end_timer
+all: start_timer format debug install install_plog doxygen end_timer
+production: start_timer format release uninstall install doxygen end_timer
 
 debug:
 	$(MAKE) -C hob-Server
@@ -59,18 +60,33 @@ uninstall:
 	$(MAKE) uninstall -C hob-Server-Instance
 	$(MAKE) uninstall -C vendor
 
+### MAKE DOXYGEN ###
+doxygen:
+	doxygen docs/doxygen.conf
+
+### MAKE FORMAT ###
+format:
+	$(FORMAT) hob/src/*/*.cpp
+	$(FORMAT) hob/include/*/*.hpp
+	$(FORMAT) hob/src/*/*/*.cpp
+	$(FORMAT) hob/include/*/*/*.hpp
+	$(FORMAT) hob-Game/src/*.cpp
+	$(FORMAT) hob-Game/include/*.hpp
+	$(FORMAT) hob-Server/src/*.cpp
+	$(FORMAT) hob-Server/include/*.hpp
+	$(FORMAT) hob-Server-Instance/src/*.cpp
+	$(FORMAT) hob-Server-Instance/include/*.hpp
+
 ### MAKE UNIT-TESTS ###
 ut: start_timer ut-clean
+	$(FORMAT) unit-tests/*/*/*/*.cpp
+	$(FORMAT) unit-tests/*/*.hpp
 	$(MAKE) -C unit-tests
 	$(COMPILATION_TIMER) end
 
 ### CLEAN UNIT-TESTS ###
 ut-clean:
 	$(MAKE) clean -C unit-tests
-
-### MAKE DOXYGEN ###
-doxygen:
-	doxygen docs/doxygen.conf
 
 ### TEST ###
 tst: start_timer

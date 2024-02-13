@@ -24,50 +24,48 @@
 #include "hobGame_Game.hpp"
 #include "hob_Types.hpp"
 
-
 // Rename to alliance and horde
 enum class SquareType
 {
-	EMPTY       = 0,
-	HUMAN_KEEP  = 1,
+	EMPTY		= 0,
+	HUMAN_KEEP	= 1,
 	HUMAN_TOWER = 2,
-	HUMAN_FARM  = 3,
+	HUMAN_FARM	= 3,
 	HUMAN_ALTAR = 4,
-	ORC_KEEP    = 5,
-	ORC_FARM    = 6,
-	ORC_ALTAR   = 7,
-	ORC_TOWER   = 8,
-	MINE        = 9
+	ORC_KEEP	= 5,
+	ORC_FARM	= 6,
+	ORC_ALTAR	= 7,
+	ORC_TOWER	= 8,
+	MINE		= 9
 };
 
-static constexpr const int32_t E  = static_cast<int32_t>(SquareType::EMPTY);
-static constexpr const int32_t HK = static_cast<int32_t>(SquareType::HUMAN_KEEP);
-static constexpr const int32_t HF = static_cast<int32_t>(SquareType::HUMAN_FARM);
-static constexpr const int32_t HA = static_cast<int32_t>(SquareType::HUMAN_ALTAR);
-static constexpr const int32_t HT = static_cast<int32_t>(SquareType::HUMAN_TOWER);
-static constexpr const int32_t OK = static_cast<int32_t>(SquareType::ORC_KEEP);
-static constexpr const int32_t OF = static_cast<int32_t>(SquareType::ORC_FARM);
-static constexpr const int32_t OA = static_cast<int32_t>(SquareType::ORC_ALTAR);
-static constexpr const int32_t OT = static_cast<int32_t>(SquareType::ORC_TOWER);
-static constexpr const int32_t M  = static_cast<int32_t>(SquareType::MINE);
+static constexpr const int32_t E			 = static_cast<int32_t>(SquareType::EMPTY);
+static constexpr const int32_t HK			 = static_cast<int32_t>(SquareType::HUMAN_KEEP);
+static constexpr const int32_t HF			 = static_cast<int32_t>(SquareType::HUMAN_FARM);
+static constexpr const int32_t HA			 = static_cast<int32_t>(SquareType::HUMAN_ALTAR);
+static constexpr const int32_t HT			 = static_cast<int32_t>(SquareType::HUMAN_TOWER);
+static constexpr const int32_t OK			 = static_cast<int32_t>(SquareType::ORC_KEEP);
+static constexpr const int32_t OF			 = static_cast<int32_t>(SquareType::ORC_FARM);
+static constexpr const int32_t OA			 = static_cast<int32_t>(SquareType::ORC_ALTAR);
+static constexpr const int32_t OT			 = static_cast<int32_t>(SquareType::ORC_TOWER);
+static constexpr const int32_t M			 = static_cast<int32_t>(SquareType::MINE);
 
-int32_t board[15][26] =
-{
-	{ OK, OK, OK, OK, E , E , E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E , E , E, OA, OA, OA },
-	{ OK, OK, OK, OK, E , E , E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E , E , E, OA, OA, OA },
-	{ OK, OK, OK, OK, E , E , E, E, E , E , E, E, E, E, E, E, E , E , E, E, E , E , E, OA, OA, OA },
-	{ OK, OK, OK, OK, OT, OT, E, E, E , E , E, E, E, E, E, E, E , E , E, E, OT, OT, E, E , E , E  },
-	{ E , E , E , E , OT, OT, E, E, E , E , E, E, E, E, E, E, E , E , E, E, OT, OT, E, E , E , E  },
-	{ E , E , E , E , E , E , E, E, E , E , E, E, E, E, E, E, E , E , E, E, E , E , E, E , E , E  },
-	{ M , M , M , E , E , E , E, M, M , M , E, E, E, E, E, E, M , M , M, E, E , E , E, M , M , M  },
-	{ M , M , M , E , E , E , E, M, M , M , E, E, E, E, E, E, M , M , M, E, E , E , E, M , M , M  },
-	{ M , M , M , E , E , E , E, M, M , M , E, E, E, E, E, E, M , M , M, E, E , E , E, M , M , M  },
-	{ E , E , E , E , E , E , E, E, E , E , E, E, E, E, E, E, E , E , E, E, E , E , E, E , E , E  },
-	{ E , E , E , E , HT, HT, E, E, E , E , E, E, E, E, E, E, E , E , E, E, HT, HT, E, E , E , E  },
-	{ HK, HK, HK, HK, HT, HT, E, E, E , E , E, E, E, E, E, E, E , E , E, E, HT, HT, E, E , E , E  },
-	{ HK, HK, HK, HK, E , E , E, E, E , E , E, E, E, E, E, E, E , E , E, E, E , E , E, HA, HA, HA },
-	{ HK, HK, HK, HK, E , E , E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E , E , E, HA, HA, HA },
-	{ HK, HK, HK, HK, E , E , E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E , E , E, HA, HA, HA }
+int32_t						   board[15][26] = {
+						   { OK, OK, OK, OK, E, E, E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E, E, E, OA, OA, OA },
+						   { OK, OK, OK, OK, E, E, E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E, E, E, OA, OA, OA },
+						   { OK, OK, OK, OK, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OA, OA, OA },
+						   { OK, OK, OK, OK, OT, OT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OT, OT, E, E, E, E },
+						   { E, E, E, E, OT, OT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OT, OT, E, E, E, E },
+						   { E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E },
+						   { M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
+						   { M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
+						   { M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
+						   { E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E },
+						   { E, E, E, E, HT, HT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HT, HT, E, E, E, E },
+						   { HK, HK, HK, HK, HT, HT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HT, HT, E, E, E, E },
+						   { HK, HK, HK, HK, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HA, HA, HA },
+						   { HK, HK, HK, HK, E, E, E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E, E, E, HA, HA, HA },
+						   { HK, HK, HK, HK, E, E, E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E, E, E, HA, HA, HA }
 };
 
 namespace hobGame

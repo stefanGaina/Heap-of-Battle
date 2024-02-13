@@ -47,7 +47,7 @@ namespace hobServerInstance
 void Server::run(const uint16_t port) noexcept(false)
 {
 	hobServer::Server server = {};
-	int32_t           stop   = 1;
+	int32_t			  stop	 = 1;
 
 	plog_trace("Server instance is being ran.");
 	init();
@@ -74,9 +74,9 @@ void Server::run(const uint16_t port) noexcept(false)
 void Server::init(void) noexcept
 {
 #ifndef PLOG_STRIP_ALL
-	const plog_Version_t plogVersion   = plog_get_version();
+	const plog_Version_t plogVersion = plog_get_version();
 #endif /*< PLOG_STRIP_ALL */
-	hobServer::Version   serverVersion = {};
+	hobServer::Version serverVersion = {};
 
 #ifndef PLOG_STRIP_ALL
 	if (false == plog_init("hob_server_logs.txt"))
@@ -85,9 +85,7 @@ void Server::init(void) noexcept
 	}
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 
-	if (PLOG_VERSION_MAJOR != plogVersion.major
-	 || PLOG_VERSION_MINOR != plogVersion.minor
-	 || PLOG_VERSION_PATCH != plogVersion.patch)
+	if (PLOG_VERSION_MAJOR != plogVersion.major || PLOG_VERSION_MINOR != plogVersion.minor || PLOG_VERSION_PATCH != plogVersion.patch)
 	{
 		plog_warn("Plog version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")\n", PLOG_VERSION_MAJOR, PLOG_VERSION_MINOR, PLOG_VERSION_PATCH);
 	}
@@ -95,11 +93,11 @@ void Server::init(void) noexcept
 	plog_info("Running HOB server instance %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
 
-	if (hobServer::VERSION_MAJOR != serverVersion.getMajor()
-	 || hobServer::VERSION_MINOR != serverVersion.getMinor()
-	 || hobServer::VERSION_PATCH != serverVersion.getPatch())
+	if (hobServer::VERSION_MAJOR != serverVersion.getMajor() || hobServer::VERSION_MINOR != serverVersion.getMinor() ||
+		hobServer::VERSION_PATCH != serverVersion.getPatch())
 	{
-		plog_warn("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR, hobServer::VERSION_PATCH);
+		plog_warn("HOB server version mismatch! (compiled version: %" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", hobServer::VERSION_MAJOR, hobServer::VERSION_MINOR,
+				  hobServer::VERSION_PATCH);
 	}
 }
 

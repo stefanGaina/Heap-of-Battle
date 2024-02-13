@@ -33,9 +33,9 @@
 class MainMenuDummy
 {
 public:
-	virtual ~MainMenuDummy(void) = default;
+	virtual ~MainMenuDummy(void)					 = default;
 
-	virtual void draw(void) = 0;
+	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;
 };
 
@@ -74,17 +74,8 @@ namespace hob
 
 MainMenu::MainMenu(SDL_Renderer* const renderer, Cursor& cursor, Music& music) noexcept
 	: Loop{ nullptr, cursor, nullptr }
-	, TextureInitializer
-	{
-		{},
-		{},
-		{},
-		nullptr
-	}
-	, SoundInitializer
-	{
-		{}
-	}
+	, TextureInitializer{ {}, {}, {}, nullptr }
+	, SoundInitializer{ {} }
 	, music{ music }
 {
 }

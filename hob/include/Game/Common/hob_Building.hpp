@@ -54,7 +54,7 @@ public:
 	 * @brief Constructs building not initializing it implicitly.
 	 * @param void
 	*/
-	Building(void) = default;
+	Building(void)	= default;
 
 	/**
 	 * @brief Does not destroy the textures.
@@ -72,8 +72,11 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void init(SDL_Texture* summerTexture, SDL_Texture* winterTexture, SDL_Texture* alternativeSummerTexture,
-		SDL_Texture* alternativeWinterTexture, SDL_Rect destination) noexcept;
+	void init(SDL_Texture* summerTexture,
+			  SDL_Texture* winterTexture,
+			  SDL_Texture* alternativeSummerTexture,
+			  SDL_Texture* alternativeWinterTexture,
+			  SDL_Rect	   destination) noexcept;
 
 	/**
 	 * @brief Draws the current texture.
@@ -105,8 +108,7 @@ private:
 	 * @param weatherTexture4: The desired weather texture variation 2.
 	 * @return void
 	*/
-	void changeWeather(SDL_Texture* weatherTexture1, SDL_Texture* weatherTexture2,
-		SDL_Texture* weatherTexture3, SDL_Texture* weatherTexture4) noexcept;
+	void changeWeather(SDL_Texture* weatherTexture1, SDL_Texture* weatherTexture2, SDL_Texture* weatherTexture3, SDL_Texture* weatherTexture4) noexcept;
 
 private:
 	/**
@@ -132,7 +134,7 @@ private:
 	/**
 	 * @brief The component that is switching textures.
 	*/
-	Component component;
+	Component	 component;
 };
 
 } /*< namespace hob */

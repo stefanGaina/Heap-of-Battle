@@ -96,10 +96,10 @@ protected:
 
 template<size_t BUILDINGS_COUNT>
 BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture*, SEASONS_COUNT * BUILDINGS_COUNT> textures,
-	std::array<SDL_Rect, BUILDINGS_COUNT> destinations) noexcept
+														  std::array<SDL_Rect, BUILDINGS_COUNT>						destinations) noexcept
 	: buildingContainer{}
 {
-	size_t index        = 0UL;
+	size_t index		= 0UL;
 	size_t textureIndex = 0UL;
 
 	plog_trace("BuildingInitializer is being constructed.");
@@ -107,8 +107,8 @@ BuildingInitializer<BUILDINGS_COUNT>::BuildingInitializer(std::array<SDL_Texture
 	{
 		textureIndex = SEASONS_COUNT * index;
 
-		buildingContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL],
-			textures[textureIndex + 3UL], destinations[index]);
+		buildingContainer[index].init(
+			textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL], textures[textureIndex + 3UL], destinations[index]);
 	}
 }
 

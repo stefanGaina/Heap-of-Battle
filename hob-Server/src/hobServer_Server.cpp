@@ -44,13 +44,13 @@ namespace hobServer
 /** ***************************************************************************************************
  * @brief Default value for the time (seconds) allowed for every turn.
  *****************************************************************************************************/
-static constexpr const uint16_t TIME_PER_TURN = 30U;
+static constexpr const uint16_t TIME_PER_TURN		  = 30U;
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-bool Server::isSocketReady = false;
+bool							Server::isSocketReady = false;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -186,7 +186,7 @@ void Server::onSocketReady(void) noexcept
 
 void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 {
-	Message          message     = { .type = MessageType::END_COMMUNICATION, .payload = {} };
+	Message			 message	 = { .type = MessageType::END_COMMUNICATION, .payload = {} };
 	const ClientType otherPlayer = ClientType::PLAYER_1 == clientType ? ClientType::PLAYER_2 : ClientType::PLAYER_1;
 
 	plog_debug(LOG_PREFIX "Player updates are being received. (player: %" PRId32 ")", static_cast<int32_t>(clientType));

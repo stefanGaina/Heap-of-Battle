@@ -32,13 +32,13 @@
 class Obfuscator
 {
 public:
-	virtual ~Obfuscator(void) = default;
+	virtual ~Obfuscator(void)										 = default;
 
-	virtual void obfuscate_string(char* message, uint64_t key) = 0;
-	virtual void deobfuscate_string(char* message, uint64_t key) = 0;
-	virtual void obfuscator_update_key(uint64_t* key) = 0;
-	virtual uint64_t obfuscator_get_prime_modulus(void) = 0;
-	virtual uint64_t obfuscator_get_base(void) = 0;
+	virtual void	 obfuscate_string(char* message, uint64_t key)	 = 0;
+	virtual void	 deobfuscate_string(char* message, uint64_t key) = 0;
+	virtual void	 obfuscator_update_key(uint64_t* key)			 = 0;
+	virtual uint64_t obfuscator_get_prime_modulus(void)				 = 0;
+	virtual uint64_t obfuscator_get_base(void)						 = 0;
 };
 
 class ObfuscatorMock : public Obfuscator
@@ -74,46 +74,46 @@ ObfuscatorMock* ObfuscatorMock::obfuscatorMock = nullptr;
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-extern "C" {
-
-void obfuscate_string(char* const message, const uint64_t key)
+extern "C"
 {
-	ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "obfuscate_string(): nullptr == ObfuscatorMock::obfuscatorMock";
-	ObfuscatorMock::obfuscatorMock->obfuscate_string(message, key);
-}
 
-void deobfuscate_string(char* const message, const uint64_t key)
-{
-	ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "deobfuscate_string(): nullptr == ObfuscatorMock::obfuscatorMock";
-	ObfuscatorMock::obfuscatorMock->deobfuscate_string(message, key);
-}
-
-void obfuscator_update_key(uint64_t* const key)
-{
-	ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "obfuscator_update_key(): nullptr == ObfuscatorMock::obfuscatorMock";
-	ObfuscatorMock::obfuscatorMock->obfuscator_update_key(key);
-}
-
-uint64_t obfuscator_get_prime_modulus(void)
-{
-	if (nullptr == ObfuscatorMock::obfuscatorMock)
+	void obfuscate_string(char* const message, const uint64_t key)
 	{
-		ADD_FAILURE() << "obfuscator_get_prime_modulus(): nullptr == ObfuscatorMock::obfuscatorMock";
-		return 0UL;
+		ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "obfuscate_string(): nullptr == ObfuscatorMock::obfuscatorMock";
+		ObfuscatorMock::obfuscatorMock->obfuscate_string(message, key);
 	}
-	return ObfuscatorMock::obfuscatorMock->obfuscator_get_prime_modulus();
-}
 
-uint64_t obfuscator_get_base(void)
-{
-	if (nullptr == ObfuscatorMock::obfuscatorMock)
+	void deobfuscate_string(char* const message, const uint64_t key)
 	{
-		ADD_FAILURE() << "obfuscator_get_base(): nullptr == ObfuscatorMock::obfuscatorMock";
-		return 0UL;
+		ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "deobfuscate_string(): nullptr == ObfuscatorMock::obfuscatorMock";
+		ObfuscatorMock::obfuscatorMock->deobfuscate_string(message, key);
 	}
-	return ObfuscatorMock::obfuscatorMock->obfuscator_get_base();
-}
 
+	void obfuscator_update_key(uint64_t* const key)
+	{
+		ASSERT_NE(nullptr, ObfuscatorMock::obfuscatorMock) << "obfuscator_update_key(): nullptr == ObfuscatorMock::obfuscatorMock";
+		ObfuscatorMock::obfuscatorMock->obfuscator_update_key(key);
+	}
+
+	uint64_t obfuscator_get_prime_modulus(void)
+	{
+		if (nullptr == ObfuscatorMock::obfuscatorMock)
+		{
+			ADD_FAILURE() << "obfuscator_get_prime_modulus(): nullptr == ObfuscatorMock::obfuscatorMock";
+			return 0UL;
+		}
+		return ObfuscatorMock::obfuscatorMock->obfuscator_get_prime_modulus();
+	}
+
+	uint64_t obfuscator_get_base(void)
+	{
+		if (nullptr == ObfuscatorMock::obfuscatorMock)
+		{
+			ADD_FAILURE() << "obfuscator_get_base(): nullptr == ObfuscatorMock::obfuscatorMock";
+			return 0UL;
+		}
+		return ObfuscatorMock::obfuscatorMock->obfuscator_get_base();
+	}
 }
 
 #endif /*< OBFUSCATOR_MOCK_HPP_ */

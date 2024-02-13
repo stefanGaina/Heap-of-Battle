@@ -45,9 +45,9 @@ namespace hob
 
 void Encryptor::sendKey(const Socket& socket) noexcept
 {
-	const uint64_t     base       = obfuscator_get_base();
+	const uint64_t	   base		  = obfuscator_get_base();
 	hobServer::Message keyMessage = { .type = hobServer::MessageType::ENCRYPT_KEY, .payload = {} };
-	struct timespec    time       = {};
+	struct timespec	   time		  = {};
 
 	plog_debug("The public key is being sent.");
 	plog_assert(0UL == privateKey);
@@ -59,7 +59,7 @@ void Encryptor::sendKey(const Socket& socket) noexcept
 		time.tv_nsec = 0x0123456789ABCDEFL;
 	}
 
-	exponent                      = static_cast<uint64_t>(time.tv_nsec) % base + 1UL;
+	exponent					  = static_cast<uint64_t>(time.tv_nsec) % base + 1UL;
 	keyMessage.payload.encryptKey = diffieHellmanKey(base);
 	socket.sendUpdate(keyMessage);
 }

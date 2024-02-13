@@ -33,12 +33,12 @@
 class CursorDummy
 {
 public:
-	virtual ~CursorDummy(void) = default;
+	virtual ~CursorDummy(void)								  = default;
 
 	virtual void updatePosition(const hob::Coordinate& mouse) = 0;
-	virtual void draw(SDL_Renderer* renderer) = 0;
-	virtual void setFaction(bool isAlliance) = 0;
-	virtual void setTexture(hobGame::CursorType type) = 0;
+	virtual void draw(SDL_Renderer* renderer)				  = 0;
+	virtual void setFaction(bool isAlliance)				  = 0;
+	virtual void setTexture(hobGame::CursorType type)		  = 0;
 };
 
 class CursorMock : public CursorDummy
@@ -77,13 +77,7 @@ namespace hob
 {
 
 Cursor::Cursor(SDL_Renderer* const renderer) noexcept
-	: TextureInitializer
-	{
-		{},
-		{},
-		{},
-		renderer
-	}
+	: TextureInitializer{ {}, {}, {}, renderer }
 {
 }
 

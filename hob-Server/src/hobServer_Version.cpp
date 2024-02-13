@@ -42,17 +42,17 @@ namespace hobServer
 {
 
 Version::Version(void) noexcept
-	: major { VERSION_MAJOR }
-	, minor { VERSION_MINOR }
-	, patch { VERSION_PATCH }
+	: major{ VERSION_MAJOR }
+	, minor{ VERSION_MINOR }
+	, patch{ VERSION_PATCH }
 {
 	plog_verbose(LOG_PREFIX "Version is being constructed! (%" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", major, minor, patch);
 }
 
 Version::Version(const uint8_t major, const uint8_t minor, const uint8_t patch) noexcept
-	: major { major }
-	, minor { minor }
-	, patch { patch }
+	: major{ major }
+	, minor{ minor }
+	, patch{ patch }
 {
 	plog_verbose(LOG_PREFIX "Version is being constructed with values! (%" PRIu8 ".%" PRIu8 ".%" PRIu8 ")", major, minor, patch);
 }

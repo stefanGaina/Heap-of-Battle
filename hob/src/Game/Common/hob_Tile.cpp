@@ -46,23 +46,24 @@ Tile::Tile(void) noexcept
 	, autumnTexture{ nullptr }
 	, winterTexture{ nullptr }
 	, springTexture{ nullptr }
-	, component    { nullptr, { 0, 0, 0, 0 } }
+	, component{ nullptr, { 0, 0, 0, 0 } }
 {
 	plog_trace("Tile is being default constructed.");
 }
 
-void Tile::init(SDL_Texture* const summerTexture, SDL_Texture* const autumnTexture, SDL_Texture* const winterTexture,
-	SDL_Texture* const springTexture, const Coordinate position) noexcept
+void Tile::init(SDL_Texture* const summerTexture,
+				SDL_Texture* const autumnTexture,
+				SDL_Texture* const winterTexture,
+				SDL_Texture* const springTexture,
+				const Coordinate   position) noexcept
 {
 	plog_trace("Initializing tile. (position: %" PRId32 ", %" PRId32 ")", position.x, position.y);
-	if (nullptr == summerTexture || nullptr == autumnTexture
-	 || nullptr == winterTexture || nullptr == springTexture)
+	if (nullptr == summerTexture || nullptr == autumnTexture || nullptr == winterTexture || nullptr == springTexture)
 	{
 		plog_warn("Tile is incomplete!");
 	}
 
-	if (0 > position.x || 26 < position.x
-	 || 0 > position.x || 26 < position.x)
+	if (0 > position.x || 26 < position.x || 0 > position.x || 26 < position.x)
 	{
 		plog_warn("Invalid tile position! (position: %" PRId32 ", %" PRId32 ")", position.x, position.y);
 	}

@@ -113,10 +113,10 @@ void Window::destroy(void) noexcept
 
 void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 {
-	SDL_RendererInfo rendererInfo   = {};
-	SDL_PowerState   powerState     = SDL_POWERSTATE_UNKNOWN;
-	int32_t          secondsLeft    = 0;
-	int32_t          batteryPercent = 0;
+	SDL_RendererInfo rendererInfo	= {};
+	SDL_PowerState	 powerState		= SDL_POWERSTATE_UNKNOWN;
+	int32_t			 secondsLeft	= 0;
+	int32_t			 batteryPercent = 0;
 
 	plog_trace("Information is being logged.");
 	plog_assert(nullptr != renderer);
@@ -127,8 +127,8 @@ void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 	}
 	else
 	{
-		plog_info("Renderer information! (name: %s, flags: %" PRIu32 ", max width: %" PRId32 ", max height: %" PRId32 ")",
-			rendererInfo.name, rendererInfo.flags, rendererInfo.max_texture_width, rendererInfo.max_texture_height);
+		plog_info("Renderer information! (name: %s, flags: %" PRIu32 ", max width: %" PRId32 ", max height: %" PRId32 ")", rendererInfo.name, rendererInfo.flags,
+				  rendererInfo.max_texture_width, rendererInfo.max_texture_height);
 	}
 
 	powerState = SDL_GetPowerInfo(&secondsLeft, &batteryPercent);

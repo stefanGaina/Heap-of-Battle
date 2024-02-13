@@ -23,7 +23,6 @@
 #include "hob_TextureInitializer.hpp"
 #include "hobGame_Game.hpp"
 
-
 namespace hob
 {
 
@@ -43,6 +42,5 @@ private:
 };
 
 } /*< namespace hob */
-
 
 #endif /*< HOB_UNITS_HPP_ */

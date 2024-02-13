@@ -154,7 +154,7 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     * @param season: What season will the tiles&#39; textures be changed to.</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classhob_1_1TileInitializer.html#a52eba90471ef146ffc4b20dcbba94e05">   83</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1TileInitializer.html#a52eba90471ef146ffc4b20dcbba94e05">changeTexture</a>(<a class="code" href="namespacehob.html#ae3813b56718c7d38cc308032d4faed90">Season</a> season) noexcept;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classhob_1_1TileInitializer.html#a52eba90471ef146ffc4b20dcbba94e05">   83</a></span>&#160;    <span class="keywordtype">void</span>         <a class="code" href="classhob_1_1TileInitializer.html#a52eba90471ef146ffc4b20dcbba94e05">changeTexture</a>(<a class="code" href="namespacehob.html#ae3813b56718c7d38cc308032d4faed90">Season</a> season) noexcept;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">     * @brief Calls the draw method of each tile.</span></div>
@@ -176,7 +176,7 @@ $(function() {
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> TEXTURES_SET_COUNT&gt;</div>
 <div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classhob_1_1TileInitializer.html#a83daf82fff0aa8894f95e4329bd31595">  104</a></span>&#160;<a class="code" href="classhob_1_1TileInitializer.html#a83daf82fff0aa8894f95e4329bd31595">TileInitializer&lt;TEXTURES_SET_COUNT&gt;::TileInitializer</a>(std::array&lt;SDL_Texture*, 4UL * TEXTURES_SET_COUNT&gt; textures,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::array&lt;size_t, TILES_COUNT&gt; textureIndexes) noexcept</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                     std::array&lt;size_t, TILES_COUNT&gt;                    textureIndexes) noexcept</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    : tileContainer{}</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">size_t</span> index        = 0UL;</div>
@@ -187,8 +187,8 @@ $(function() {
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    {</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        textureIndex = 4UL * textureIndexes[index];</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        tileContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL],</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            textures[textureIndex + 3UL], { <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(index) % 26, <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(index) / 26 });</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        tileContainer[index].init(textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL], textures[textureIndex + 3UL],</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                  { <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(index) % 26, <span class="keyword">static_cast&lt;</span>int32_t<span class="keyword">&gt;</span>(index) / 26 });</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
