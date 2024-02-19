@@ -1,33 +1,31 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hob_Tiles1.cpp                                                                               *
- * @date:      @author:                   Reason for change:                                          *
- * 29.07.2023  Gaina Stefan               Initial version.                                            *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Added indexes comments.                                     *
- * @details This file implements the class defined in hob_Tiles1.hpp.                                 *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+/** ***************************************************************************************************
+ * @file hob_Tiles1.cpp
+ * @author Gaina Stefan
+ * @date 29.07.2023
+ * @brief This file implements the class defined in hob_Tiles1.hpp.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <plog.h>
@@ -35,24 +33,24 @@
 #include "hob_Tiles1.hpp"
 
 /******************************************************************************************************
- * MACROS                                                                                             *
+ * MACROS
  *****************************************************************************************************/
 
-/**
+/** ***************************************************************************************************
  * @brief Full file path of tiles textures.
  * @param name: The name of the image (without extension).
  * @return The full file path.
-*/
+ *****************************************************************************************************/
 #define TEXTURE_FILE_PATH(name) HOB_TEXTURES_FILE_PATH("tiles/" name)
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
 {
 
-Tiles1::Tiles1(SDL_Renderer* const renderer)
+Tiles1::Tiles1(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexcept
 	: TextureInitializer{ {
 							  TEXTURE_FILE_PATH("summer/grass"),				 /*< 0  */
 							  TEXTURE_FILE_PATH("autumn/dirt"),					 /*< 1  */
@@ -134,7 +132,7 @@ Tiles1::Tiles1(SDL_Renderer* const renderer)
 			textureContainer[31].getRawTexture(), textureContainer[32].getRawTexture(), textureContainer[33].getRawTexture(),
 		},
 		{
-			/*       0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25 */
+			/*       0   1   2   3   4   5   6   7   8   9  10 11 12 13 14 15 16  17  18  19  20  21  22  23  24  25 */
 			/* 0  */ 11, 11, 11, 11, 12, 0,	 0,	 12, 11, 7, 3, 1, 2, 2, 1, 5, 9,  11, 12, 0,  0,  0,  0,  11, 11, 11,
 			/* 1  */ 11, 11, 11, 11, 0,	 0,	 0,	 0,	 11, 7, 4, 2, 1, 1, 2, 5, 9,  11, 0,  0,  0,  0,  0,  11, 11, 11,
 			/* 2  */ 11, 11, 11, 11, 12, 12, 0,	 0,	 0,	 8, 4, 2, 1, 2, 1, 6, 10, 0,  0,  0,  12, 12, 0,  11, 11, 11,
@@ -154,6 +152,10 @@ Tiles1::Tiles1(SDL_Renderer* const renderer)
 	}
 {
 	plog_trace("Tiles1 are being constructed.");
+
+	usleep(2000 * 1000);
+	loadingScreen.step(renderer);
+	usleep(9000 * 1000);
 }
 
 } /*< namespace hob */

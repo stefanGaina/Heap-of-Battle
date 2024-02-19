@@ -54,7 +54,7 @@ public:
 	 * @brief Constructs building not initializing it implicitly.
 	 * @param void
 	*/
-	Building(void)	= default;
+	Building(void) = default;
 
 	/**
 	 * @brief Does not destroy the textures.
@@ -134,7 +134,7 @@ private:
 	/**
 	 * @brief The component that is switching textures.
 	*/
-	Component	 component;
+	Component component;
 };
 
 } /*< namespace hob */

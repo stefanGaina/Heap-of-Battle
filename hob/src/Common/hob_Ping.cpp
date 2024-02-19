@@ -112,6 +112,18 @@ void Ping::clean(void) noexcept
 	texture.destroy();
 	component.updateTexture(nullptr);
 
+	while (false == queue.isEmpty())
+	{
+		(void)queue.pop();
+	}
+
+	stop();
+}
+
+void Ping::stop(void) noexcept
+{
+	plog_debug("Ping is being stopped.");
+
 	waitMutex.lock();
 	interruptWait = true;
 	waitMutex.unlock();
@@ -168,12 +180,10 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 void Ping::sendPings(const Socket* const socket) noexcept
 {
 	std::unique_lock<std::mutex> lockWait(waitMutex);
-	hobServer::Message			 pingMessage = {};
+	hobServer::Message			 pingMessage = { .type = hobServer::MessageType::PING, .payload = {} };
 
 	plog_trace("Send pings thread has started.");
 	plog_assert(nullptr != socket);
-
-	pingMessage.type = hobServer::MessageType::PING;
 
 	while (true)
 	{

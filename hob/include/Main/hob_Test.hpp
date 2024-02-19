@@ -34,6 +34,9 @@
 #include <fstream>
 #include <thread>
 
+#include "hob_Socket.hpp"
+#include "hobServer_Server.hpp"
+
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
@@ -111,7 +114,11 @@ private:
 	 * @brief Thread created at start() of test and joined at deinitialization on which the parsing of
 	 * commands is being done.
 	 *************************************************************************************************/
-	static std::thread	 thread;
+	static std::thread		 thread;
+
+	static Socket			 socket;
+
+	static hobServer::Server server;
 };
 
 #endif /*< DEVEL_BUILD */

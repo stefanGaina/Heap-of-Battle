@@ -1,35 +1,32 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @file hob_Map1.cpp
+ * @author Gaina Stefan
+ * @date 27.07.2023
+ * @brief This file implements the class defined in hob_Map1.hpp.
+ * @todo N/A.
+ * @bug Sporadic bug where if client side timeouts in loading screen it hangs in receiving updates
+ * thread join (it does not happen for server side).
  *****************************************************************************************************/
 
 /******************************************************************************************************
- * @file hob_Map1.cpp                                                                                 *
- * @date:      @author:                   Reason for change:                                          *
- * 27.07.2023  Gaina Stefan               Initial version.                                            *
- * 26.08.2023  Gaina Stefan               Added chat.                                                 *
- * 27.08.2023  Gaina Stefan               Fixed compilation error due to removal of header.           *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Added faction member.                                       *
- * @details This file implements the class defined in hob_Map1.hpp.                                   *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
- *****************************************************************************************************/
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <memory>
@@ -43,23 +40,30 @@
 #include "hob_Faction.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS                                                                                 *
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
 {
 
-Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music& music, const Faction& faction, hobServer::Server& server, Socket& socket) noexcept
+Map1::Map1(SDL_Renderer* const renderer,
+		   Cursor&			   cursor,
+		   Ping* const		   ping,
+		   Music&			   music,
+		   const Faction&	   faction,
+		   hobServer::Server&  server,
+		   Socket&			   socket,
+		   LoadingScreen&	   loadingScreen) noexcept
 	: Loop{ renderer, cursor, ping }
 	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("error") } }
 	, game{ faction.getFaction() }
-	, tiles{ renderer }
+	, tiles{ renderer, loadingScreen }
 	, menu{ renderer, faction.getFaction(), game.getGold() }
 	, buildings{ renderer }
 	, chat{ renderer, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
 	, grid{}
 	, units{ renderer }
-	, receivingThread{ std::bind(&Map1::receivingFunction, this) }
+	, receivingThread{ std::bind(&Map1::receivingFunction, this, &loadingScreen) }
 	, receivingUpdates{ true }
 	, music{ music }
 	, faction{ faction }
@@ -67,6 +71,7 @@ Map1::Map1(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping, Music
 	, socket{ socket }
 {
 	plog_trace("Map1 is being constructed.");
+	plog_assert(nullptr != ping);
 
 	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 	cursor.setFaction(faction.getFaction());
@@ -274,9 +279,9 @@ void Map1::handleQuit(void) noexcept
 	stop(Scene::QUIT);
 }
 
-void Map1::receivingFunction(void) noexcept
+void Map1::receivingFunction(LoadingScreen* loadingScreen) noexcept
 {
-	hobServer::Message receivedMessage = {};
+	hobServer::Message receivedMessage = { .type = hobServer::MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_trace("Update messages are being received.");
 	while (true == receivingUpdates.load())
@@ -320,9 +325,22 @@ void Map1::receivingFunction(void) noexcept
 				chat.receivedEncryptKey(receivedMessage.payload.encryptKey, socket);
 				break;
 			}
+			case hobServer::MessageType::START_GAME:
+			{
+				plog_info("Start game message received!");
+				if (nullptr == loadingScreen)
+				{
+					plog_error("Game already started!");
+					break;
+				}
+				loadingScreen->startGame();
+				loadingScreen = nullptr;
+				break;
+			}
 			case hobServer::MessageType::END_COMMUNICATION:
 			{
 				plog_info("End communication message received!");
+				ping->stop();
 				receivingUpdates.store(false);
 				stop(Scene::MAIN_MENU);
 				break;

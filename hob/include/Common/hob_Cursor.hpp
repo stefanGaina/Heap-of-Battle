@@ -115,7 +115,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Flag indicating if cursor's functionalities are enabled or disabled.
 	 *************************************************************************************************/
-	bool   enabled;
+	bool enabled;
 };
 
 } /*< namespace hob */

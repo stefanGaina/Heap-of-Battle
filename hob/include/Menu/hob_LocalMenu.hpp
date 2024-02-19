@@ -1,37 +1,34 @@
 /******************************************************************************************************
- * Heap of Battle Copyright (C) 2024                                                                  *
- *                                                                                                    *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the   *
- * authors be held liable for any damages arising from the use of this software.                      *
- *                                                                                                    *
- * Permission is granted to anyone to use this software for any purpose, including commercial         *
- * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *
- *                                                                                                    *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *
- *    original software. If you use this software in a product, an acknowledgment in the product      *
- *    documentation would be appreciated but is not required.                                         *
- * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *
- *    the original software.                                                                          *
- * 3. This notice may not be removed or altered from any source distribution.                         *
-******************************************************************************************************/
+ * Heap of Battle Copyright (C) 2024
+ *
+ * This software is provided 'as-is', without any express or implied warranty. In no event will the
+ * authors be held liable for any damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose, including commercial
+ * applications, and to alter it and redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the
+ *    original software. If you use this software in a product, an acknowledgment in the product
+ *    documentation would be appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being
+ *    the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *****************************************************************************************************/
 
-/******************************************************************************************************
- * @file hob_LocalMenu.hpp                                                                            *
- * @date:      @author:                   Reason for change:                                          *
- * 29.08.2023  Gaina Stefan               Initial version.                                            *
- * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *
- * 17.01.2024  Gaina Stefan               Added faction.                                              *
- * 18.01.2024  Gaina Stefan               Break handleEvent() into multiple methods().                *
- * @details This file defines the class and method prototypes of the LAN menu scene.                  *
- * @todo N/A.                                                                                         *
- * @bug No known bugs.                                                                                *
+/** ***************************************************************************************************
+ * @file hob_LocalMenu.hpp
+ * @author Gaina Stefan
+ * @date 29.09.2023
+ * @brief This file defines the class and method prototypes of the LAN menu scene.
+ * @todo N/A.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
 #ifndef HOB_LOCAL_MENU_HPP_
 #define HOB_LOCAL_MENU_HPP_
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include "hob_Loop.hpp"
@@ -43,15 +40,15 @@
 #include "hobServer_Server.hpp"
 
 /******************************************************************************************************
- * TYPE DEFINITIONS                                                                                   *
+ * TYPE DEFINITIONS
  *****************************************************************************************************/
 
 namespace hob
 {
 
-/**
+/** ***************************************************************************************************
  * @brief Enumerates local menu's textures index.
-*/
+ *****************************************************************************************************/
 enum LocalMenuTextureIndex
 {
 	LOCAL_MENU_TEXTURE_INDEX_BACKGROUND		 = 0, /**< Index to the local menu's background texture.           */
@@ -66,9 +63,9 @@ enum LocalMenuTextureIndex
 	LOCAL_MENU_TEXTURES_COUNT				 = 9  /**< How many textures local menu loads.                     */
 };
 
-/**
+/** ***************************************************************************************************
  * @brief Enumerates local menu's changeable components index.
-*/
+ *****************************************************************************************************/
 enum LocalMenuComponentIndex
 {
 	LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME = 1, /**< Index to the local menu's host game button component. */
@@ -79,9 +76,9 @@ enum LocalMenuComponentIndex
 	LOCAL_MENU_COMPONENTS_COUNT					= 7	 /**< How many components the local menu uses.              */
 };
 
-/**
+/** ***************************************************************************************************
  * @brief Enumerates local menu's sounds index.
-*/
+ *****************************************************************************************************/
 enum LocalMenuSoundIndex
 {
 	LOCAL_MENU_SOUND_INDEX_CLICK = 0, /**< Index to the local menu's click sound. */
@@ -89,9 +86,9 @@ enum LocalMenuSoundIndex
 	LOCAL_MENU_SOUNDS_COUNT		 = 2  /**< How many sounds the local menu loads.  */
 };
 
-/**
+/** ***************************************************************************************************
  * @brief Enumerates the connection status of the client socket.
-*/
+ *****************************************************************************************************/
 enum class ConnectionStatus
 {
 	SUCCESS = 0, /**< The connection has been established successfully.    */
@@ -99,16 +96,16 @@ enum class ConnectionStatus
 	ABORTED = 2	 /**< The connection has been established, but lost.       */
 };
 
-/**
+/** ***************************************************************************************************
  * @brief LAN scene.
-*/
+ *****************************************************************************************************/
 class LocalMenu final
 	: public Loop,
 	  public TextureInitializer<LOCAL_MENU_TEXTURES_COUNT, LOCAL_MENU_COMPONENTS_COUNT>,
-	  public SoundInitializer<LOCAL_MENU_SOUNDS_COUNT>
+	  private SoundInitializer<LOCAL_MENU_SOUNDS_COUNT>
 {
 public:
-	/**
+	/** ***********************************************************************************************
 	 * @brief Loads the textures and sounds needed for this scene.
 	 * @param renderer: Rendering context of the window.
 	 * @param cursor: Reference to the cursor object.
@@ -117,138 +114,138 @@ public:
 	 * @param faction: Reference to the faction object.
 	 * @param server: Reference to the server object.
 	 * @param socket: Reference to the socket object.
-	*/
+	 *************************************************************************************************/
 	LocalMenu(SDL_Renderer* renderer, Cursor& cursor, Ping* ping, Music& music, Faction& faction, hobServer::Server& server, Socket& socket) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Destroys the loaded textures and sound needed for this scene.
 	 * @param void
-	*/
+	 *************************************************************************************************/
 	~LocalMenu(void) noexcept;
 
 private:
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles an event.
 	 * @param event: Event to be handled.
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleEvent(const SDL_Event& event) noexcept override;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Method implementation for drawing scene updates.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void draw(void) noexcept override;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles a button down event.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleButtonDown(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles a button up event.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleButtonUp(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles a mouse motion event.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleMouseMotion(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles a quit event.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleQuit(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Handles the updates present in queue.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void handleQueue(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Joins the receiving thread (only if it is joinable).
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void joinReceivingThread(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Joins the wait connection thread (only if it is joinable).
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void joinWaitConnectionThread(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Receives updates from the server.
 	 * @param void
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void receivingFunction(void) noexcept;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Creates client socket and waits for connection to be established.
 	 * @param ipAddress: The IP address of the server.
 	 * @return void
-	*/
+	 *************************************************************************************************/
 	void waitConnectionFunction(std::string ipAddress) noexcept;
 
 private:
-	/**
+	/** ***********************************************************************************************
 	 * @brief Thread safe queue for buffering connection statuses.
-	*/
+	 *************************************************************************************************/
 	AsyncQueue<ConnectionStatus> queue;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief The thread that will be created if the waiting of connections is be done asynchronically.
-	*/
-	std::thread					 waitConnectionThread;
+	 *************************************************************************************************/
+	std::thread waitConnectionThread;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Thread for receiving updates from the server.
-	*/
-	std::thread					 receivingThread;
+	 *************************************************************************************************/
+	std::thread receivingThread;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Flag indicating if the receiving thread should still execute.
-	*/
-	std::atomic<bool>			 receivingUpdates;
+	 *************************************************************************************************/
+	std::atomic<bool> receivingUpdates;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Holds the index of the component that was previously pressed.
-	*/
-	size_t						 clickDownIndex;
+	 *************************************************************************************************/
+	size_t clickDownIndex;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Reference to the music object.
-	*/
-	Music&						 music;
+	 *************************************************************************************************/
+	Music& music;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Reference to the faction object.
-	*/
-	Faction&					 faction;
+	 *************************************************************************************************/
+	Faction& faction;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Reference to the server object.
-	*/
-	hobServer::Server&			 server;
+	 *************************************************************************************************/
+	hobServer::Server& server;
 
-	/**
+	/** ***********************************************************************************************
 	 * @brief Reference to the socket object.
-	*/
-	Socket&						 socket;
+	 *************************************************************************************************/
+	Socket& socket;
 };
 
 } /*< namespace hob */

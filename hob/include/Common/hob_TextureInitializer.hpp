@@ -92,7 +92,7 @@ protected:
 	/**
 	 * @brief Holds all the textures needed.
 	*/
-	std::array<Texture, TEXTURES_COUNT>		textureContainer;
+	std::array<Texture, TEXTURES_COUNT> textureContainer;
 };
 
 /******************************************************************************************************

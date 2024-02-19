@@ -87,13 +87,19 @@ Collaboration diagram for hob::Test:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhob_1_1Test__coll__graph.png" border="0" usemap="#ahob_1_1Test_coll__map" alt="Collaboration graph"/></div>
 <map name="ahob_1_1Test_coll__map" id="ahob_1_1Test_coll__map">
-<area shape="rect" title="Static class present only in Debug builds for automated testing purposes." alt="" coords="143,428,223,455"/>
-<area shape="rect" title=" " alt="" coords="38,339,143,365"/>
-<area shape="rect" title=" " alt="" coords="17,248,164,289"/>
-<area shape="rect" title=" " alt="" coords="20,157,161,199"/>
-<area shape="rect" title=" " alt="" coords="5,81,176,108"/>
-<area shape="rect" title=" " alt="" coords="37,5,144,32"/>
-<area shape="rect" title=" " alt="" coords="167,339,259,365"/>
+<area shape="rect" title="Static class present only in Debug builds for automated testing purposes." alt="" coords="1173,177,1253,204"/>
+<area shape="rect" href="classhobServer_1_1Server.html" title="This class offers a way to run the server for matches." alt="" coords="940,152,1079,179"/>
+<area shape="rect" href="classhobServer_1_1Timer.html" title="Timer with second precision." alt="" coords="665,152,800,179"/>
+<area shape="rect" title=" " alt="" coords="406,227,498,253"/>
+<area shape="rect" title=" " alt="" coords="406,91,498,117"/>
+<area shape="rect" href="classhobServer_1_1Socket.html" title="Server socket that supports connections from 2 clients." alt="" coords="663,39,802,65"/>
+<area shape="rect" title=" " alt="" coords="656,203,809,229"/>
+<area shape="rect" href="classhob_1_1Socket.html" title="Client socket wrapper for server types." alt="" coords="961,203,1058,229"/>
+<area shape="rect" title=" " alt="" coords="957,271,1062,297"/>
+<area shape="rect" title=" " alt="" coords="659,317,806,358"/>
+<area shape="rect" title=" " alt="" coords="381,317,523,358"/>
+<area shape="rect" title=" " alt="" coords="161,324,332,351"/>
+<area shape="rect" title=" " alt="" coords="5,324,112,351"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -129,6 +135,10 @@ Static Private Attributes</h2></td></tr>
 <tr class="memitem:a5a10c97e51881026bbe90c64f08f3aeb"><td class="memItemLeft" align="right" valign="top">static std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Test.html#a5a10c97e51881026bbe90c64f08f3aeb">thread</a> = {}</td></tr>
 <tr class="memdesc:a5a10c97e51881026bbe90c64f08f3aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread created at <a class="el" href="classhob_1_1Test.html#abaefebd4058d8cb0aa5b3d2e02f3491f" title="Starts the parsing of commands (calls asynchronically parseCommands() method).">start()</a> of test and joined at deinitialization on which the parsing of commands is being done.  <a href="classhob_1_1Test.html#a5a10c97e51881026bbe90c64f08f3aeb">More...</a><br /></td></tr>
 <tr class="separator:a5a10c97e51881026bbe90c64f08f3aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb420dd93a09cc469baa1d325cc5763d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhob_1_1Socket.html">Socket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Test.html#afb420dd93a09cc469baa1d325cc5763d">socket</a> = {}</td></tr>
+<tr class="separator:afb420dd93a09cc469baa1d325cc5763d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf2f20891693b810c394fe2a5939a666"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhobServer_1_1Server.html">hobServer::Server</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Test.html#adf2f20891693b810c394fe2a5939a666">server</a> = {}</td></tr>
+<tr class="separator:adf2f20891693b810c394fe2a5939a666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Static class present only in Debug builds for automated testing purposes. </p>
@@ -412,6 +422,50 @@ quit: Sends a quit signal to the game.  </li>
 <p>Thread created at <a class="el" href="classhob_1_1Test.html#abaefebd4058d8cb0aa5b3d2e02f3491f" title="Starts the parsing of commands (calls asynchronically parseCommands() method).">start()</a> of test and joined at deinitialization on which the parsing of commands is being done. </p>
 <hr  />
  
+</div>
+</div>
+<a id="afb420dd93a09cc469baa1d325cc5763d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb420dd93a09cc469baa1d325cc5763d">&#9670;&nbsp;</a></span>socket</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Socket.html">Socket</a> hob::Test::socket = {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf2f20891693b810c394fe2a5939a666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf2f20891693b810c394fe2a5939a666">&#9670;&nbsp;</a></span>server</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhobServer_1_1Server.html">hobServer::Server</a> hob::Test::server = {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

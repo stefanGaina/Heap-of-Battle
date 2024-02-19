@@ -80,7 +80,7 @@ public:
 	 * @param season: What season will the tiles' textures be changed to.
 	 * @return void
 	*/
-	void		 changeTexture(Season season) noexcept;
+	void changeTexture(Season season) noexcept;
 
 	/**
 	 * @brief Calls the draw method of each tile.

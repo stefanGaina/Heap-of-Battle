@@ -53,20 +53,20 @@ static constexpr const uint16_t DEFAULT_PORT = 8787U;
  * @param void
  * @return void
  *****************************************************************************************************/
-static void						printDefaultPort(void) noexcept;
+static void printDefaultPort(void) noexcept;
 
 /** ***************************************************************************************************
  * @brief Gets the name of the executable from a path (e.g. /home/directory/Executable-Name).
  * @param executablePath: The full path of the executable.
  * @return The name of the executable.
  *****************************************************************************************************/
-static const char*				getExecutableName(const char* executablePath);
+static const char* getExecutableName(const char* executablePath);
 
 /******************************************************************************************************
  * ENTRY POINT
  *****************************************************************************************************/
 
-int								main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	uint16_t port = DEFAULT_PORT;
 

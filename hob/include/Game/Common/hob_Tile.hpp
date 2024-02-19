@@ -60,18 +60,6 @@ class Tile final : public IDrawable
 {
 public:
 	/**
-	 * @brief Does not initialize the tile implicitly.
-	 * @param void
-	*/
-	Tile(void) noexcept;
-
-	/**
-	 * @brief Does not destroy the textures.
-	 * @param void
-	*/
-	~Tile(void) = default;
-
-	/**
 	 * @brief Initializes the tile with textures for all seasons and its position.
 	 * @param[in] summerTexture: Texture that will be drawn when season is set to summer.
 	 * @param[in] autumnTexture: Texture that will be drawn when season is set to autumn.
@@ -120,7 +108,7 @@ private:
 	/**
 	 * @brief Component used to draw the tile.
 	*/
-	Component	 component;
+	Component component;
 };
 
 } /*< namespace hob */

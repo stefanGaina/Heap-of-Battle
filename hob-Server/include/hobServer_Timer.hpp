@@ -76,14 +76,14 @@ private:
 	 * @param timeLeft: How many more iterations are left.
 	 * @return void
 	 *************************************************************************************************/
-	void		 timerFunction(uint16_t timeLeft) noexcept;
+	void timerFunction(uint16_t timeLeft) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Abstract method called each second.
 	 * @param timeLeft:
 	 * @return void
 	 *************************************************************************************************/
-	virtual void onTimeUpdate(uint16_t timeLeft) noexcept	  = 0;
+	virtual void onTimeUpdate(uint16_t timeLeft) noexcept = 0;
 
 	/** ***********************************************************************************************
 	 * @brief Abstract method called when there is no time left.
@@ -96,12 +96,12 @@ private:
 	/** ***********************************************************************************************
 	 * @brief It is static because it is used in a lambda function.
 	 *************************************************************************************************/
-	static bool				interruptWait;
+	static bool interruptWait;
 
 	/** ***********************************************************************************************
 	 * @brief The thread on which the timer runs when it is started.
 	 *************************************************************************************************/
-	std::thread				timerThread;
+	std::thread timerThread;
 
 	/** ***********************************************************************************************
 	 * @brief The variable signaled when the timer is stopped (to avoid waiting the remaining second).
@@ -111,7 +111,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Mutex protecting interruptWait.
 	 *************************************************************************************************/
-	std::mutex				waitMutex;
+	std::mutex waitMutex;
 };
 
 } /*< namespace hobServer */

@@ -29,7 +29,7 @@ namespace hob
  * @brief TODO
 */
 class Gold final : public TextureInitializer<11UL, 4UL>,
-				   public SoundInitializer<1UL>
+				   private SoundInitializer<1UL>
 {
 public:
 	/**
@@ -54,6 +54,9 @@ public:
 	void update(uint8_t amount) noexcept;
 
 private:
+	void handleQueue(void) noexcept;
+
+private:
 	/**
 	 * @brief TODO
 	*/
@@ -62,7 +65,7 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	uint8_t				previousAmount;
+	uint8_t previousAmount;
 };
 
 } /*< namespace hob */

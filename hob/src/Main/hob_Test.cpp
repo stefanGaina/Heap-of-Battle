@@ -45,17 +45,17 @@
 /** ***************************************************************************************************
  * @brief Flag indicating that the coordinates of the mouse and its state need to be overridden.
  *****************************************************************************************************/
-static bool		isMouseOverridden	 = false;
+static bool isMouseOverridden = false;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse x coordinate will be overridden.
  *****************************************************************************************************/
-static int32_t	overriddenX			 = 0;
+static int32_t overriddenX = 0;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse y coordinate will be overridden.
  *****************************************************************************************************/
-static int32_t	overriddenY			 = 0;
+static int32_t overriddenY = 0;
 
 /** ***************************************************************************************************
  * @brief The value with which the mouse state will be overridden.
@@ -69,8 +69,10 @@ namespace hob
 
 #ifdef DEVEL_BUILD
 
-std::ifstream Test::file   = {};
-std::thread	  Test::thread = {};
+std::ifstream	  Test::file   = {};
+std::thread		  Test::thread = {};
+Socket			  Test::socket = {};
+hobServer::Server Test::server = {};
 
 #endif /*< DEVEL_BUILD */
 
@@ -218,6 +220,37 @@ void Test::parseCommand(std::string& line) noexcept
 			if (1 != SDL_PushEvent(&event))
 			{
 				plog_error("Failed to push mouse button up event! (error message: %s)", SDL_GetError());
+			}
+
+			return;
+		}
+
+		word = "connect";
+		if (0 == line.compare(0, word.size(), word))
+		{
+			try
+			{
+				socket.create("127.0.0.1");
+			}
+			catch (const std::exception& exception)
+			{
+				plog_error("Failed to create client socket!");
+			}
+
+			return;
+		}
+
+		word = "host";
+		if (0 == line.compare(0, word.size(), word))
+		{
+			try
+			{
+				server.runAsync(8787U, 100U);
+				socket.create("127.0.0.1");
+			}
+			catch (const std::exception& exception)
+			{
+				plog_error("Failed to host server!");
 			}
 
 			return;

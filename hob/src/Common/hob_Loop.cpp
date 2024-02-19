@@ -48,6 +48,7 @@ Loop::Loop(SDL_Renderer* const renderer, Cursor& cursor, Ping* const ping) noexc
 	, ping{ ping }
 	, nextScene{ Scene::QUIT }
 	, isRunning{ false }
+	, isStopRequested{ false }
 {
 	SDL_Event event = {};
 
@@ -66,6 +67,13 @@ Scene Loop::start(void) noexcept
 	uint8_t failedRenderCount = 0U;
 
 	plog_debug("Loop is being started.");
+	if (true == isStopRequested.load())
+	{
+		plog_debug("Loop has been stopped before start.");
+		isStopRequested.store(false);
+		return Scene::MAIN_MENU;
+	}
+
 	if (true == isRunning.load())
 	{
 		plog_warn("Loop is already started!");
@@ -108,6 +116,8 @@ Scene Loop::start(void) noexcept
 void Loop::stop(const Scene nextScene) noexcept
 {
 	plog_debug("Loop is being stopped.");
+	isStopRequested.store(true);
+
 	if (false == isRunning.load())
 	{
 		plog_warn("Loop is already stopped!");

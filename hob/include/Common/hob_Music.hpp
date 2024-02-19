@@ -115,12 +115,12 @@ private:
 	/**
 	 * @brief What song is currently playing.
 	*/
-	Song	   playingSong;
+	Song playingSong;
 
 	/**
 	 * @brief The volume at which all the songs are played.
 	*/
-	int32_t	   volume;
+	int32_t volume;
 };
 
 } /*< namespace hob */

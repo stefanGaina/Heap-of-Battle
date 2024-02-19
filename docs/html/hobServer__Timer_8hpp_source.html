@@ -150,14 +150,14 @@ $(function() {
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * @param timeLeft: How many more iterations are left.</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span>         <a class="code" href="classhobServer_1_1Timer.html#ab2b2d3aa24bd5d110ff72fb4ac1b5978">timerFunction</a>(uint16_t timeLeft) noexcept;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhobServer_1_1Timer.html#ab2b2d3aa24bd5d110ff72fb4ac1b5978">timerFunction</a>(uint16_t timeLeft) noexcept;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @brief Abstract method called each second.</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * @param timeLeft:</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     * @return void</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#abe36537720007430892618d0cc076b58">   86</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classhobServer_1_1Timer.html#abe36537720007430892618d0cc076b58">onTimeUpdate</a>(uint16_t timeLeft) noexcept     = 0;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#abe36537720007430892618d0cc076b58">   86</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classhobServer_1_1Timer.html#abe36537720007430892618d0cc076b58">onTimeUpdate</a>(uint16_t timeLeft) noexcept = 0;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">     * @brief Abstract method called when there is no time left.</span></div>
@@ -170,12 +170,12 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * @brief It is static because it is used in a lambda function.</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a71c1a21e36369731576f4e79632367dd">   99</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>             <a class="code" href="classhobServer_1_1Timer.html#a71c1a21e36369731576f4e79632367dd">interruptWait</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a71c1a21e36369731576f4e79632367dd">   99</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classhobServer_1_1Timer.html#a71c1a21e36369731576f4e79632367dd">interruptWait</a>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">     * @brief The thread on which the timer runs when it is started.</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a03b82acc0d5d16e4d824e40e3e440605">  104</a></span>&#160;    std::thread             <a class="code" href="classhobServer_1_1Timer.html#a03b82acc0d5d16e4d824e40e3e440605">timerThread</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a03b82acc0d5d16e4d824e40e3e440605">  104</a></span>&#160;    std::thread <a class="code" href="classhobServer_1_1Timer.html#a03b82acc0d5d16e4d824e40e3e440605">timerThread</a>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">     * @brief The variable signaled when the timer is stopped (to avoid waiting the remaining second).</span></div>
@@ -185,7 +185,7 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">     * @brief Mutex protecting interruptWait.</span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a706068f127ae643dd7e4150ed0342804">  114</a></span>&#160;    std::mutex              <a class="code" href="classhobServer_1_1Timer.html#a706068f127ae643dd7e4150ed0342804">waitMutex</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classhobServer_1_1Timer.html#a706068f127ae643dd7e4150ed0342804">  114</a></span>&#160;    std::mutex <a class="code" href="classhobServer_1_1Timer.html#a706068f127ae643dd7e4150ed0342804">waitMutex</a>;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">/*&lt; namespace hobServer */</span></div>

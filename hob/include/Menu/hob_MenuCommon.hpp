@@ -45,42 +45,42 @@ namespace hob
 /**
  * @brief Menu's bar width (pixels).
 */
-constexpr const int32_t		BAR_WIDTH						 = 4 * SCALE;
+constexpr const int32_t BAR_WIDTH = 4 * SCALE;
 
 /**
  * @brief Menu's bar height (pixels).
 */
-constexpr const int32_t		BAR_HEIGHT						 = 2 * SCALE;
+constexpr const int32_t BAR_HEIGHT = 2 * SCALE;
 
 /**
  * @brief Menu's bar horizontal centered position (pixels).
 */
-constexpr const int32_t		BAR_HORIZONTAL_CENTERED			 = 6 * SCALE;
+constexpr const int32_t BAR_HORIZONTAL_CENTERED = 6 * SCALE;
 
 /**
  * @brief Menu's bar text width (pixels).
 */
-constexpr const int32_t		BAR_TEXT_WIDTH					 = 2 * SCALE;
+constexpr const int32_t BAR_TEXT_WIDTH = 2 * SCALE;
 
 /**
  * @brief Menu's bar text height (pixels).
 */
-constexpr const int32_t		BAR_TEXT_HEIGHT					 = SCALE / 2;
+constexpr const int32_t BAR_TEXT_HEIGHT = SCALE / 2;
 
 /**
  * @brief Relative path to the menu's background texture.
 */
-constexpr const char* const MENU_TEXTURE_PATH_BACKGROUND	 = HOB_TEXTURES_FILE_PATH("main_menu/background");
+constexpr const char* const MENU_TEXTURE_PATH_BACKGROUND = HOB_TEXTURES_FILE_PATH("main_menu/background");
 
 /**
  * @brief Relative path to the idle button texture.
 */
-constexpr const char* const MENU_TEXTURE_PATH_BUTTON_IDLE	 = HOB_TEXTURES_FILE_PATH("main_menu/button_idle");
+constexpr const char* const MENU_TEXTURE_PATH_BUTTON_IDLE = HOB_TEXTURES_FILE_PATH("main_menu/button_idle");
 
 /**
  * @brief Relative path to the active button texture.
 */
-constexpr const char* const MENU_TEXTURE_PATH_BUTTON_ACTIVE	 = HOB_TEXTURES_FILE_PATH("main_menu/button_active");
+constexpr const char* const MENU_TEXTURE_PATH_BUTTON_ACTIVE = HOB_TEXTURES_FILE_PATH("main_menu/button_active");
 
 /**
  * @brief Relative path to the pressed button texture.
@@ -90,12 +90,12 @@ constexpr const char* const MENU_TEXTURE_PATH_BUTTON_PRESSED = HOB_TEXTURES_FILE
 /**
  * @brief Relative path to the menu's click sound.
 */
-constexpr const char* const MENU_SOUND_PATH_CLICK			 = HOB_SOUNDS_FILE_PATH("click");
+constexpr const char* const MENU_SOUND_PATH_CLICK = HOB_SOUNDS_FILE_PATH("click");
 
 /**
  * @brief Corrections applied for determining is mouse is inside menu's bar.
 */
-constexpr const SDL_Rect	BAR_CORRECTIONS					 = { SCALE / 8 / 2, BAR_HEIGHT / 4, -SCALE / 16, -SCALE / 8 - BAR_HEIGHT / 4 };
+constexpr const SDL_Rect BAR_CORRECTIONS = { SCALE / 8 / 2, BAR_HEIGHT / 4, -SCALE / 16, -SCALE / 8 - BAR_HEIGHT / 4 };
 
 } /*< namespace hob */
 

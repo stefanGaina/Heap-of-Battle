@@ -44,13 +44,13 @@ namespace hobServer
 /** ***************************************************************************************************
  * @brief Default value for the time (seconds) allowed for every turn.
  *****************************************************************************************************/
-static constexpr const uint16_t TIME_PER_TURN		  = 30U;
+static constexpr const uint16_t TIME_PER_TURN = 30U;
 
 /******************************************************************************************************
  * LOCAL VARIABLES
  *****************************************************************************************************/
 
-bool							Server::isSocketReady = false;
+bool Server::isSocketReady = false;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -150,8 +150,6 @@ void Server::runSync(const uint16_t port) noexcept
 			return;
 		}
 
-		startTimer(TIME_PER_TURN);
-
 		receiveFirstPlayerThread = std::thread{ std::bind(&Server::receivePlayerUpdates, this, ClientType::PLAYER_1) };
 		receivePlayerUpdates(ClientType::PLAYER_2);
 
@@ -213,6 +211,13 @@ void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 			{
 				plog_trace(LOG_PREFIX, "Encrypt key is being sent. (key: %" PRIu64 ")", message.payload.encryptKey);
 				socket.sendUpdate(message, otherPlayer);
+				break;
+			}
+			case MessageType::START_GAME:
+			{
+				plog_info(LOG_PREFIX "Start game has been received!");
+				socket.sendUpdate(message, otherPlayer);
+				startTimer(TIME_PER_TURN);
 				break;
 			}
 			case MessageType::END_COMMUNICATION:

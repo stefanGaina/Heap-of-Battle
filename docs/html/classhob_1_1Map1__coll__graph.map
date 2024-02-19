@@ -1,9 +1,9 @@
 <map id="hob::Map1" name="hob::Map1">
 <area shape="rect" id="node1" title="Main class of the scenario 1." alt="" coords="1341,1001,1432,1028"/>
-<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="1132,137,1217,164"/>
-<area shape="rect" id="node3" title=" " alt="" coords="758,213,911,240"/>
-<area shape="rect" id="node26" href="$classhobServer_1_1Server.html" title="This class offers a way to run the server for matches." alt="" coords="1105,353,1244,380"/>
-<area shape="rect" id="node4" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="793,163,876,189"/>
+<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="1132,132,1217,159"/>
+<area shape="rect" id="node3" title=" " alt="" coords="758,212,911,239"/>
+<area shape="rect" id="node26" href="$classhobServer_1_1Server.html" title="This class offers a way to run the server for matches." alt="" coords="1105,356,1244,383"/>
+<area shape="rect" id="node4" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="793,161,876,188"/>
 <area shape="rect" id="node5" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,1165,125,1192"/>
 <area shape="rect" id="node9" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="246,812,375,839"/>
 <area shape="rect" id="node12" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="185,5,436,61"/>
@@ -11,7 +11,7 @@
 <area shape="rect" id="node20" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="175,946,447,1017"/>
 <area shape="rect" id="node31" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="229,1158,392,1199"/>
 <area shape="rect" id="node32" href="$classhob_1_1BuildingInitializer.html" title=" " alt="" coords="227,1093,395,1134"/>
-<area shape="rect" id="node34" href="$classhob_1_1Grid1.html" title="Lines on the map of scenario 1." alt="" coords="978,1223,1067,1249"/>
+<area shape="rect" id="node34" href="$classhob_1_1Grid1.html" title="Lines on the map of scenario 1." alt="" coords="978,1219,1067,1245"/>
 <area shape="rect" id="node36" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="507,1049,669,1090"/>
 <area shape="rect" id="node39" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="471,1345,705,1401"/>
 <area shape="rect" id="node41" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="229,1393,392,1434"/>
@@ -20,14 +20,14 @@
 <area shape="rect" id="node49" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="191,1736,430,1792"/>
 <area shape="rect" id="node50" href="$classhob_1_1TileInitializer.html" title=" " alt="" coords="236,1817,385,1858"/>
 <area shape="rect" id="node6" href="$classhob_1_1AsyncQueue.html" title=" " alt="" coords="201,136,420,163"/>
-<area shape="rect" id="node7" href="$classhob_1_1Texture.html" title="Texture wrapper." alt="" coords="259,533,362,560"/>
+<area shape="rect" id="node7" href="$classhob_1_1Texture.html" title="Texture wrapper." alt="" coords="259,528,362,555"/>
 <area shape="rect" id="node17" title=" " alt="" coords="732,554,937,595"/>
 <area shape="rect" id="node8" title=" " alt="" coords="265,209,357,236"/>
 <area shape="rect" id="node27" href="$classhobServer_1_1Timer.html" title="Timer with second precision." alt="" coords="767,389,902,416"/>
 <area shape="rect" id="node23" title=" " alt="" coords="729,787,940,829"/>
 <area shape="rect" id="node37" title=" " alt="" coords="731,919,938,945"/>
-<area shape="rect" id="node10" title=" " alt="" coords="265,440,357,467"/>
-<area shape="rect" id="node11" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="787,43,883,69"/>
+<area shape="rect" id="node10" title=" " alt="" coords="265,447,357,473"/>
+<area shape="rect" id="node11" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="787,45,883,72"/>
 <area shape="rect" id="node13" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="233,1275,388,1317"/>
 <area shape="rect" id="node40" href="$classhob_1_1Gold.html" title="TODO." alt="" coords="793,1411,877,1437"/>
 <area shape="rect" id="node15" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="733,619,937,661"/>

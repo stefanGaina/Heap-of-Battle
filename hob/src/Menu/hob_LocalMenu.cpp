@@ -106,6 +106,7 @@ LocalMenu::LocalMenu(SDL_Renderer* const renderer,
 	, socket{ socket }
 {
 	plog_trace("Local menu is being constructed.");
+	plog_assert(nullptr != ping);
 
 	music.start(Song::MAIN_MENU);
 	cursor.setFaction(true);

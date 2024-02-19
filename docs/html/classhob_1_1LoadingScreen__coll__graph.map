@@ -1,0 +1,7 @@
+<map id="hob::LoadingScreen" name="hob::LoadingScreen">
+<area shape="rect" id="node1" title=" " alt="" coords="572,115,721,142"/>
+<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="175,5,477,76"/>
+<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,27,125,54"/>
+<area shape="rect" id="node4" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="217,101,435,157"/>
+<area shape="rect" id="node5" title=" " alt="" coords="280,181,372,207"/>
+</map>

@@ -1,5 +1,5 @@
 <map id="hob::Loop" name="hob::Loop">
-<area shape="rect" id="node1" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="821,95,907,121"/>
+<area shape="rect" id="node1" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="861,95,947,121"/>
 <area shape="rect" id="node2" title=" " alt="" coords="551,44,704,71"/>
 <area shape="rect" id="node3" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="586,187,669,213"/>
 <area shape="rect" id="node4" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,85,125,112"/>

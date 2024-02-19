@@ -53,14 +53,14 @@
  * @param path: The path to the sound file (.wav).
  * @return The full file path.
 */
-#define HOB_SOUNDS_FILE_PATH(path)	 "assets/sounds/" path ".wav"
+#define HOB_SOUNDS_FILE_PATH(path) "assets/sounds/" path ".wav"
 
 /**
  * @brief String of common path to the music folder to be appended at the beginning of the file paths.
  * @param path: The path to the music file (.mp3).
  * @return The full file path.
 */
-#define HOB_MUSIC_FILE_PATH(path)	 "assets/sounds/" path ".mp3"
+#define HOB_MUSIC_FILE_PATH(path) "assets/sounds/" path ".mp3"
 
 /******************************************************************************************************
  * CONSTANTS                                                                                          *
@@ -72,17 +72,17 @@ namespace hob
 /**
  * @brief The length in pixels of a basic graphical unit.
 */
-static constexpr const int32_t SCALE		 = 80;
+static constexpr const int32_t SCALE = 80;
 
 /**
  * @brief The length in pixels of a smaller graphical unit.
 */
-static constexpr const int32_t HSCALE		 = SCALE / 2;
+static constexpr const int32_t HSCALE = SCALE / 2;
 
 /**
  * @brief The width in pixels of the window.
 */
-static constexpr const int32_t SCREEN_WIDTH	 = 16 * SCALE;
+static constexpr const int32_t SCREEN_WIDTH = 16 * SCALE;
 
 /**
  * @brief The height in pixels of the window.

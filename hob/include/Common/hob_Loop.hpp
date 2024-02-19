@@ -90,14 +90,14 @@ private:
 	 * @param void
 	 * @return void
 	*/
-	void		 handleEvents(void) noexcept;
+	void handleEvents(void) noexcept;
 
 	/**
 	 * @brief Clears renderer buffer and presents it to the screen after it draws desired objects.
 	 * @param void
 	 * @return void
 	*/
-	void		 render(void) noexcept(false);
+	void render(void) noexcept(false);
 
 	/**
 	 * @brief Abstract method, handling an event.
@@ -111,7 +111,7 @@ private:
 	 * @param void
 	 * @return void
 	*/
-	virtual void draw(void) noexcept						  = 0;
+	virtual void draw(void) noexcept = 0;
 
 protected:
 	/**
@@ -122,23 +122,28 @@ protected:
 	/**
 	 * @brief Reference to the cursor object.
 	*/
-	Cursor&				cursor;
+	Cursor& cursor;
 
 	/**
 	 * @brief Displays the latency for multiplayer scenes.
 	*/
-	Ping* const			ping;
+	Ping* const ping;
 
 private:
 	/**
 	 * @brief The scene that will follow after the current one is finished.
 	*/
-	Scene			  nextScene;
+	Scene nextScene;
 
 	/**
 	 * @brief Flag indicating if the loop is running or is stopped.
 	*/
 	std::atomic<bool> isRunning;
+
+	/**
+	 * @brief
+	*/
+	std::atomic<bool> isStopRequested;
 };
 
 } /*< namespace hob */

@@ -1,37 +1,39 @@
 <map id="hob::IDrawable" name="hob::IDrawable">
-<area shape="rect" id="node1" title="Interface of classes that can be drawn." alt="" coords="5,859,125,886"/>
-<area shape="rect" id="node2" href="$classhob_1_1BuildingInitializer.html" title=" " alt="" coords="228,5,396,47"/>
-<area shape="rect" id="node4" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="231,71,393,112"/>
-<area shape="rect" id="node5" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="193,137,431,193"/>
-<area shape="rect" id="node7" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="231,283,393,324"/>
-<area shape="rect" id="node9" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="194,349,430,405"/>
-<area shape="rect" id="node11" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,429,451,485"/>
-<area shape="rect" id="node13" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="187,509,437,565"/>
-<area shape="rect" id="node15" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="176,589,448,660"/>
-<area shape="rect" id="node17" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="231,684,393,725"/>
-<area shape="rect" id="node19" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="175,749,449,820"/>
-<area shape="rect" id="node21" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="194,845,430,901"/>
-<area shape="rect" id="node23" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="195,925,429,981"/>
-<area shape="rect" id="node25" href="$classhob_1_1TileInitializer.html" title=" " alt="" coords="237,217,387,259"/>
-<area shape="rect" id="node26" href="$classhob_1_1Building.html" title="Building supporting textures 2 types of textures each with 2 seasons." alt="" coords="259,1005,365,1031"/>
-<area shape="rect" id="node27" href="$classhob_1_1BuildingInitializer.html" title="Initializes a list of buildings." alt="" coords="223,1056,401,1097"/>
-<area shape="rect" id="node28" href="$classhob_1_1Chat.html" title="Common visual representation of chat box and messages." alt="" coords="270,1122,354,1149"/>
-<area shape="rect" id="node29" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="247,1173,377,1199"/>
-<area shape="rect" id="node30" href="$classhob_1_1FramesPerSecond.html" title="Displays the FPS (frames per second)." alt="" coords="227,1223,397,1250"/>
-<area shape="rect" id="node31" href="$classhob_1_1Grid1.html" title="Lines on the map of scenario 1." alt="" coords="267,1274,357,1301"/>
-<area shape="rect" id="node32" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="271,1325,353,1351"/>
-<area shape="rect" id="node33" href="$classhob_1_1TextureInitializer.html" title="Initializes a list of textures and components." alt="" coords="182,1375,442,1431"/>
-<area shape="rect" id="node34" href="$classhob_1_1Tile.html" title="HSCALE by HSCALE tile supporting texture for each season." alt="" coords="273,1455,351,1482"/>
-<area shape="rect" id="node35" href="$classhob_1_1TileInitializer.html" title="Initializes a list of tiles." alt="" coords="209,1507,415,1548"/>
-<area shape="rect" id="node3" href="$classhob_1_1Buildings1.html" title="Graphical representation of all the buildings used in scenario 1." alt="" coords="500,46,623,73"/>
-<area shape="rect" id="node6" href="$classhob_1_1Tiles1.html" title="Tiles of the scenario 1." alt="" coords="515,189,608,215"/>
-<area shape="rect" id="node8" href="$classhob_1_1Gold.html" title="TODO." alt="" coords="519,290,603,317"/>
-<area shape="rect" id="node10" href="$classhob_1_1Timer.html" title="Graphical representation of the time left." alt="" coords="515,363,607,390"/>
-<area shape="rect" id="node12" href="$classhob_1_1MainMenu.html" title="Main menu scene." alt="" coords="500,443,623,470"/>
-<area shape="rect" id="node14" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="513,523,609,550"/>
-<area shape="rect" id="node16" href="$classhob_1_1ChatFrame.html" title="Visual of the chat frame and background." alt="" coords="499,611,624,638"/>
-<area shape="rect" id="node18" href="$classhob_1_1Units.html" title=" " alt="" coords="517,691,605,718"/>
-<area shape="rect" id="node20" href="$classhob_1_1LocalMenu.html" title="LAN scene." alt="" coords="499,771,623,798"/>
-<area shape="rect" id="node22" href="$classhob_1_1Icons.html" title="TODO." alt="" coords="517,859,605,886"/>
-<area shape="rect" id="node24" href="$classhob_1_1Menu.html" title="Draws in&#45;game menu depending of the user&#39;s faction." alt="" coords="516,939,607,966"/>
+<area shape="rect" id="node1" title="Interface of classes that can be drawn." alt="" coords="5,899,125,926"/>
+<area shape="rect" id="node2" href="$classhob_1_1BuildingInitializer.html" title=" " alt="" coords="241,5,409,47"/>
+<area shape="rect" id="node4" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="243,71,406,112"/>
+<area shape="rect" id="node5" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="205,137,444,193"/>
+<area shape="rect" id="node7" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="243,283,406,324"/>
+<area shape="rect" id="node9" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="207,349,443,405"/>
+<area shape="rect" id="node11" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="186,429,463,485"/>
+<area shape="rect" id="node13" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="199,509,450,565"/>
+<area shape="rect" id="node15" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="189,589,461,660"/>
+<area shape="rect" id="node17" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="243,684,406,725"/>
+<area shape="rect" id="node19" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="188,749,461,820"/>
+<area shape="rect" id="node21" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="207,845,443,901"/>
+<area shape="rect" id="node23" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="207,925,442,981"/>
+<area shape="rect" id="node25" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,1005,476,1076"/>
+<area shape="rect" id="node27" href="$classhob_1_1TileInitializer.html" title=" " alt="" coords="250,217,399,259"/>
+<area shape="rect" id="node28" href="$classhob_1_1Building.html" title="Building supporting textures 2 types of textures each with 2 seasons." alt="" coords="271,1101,378,1127"/>
+<area shape="rect" id="node29" href="$classhob_1_1BuildingInitializer.html" title="Initializes a list of buildings." alt="" coords="235,1152,414,1193"/>
+<area shape="rect" id="node30" href="$classhob_1_1Chat.html" title="Common visual representation of chat box and messages." alt="" coords="283,1218,367,1245"/>
+<area shape="rect" id="node31" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="260,1269,389,1295"/>
+<area shape="rect" id="node32" href="$classhob_1_1FramesPerSecond.html" title="Displays the FPS (frames per second)." alt="" coords="239,1319,410,1346"/>
+<area shape="rect" id="node33" href="$classhob_1_1Grid1.html" title="Lines on the map of scenario 1." alt="" coords="280,1370,369,1397"/>
+<area shape="rect" id="node34" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="283,1421,366,1447"/>
+<area shape="rect" id="node35" href="$classhob_1_1TextureInitializer.html" title="Initializes a list of textures and components." alt="" coords="195,1471,455,1527"/>
+<area shape="rect" id="node36" href="$classhob_1_1Tile.html" title="HSCALE by HSCALE tile supporting texture for each season." alt="" coords="285,1551,364,1578"/>
+<area shape="rect" id="node37" href="$classhob_1_1TileInitializer.html" title="Initializes a list of tiles." alt="" coords="222,1603,427,1644"/>
+<area shape="rect" id="node3" href="$classhob_1_1Buildings1.html" title="Graphical representation of all the buildings used in scenario 1." alt="" coords="537,46,660,73"/>
+<area shape="rect" id="node6" href="$classhob_1_1Tiles1.html" title="Tiles of the scenario 1." alt="" coords="552,189,645,215"/>
+<area shape="rect" id="node8" href="$classhob_1_1Gold.html" title="TODO." alt="" coords="557,290,641,317"/>
+<area shape="rect" id="node10" href="$classhob_1_1Timer.html" title="Graphical representation of the time left." alt="" coords="553,363,645,390"/>
+<area shape="rect" id="node12" href="$classhob_1_1MainMenu.html" title="Main menu scene." alt="" coords="537,443,660,470"/>
+<area shape="rect" id="node14" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="551,523,647,550"/>
+<area shape="rect" id="node16" href="$classhob_1_1ChatFrame.html" title="Visual of the chat frame and background." alt="" coords="536,611,661,638"/>
+<area shape="rect" id="node18" href="$classhob_1_1Units.html" title=" " alt="" coords="555,691,643,718"/>
+<area shape="rect" id="node20" href="$classhob_1_1LocalMenu.html" title="LAN scene." alt="" coords="537,771,661,798"/>
+<area shape="rect" id="node22" href="$classhob_1_1Icons.html" title="TODO." alt="" coords="555,859,643,886"/>
+<area shape="rect" id="node24" href="$classhob_1_1Menu.html" title="Draws in&#45;game menu depending of the user&#39;s faction." alt="" coords="553,939,644,966"/>
+<area shape="rect" id="node26" href="$classhob_1_1LoadingScreen.html" title=" " alt="" coords="524,1027,673,1054"/>
 </map>

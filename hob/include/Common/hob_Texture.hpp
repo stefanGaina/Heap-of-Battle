@@ -77,7 +77,7 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void		 load(const std::string& filePath, SDL_Renderer* renderer) noexcept;
+	void load(const std::string& filePath, SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Creates a texture from a text.
@@ -87,14 +87,14 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return The dimension of the created texture (0 and 0 in case of error).
 	*/
-	Coordinate	 create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) noexcept;
+	Coordinate create(std::string text, TTF_Font* font, SDL_Color color, SDL_Renderer* renderer) noexcept;
 
 	/**
 	 * @brief Destroys the loaded texture.
 	 * @param void
 	 * @return void
 	*/
-	void		 destroy(void) noexcept;
+	void destroy(void) noexcept;
 
 	/**
 	 * @brief Queries for the loaded texture.

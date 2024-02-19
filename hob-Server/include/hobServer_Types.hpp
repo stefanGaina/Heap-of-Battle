@@ -53,7 +53,8 @@ enum class MessageType
 	END_TURN		  = 3, /**< The current turn has ended.                                 */
 	TIME			  = 4, /**< The payload contains how many seconds are left in the turn. */
 	PING			  = 5, /**< The client is still listening.                              */
-	ENCRYPT_KEY		  = 6  /**< The payload contains the encryption key.                    */
+	ENCRYPT_KEY		  = 6, /**< The payload contains the encryption key.                    */
+	START_GAME		  = 7  /**< The player is ready to start the game.                      */
 };
 
 /** ***************************************************************************************************
@@ -61,9 +62,9 @@ enum class MessageType
  *****************************************************************************************************/
 union MessagePayload
 {
-	char	 text[128];	 /**< Text message written by a player.           */
-	Version	 version;	 /**< The version of the game.                    */
-	uint16_t timeLeft;	 /**< How many seconds are left in the turn.      */
+	char	 text[128];	 /**< Text message written by a player.            */
+	Version	 version;	 /**< The version of the game.                     */
+	uint16_t timeLeft;	 /**< How many seconds are left in the turn.       */
 	uint64_t encryptKey; /**< The key needed for encrypting text messages. */
 };
 

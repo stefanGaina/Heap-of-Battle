@@ -82,7 +82,7 @@ public:
 	 * @param void
 	 * @return void
 	*/
-	void	   endTurn(void) noexcept;
+	void endTurn(void) noexcept;
 
 	/**
 	 * @brief
@@ -90,9 +90,9 @@ public:
 	 * @return true - it is user's turn.
 	 * @return false - it is opponent's turn.
 	*/
-	bool	   getTurn(void) const noexcept;
+	bool getTurn(void) const noexcept;
 
-	bool	   isRecruitPossible(Unit unit) noexcept;
+	bool isRecruitPossible(Unit unit) noexcept;
 
 	/**
 	 * @brief
@@ -102,18 +102,18 @@ public:
 	/**
 	 * @brief
 	*/
-	MenuMode   getMenuMode(int32_t x, int32_t y) const noexcept;
+	MenuMode getMenuMode(int32_t x, int32_t y) const noexcept;
 
 	/**
 	 * @brief
 	*/
-	uint8_t	   getGold(void) const noexcept;
+	uint8_t getGold(void) const noexcept;
 
 private:
 	/**
 	 * @brief Flag indicating if it is the user's turn.
 	*/
-	bool	turn;
+	bool turn;
 
 	/**
 	 * @brief TODO

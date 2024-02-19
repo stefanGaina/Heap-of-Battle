@@ -103,12 +103,6 @@ Collaboration diagram for hob::Tile:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a026dc0e6ea7eb456ab75522cf5354ae6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Tile.html#a026dc0e6ea7eb456ab75522cf5354ae6">Tile</a> (void) noexcept</td></tr>
-<tr class="memdesc:a026dc0e6ea7eb456ab75522cf5354ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not initialize the tile implicitly.  <a href="classhob_1_1Tile.html#a026dc0e6ea7eb456ab75522cf5354ae6">More...</a><br /></td></tr>
-<tr class="separator:a026dc0e6ea7eb456ab75522cf5354ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a2fa9c7685c4f3f00b6d19045158cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Tile.html#a97a2fa9c7685c4f3f00b6d19045158cf">~Tile</a> (void)=default</td></tr>
-<tr class="memdesc:a97a2fa9c7685c4f3f00b6d19045158cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not destroy the textures.  <a href="classhob_1_1Tile.html#a97a2fa9c7685c4f3f00b6d19045158cf">More...</a><br /></td></tr>
-<tr class="separator:a97a2fa9c7685c4f3f00b6d19045158cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad90cffc456fcd381924265cd80b54139"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Tile.html#ad90cffc456fcd381924265cd80b54139">init</a> (SDL_Texture *<a class="el" href="classhob_1_1Tile.html#aba069e866d996af80ba483bb8894df69">summerTexture</a>, SDL_Texture *<a class="el" href="classhob_1_1Tile.html#a3866cc940402e15a91fc37d5b0eb7ea0">autumnTexture</a>, SDL_Texture *<a class="el" href="classhob_1_1Tile.html#a2c0d0bb249eda5d098f22e507c1ab410">winterTexture</a>, SDL_Texture *<a class="el" href="classhob_1_1Tile.html#ab9f285b80f770fdfac3ea6d6bce1e110">springTexture</a>, <a class="el" href="structhob_1_1Coordinate.html">Coordinate</a> position) noexcept</td></tr>
 <tr class="memdesc:ad90cffc456fcd381924265cd80b54139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the tile with textures for all seasons and its position.  <a href="classhob_1_1Tile.html#ad90cffc456fcd381924265cd80b54139">More...</a><br /></td></tr>
 <tr class="separator:ad90cffc456fcd381924265cd80b54139"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,76 +137,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HSCALE by HSCALE tile supporting texture for each season. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a026dc0e6ea7eb456ab75522cf5354ae6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026dc0e6ea7eb456ab75522cf5354ae6">&#9670;&nbsp;</a></span>Tile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">hob::Tile::Tile </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Does not initialize the tile implicitly. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a97a2fa9c7685c4f3f00b6d19045158cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97a2fa9c7685c4f3f00b6d19045158cf">&#9670;&nbsp;</a></span>~Tile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">hob::Tile::~Tile </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Does not destroy the textures. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad90cffc456fcd381924265cd80b54139"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad90cffc456fcd381924265cd80b54139">&#9670;&nbsp;</a></span>init()</h2>
 

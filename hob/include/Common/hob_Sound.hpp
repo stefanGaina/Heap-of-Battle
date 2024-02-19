@@ -117,7 +117,7 @@ private:
 	/**
 	 * @brief Handle to SDL chunk object.
 	*/
-	Mix_Chunk*	   chunk;
+	Mix_Chunk* chunk;
 };
 
 } /*< namespace hob */

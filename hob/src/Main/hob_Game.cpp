@@ -41,6 +41,7 @@
 #include "hob_MainMenu.hpp"
 #include "hob_LocalMenu.hpp"
 #include "hob_Map1.hpp"
+#include "hob_LoadingScreen.hpp"
 #include "hob_Test.hpp"
 #include "hobServer_Version.hpp"
 
@@ -220,14 +221,15 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			plog_trace("Persistent data is being constructed.");
 		}
 
-		Scene				  nextScene;
-		std::unique_ptr<Loop> sceneLoop;
-		Cursor				  cursor;
-		Music				  music;
-		Faction				  faction;
-		hobServer::Server	  server;
-		Socket				  socket;
-		Ping				  ping;
+		Scene						   nextScene;
+		std::unique_ptr<Loop>		   sceneLoop;
+		Cursor						   cursor;
+		Music						   music;
+		Faction						   faction;
+		hobServer::Server			   server;
+		Socket						   socket;
+		Ping						   ping;
+		std::unique_ptr<LoadingScreen> loadingScreen;
 	};
 
 	std::unique_ptr<PersistentData> persistentData = nullptr;
@@ -281,15 +283,43 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			{
 				try
 				{
-					persistentData->sceneLoop = std::make_unique<Map1>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
-																	   persistentData->faction, persistentData->server, persistentData->socket);
+					persistentData->loadingScreen = std::make_unique<LoadingScreen>(renderer, persistentData->faction.getFaction());
+				}
+				catch (const std::bad_alloc& exception)
+				{
+					plog_fatal("Failed to allocate memory for loading screen! (bytes: %" PRIu64 ")", sizeof(LoadingScreen));
+					persistentData->nextScene = Scene::MAIN_MENU;
+					continue;
+				}
+
+				try
+				{
+					persistentData->sceneLoop =
+						std::make_unique<Map1>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music, persistentData->faction,
+											   persistentData->server, persistentData->socket, *persistentData->loadingScreen);
 				}
 				catch (const std::bad_alloc& exception)
 				{
 					plog_fatal("Failed to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
-					persistentData->nextScene = Scene::MAIN_MENU;
+					persistentData->loadingScreen = nullptr;
+					persistentData->nextScene	  = Scene::MAIN_MENU;
 					continue;
 				}
+
+				try
+				{
+					persistentData->loadingScreen->waitOpponent(3000U, persistentData->socket);
+				}
+				catch (const std::exception& exception)
+				{
+					plog_error("Timeout while waiting for opponent occurred!");
+					persistentData->sceneLoop	  = nullptr;
+					persistentData->nextScene	  = Scene::MAIN_MENU;
+					persistentData->loadingScreen = nullptr;
+					continue;
+				}
+
+				persistentData->loadingScreen = nullptr;
 				break;
 			}
 			case Scene::QUIT:

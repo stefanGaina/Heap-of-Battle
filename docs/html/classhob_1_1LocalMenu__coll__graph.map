@@ -1,6 +1,6 @@
 <map id="hob::LocalMenu" name="hob::LocalMenu">
 <area shape="rect" id="node1" title="LAN scene." alt="" coords="1451,605,1575,632"/>
-<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="1181,181,1267,208"/>
+<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="1181,175,1267,201"/>
 <area shape="rect" id="node3" title=" " alt="" coords="747,252,900,279"/>
 <area shape="rect" id="node17" href="$classhobServer_1_1Server.html" title="This class offers a way to run the server for matches." alt="" coords="1155,411,1293,437"/>
 <area shape="rect" id="node4" href="$classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="782,181,865,208"/>
@@ -13,7 +13,7 @@
 <area shape="rect" id="node8" title=" " alt="" coords="254,316,346,343"/>
 <area shape="rect" id="node18" href="$classhobServer_1_1Timer.html" title="Timer with second precision." alt="" coords="756,381,891,408"/>
 <area shape="rect" id="node10" title=" " alt="" coords="254,463,346,489"/>
-<area shape="rect" id="node11" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="775,45,871,72"/>
+<area shape="rect" id="node11" href="$classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="775,53,871,80"/>
 <area shape="rect" id="node14" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="1095,569,1353,610"/>
 <area shape="rect" id="node15" href="$classhob_1_1Music.html" title="Music wrapper." alt="" coords="1178,635,1270,661"/>
 <area shape="rect" id="node16" href="$classhob_1_1Socket.html" title="Client socket wrapper for server types." alt="" coords="1175,685,1273,712"/>

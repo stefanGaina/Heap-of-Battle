@@ -112,7 +112,7 @@ public:
 	 * @param renderer: Rendering context of the window.
 	 * @return void
 	*/
-	void   draw(SDL_Renderer* renderer) noexcept override;
+	void draw(SDL_Renderer* renderer) noexcept override;
 
 	/**
 	 * @brief TODO
@@ -129,7 +129,7 @@ public:
 	 * @param isAlliance: TODO
 	 * @return void
 	*/
-	void   handleHover(Coordinate mouse, bool isAlliance) noexcept;
+	void handleHover(Coordinate mouse, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
@@ -137,14 +137,14 @@ public:
 	 * @param isAlliance: TODO
 	 * @return void
 	*/
-	void   updateTimer(uint16_t seconds, bool isAlliance) noexcept;
+	void updateTimer(uint16_t seconds, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
 	 * @param amount: TODO
 	 * @return void
 	*/
-	void   updateGold(uint8_t amount) noexcept;
+	void updateGold(uint8_t amount) noexcept;
 
 private:
 	void setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture2) noexcept;
@@ -158,7 +158,7 @@ private:
 	/**
 	 * @brief TODO
 	*/
-	Gold  gold;
+	Gold gold;
 
 	/**
 	 * @brief TODO
