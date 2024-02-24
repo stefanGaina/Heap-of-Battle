@@ -33,7 +33,7 @@
 class Map1Dummy
 {
 public:
-	virtual ~Map1Dummy(void)						 = default;
+	virtual ~Map1Dummy(void) = default;
 
 	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;

@@ -32,7 +32,7 @@
 class SDL
 {
 public:
-	virtual ~SDL(void)																													 = default;
+	virtual ~SDL(void) = default;
 
 	virtual void		  SDL_GetVersion(SDL_version* ver)																				 = 0;
 	virtual int			  SDL_Init(Uint32 flags)																						 = 0;
@@ -96,144 +96,143 @@ SDLMock* SDLMock::sdlMock = nullptr;
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-extern "C"
+extern "C" {
+
+void SDL_GetVersion(SDL_version* const ver)
 {
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_GetVersion(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_GetVersion(ver);
+}
 
-	void SDL_GetVersion(SDL_version* const ver)
+int SDL_Init(const Uint32 flags)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_GetVersion(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_GetVersion(ver);
+		ADD_FAILURE() << "SDL_Init(): nullptr == SDLMock::sdlMock";
+		return -1;
 	}
+	return SDLMock::sdlMock->SDL_Init(flags);
+}
 
-	int SDL_Init(const Uint32 flags)
-	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_Init(): nullptr == SDLMock::sdlMock";
-			return -1;
-		}
-		return SDLMock::sdlMock->SDL_Init(flags);
-	}
+void SDL_Quit(void)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_Quit(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_Quit();
+}
 
-	void SDL_Quit(void)
+const char* SDL_GetError(void)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_Quit(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_Quit();
+		ADD_FAILURE() << "SDL_GetError(): nullptr == SDLMock::sdlMock";
+		return nullptr;
 	}
+	return SDLMock::sdlMock->SDL_GetError();
+}
 
-	const char* SDL_GetError(void)
-	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_GetError(): nullptr == SDLMock::sdlMock";
-			return nullptr;
-		}
-		return SDLMock::sdlMock->SDL_GetError();
-	}
+void SDL_DestroyRenderer(SDL_Renderer* const renderer)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyRenderer(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_DestroyRenderer(renderer);
+}
 
-	void SDL_DestroyRenderer(SDL_Renderer* const renderer)
+SDL_Window* SDL_CreateWindow(const char* const title, const int x, const int y, const int w, const int h, const Uint32 flags)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyRenderer(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_DestroyRenderer(renderer);
+		ADD_FAILURE() << "SDL_CreateWindow(): nullptr == SDLMock::sdlMock";
+		return nullptr;
 	}
+	return SDLMock::sdlMock->SDL_CreateWindow(title, x, y, w, h, flags);
+}
 
-	SDL_Window* SDL_CreateWindow(const char* const title, const int x, const int y, const int w, const int h, const Uint32 flags)
+SDL_Renderer* SDL_CreateRenderer(SDL_Window* const window, const int index, const Uint32 flags)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_CreateWindow(): nullptr == SDLMock::sdlMock";
-			return nullptr;
-		}
-		return SDLMock::sdlMock->SDL_CreateWindow(title, x, y, w, h, flags);
+		ADD_FAILURE() << "SDL_CreateRenderer(): nullptr == SDLMock::sdlMock";
+		return nullptr;
 	}
+	return SDLMock::sdlMock->SDL_CreateRenderer(window, index, flags);
+}
 
-	SDL_Renderer* SDL_CreateRenderer(SDL_Window* const window, const int index, const Uint32 flags)
+int SDL_SetRenderDrawBlendMode(SDL_Renderer* const renderer, const SDL_BlendMode blendMode)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_CreateRenderer(): nullptr == SDLMock::sdlMock";
-			return nullptr;
-		}
-		return SDLMock::sdlMock->SDL_CreateRenderer(window, index, flags);
+		ADD_FAILURE() << "SDL_SetRenderDrawBlendMode(): nullptr == SDLMock::sdlMock";
+		return -1;
 	}
+	return SDLMock::sdlMock->SDL_SetRenderDrawBlendMode(renderer, blendMode);
+}
 
-	int SDL_SetRenderDrawBlendMode(SDL_Renderer* const renderer, const SDL_BlendMode blendMode)
+int SDL_SetRenderDrawColor(SDL_Renderer* const renderer, const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_SetRenderDrawBlendMode(): nullptr == SDLMock::sdlMock";
-			return -1;
-		}
-		return SDLMock::sdlMock->SDL_SetRenderDrawBlendMode(renderer, blendMode);
+		ADD_FAILURE() << "SDL_SetRenderDrawColor(): nullptr == SDLMock::sdlMock";
+		return -1;
 	}
+	return SDLMock::sdlMock->SDL_SetRenderDrawColor(renderer, r, g, b, a);
+}
 
-	int SDL_SetRenderDrawColor(SDL_Renderer* const renderer, const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a)
-	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_SetRenderDrawColor(): nullptr == SDLMock::sdlMock";
-			return -1;
-		}
-		return SDLMock::sdlMock->SDL_SetRenderDrawColor(renderer, r, g, b, a);
-	}
+void SDL_DestroyWindow(SDL_Window* const window)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyWindow(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_DestroyWindow(window);
+}
 
-	void SDL_DestroyWindow(SDL_Window* const window)
+SDL_Texture* SDL_CreateTextureFromSurface(SDL_Renderer* const renderer, SDL_Surface* const surface)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyWindow(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_DestroyWindow(window);
+		ADD_FAILURE() << "SDL_CreateTextureFromSurface(): nullptr == SDLMock::sdlMock";
+		return nullptr;
 	}
+	return SDLMock::sdlMock->SDL_CreateTextureFromSurface(renderer, surface);
+}
 
-	SDL_Texture* SDL_CreateTextureFromSurface(SDL_Renderer* const renderer, SDL_Surface* const surface)
-	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_CreateTextureFromSurface(): nullptr == SDLMock::sdlMock";
-			return nullptr;
-		}
-		return SDLMock::sdlMock->SDL_CreateTextureFromSurface(renderer, surface);
-	}
+void SDL_FreeSurface(SDL_Surface* const surface)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_FreeSurface(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_FreeSurface(surface);
+}
 
-	void SDL_FreeSurface(SDL_Surface* const surface)
-	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_FreeSurface(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_FreeSurface(surface);
-	}
+void SDL_DestroyTexture(SDL_Texture* const texture)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyTexture(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_DestroyTexture(texture);
+}
 
-	void SDL_DestroyTexture(SDL_Texture* const texture)
+SDL_RWops* SDL_RWFromFile(const char* const file, const char* const mode)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_DestroyTexture(): nullptr == SDLMock::sdlMock";
-		SDLMock::sdlMock->SDL_DestroyTexture(texture);
+		ADD_FAILURE() << "SDL_RWFromFile(): nullptr == SDLMock::sdlMock";
+		return nullptr;
 	}
+	return SDLMock::sdlMock->SDL_RWFromFile(file, mode);
+}
 
-	SDL_RWops* SDL_RWFromFile(const char* const file, const char* const mode)
+int SDL_RenderCopy(SDL_Renderer* const renderer, SDL_Texture* const texture, const SDL_Rect* const srcrect, const SDL_Rect* const dstrect)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_RWFromFile(): nullptr == SDLMock::sdlMock";
-			return nullptr;
-		}
-		return SDLMock::sdlMock->SDL_RWFromFile(file, mode);
+		ADD_FAILURE() << "SDL_RenderCopy(): nullptr == SDLMock::sdlMock";
+		return -1;
 	}
+	return SDLMock::sdlMock->SDL_RenderCopy(renderer, texture, srcrect, dstrect);
+}
 
-	int SDL_RenderCopy(SDL_Renderer* const renderer, SDL_Texture* const texture, const SDL_Rect* const srcrect, const SDL_Rect* const dstrect)
+int SDL_ShowCursor(const int toggle)
+{
+	if (nullptr == SDLMock::sdlMock)
 	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_RenderCopy(): nullptr == SDLMock::sdlMock";
-			return -1;
-		}
-		return SDLMock::sdlMock->SDL_RenderCopy(renderer, texture, srcrect, dstrect);
+		ADD_FAILURE() << "SDL_ShowCursor(): nullptr == SDLMock::sdlMock";
+		return -1;
 	}
-
-	int SDL_ShowCursor(const int toggle)
-	{
-		if (nullptr == SDLMock::sdlMock)
-		{
-			ADD_FAILURE() << "SDL_ShowCursor(): nullptr == SDLMock::sdlMock";
-			return -1;
-		}
-		return SDLMock::sdlMock->SDL_ShowCursor(toggle);
-	}
+	return SDLMock::sdlMock->SDL_ShowCursor(toggle);
+}
 }
 
 #endif /*< SDL_MOCK_HPP_ */

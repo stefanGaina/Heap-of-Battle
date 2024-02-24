@@ -65,7 +65,7 @@ protected:
 class TextureInitializerDummy
 {
 public:
-	virtual ~TextureInitializerDummy(void)	  = default;
+	virtual ~TextureInitializerDummy(void) = default;
 
 	virtual void draw(SDL_Renderer* renderer) = 0;
 };

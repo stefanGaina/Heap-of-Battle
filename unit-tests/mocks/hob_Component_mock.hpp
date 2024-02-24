@@ -33,7 +33,7 @@
 class ComponentDummy
 {
 public:
-	virtual ~ComponentDummy(void)													= default;
+	virtual ~ComponentDummy(void) = default;
 
 	virtual void		 updateTexture(SDL_Texture* texture)						= 0;
 	virtual void		 updateTexture(const hob::Texture& texture)					= 0;

@@ -80,8 +80,8 @@ void Ping::update(const Socket& socket) noexcept
 {
 	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
-	const uint64_t					pingEndTime			   = SDL_GetTicks64();
-	const uint64_t latency = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
+	const uint64_t pingEndTime = SDL_GetTicks64();
+	const uint64_t latency	   = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
 
 	plog_verbose("Ping is being updated. (latency: %" PRIu64 ")", latency);
 	if (true == pingThread.joinable())
@@ -140,11 +140,11 @@ void Ping::stop(void) noexcept
 
 void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW			  = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
+	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
-	std::string						 text			  = {};
-	Coordinate						 textureDimension = {};
-	uint64_t						 latency		  = 0UL;
+	std::string text			 = {};
+	Coordinate	textureDimension = {};
+	uint64_t	latency			 = 0UL;
 
 	plog_verbose("Queue is being handled.");
 	plog_assert(nullptr != renderer);

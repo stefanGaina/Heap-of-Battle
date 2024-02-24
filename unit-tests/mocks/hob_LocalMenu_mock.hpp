@@ -33,7 +33,7 @@
 class LocalMenuDummy
 {
 public:
-	virtual ~LocalMenuDummy(void)					 = default;
+	virtual ~LocalMenuDummy(void) = default;
 
 	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;

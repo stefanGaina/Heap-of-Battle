@@ -84,11 +84,11 @@ void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 
 void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW			  = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
+	static constexpr const SDL_Color YELLOW = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
 
-	const uint64_t					 frameEndTime	  = SDL_GetTicks64();
-	std::string						 text			  = {};
-	Coordinate						 textureDimension = {};
+	const uint64_t frameEndTime		= SDL_GetTicks64();
+	std::string	   text				= {};
+	Coordinate	   textureDimension = {};
 
 	plog_verbose("Frames per second is being updated.(start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
 	plog_assert(nullptr != renderer);

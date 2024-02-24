@@ -90,10 +90,10 @@ Chat::~Chat(void) noexcept
 
 void Chat::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint8_t BAR_FREQUENCY   = 40U;
+	static constexpr const uint8_t BAR_FREQUENCY = 40U;
 
-	size_t						   index		   = 0UL;
-	std::string					   opponentMessage = {};
+	size_t		index			= 0UL;
+	std::string opponentMessage = {};
 
 	plog_verbose("Chat is being drawn.");
 	plog_assert(nullptr != renderer);
@@ -233,7 +233,7 @@ void Chat::updateEnteringMessage(SDL_Renderer* const renderer) noexcept
 	components[CHAT_TEXTURE_INDEX_BAR].updatePosition({ .x = dimension.x + 8, .y = 14 * HSCALE + HSCALE / 3 + 1, .w = 4, .h = 15 });
 	enteringMessageLength = dimension.x;
 
-	barTicks			  = 0U;
+	barTicks = 0U;
 }
 
 void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexcept
@@ -456,7 +456,7 @@ void Chat::handleUserCommand(SDL_Renderer* const renderer) noexcept
 	if ("./mute" == enteringMessage)
 	{
 		plog_info("Chat is being muted!");
-		isMuted	  = true;
+		isMuted = true;
 
 		dimension = textures[CHAT_TEXTURES_COUNT - 2].create("Chat is muted: ./unmute", font, Faction::getNeutralColor(), renderer);
 		components[CHAT_TEXTURES_COUNT - 2].updateTexture(textures[CHAT_TEXTURES_COUNT - 2]);

@@ -100,7 +100,7 @@ void Music::start(const Song song) noexcept
 	}
 	playingSong = song;
 
-	errorCode	= Mix_PlayMusic(this->song, -1);
+	errorCode = Mix_PlayMusic(this->song, -1);
 	if (0 != errorCode)
 	{
 		plog_error("Failed to play music! (error code: %" PRId32 ")", errorCode);

@@ -33,7 +33,7 @@
 class CursorDummy
 {
 public:
-	virtual ~CursorDummy(void)								  = default;
+	virtual ~CursorDummy(void) = default;
 
 	virtual void updatePosition(const hob::Coordinate& mouse) = 0;
 	virtual void draw(SDL_Renderer* renderer)				  = 0;

@@ -32,7 +32,7 @@
 class Mix
 {
 public:
-	virtual ~Mix(void)																					 = default;
+	virtual ~Mix(void) = default;
 
 	virtual const SDL_version* Mix_Linked_Version(void)													 = 0;
 	virtual int				   Mix_OpenAudio(int frequency, Uint16 format, int channels, int chunksize)	 = 0;
@@ -90,118 +90,117 @@ MixMock* MixMock::mixMock = nullptr;
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-extern "C"
+extern "C" {
+
+const SDL_version* Mix_Linked_Version(void)
 {
-
-	const SDL_version* Mix_Linked_Version(void)
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_Linked_Version(): nullptr == MixMock::mixMock";
-			return nullptr;
-		}
-		return MixMock::mixMock->Mix_Linked_Version();
+		ADD_FAILURE() << "Mix_Linked_Version(): nullptr == MixMock::mixMock";
+		return nullptr;
 	}
+	return MixMock::mixMock->Mix_Linked_Version();
+}
 
-	int Mix_OpenAudio(const int frequency, const Uint16 format, const int channels, const int chunksize)
+int Mix_OpenAudio(const int frequency, const Uint16 format, const int channels, const int chunksize)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_OpenAudio(): nullptr == MixMock::mixMock";
-			return -1;
-		}
-		return MixMock::mixMock->Mix_OpenAudio(frequency, format, channels, chunksize);
+		ADD_FAILURE() << "Mix_OpenAudio(): nullptr == MixMock::mixMock";
+		return -1;
 	}
+	return MixMock::mixMock->Mix_OpenAudio(frequency, format, channels, chunksize);
+}
 
-	void Mix_Quit(void)
-	{
-		ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_Quit(): nullptr == MixMock::mixMock";
-		MixMock::mixMock->Mix_Quit();
-	}
+void Mix_Quit(void)
+{
+	ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_Quit(): nullptr == MixMock::mixMock";
+	MixMock::mixMock->Mix_Quit();
+}
 
-	Mix_Chunk* Mix_LoadWAV_RW(SDL_RWops* const src, const int freesrc)
+Mix_Chunk* Mix_LoadWAV_RW(SDL_RWops* const src, const int freesrc)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_LoadWAV_RW(): nullptr == MixMock::mixMock";
-			return nullptr;
-		}
-		return MixMock::mixMock->Mix_LoadWAV_RW(src, freesrc);
+		ADD_FAILURE() << "Mix_LoadWAV_RW(): nullptr == MixMock::mixMock";
+		return nullptr;
 	}
+	return MixMock::mixMock->Mix_LoadWAV_RW(src, freesrc);
+}
 
-	void Mix_FreeChunk(Mix_Chunk* const chunk)
-	{
-		ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_FreeChunk(): nullptr == MixMock::mixMock";
-		MixMock::mixMock->Mix_FreeChunk(chunk);
-	}
+void Mix_FreeChunk(Mix_Chunk* const chunk)
+{
+	ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_FreeChunk(): nullptr == MixMock::mixMock";
+	MixMock::mixMock->Mix_FreeChunk(chunk);
+}
 
-	int Mix_PlayChannelTimed(const int channel, Mix_Chunk* const chunk, const int loops, const int ticks)
+int Mix_PlayChannelTimed(const int channel, Mix_Chunk* const chunk, const int loops, const int ticks)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_PlayChannelTimed(): nullptr == MixMock::mixMock";
-			return -1;
-		}
-		return MixMock::mixMock->Mix_PlayChannelTimed(channel, chunk, loops, ticks);
+		ADD_FAILURE() << "Mix_PlayChannelTimed(): nullptr == MixMock::mixMock";
+		return -1;
 	}
+	return MixMock::mixMock->Mix_PlayChannelTimed(channel, chunk, loops, ticks);
+}
 
-	int Mix_Volume(const int channel, const int volume)
+int Mix_Volume(const int channel, const int volume)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_Volume(): nullptr == MixMock::mixMock";
-			return -1;
-		}
-		return MixMock::mixMock->Mix_Volume(channel, volume);
+		ADD_FAILURE() << "Mix_Volume(): nullptr == MixMock::mixMock";
+		return -1;
 	}
+	return MixMock::mixMock->Mix_Volume(channel, volume);
+}
 
-	Mix_Music* Mix_LoadMUS(const char* const file)
+Mix_Music* Mix_LoadMUS(const char* const file)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_LoadMUS(): nullptr == MixMock::mixMock";
-			return nullptr;
-		}
-		return MixMock::mixMock->Mix_LoadMUS(file);
+		ADD_FAILURE() << "Mix_LoadMUS(): nullptr == MixMock::mixMock";
+		return nullptr;
 	}
+	return MixMock::mixMock->Mix_LoadMUS(file);
+}
 
-	int Mix_PlayMusic(Mix_Music* const music, const int loops)
+int Mix_PlayMusic(Mix_Music* const music, const int loops)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_PlayMusic(): nullptr == MixMock::mixMock";
-			return -1;
-		}
-		return MixMock::mixMock->Mix_PlayMusic(music, loops);
+		ADD_FAILURE() << "Mix_PlayMusic(): nullptr == MixMock::mixMock";
+		return -1;
 	}
+	return MixMock::mixMock->Mix_PlayMusic(music, loops);
+}
 
-	int Mix_VolumeMusic(const int volume)
+int Mix_VolumeMusic(const int volume)
+{
+	if (nullptr == MixMock::mixMock)
 	{
-		if (nullptr == MixMock::mixMock)
-		{
-			ADD_FAILURE() << "Mix_VolumeMusic(): nullptr == MixMock::mixMock";
-			return -1;
-		}
-		return MixMock::mixMock->Mix_VolumeMusic(volume);
+		ADD_FAILURE() << "Mix_VolumeMusic(): nullptr == MixMock::mixMock";
+		return -1;
 	}
+	return MixMock::mixMock->Mix_VolumeMusic(volume);
+}
 
-	void Mix_FreeMusic(Mix_Music* const music)
-	{
-		ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_FreeMusic(): nullptr == MixMock::mixMock";
-		MixMock::mixMock->Mix_FreeMusic(music);
-	}
+void Mix_FreeMusic(Mix_Music* const music)
+{
+	ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_FreeMusic(): nullptr == MixMock::mixMock";
+	MixMock::mixMock->Mix_FreeMusic(music);
+}
 
-	void Mix_PauseMusic(void)
-	{
-		ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_PauseMusic(): nullptr == MixMock::mixMock";
-		MixMock::mixMock->Mix_PauseMusic();
-	}
+void Mix_PauseMusic(void)
+{
+	ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_PauseMusic(): nullptr == MixMock::mixMock";
+	MixMock::mixMock->Mix_PauseMusic();
+}
 
-	void Mix_ResumeMusic(void)
-	{
-		ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_ResumeMusic(): nullptr == MixMock::mixMock";
-		MixMock::mixMock->Mix_ResumeMusic();
-	}
+void Mix_ResumeMusic(void)
+{
+	ASSERT_NE(nullptr, MixMock::mixMock) << "Mix_ResumeMusic(): nullptr == MixMock::mixMock";
+	MixMock::mixMock->Mix_ResumeMusic();
+}
 }
 
 #endif /*< SDL_MIXER_MOCK_HPP_ */

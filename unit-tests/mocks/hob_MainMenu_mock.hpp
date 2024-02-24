@@ -33,7 +33,7 @@
 class MainMenuDummy
 {
 public:
-	virtual ~MainMenuDummy(void)					 = default;
+	virtual ~MainMenuDummy(void) = default;
 
 	virtual void draw(void)							 = 0;
 	virtual void handleEvent(const SDL_Event& event) = 0;

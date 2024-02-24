@@ -73,145 +73,143 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="hob__FramesPerSecond_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Heap of Battle Copyright (C) 2024                                                                  *</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *                                                                                                    *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * This software is provided &#39;as-is&#39;, without any express or implied warranty. In no event will the   *</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * authors be held liable for any damages arising from the use of this software.                      *</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *                                                                                                    *</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * Permission is granted to anyone to use this software for any purpose, including commercial         *</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * applications, and to alter it and redistribute it freely, subject to the following restrictions:   *</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *                                                                                                    *</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the   *</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *    original software. If you use this software in a product, an acknowledgment in the product      *</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *    documentation would be appreciated but is not required.                                         *</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being *</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *    the original software.                                                                          *</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * 3. This notice may not be removed or altered from any source distribution.                         *</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">******************************************************************************************************/</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * @file hob_FramesPerSecond.hpp                                                                      *</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @date:      @author:                   Reason for change:                                          *</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * 23.07.2023  Gaina Stefan               Initial version.                                            *</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * 26.08.2023  Gaina Stefan               Change order of members.                                    *</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * 22.12.2023  Gaina Stefan               Ported to Linux.                                            *</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * 16.01.2024  Gaina Stefan               Added const to font.                                        *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * 19.01.2024  Gaina Stefan               Changed update().                                           *</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @details This file defines the class and method prototypes of the frames per second.               *</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * @todo N/A.                                                                                         *</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * @bug No known bugs.                                                                                *</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef HOB_FRAMES_PER_SECOND_HPP_</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define HOB_FRAMES_PER_SECOND_HPP_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Heap of Battle Copyright (C) 2024</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * This software is provided &#39;as-is&#39;, without any express or implied warranty. In no event will the</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * authors be held liable for any damages arising from the use of this software.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * Permission is granted to anyone to use this software for any purpose, including commercial</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * applications, and to alter it and redistribute it freely, subject to the following restrictions:</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *    original software. If you use this software in a product, an acknowledgment in the product</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *    documentation would be appreciated but is not required.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *    the original software.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * 3. This notice may not be removed or altered from any source distribution.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/** ***************************************************************************************************</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * @file hob_FramesPerSecond.hpp</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @author Gaina Stefan</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * @date 23.07.2023</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * @brief This file defines the class and method prototypes of the frames per second.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * @todo N/A.</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @bug No known bugs.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef HOB_FRAMES_PER_SECOND_HPP_</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define HOB_FRAMES_PER_SECOND_HPP_</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * HEADER FILE INCLUDES</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * HEADER FILE INCLUDES                                                                               *</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Texture_8hpp.html">hob_Texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Component_8hpp.html">hob_Component.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Texture_8hpp.html">hob_Texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__Component_8hpp.html">hob_Component.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> * TYPE DEFINITIONS</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * @brief Displays the FPS (frames per second).</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html">   52</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1FramesPerSecond.html">FramesPerSecond</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     * @brief Loads font and initializes frames to 0 until a second has passed.</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classhob_1_1FramesPerSecond.html#a64dbff11899c7b79d849ec9b01062172">FramesPerSecond</a>(SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">     * @brief Destroys the textures and closes the font.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="classhob_1_1FramesPerSecond.html#af178d6aee9a9fb2e3c2d954772e956fe">~FramesPerSecond</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     * @brief Draws in top right corner in yellow &quot;x FPS&quot;.</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#abbc05401bd4d835790e7903ef46d786d">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * @brief If the frame rate changed destroy the texture and create a new updated one.</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#ab43611b6360b70389296893aed92c639">update</a>(SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * @brief Resets the frame count and the frame start time.</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     * @param frameEndTime: Time when the last counted frame ended.</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#aefc9db11add45c8ad783d9b1ce7a045a">reset</a>(<span class="keyword">const</span> uint64_t frameEndTime) noexcept;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     * @brief The component of the text display in top right corner.</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">   93</a></span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a> <a class="code" href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">component</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">     * @brief The texture of the displayed text.</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">   98</a></span>&#160;    <a class="code" href="classhob_1_1Texture.html">Texture</a> <a class="code" href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">texture</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">     * @brief The font of the text written in the texture.</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">  103</a></span>&#160;    TTF_Font* <span class="keyword">const</span> <a class="code" href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">font</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">     * @brief The time when the first counted frame started.</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">  108</a></span>&#160;    uint64_t <a class="code" href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">frameStartTime</a>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">     * @brief How many frames were counted in a second.</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">  113</a></span>&#160;    uint16_t <a class="code" href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">framesCount</a>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">     * @brief The previous frames count to not recreate the same texture.</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">  118</a></span>&#160;    uint16_t <a class="code" href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">previousFramesCount</a>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">/** ***************************************************************************************************</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * @brief Displays the FPS (frames per second).</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * @details Yellow text in the right corner representing how many times the frame has been drawn in a</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * second.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *****************************************************************************************************/</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html">   50</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1FramesPerSecond.html">FramesPerSecond</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1IDrawable.html">IDrawable</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * @brief Loads font and initializes frames to 0 until a second has passed.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classhob_1_1FramesPerSecond.html#a64dbff11899c7b79d849ec9b01062172">FramesPerSecond</a>(SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     * @brief Destroys the textures and closes the font.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">     * @param void</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classhob_1_1FramesPerSecond.html#af178d6aee9a9fb2e3c2d954772e956fe">~FramesPerSecond</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     * @brief Draws in top right corner in yellow &quot;x FPS&quot;.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#abbc05401bd4d835790e7903ef46d786d">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">     * @brief If the frame rate changed destroy the texture and create a new updated one.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#ab43611b6360b70389296893aed92c639">update</a>(SDL_Renderer* renderer) noexcept;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * @brief Resets the frame count and the frame start time.</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @param frameEndTime: Time when the last counted frame ended.</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1FramesPerSecond.html#aefc9db11add45c8ad783d9b1ce7a045a">reset</a>(<span class="keyword">const</span> uint64_t frameEndTime) noexcept;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">     * @brief The component of the text display in top right corner.</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">   91</a></span>&#160;    <a class="code" href="classhob_1_1Component.html">Component</a> <a class="code" href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">component</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">     * @brief The texture of the displayed text.</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">   96</a></span>&#160;    <a class="code" href="classhob_1_1Texture.html">Texture</a> <a class="code" href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">texture</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">     * @brief The font of the text written in the texture.</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">  101</a></span>&#160;    TTF_Font* <span class="keyword">const</span> <a class="code" href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">font</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">     * @brief The time when the first counted frame started.</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">  106</a></span>&#160;    uint64_t <a class="code" href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">frameStartTime</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">     * @brief How many frames were counted in a second.</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">  111</a></span>&#160;    uint16_t <a class="code" href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">framesCount</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">    /** ***********************************************************************************************</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     * @brief The previous frames count to not recreate the same texture.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     *************************************************************************************************/</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">  116</a></span>&#160;    uint16_t <a class="code" href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">previousFramesCount</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_FRAMES_PER_SECOND_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_FRAMES_PER_SECOND_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshob_1_1Component_html"><div class="ttname"><a href="classhob_1_1Component.html">hob::Component</a></div><div class="ttdoc">Packs texture and dimension/position on screen.</div><div class="ttdef"><b>Definition:</b> hob_Component.hpp:49</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html">hob::FramesPerSecond</a></div><div class="ttdoc">Displays the FPS (frames per second).</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:53</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a104c647338aa65f59f8130f5c70c9b7e"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">hob::FramesPerSecond::component</a></div><div class="ttdeci">Component component</div><div class="ttdoc">The component of the text display in top right corner.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:93</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a18e78542eccc5e739bfdf8911455d856"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">hob::FramesPerSecond::framesCount</a></div><div class="ttdeci">uint16_t framesCount</div><div class="ttdoc">How many frames were counted in a second.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:113</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a39941c127718035161e2b2b83c41d3e6"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">hob::FramesPerSecond::texture</a></div><div class="ttdeci">Texture texture</div><div class="ttdoc">The texture of the displayed text.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:98</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html">hob::FramesPerSecond</a></div><div class="ttdoc">Displays the FPS (frames per second).</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:51</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a104c647338aa65f59f8130f5c70c9b7e"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a104c647338aa65f59f8130f5c70c9b7e">hob::FramesPerSecond::component</a></div><div class="ttdeci">Component component</div><div class="ttdoc">The component of the text display in top right corner.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:91</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a18e78542eccc5e739bfdf8911455d856"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a18e78542eccc5e739bfdf8911455d856">hob::FramesPerSecond::framesCount</a></div><div class="ttdeci">uint16_t framesCount</div><div class="ttdoc">How many frames were counted in a second.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:111</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a39941c127718035161e2b2b83c41d3e6"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a39941c127718035161e2b2b83c41d3e6">hob::FramesPerSecond::texture</a></div><div class="ttdeci">Texture texture</div><div class="ttdoc">The texture of the displayed text.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:96</div></div>
 <div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a64dbff11899c7b79d849ec9b01062172"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a64dbff11899c7b79d849ec9b01062172">hob::FramesPerSecond::FramesPerSecond</a></div><div class="ttdeci">FramesPerSecond(SDL_Renderer *renderer) noexcept</div><div class="ttdoc">Loads font and initializes frames to 0 until a second has passed.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.cpp:52</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a6a1df631f792059731485164633fb261"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">hob::FramesPerSecond::frameStartTime</a></div><div class="ttdeci">uint64_t frameStartTime</div><div class="ttdoc">The time when the first counted frame started.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:108</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a75e73411e33ba7fa74657c091e66c080"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">hob::FramesPerSecond::previousFramesCount</a></div><div class="ttdeci">uint16_t previousFramesCount</div><div class="ttdoc">The previous frames count to not recreate the same texture.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:118</div></div>
-<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a90eecaba96997f770b0732ca91a2d759"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">hob::FramesPerSecond::font</a></div><div class="ttdeci">TTF_Font *const font</div><div class="ttdoc">The font of the text written in the texture.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:103</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a6a1df631f792059731485164633fb261"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a6a1df631f792059731485164633fb261">hob::FramesPerSecond::frameStartTime</a></div><div class="ttdeci">uint64_t frameStartTime</div><div class="ttdoc">The time when the first counted frame started.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:106</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a75e73411e33ba7fa74657c091e66c080"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a75e73411e33ba7fa74657c091e66c080">hob::FramesPerSecond::previousFramesCount</a></div><div class="ttdeci">uint16_t previousFramesCount</div><div class="ttdoc">The previous frames count to not recreate the same texture.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:116</div></div>
+<div class="ttc" id="aclasshob_1_1FramesPerSecond_html_a90eecaba96997f770b0732ca91a2d759"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#a90eecaba96997f770b0732ca91a2d759">hob::FramesPerSecond::font</a></div><div class="ttdeci">TTF_Font *const font</div><div class="ttdoc">The font of the text written in the texture.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.hpp:101</div></div>
 <div class="ttc" id="aclasshob_1_1FramesPerSecond_html_ab43611b6360b70389296893aed92c639"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#ab43611b6360b70389296893aed92c639">hob::FramesPerSecond::update</a></div><div class="ttdeci">void update(SDL_Renderer *renderer) noexcept</div><div class="ttdoc">If the frame rate changed destroy the texture and create a new updated one.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.cpp:85</div></div>
 <div class="ttc" id="aclasshob_1_1FramesPerSecond_html_abbc05401bd4d835790e7903ef46d786d"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#abbc05401bd4d835790e7903ef46d786d">hob::FramesPerSecond::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws in top right corner in yellow &quot;x FPS&quot;.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.cpp:76</div></div>
 <div class="ttc" id="aclasshob_1_1FramesPerSecond_html_aefc9db11add45c8ad783d9b1ce7a045a"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#aefc9db11add45c8ad783d9b1ce7a045a">hob::FramesPerSecond::reset</a></div><div class="ttdeci">void reset(const uint64_t frameEndTime) noexcept</div><div class="ttdoc">Resets the frame count and the frame start time.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.cpp:131</div></div>
 <div class="ttc" id="aclasshob_1_1FramesPerSecond_html_af178d6aee9a9fb2e3c2d954772e956fe"><div class="ttname"><a href="classhob_1_1FramesPerSecond.html#af178d6aee9a9fb2e3c2d954772e956fe">hob::FramesPerSecond::~FramesPerSecond</a></div><div class="ttdeci">~FramesPerSecond(void) noexcept</div><div class="ttdoc">Destroys the textures and closes the font.</div><div class="ttdef"><b>Definition:</b> hob_FramesPerSecond.cpp:70</div></div>
-<div class="ttc" id="aclasshob_1_1IDrawable_html"><div class="ttname"><a href="classhob_1_1IDrawable.html">hob::IDrawable</a></div><div class="ttdoc">Interface of classes that can be drawn.</div><div class="ttdef"><b>Definition:</b> hob_IDrawable.hpp:49</div></div>
+<div class="ttc" id="aclasshob_1_1IDrawable_html"><div class="ttname"><a href="classhob_1_1IDrawable.html">hob::IDrawable</a></div><div class="ttdoc">Interface of classes that can be drawn.</div><div class="ttdef"><b>Definition:</b> hob_IDrawable.hpp:47</div></div>
 <div class="ttc" id="aclasshob_1_1Texture_html"><div class="ttname"><a href="classhob_1_1Texture.html">hob::Texture</a></div><div class="ttdoc">Texture wrapper.</div><div class="ttdef"><b>Definition:</b> hob_Texture.hpp:53</div></div>
 <div class="ttc" id="ahob__Component_8hpp_html"><div class="ttname"><a href="hob__Component_8hpp.html">hob_Component.hpp</a></div><div class="ttdoc">This file defines the class and method prototypes of the component.</div></div>
-<div class="ttc" id="ahob__IDrawable_8hpp_html"><div class="ttname"><a href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a></div></div>
+<div class="ttc" id="ahob__IDrawable_8hpp_html"><div class="ttname"><a href="hob__IDrawable_8hpp.html">hob_IDrawable.hpp</a></div><div class="ttdoc">This file defines the class and method prototypes of the drawable interface.</div></div>
 <div class="ttc" id="ahob__Texture_8hpp_html"><div class="ttname"><a href="hob__Texture_8hpp.html">hob_Texture.hpp</a></div></div>
 <div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:42</div></div>
 </div><!-- fragment --></div><!-- contents -->

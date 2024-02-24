@@ -33,7 +33,7 @@
 class MusicDummy
 {
 public:
-	virtual ~MusicDummy(void)				   = default;
+	virtual ~MusicDummy(void) = default;
 
 	virtual void start(hob::Song song)		   = 0;
 	virtual void stop(void)					   = 0;

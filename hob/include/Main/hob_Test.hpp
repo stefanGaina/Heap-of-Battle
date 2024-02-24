@@ -114,9 +114,9 @@ private:
 	 * @brief Thread created at start() of test and joined at deinitialization on which the parsing of
 	 * commands is being done.
 	 *************************************************************************************************/
-	static std::thread		 thread;
+	static std::thread thread;
 
-	static Socket			 socket;
+	static Socket socket;
 
 	static hobServer::Server server;
 };

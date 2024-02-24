@@ -168,10 +168,13 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af5bd6af3830580d4b3e47c72ed152d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating if the loop is running or is stopped.  <a href="classhob_1_1Loop.html#af5bd6af3830580d4b3e47c72ed152d5e">More...</a><br /></td></tr>
 <tr class="separator:af5bd6af3830580d4b3e47c72ed152d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a844e22037a33a8f9729279f3e95f369f"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Loop.html#a844e22037a33a8f9729279f3e95f369f">isStopRequested</a></td></tr>
+<tr class="memdesc:a844e22037a33a8f9729279f3e95f369f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Loop.html#a844e22037a33a8f9729279f3e95f369f">More...</a><br /></td></tr>
 <tr class="separator:a844e22037a33a8f9729279f3e95f369f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class that provides the inherited mechanism to keeping up a scene. </p>
+<hr  />
+<p>This class should be inherited by every scene class because it provides rendering, exposes the <a class="el" href="classhob_1_1Loop.html#ae02321d5317014322bbb4a256c8bdcc7" title="Blocks until an event to quit or move to another scene is given.">start()</a> and <a class="el" href="classhob_1_1Loop.html#aade79dd5cbf67d5238bc6dcf35760103" title="Stops the loop.">stop()</a> methods, handles ping and draws the cursor. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac4d07275856ebc08321e10fc90d1680b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4d07275856ebc08321e10fc90d1680b">&#9670;&nbsp;</a></span>Loop()</h2>
@@ -214,7 +217,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene.">Loop</a> state is set to not started. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
     <tr><td class="paramname">cursor</td><td>Reference to the cursor object. </td></tr>
@@ -250,7 +254,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Default destructor to avoid polymorphically delete undefined behavior. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
@@ -285,7 +290,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Blocks until an event to quit or move to another scene is given. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
@@ -320,7 +326,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stops the loop. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nextScene</td><td>Scene that will be returned after loop stops. </td></tr>
   </table>
@@ -355,7 +362,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Handles all pending events. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
@@ -390,7 +398,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clears renderer buffer and presents it to the screen after it draws desired objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
@@ -425,7 +434,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Abstract method, handling an event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>The event to be handled. </td></tr>
   </table>
@@ -462,7 +472,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Abstract method drawing to the renderer the updated scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">void</td><td></td></tr>
   </table>
@@ -496,7 +507,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The rendering context of the window. </p>
-
+<hr  />
+ 
 </div>
 </div>
 <a id="a94a2ff7e065743776569aabef6cd1869"></a>
@@ -520,7 +532,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reference to the cursor object. </p>
-
+<hr  />
+ 
 </div>
 </div>
 <a id="ab1c071aad9aea8eff01cd7d6414841a4"></a>
@@ -544,7 +557,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Displays the latency for multiplayer scenes. </p>
-
+<hr  />
+ 
 </div>
 </div>
 <a id="abf006fefa5265c3074efa2eefdef5e3b"></a>
@@ -568,7 +582,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The scene that will follow after the current one is finished. </p>
-
+<hr  />
+ 
 </div>
 </div>
 <a id="af5bd6af3830580d4b3e47c72ed152d5e"></a>
@@ -592,7 +607,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Flag indicating if the loop is running or is stopped. </p>
-
+<hr  />
+ 
 </div>
 </div>
 <a id="a844e22037a33a8f9729279f3e95f369f"></a>
@@ -615,6 +631,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>TODO. </p>
+<hr  />
+ 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

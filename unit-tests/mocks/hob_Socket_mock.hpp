@@ -33,7 +33,7 @@
 class SocketDummy
 {
 public:
-	virtual ~SocketDummy(void)										 = default;
+	virtual ~SocketDummy(void) = default;
 
 	virtual void create(std::string ipAddress)						 = 0;
 	virtual void close(void)										 = 0;

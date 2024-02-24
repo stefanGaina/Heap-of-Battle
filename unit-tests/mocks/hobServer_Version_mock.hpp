@@ -35,9 +35,9 @@ class ServerVersionDummy
 public:
 	virtual ~ServerVersionDummy(void) = default;
 
-	virtual uint8_t getMajor(void)	  = 0;
-	virtual uint8_t getMinor(void)	  = 0;
-	virtual uint8_t getPatch(void)	  = 0;
+	virtual uint8_t getMajor(void) = 0;
+	virtual uint8_t getMinor(void) = 0;
+	virtual uint8_t getPatch(void) = 0;
 };
 
 class ServerVersionMock : public ServerVersionDummy

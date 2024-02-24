@@ -33,7 +33,7 @@
 class FactionDummy
 {
 public:
-	virtual ~FactionDummy(void)					  = default;
+	virtual ~FactionDummy(void) = default;
 
 	virtual void	  setFaction(bool isAlliance) = 0;
 	virtual bool	  getFaction(void)			  = 0;

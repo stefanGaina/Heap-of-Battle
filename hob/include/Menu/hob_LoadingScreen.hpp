@@ -94,15 +94,15 @@ private:
 	/** ***********************************************************************************************
 	 * @brief It is static because it is used in a lambda function.
 	 *************************************************************************************************/
-	static bool				interruptWait;
+	static bool interruptWait;
 
 	std::condition_variable waitOpponentReady;
 
-	std::mutex				mutex;
+	std::mutex mutex;
 
-	uint8_t					fillBarIndex;
+	uint8_t fillBarIndex;
 
-	bool					isOpponentReady;
+	bool isOpponentReady;
 };
 
 } /*< namespace hob */

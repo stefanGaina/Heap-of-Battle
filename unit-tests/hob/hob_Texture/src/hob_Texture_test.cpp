@@ -120,7 +120,7 @@ TEST_F(TextureTest, create_font_fail)
 	hob::Texture	texture	  = {};
 	hob::Coordinate dimension = {};
 
-	dimension				  = texture.create("test", nullptr, { .r = 0, .g = 0, .b = 0, .a = 0 }, nullptr);
+	dimension = texture.create("test", nullptr, { .r = 0, .g = 0, .b = 0, .a = 0 }, nullptr);
 	EXPECT_EQ(0, dimension.x) << "Invalid dimension returned!";
 	EXPECT_EQ(0, dimension.y) << "Invalid dimension returned!";
 	EXPECT_EQ(nullptr, texture.getRawTexture()) << "Raw texture is valid even though the creation failed!";
@@ -145,12 +145,12 @@ TEST_F(TextureTest, create_success)
 	static constexpr const int32_t SURFACE_WIDTH  = 10;
 	static constexpr const int32_t SURFACE_HEIGHT = 10;
 
-	hob::Texture				   texture		  = {};
-	hob::Coordinate				   dimension	  = {};
-	SDL_Surface					   surface		  = {};
+	hob::Texture	texture	  = {};
+	hob::Coordinate dimension = {};
+	SDL_Surface		surface	  = {};
 
-	surface.w									  = SURFACE_WIDTH;
-	surface.h									  = SURFACE_HEIGHT;
+	surface.w = SURFACE_WIDTH;
+	surface.h = SURFACE_HEIGHT;
 
 	EXPECT_CALL(ttfMock, TTF_RenderText_Blended(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(&surface));
