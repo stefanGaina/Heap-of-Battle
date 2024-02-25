@@ -42,7 +42,11 @@
 namespace hob
 {
 
-Chat::Chat(SDL_Renderer* const renderer, const Socket* const socket, const SDL_Color friendlyColor, const SDL_Color opponentColor) noexcept
+Chat::Chat(SDL_Renderer* const renderer,
+		   LoadingScreen&	   loadingScreen,
+		   const Socket* const socket,
+		   const SDL_Color	   friendlyColor,
+		   const SDL_Color	   opponentColor) noexcept
 	: SoundInitializer{ { HOB_SOUNDS_FILE_PATH("message_received") } }
 	, friendlyColor{ friendlyColor }
 	, opponentColor{ opponentColor }
@@ -80,6 +84,9 @@ Chat::Chat(SDL_Renderer* const renderer, const Socket* const socket, const SDL_C
 	{
 		encryptor.sendKey(*socket);
 	}
+
+	usleep(100 * 1000);
+	loadingScreen.step(renderer);
 }
 
 Chat::~Chat(void) noexcept

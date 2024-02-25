@@ -34,6 +34,7 @@
  *****************************************************************************************************/
 
 #include "hob_TextureInitializer.hpp"
+#include "hob_LoadingScreen.hpp"
 #include "hob_Timer.hpp"
 #include "hob_Gold.hpp"
 #include "hob_Icons.hpp"
@@ -97,9 +98,10 @@ public:
 	 * @brief Loads textures for the menu.
 	 * @param renderer: Rendering context of the window.
 	 * @param isAlliance: TODO
+	 * @param loadingScreen: Loading screen will be stepped after construction is finalized.
 	 * @param gold: Start amount of gold.
 	*/
-	Menu(SDL_Renderer* renderer, bool isAlliance, uint8_t gold) noexcept;
+	Menu(SDL_Renderer* renderer, LoadingScreen& loadingScreen, bool isAlliance, uint8_t gold) noexcept;
 
 	/**
 	 * @brief Destroys the loaded textures.

@@ -152,10 +152,8 @@ Tiles1::Tiles1(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexc
 	}
 {
 	plog_trace("Tiles1 are being constructed.");
-
-	usleep(2000 * 1000);
+	usleep(300 * 1000);
 	loadingScreen.step(renderer);
-	usleep(9000 * 1000);
 }
 
 } /*< namespace hob */

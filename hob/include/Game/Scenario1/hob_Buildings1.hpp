@@ -36,6 +36,7 @@
 
 #include "hob_TextureInitializer.hpp"
 #include "hob_BuildingInitializer.hpp"
+#include "hob_LoadingScreen.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *
@@ -54,14 +55,9 @@ public:
 	/**
 	 * @brief Loads the textures and initializes the buildings.
 	 * @param renderer: Rendering context of the window.
+	 * @param loadingScreen: Loading screen will be stepped after construction is finalized.
 	*/
-	Buildings1(SDL_Renderer* renderer) noexcept;
-
-	/**
-	 * @brief Destroys the loaded textures.
-	 * @param void
-	*/
-	~Buildings1(void) = default;
+	Buildings1(SDL_Renderer* renderer, LoadingScreen& loadingScreen) noexcept;
 
 	/**
 	 * @brief Changes the textures of the buildings.

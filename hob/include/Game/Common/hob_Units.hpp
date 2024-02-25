@@ -21,6 +21,7 @@
 #include <list>
 
 #include "hob_TextureInitializer.hpp"
+#include "hob_LoadingScreen.hpp"
 #include "hobGame_Game.hpp"
 
 namespace hob
@@ -29,7 +30,7 @@ namespace hob
 class Units final : public TextureInitializer<268UL, 0UL>
 {
 public:
-	Units(SDL_Renderer* renderer) noexcept;
+	Units(SDL_Renderer* renderer, LoadingScreen& loadingScreen) noexcept;
 
 	~Units(void) = default;
 

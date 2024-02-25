@@ -18,9 +18,9 @@
 /** ***************************************************************************************************
  * @file hob_LoadingScreen.cpp
  * @author Gaina Stefan
- * @date 29.08.2023
+ * @date 20.02.2024
  * @brief This file implements the class defined in hob_LoadingScreen.hpp.
- * @todo Finish the loading bar and the waiting for opponent message.
+ * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -63,27 +63,46 @@ LoadingScreen::LoadingScreen(SDL_Renderer* const renderer, const bool isAlliance
 							  TEXTURE_FILE_PATH("progress_bar"),																	 /*< 1 */
 							  TEXTURE_FILE_PATH("progress_fill"),																	 /*< 2 */
 							  TEXTURE_FILE_PATH("loading_text"),																	 /*< 3 */
-							  TEXTURE_FILE_PATH("waiting_for_opponent")																 /*< 4 */
+							  TEXTURE_FILE_PATH("waiting_for_opponent_text")														 /*< 4 */
 						  },
 						  {
-							  LOADING_SCREEN_TEXTURE_INDEX_BACKGROUND,	  /*< 0 */
-							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 1 */
-							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 2 */
-							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_BAR,  /*< 3 */
-							  LOADING_SCREEN_TEXTURE_INDEX_LOADING_TEXT	  /*< 4 */
+							  LOADING_SCREEN_TEXTURE_INDEX_BACKGROUND,	  /*< 0  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 1  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 2  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 3  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 4  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 5  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 6  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 7  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 8  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 9  */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 10 */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 11 */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_FILL, /*< 12 */
+							  LOADING_SCREEN_TEXTURE_INDEX_PROGRESS_BAR,  /*< 13 */
+							  LOADING_SCREEN_TEXTURE_INDEX_LOADING_TEXT	  /*< 14 */
 						  },
 						  { {
-							  { .x = 0, .y = 0, .w = SCREEN_WIDTH, .h = SCREEN_HEIGHT },													   /*< 0 */
-							  { .x = 9 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 1 */
-							  { .x = 10 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 2 */
-							  { .x = 9 * HSCALE, .y = 16 * HSCALE + HSCALE / 2, .w = 14 * HSCALE, .h = HSCALE + HSCALE / 2 },				   /*< 3 */
-							  { .x = 14 * HSCALE, .y = 16 * HSCALE + HSCALE / 2 + HSCALE / 3, .w = 3 * HSCALE, .h = HSCALE / 2 + HSCALE / 10 } /*< 4 */
+							  { .x = 0, .y = 0, .w = SCREEN_WIDTH, .h = SCREEN_HEIGHT },													   /*< 0  */
+							  { .x = 9 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 1  */
+							  { .x = 10 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 2  */
+							  { .x = 11 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 3  */
+							  { .x = 12 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 4  */
+							  { .x = 13 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 5  */
+							  { .x = 14 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 6  */
+							  { .x = 15 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 7  */
+							  { .x = 16 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 8  */
+							  { .x = 17 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 9  */
+							  { .x = 18 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 10 */
+							  { .x = 19 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = 0, .h = 0 },								   /*< 11 */
+							  { .x = 20 * HSCALE + HSCALE / 3, .y = 17 * HSCALE - HSCALE / 4, .w = -HSCALE / 2, .h = 0 },					   /*< 12 */
+							  { .x = 9 * HSCALE, .y = 16 * HSCALE + HSCALE / 2, .w = 14 * HSCALE, .h = HSCALE + HSCALE / 2 },				   /*< 13 */
+							  { .x = 14 * HSCALE, .y = 16 * HSCALE + HSCALE / 2 + HSCALE / 3, .w = 3 * HSCALE, .h = HSCALE / 2 + HSCALE / 10 } /*< 14 */
 						  } },
 						  renderer }
 	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("error") } }
 	, waitOpponentReady{}
 	, fillBarIndex{ LOADING_SCREEN_COMPONENT_INDEX_FILL_FIRST }
-	, isOpponentReady{ false }
 {
 	plog_trace("Loading screen is being constructed.");
 	step(renderer);
@@ -102,9 +121,14 @@ void LoadingScreen::step(SDL_Renderer* const renderer) noexcept
 		return;
 	}
 
+	if (LOADING_SCREEN_COMPONENT_INDEX_FILL_LAST == fillBarIndex)
+	{
+		componentContainer[LOADING_SCREEN_COMPONENT_INDEX_TEXT].updateTexture(textureContainer[LOADING_SCREEN_TEXTURE_INDEX_WAITING_TEXT]);
+		componentContainer[LOADING_SCREEN_COMPONENT_INDEX_TEXT].correctPosition({ .x = -2 * HSCALE, .y = 0, .w = 4 * HSCALE, .h = 0 });
+	}
 	componentContainer[fillBarIndex++].correctPosition({ .x = 0, .y = 0, .w = HSCALE, .h = HSCALE / 2 + HSCALE / 4 - 3 });
-	draw(renderer);
 
+	draw(renderer);
 	SDL_RenderPresent(renderer);
 }
 

@@ -95,37 +95,40 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__TextureInitializer_8hpp.html">hob_TextureInitializer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Units.html">Units</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;268UL, 0UL&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classhob_1_1Units.html#a19525cc05784635a0096ea50f7295e0f">Units</a>(SDL_Renderer* renderer) noexcept;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html#a5fd6be19921a283adfacdb5f03faf835">   34</a></span>&#160;    <a class="code" href="classhob_1_1Units.html#a5fd6be19921a283adfacdb5f03faf835">~Units</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Units.html#a7aaa3b402fdb83fadcf53fa53af17155">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Units.html#ad6ea25032b9ff6958c0b0f9916e1dd93">add</a>(<a class="code" href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">hobGame::Unit</a> unit, <span class="keywordtype">bool</span> isAlliance) noexcept(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">   41</a></span>&#160;    std::list&lt;Component&gt; <a class="code" href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">components</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_UNITS_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hob__LoadingScreen_8hpp.html">hob_LoadingScreen.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehob.html">hob</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhob_1_1Units.html">Units</a> final : <span class="keyword">public</span> <a class="code" href="classhob_1_1TextureInitializer.html">TextureInitializer</a>&lt;268UL, 0UL&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classhob_1_1Units.html#a8638633b05f4f1a931b52c0d0906890a">Units</a>(SDL_Renderer* renderer, <a class="code" href="classhob_1_1LoadingScreen.html">LoadingScreen</a>&amp; loadingScreen) noexcept;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html#a5fd6be19921a283adfacdb5f03faf835">   35</a></span>&#160;    <a class="code" href="classhob_1_1Units.html#a5fd6be19921a283adfacdb5f03faf835">~Units</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Units.html#a7aaa3b402fdb83fadcf53fa53af17155">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Units.html#ad6ea25032b9ff6958c0b0f9916e1dd93">add</a>(<a class="code" href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">hobGame::Unit</a> unit, <span class="keywordtype">bool</span> isAlliance) noexcept(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">   42</a></span>&#160;    std::list&lt;Component&gt; <a class="code" href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">components</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_UNITS_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclasshob_1_1LoadingScreen_html"><div class="ttname"><a href="classhob_1_1LoadingScreen.html">hob::LoadingScreen</a></div><div class="ttdef"><b>Definition:</b> hob_LoadingScreen.hpp:84</div></div>
 <div class="ttc" id="aclasshob_1_1TextureInitializer_html"><div class="ttname"><a href="classhob_1_1TextureInitializer.html">hob::TextureInitializer</a></div><div class="ttdoc">Initializes a list of textures and components.</div><div class="ttdef"><b>Definition:</b> hob_TextureInitializer.hpp:58</div></div>
-<div class="ttc" id="aclasshob_1_1Units_html"><div class="ttname"><a href="classhob_1_1Units.html">hob::Units</a></div><div class="ttdef"><b>Definition:</b> hob_Units.hpp:30</div></div>
-<div class="ttc" id="aclasshob_1_1Units_html_a19525cc05784635a0096ea50f7295e0f"><div class="ttname"><a href="classhob_1_1Units.html#a19525cc05784635a0096ea50f7295e0f">hob::Units::Units</a></div><div class="ttdeci">Units(SDL_Renderer *renderer) noexcept</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Units_html"><div class="ttname"><a href="classhob_1_1Units.html">hob::Units</a></div><div class="ttdef"><b>Definition:</b> hob_Units.hpp:31</div></div>
 <div class="ttc" id="aclasshob_1_1Units_html_a5fd6be19921a283adfacdb5f03faf835"><div class="ttname"><a href="classhob_1_1Units.html#a5fd6be19921a283adfacdb5f03faf835">hob::Units::~Units</a></div><div class="ttdeci">~Units(void)=default</div></div>
-<div class="ttc" id="aclasshob_1_1Units_html_a7aaa3b402fdb83fadcf53fa53af17155"><div class="ttname"><a href="classhob_1_1Units.html#a7aaa3b402fdb83fadcf53fa53af17155">hob::Units::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws the components in the order of initialization.</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:296</div></div>
-<div class="ttc" id="aclasshob_1_1Units_html_aa590ee1f4f1d2553516d5648200b0351"><div class="ttname"><a href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">hob::Units::components</a></div><div class="ttdeci">std::list&lt; Component &gt; components</div><div class="ttdef"><b>Definition:</b> hob_Units.hpp:41</div></div>
-<div class="ttc" id="aclasshob_1_1Units_html_ad6ea25032b9ff6958c0b0f9916e1dd93"><div class="ttname"><a href="classhob_1_1Units.html#ad6ea25032b9ff6958c0b0f9916e1dd93">hob::Units::add</a></div><div class="ttdeci">void add(hobGame::Unit unit, bool isAlliance) noexcept(false)</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:307</div></div>
+<div class="ttc" id="aclasshob_1_1Units_html_a7aaa3b402fdb83fadcf53fa53af17155"><div class="ttname"><a href="classhob_1_1Units.html#a7aaa3b402fdb83fadcf53fa53af17155">hob::Units::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">Draws the components in the order of initialization.</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:299</div></div>
+<div class="ttc" id="aclasshob_1_1Units_html_a8638633b05f4f1a931b52c0d0906890a"><div class="ttname"><a href="classhob_1_1Units.html#a8638633b05f4f1a931b52c0d0906890a">hob::Units::Units</a></div><div class="ttdeci">Units(SDL_Renderer *renderer, LoadingScreen &amp;loadingScreen) noexcept</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:54</div></div>
+<div class="ttc" id="aclasshob_1_1Units_html_aa590ee1f4f1d2553516d5648200b0351"><div class="ttname"><a href="classhob_1_1Units.html#aa590ee1f4f1d2553516d5648200b0351">hob::Units::components</a></div><div class="ttdeci">std::list&lt; Component &gt; components</div><div class="ttdef"><b>Definition:</b> hob_Units.hpp:42</div></div>
+<div class="ttc" id="aclasshob_1_1Units_html_ad6ea25032b9ff6958c0b0f9916e1dd93"><div class="ttname"><a href="classhob_1_1Units.html#ad6ea25032b9ff6958c0b0f9916e1dd93">hob::Units::add</a></div><div class="ttdeci">void add(hobGame::Unit unit, bool isAlliance) noexcept(false)</div><div class="ttdef"><b>Definition:</b> hob_Units.cpp:310</div></div>
 <div class="ttc" id="ahobGame__Game_8hpp_html"><div class="ttname"><a href="hobGame__Game_8hpp.html">hobGame_Game.hpp</a></div></div>
+<div class="ttc" id="ahob__LoadingScreen_8hpp_html"><div class="ttname"><a href="hob__LoadingScreen_8hpp.html">hob_LoadingScreen.hpp</a></div></div>
 <div class="ttc" id="ahob__TextureInitializer_8hpp_html"><div class="ttname"><a href="hob__TextureInitializer_8hpp.html">hob_TextureInitializer.hpp</a></div></div>
 <div class="ttc" id="anamespacehobGame_html_a540fcc5785d06eeba2e5ae2ba3c79457"><div class="ttname"><a href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">hobGame::Unit</a></div><div class="ttdeci">Unit</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:53</div></div>
 <div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:42</div></div>

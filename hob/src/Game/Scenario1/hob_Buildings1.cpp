@@ -50,7 +50,7 @@
 namespace hob
 {
 
-Buildings1::Buildings1(SDL_Renderer* const renderer) noexcept
+Buildings1::Buildings1(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexcept
 	: TextureInitializer{ {
 							  TEXTURE_FILE_PATH("misc/bridge"),					   /*< 0  */
 							  TEXTURE_FILE_PATH("alliance/keep_summer"),		   /*< 1  */
@@ -199,6 +199,8 @@ Buildings1::Buildings1(SDL_Renderer* const renderer) noexcept
 	, previousSeason{ false }
 {
 	plog_trace("Buildings1 is being constructed.");
+	usleep(350 * 1000);
+	loadingScreen.step(renderer);
 }
 
 void Buildings1::changeWeather(const bool isWinter) noexcept

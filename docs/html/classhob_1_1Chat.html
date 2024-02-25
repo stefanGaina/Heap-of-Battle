@@ -115,9 +115,9 @@ Collaboration diagram for hob::Chat:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae70201d69d5aca0508414adc174f3776"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Chat.html#ae70201d69d5aca0508414adc174f3776">Chat</a> (SDL_Renderer *renderer, const <a class="el" href="classhob_1_1Socket.html">Socket</a> *socket, SDL_Color <a class="el" href="classhob_1_1Chat.html#aaad1fab63028425536097607f31037c4">friendlyColor</a>, SDL_Color <a class="el" href="classhob_1_1Chat.html#ac8123c88f3afd5aba78b3423eaff9265">opponentColor</a>) noexcept</td></tr>
-<tr class="memdesc:ae70201d69d5aca0508414adc174f3776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes font and loads textures.  <a href="classhob_1_1Chat.html#ae70201d69d5aca0508414adc174f3776">More...</a><br /></td></tr>
-<tr class="separator:ae70201d69d5aca0508414adc174f3776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6a690cee81dbc6131470f82492c10d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Chat.html#afb6a690cee81dbc6131470f82492c10d">Chat</a> (SDL_Renderer *renderer, <a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a> &amp;loadingScreen, const <a class="el" href="classhob_1_1Socket.html">Socket</a> *socket, SDL_Color <a class="el" href="classhob_1_1Chat.html#aaad1fab63028425536097607f31037c4">friendlyColor</a>, SDL_Color <a class="el" href="classhob_1_1Chat.html#ac8123c88f3afd5aba78b3423eaff9265">opponentColor</a>) noexcept</td></tr>
+<tr class="memdesc:afb6a690cee81dbc6131470f82492c10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes font and loads textures.  <a href="classhob_1_1Chat.html#afb6a690cee81dbc6131470f82492c10d">More...</a><br /></td></tr>
+<tr class="separator:afb6a690cee81dbc6131470f82492c10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4ab3249c505d3da377cae56b47ab307"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">~Chat</a> (void) noexcept</td></tr>
 <tr class="memdesc:ae4ab3249c505d3da377cae56b47ab307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deinitializes font and destroys textures.  <a href="classhob_1_1Chat.html#ae4ab3249c505d3da377cae56b47ab307">More...</a><br /></td></tr>
 <tr class="separator:ae4ab3249c505d3da377cae56b47ab307"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -229,8 +229,8 @@ Private Attributes</h2></td></tr>
 <hr  />
 <p>Abstracts the user's input (handling clicks, keys, shift + key combinations, commands) showing the received messages and also sending messages. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae70201d69d5aca0508414adc174f3776"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae70201d69d5aca0508414adc174f3776">&#9670;&nbsp;</a></span>Chat()</h2>
+<a id="afb6a690cee81dbc6131470f82492c10d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb6a690cee81dbc6131470f82492c10d">&#9670;&nbsp;</a></span>Chat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,6 +243,12 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">SDL_Renderer *&#160;</td>
           <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a> &amp;&#160;</td>
+          <td class="paramname"><em>loadingScreen</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -280,6 +286,7 @@ Private Attributes</h2></td></tr>
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
+    <tr><td class="paramname">loadingScreen</td><td>TODO </td></tr>
     <tr><td class="paramname">socket</td><td>Sends the encryption key if not null. </td></tr>
     <tr><td class="paramname">friendlyColor</td><td>The color assigned to the user. </td></tr>
     <tr><td class="paramname">opponentColor</td><td>The color assigned to the opponent. </td></tr>

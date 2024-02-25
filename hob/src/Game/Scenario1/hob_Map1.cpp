@@ -58,11 +58,11 @@ Map1::Map1(SDL_Renderer* const renderer,
 	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("error") } }
 	, game{ faction.getFaction() }
 	, tiles{ renderer, loadingScreen }
-	, menu{ renderer, faction.getFaction(), game.getGold() }
-	, buildings{ renderer }
-	, chat{ renderer, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
+	, menu{ renderer, loadingScreen, faction.getFaction(), game.getGold() }
+	, buildings{ renderer, loadingScreen }
+	, chat{ renderer, loadingScreen, true == faction.getFaction() ? &socket : nullptr, faction.getFriendlyColor(), faction.getOpponentColor() }
 	, grid{}
-	, units{ renderer }
+	, units{ renderer, loadingScreen }
 	, receivingThread{ std::bind(&Map1::receivingFunction, this, &loadingScreen) }
 	, receivingUpdates{ true }
 	, music{ music }
@@ -76,6 +76,19 @@ Map1::Map1(SDL_Renderer* const renderer,
 	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 	cursor.setFaction(faction.getFaction());
 	cursor.setTexture(hobGame::CursorType::IDLE);
+
+	usleep(false == faction.getFaction() ? 175 * 1000 : 25 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 125 * 1000 : 15 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 200 * 1000 : 10 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 125 * 1000 : 50 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 150 * 1000 : 25 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 150 * 1000 : 25 * 1000);
+	loadingScreen.step(renderer);
 }
 
 Map1::~Map1(void) noexcept

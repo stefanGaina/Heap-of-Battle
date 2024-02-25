@@ -18,7 +18,7 @@
 /** ***************************************************************************************************
  * @file hob_AsyncQueue.hpp
  * @author Gaina Stefan
- * @date 27.08.2023
+ * @date 20.02.2024
  * @brief This file defines the class and method prototypes of the queue.
  * @todo N/A.
  * @bug No known bugs.
@@ -64,9 +64,10 @@ enum LoadingScreenTextureIndex
  *****************************************************************************************************/
 enum LoadingScreenComponentIndex
 {
-	LOADING_SCREEN_COMPONENT_INDEX_FILL_FIRST = 1, /**< Index to the loading screen's first progress fill component. */
-	LOADING_SCREEN_COMPONENT_INDEX_FILL_LAST  = 2, /**< Index to the loading screen's last progress fill component.  */
-	LOADING_SCREEN_COMPONENTS_COUNT			  = 5  /**< How many components the loading screen uses.                 */
+	LOADING_SCREEN_COMPONENT_INDEX_FILL_FIRST = 1,	/**< Index to the loading screen's first progress fill component.       */
+	LOADING_SCREEN_COMPONENT_INDEX_FILL_LAST  = 12, /**< Index to the loading screen's last progress fill component.        */
+	LOADING_SCREEN_COMPONENT_INDEX_TEXT		  = 14, /**< Index to the loading screen's waiting for opponent text component. */
+	LOADING_SCREEN_COMPONENTS_COUNT			  = 15	/**< How many components the loading screen uses.                       */
 };
 
 /** ***************************************************************************************************
@@ -82,12 +83,33 @@ class LoadingScreen final : private TextureInitializer<LOADING_SCREEN_TEXTURES_C
 							private SoundInitializer<LOADING_SCREEN_SOUNDS_COUNT>
 {
 public:
+	/** ***********************************************************************************************
+	 * @brief
+	 * @param renderer: Rendering context of the window.
+	 * @param isAlliance:
+	 *************************************************************************************************/
 	LoadingScreen(SDL_Renderer* renderer, bool isAlliance) noexcept;
 
+	/** ***********************************************************************************************
+	 * @brief
+	 * @param renderer: Rendering context of the window.
+	 * @return void
+	 *************************************************************************************************/
 	void step(SDL_Renderer* renderer) noexcept;
 
+	/** ***********************************************************************************************
+	 * @brief
+	 * @param void
+	 * @return void
+	 *************************************************************************************************/
 	void startGame(void) noexcept;
 
+	/** ***********************************************************************************************
+	 * @brief
+	 * @param timeout:
+	 * @param socket:
+	 * @return void
+	 *************************************************************************************************/
 	void waitOpponent(uint16_t timeout, const Socket& socket) noexcept(false);
 
 private:
@@ -96,13 +118,20 @@ private:
 	 *************************************************************************************************/
 	static bool interruptWait;
 
+	/** ***********************************************************************************************
+	 * @brief The variable signaled when the opponent sends a start game notification.
+	 *************************************************************************************************/
 	std::condition_variable waitOpponentReady;
 
+	/** ***********************************************************************************************
+	 * @brief Mutex protecting interruptWait.
+	 *************************************************************************************************/
 	std::mutex mutex;
 
+	/** ***********************************************************************************************
+	 * @brief The index of the last added progress bar fill component.
+	 *************************************************************************************************/
 	uint8_t fillBarIndex;
-
-	bool isOpponentReady;
 };
 
 } /*< namespace hob */

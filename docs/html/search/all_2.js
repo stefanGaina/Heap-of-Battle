@@ -4,7 +4,7 @@ var searchData=
   ['cavalry_33',['CAVALRY',['../namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457aec0d65f357dc400017dacd63af353580',1,'hobGame']]],
   ['changetexture_34',['changeTexture',['../classhob_1_1Tile.html#a7dd76120dccf002b152c4aca185c9af7',1,'hob::Tile::changeTexture()'],['../classhob_1_1TileInitializer.html#a52eba90471ef146ffc4b20dcbba94e05',1,'hob::TileInitializer::changeTexture()']]],
   ['changeweather_35',['changeWeather',['../classhob_1_1Buildings1.html#acd827534fd22024028d4d07126d1bf68',1,'hob::Buildings1::changeWeather()'],['../classhob_1_1Building.html#a25a1ed3b2ba8b7a446f3e19d9fc7f701',1,'hob::Building::changeWeather(SDL_Texture *weatherTexture1, SDL_Texture *weatherTexture2, SDL_Texture *weatherTexture3, SDL_Texture *weatherTexture4) noexcept'],['../classhob_1_1Building.html#ad71903de74e643f969b7a1f2ebc445b1',1,'hob::Building::changeWeather(bool isWinter) noexcept']]],
-  ['chat_36',['Chat',['../classhob_1_1Chat.html#ae70201d69d5aca0508414adc174f3776',1,'hob::Chat']]],
+  ['chat_36',['Chat',['../classhob_1_1Chat.html#afb6a690cee81dbc6131470f82492c10d',1,'hob::Chat']]],
   ['chat_37',['chat',['../classhob_1_1Map1.html#aec400e8f2565662309d55334849e1fb4',1,'hob::Map1']]],
   ['chat_38',['Chat',['../classhob_1_1Chat.html',1,'hob']]],
   ['chat_5fframe_5fcomponent_5findex_5fframe_5fbottom_39',['CHAT_FRAME_COMPONENT_INDEX_FRAME_BOTTOM',['../namespacehob.html#a41413fcd2bab42f033456636176263a3ad509926dc742b1ed0f7686ba403ad452',1,'hob']]],

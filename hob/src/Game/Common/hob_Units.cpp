@@ -51,7 +51,7 @@
 namespace hob
 {
 
-Units::Units(SDL_Renderer* const renderer) noexcept
+Units::Units(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexcept
 	: TextureInitializer{ {
 							  TEXTURE_FILE_PATH("alliance/infantry/figure"),				  /*< 0   */
 							  TEXTURE_FILE_PATH("alliance/infantry/animation/death"),		  /*< 1   */
@@ -291,6 +291,9 @@ Units::Units(SDL_Renderer* const renderer) noexcept
 						  renderer }
 	, components{}
 {
+	plog_trace("Units are being constructed.");
+	usleep(400 * 1000);
+	loadingScreen.step(renderer);
 }
 
 void Units::draw(SDL_Renderer* const renderer) noexcept

@@ -35,6 +35,7 @@
 
 #include "hob_IDrawable.hpp"
 #include "hob_ChatFrame.hpp"
+#include "hob_LoadingScreen.hpp"
 #include "hob_Encryptor.hpp"
 #include "hob_Texture.hpp"
 #include "hob_SoundInitializer.hpp"
@@ -78,11 +79,12 @@ public:
 	/** ***********************************************************************************************
 	 * @brief Initializes font and loads textures.
 	 * @param renderer: Rendering context of the window.
+	 * @param loadingScreen: Loading screen will be stepped after construction is finalized.
 	 * @param socket: Sends the encryption key if not null.
 	 * @param friendlyColor: The color assigned to the user.
 	 * @param opponentColor: The color assigned to the opponent.
 	 *************************************************************************************************/
-	Chat(SDL_Renderer* renderer, const Socket* socket, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept;
+	Chat(SDL_Renderer* renderer, LoadingScreen& loadingScreen, const Socket* socket, SDL_Color friendlyColor, SDL_Color opponentColor) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Deinitializes font and destroys textures.

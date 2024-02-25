@@ -51,7 +51,7 @@
 namespace hob
 {
 
-Menu::Menu(SDL_Renderer* const renderer, const bool isAlliance, const uint8_t gold) noexcept
+Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const bool isAlliance, const uint8_t gold) noexcept
 	: TextureInitializer{ {
 							  true == isAlliance ? TEXTURE_FILE_PATH("background_alliance") : TEXTURE_FILE_PATH("background_horde"), /*< 0 */
 							  TEXTURE_FILE_PATH("frame_selected_alliance"),															 /*< 1 */
@@ -91,6 +91,8 @@ Menu::Menu(SDL_Renderer* const renderer, const bool isAlliance, const uint8_t go
 {
 	plog_trace("Game menu is being constructed.");
 	(void)handleClick({ 7 * HSCALE, 14 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
+	usleep(150 * 1000);
+	loadingScreen.step(renderer);
 }
 
 void Menu::draw(SDL_Renderer* const renderer) noexcept

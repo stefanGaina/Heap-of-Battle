@@ -68,40 +68,106 @@ $(function() {
 <div class="title">CONTRIBUTING </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Heap-of-Battle is open to contributors. All you need to do is:</p><ol type="1">
-<li>Dependencies:<ul>
-<li>For compilation you need g++ and make installed (glib in case of debug builds). Debian commands: sudo apt install build-essential sudo apt install libglib2.0-dev</li>
-<li>For running the unit tests you need gcov and perl installed. Debian command: sudo apt install perl</li>
-<li>For running the automated tests you need bash and perl installed.</li>
-<li>For generating the documentation you need doxygen installed. Debian command: sudo apt install doxygen</li>
-<li>For formatting the code you need clang-format installed. Debian command: sudo apt install clang-format</li>
+<div class="textblock"><p>Heap-of-Battle is open to contributors. All you need to do is: <br  />
+ </p><ol>
+<li>
+Dependencies: <br  />
+ <ul>
+<li>
+For compilation you need g++ and make installed (glib in case of debug builds). <br  />
+ &#160;&#160;&#160;&#160;Debian commands: sudo apt install build-essential <br  />
+ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sudo apt install libglib2.0-dev <br  />
+ </li>
+<li>
+For running the unit tests you need gcov and perl installed. <br  />
+ &#160;&#160;&#160;&#160;Debian command: sudo apt install perl <br  />
+ </li>
+<li>
+For running the automated tests you need bash and perl installed. <br  />
+ </li>
+<li>
+For generating the documentation you need doxygen installed. <br  />
+ &#160;&#160;&#160;&#160;Debian command: sudo apt install doxygen <br  />
+ </li>
+<li>
+For formatting the code you need clang-format installed. <br  />
+ &#160;&#160;&#160;&#160;Debian command: sudo apt install clang-format <br  />
+ </li>
 </ul>
 </li>
-<li>Build:<ul>
-<li>Debug build: make</li>
-<li>The documentation is present in docs/html/index.html. to only generate documentation run: make doxygen</li>
-<li>The binaries are present in Heap-of-Battle run Heap-of-Battle.sh to start the game</li>
+<li>
+Build: <br  />
+ <ul>
+<li>
+Debug build: make <br  />
+ </li>
+<li>
+The documentation is present in docs/html/index.html. <br  />
+ &#160;&#160;&#160;&#160;To only generate documentation run: make doxygen <br  />
+ </li>
+<li>
+The binaries are present in Heap-of-Battle. <br  />
+ &#160;&#160;&#160;&#160;Run Heap-of-Battle.sh to start the game. <br  />
+ </li>
+<li>
+For patches open a Pull Request. Check if there are any available Issues, see the TODO section in <br  />
+ the documentation or suggest changes.  <br  />
+ </li>
 </ul>
 </li>
-<li>For patches open a Pull Request. Check if there are any available Issues, see the TODO section in the documentation or suggest changes.</li>
 </ol>
-<p>Basic introduction into the code:</p><ol type="1">
-<li>Directories:<ul>
-<li>hob executable where the graphical interface and inputs of the game are handled</li>
-<li>hob-Game library where the logical layers of the in-game maps is</li>
-<li>hob-Server library where the server is, loaded by the game in the case of LAN</li>
-<li>hob-Server-Instance executable loading the server and hosting the game</li>
+<p>Basic introduction into the code: <br  />
+ </p><ol>
+<li>
+Directories: <ul>
+<li>
+hob <br  />
+ &#160;&#160;&#160;&#160;Executable where the graphical interface and inputs of the game are handled. <br  />
+ </li>
+<li>
+hob-Game <br  />
+ &#160;&#160;&#160;&#160;Library where the logical layers of the in-game maps is. <br  />
+ </li>
+<li>
+hob-Server <br  />
+ &#160;&#160;&#160;&#160;Library where the server is, loaded by the game in the case of LAN. <br  />
+ </li>
+<li>
+hob-Server-Instance <br  />
+ &#160;&#160;&#160;&#160;Executable loading the server and hosting the game. <br  />
+ </li>
 </ul>
 </li>
-<li>Key methods:<ul>
-<li>Entry point <a class="el" href="hob__Main_8cpp.html">hob/src/Main/hob_Main.cpp</a> that runs <a class="el" href="hob__Game_8cpp.html" title="This file implements the class defined in hob_Game.hpp.">hob/src/Main/hob_Game.cpp</a> this file initializes everything (Plog - logging library, SDL2 - library that abstracts the window creation, user inputs, sounds, etc.).</li>
-<li>Main game loop <a class="el" href="hob__Game_8cpp.html" title="This file implements the class defined in hob_Game.hpp.">hob/src/Main/hob_Game.cpp</a>: Game::sceneLoop() runs instances of classes that extend <a class="el" href="hob__Loop_8hpp.html" title="This file defines the class and method prototypes of the loop.">hob/include/Common/hob_Loop.hpp</a> that when are finished lead to other scenes.</li>
-<li>Scene loop classes that extend <a class="el" href="hob__Loop_8hpp.html" title="This file defines the class and method prototypes of the loop.">hob/include/Common/hob_Loop.hpp</a> need to implement draw() and handleEvent(). In the first methods that draw textures to the screen are called (this is called 60 times per second if possible) and the second is called when a user input is avaialbe.</li>
-<li>Utilitary classes <a class="el" href="hob__TextureInitializer_8hpp.html">hob/include/Common/hob_TextureInitializer.hpp</a> initializes textures and draws them to the screen. <a class="el" href="hob__SoundInitializer_8hpp.html">hob/include/Common/hob_SoundInitializer.hpp</a> initializes sounds and plays them. hob/include/Game/Common this is where the classes that are used by the game scenes.</li>
+<li>
+Key methods: <ul>
+<li>
+Entry point <br  />
+ &#160;&#160;&#160;&#160;<a class="el" href="hob__Main_8cpp.html">hob/src/Main/hob_Main.cpp</a> that runs <a class="el" href="hob__Game_8cpp.html" title="This file implements the class defined in hob_Game.hpp.">hob/src/Main/hob_Game.cpp</a> <br  />
+ &#160;&#160;&#160;&#160;this file initializes everything (Plog - logging library, SDL2 - library <br  />
+ &#160;&#160;&#160;&#160;that abstracts the window creation, user inputs, sounds, etc.). <br  />
+ </li>
+<li>
+Main game loop <br  />
+ &#160;&#160;&#160;&#160;<a class="el" href="hob__Game_8cpp.html" title="This file implements the class defined in hob_Game.hpp.">hob/src/Main/hob_Game.cpp</a>: Game::sceneLoop() runs instances of classes that <br  />
+ &#160;&#160;&#160;&#160;extend <a class="el" href="hob__Loop_8hpp.html" title="This file defines the class and method prototypes of the loop.">hob/include/Common/hob_Loop.hpp</a> that when are finished lead to other scenes. <br  />
+ </li>
+<li>
+Scene loop <br  />
+ &#160;&#160;&#160;&#160;classes that extend <a class="el" href="hob__Loop_8hpp.html" title="This file defines the class and method prototypes of the loop.">hob/include/Common/hob_Loop.hpp</a> need to implement draw() and handleEvent(). <br  />
+ &#160;&#160;&#160;&#160;In the first methods that draw textures to the screen are called (this is called 60 times per <br  />
+ &#160;&#160;&#160;&#160;second if possible) and the second is called when a user input is avaialbe. <br  />
+ </li>
+<li>
+Utilitary classes <br  />
+ &#160;&#160;&#160;&#160;<a class="el" href="hob__TextureInitializer_8hpp.html">hob/include/Common/hob_TextureInitializer.hpp</a> initializes textures and draws them to the screen. <br  />
+ &#160;&#160;&#160;&#160;<a class="el" href="hob__SoundInitializer_8hpp.html">hob/include/Common/hob_SoundInitializer.hpp</a> initializes sounds and plays them. <br  />
+ &#160;&#160;&#160;&#160;hob/include/Game/Common this is where the classes that are used by the game scenes. <br  />
+ </li>
 </ul>
 </li>
 </ol>
-<p>For any questions feel free to contact me at <a href="#" onclick="location.href='mai'+'lto:'+'ste'+'fa'+'n.g'+'ai'+'na0'+'1@'+'gma'+'il'+'.co'+'m'; return false;">stefa<span style="display: none;">.nosp@m.</span>n.ga<span style="display: none;">.nosp@m.</span>ina01<span style="display: none;">.nosp@m.</span>@gma<span style="display: none;">.nosp@m.</span>il.co<span style="display: none;">.nosp@m.</span>m</a>. </p>
+<p>For any questions feel free to contact me at <a href="#" onclick="location.href='mai'+'lto:'+'ste'+'fa'+'n.g'+'ai'+'na0'+'1@'+'gma'+'il'+'.co'+'m'; return false;">stefa<span style="display: none;">.nosp@m.</span>n.ga<span style="display: none;">.nosp@m.</span>ina01<span style="display: none;">.nosp@m.</span>@gma<span style="display: none;">.nosp@m.</span>il.co<span style="display: none;">.nosp@m.</span>m</a>. <br  />
+ </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

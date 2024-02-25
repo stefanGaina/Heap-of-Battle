@@ -114,9 +114,9 @@ Collaboration diagram for hob::Menu:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abf07d960ce5f69475a459de875479dd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Menu.html#abf07d960ce5f69475a459de875479dd9">Menu</a> (SDL_Renderer *renderer, bool isAlliance, uint8_t <a class="el" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">gold</a>) noexcept</td></tr>
-<tr class="memdesc:abf07d960ce5f69475a459de875479dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads textures for the menu.  <a href="classhob_1_1Menu.html#abf07d960ce5f69475a459de875479dd9">More...</a><br /></td></tr>
-<tr class="separator:abf07d960ce5f69475a459de875479dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a127352cdfba4dd86947ae0eeadb4f6f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Menu.html#a127352cdfba4dd86947ae0eeadb4f6f9">Menu</a> (SDL_Renderer *renderer, <a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a> &amp;loadingScreen, bool isAlliance, uint8_t <a class="el" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">gold</a>) noexcept</td></tr>
+<tr class="memdesc:a127352cdfba4dd86947ae0eeadb4f6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads textures for the menu.  <a href="classhob_1_1Menu.html#a127352cdfba4dd86947ae0eeadb4f6f9">More...</a><br /></td></tr>
+<tr class="separator:a127352cdfba4dd86947ae0eeadb4f6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe6a3839779727ec80c77ad99d8a3d2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Menu.html#abe6a3839779727ec80c77ad99d8a3d2b">~Menu</a> (void)=default</td></tr>
 <tr class="memdesc:abe6a3839779727ec80c77ad99d8a3d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the loaded textures.  <a href="classhob_1_1Menu.html#abe6a3839779727ec80c77ad99d8a3d2b">More...</a><br /></td></tr>
 <tr class="separator:abe6a3839779727ec80c77ad99d8a3d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,8 +177,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Draws in-game menu depending of the user's faction. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abf07d960ce5f69475a459de875479dd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf07d960ce5f69475a459de875479dd9">&#9670;&nbsp;</a></span>Menu()</h2>
+<a id="a127352cdfba4dd86947ae0eeadb4f6f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a127352cdfba4dd86947ae0eeadb4f6f9">&#9670;&nbsp;</a></span>Menu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,6 +191,12 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype">SDL_Renderer *&#160;</td>
           <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a> &amp;&#160;</td>
+          <td class="paramname"><em>loadingScreen</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -222,6 +228,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
     <tr><td class="paramname">isAlliance</td><td>TODO </td></tr>
+    <tr><td class="paramname">loadingScreen</td><td>TODO </td></tr>
     <tr><td class="paramname">gold</td><td>Start amount of gold. </td></tr>
   </table>
   </dd>
