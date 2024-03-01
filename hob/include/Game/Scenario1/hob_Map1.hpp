@@ -134,7 +134,7 @@ private:
 
 	/**
 	 * @brief Receives updates from the server.
-	 * @param loadingScreen: Loading screen will be stepped after construction is finalized.
+	 * @param loadingScreen: TODO
 	 * @return void
 	*/
 	void receivingFunction(LoadingScreen* loadingScreen) noexcept;

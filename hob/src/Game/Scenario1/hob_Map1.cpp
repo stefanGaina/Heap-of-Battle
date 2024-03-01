@@ -73,21 +73,22 @@ Map1::Map1(SDL_Renderer* const renderer,
 	plog_trace("Map1 is being constructed.");
 	plog_assert(nullptr != ping);
 
+	usleep(false == faction.getFaction() ? 225 * 1000 : 50 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 175 * 1000 : 50 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 250 * 1000 : 25 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 175 * 1000 : 50 * 1000);
+	loadingScreen.step(renderer);
+	usleep(false == faction.getFaction() ? 250 * 1000 : 25 * 1000);
+	loadingScreen.step(renderer);
+
 	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);
 	cursor.setFaction(faction.getFaction());
 	cursor.setTexture(hobGame::CursorType::IDLE);
 
-	usleep(false == faction.getFaction() ? 175 * 1000 : 25 * 1000);
-	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 125 * 1000 : 15 * 1000);
-	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 200 * 1000 : 10 * 1000);
-	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 125 * 1000 : 50 * 1000);
-	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 150 * 1000 : 25 * 1000);
-	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 150 * 1000 : 25 * 1000);
+	usleep(false == faction.getFaction() ? 250 * 1000 : 25 * 1000);
 	loadingScreen.step(renderer);
 }
 

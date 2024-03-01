@@ -117,13 +117,14 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aa053663d2de529ebb6614229091e6d13"><td class="memItemLeft" align="right" valign="top">std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LoadingScreen.html#aa053663d2de529ebb6614229091e6d13">waitOpponentReady</a></td></tr>
+<tr class="memdesc:aa053663d2de529ebb6614229091e6d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">The variable signaled when the opponent sends a start game notification.  <a href="classhob_1_1LoadingScreen.html#aa053663d2de529ebb6614229091e6d13">More...</a><br /></td></tr>
 <tr class="separator:aa053663d2de529ebb6614229091e6d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d9b64ac2b40f6bc68a6c5999deae291"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LoadingScreen.html#a4d9b64ac2b40f6bc68a6c5999deae291">mutex</a></td></tr>
+<tr class="memdesc:a4d9b64ac2b40f6bc68a6c5999deae291"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex protecting interruptWait.  <a href="classhob_1_1LoadingScreen.html#a4d9b64ac2b40f6bc68a6c5999deae291">More...</a><br /></td></tr>
 <tr class="separator:a4d9b64ac2b40f6bc68a6c5999deae291"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1255755f6ebd2ac4890fe7d6521e0df5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LoadingScreen.html#a1255755f6ebd2ac4890fe7d6521e0df5">fillBarIndex</a></td></tr>
+<tr class="memdesc:a1255755f6ebd2ac4890fe7d6521e0df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The index of the last added progress bar fill component.  <a href="classhob_1_1LoadingScreen.html#a1255755f6ebd2ac4890fe7d6521e0df5">More...</a><br /></td></tr>
 <tr class="separator:a1255755f6ebd2ac4890fe7d6521e0df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bb430631d3c0aba3e3fcd2d3539b9a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LoadingScreen.html#a2bb430631d3c0aba3e3fcd2d3539b9a6">isOpponentReady</a></td></tr>
-<tr class="separator:a2bb430631d3c0aba3e3fcd2d3539b9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classhob_1_1TextureInitializer"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classhob_1_1TextureInitializer')"><img src="closed.png" alt="-"/>&#160;Private Attributes inherited from <a class="el" href="classhob_1_1TextureInitializer.html">hob::TextureInitializer&lt; LOADING_SCREEN_TEXTURES_COUNT, LOADING_SCREEN_COMPONENTS_COUNT &gt;</a></td></tr>
 <tr class="memitem:a66c14992ab67add015efe9c447cd5f43 inherit pub_attribs_classhob_1_1TextureInitializer"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="classhob_1_1Component.html">Component</a>, COMPONENTS_COUNT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1TextureInitializer.html#a66c14992ab67add015efe9c447cd5f43">componentContainer</a></td></tr>
 <tr class="memdesc:a66c14992ab67add015efe9c447cd5f43 inherit pub_attribs_classhob_1_1TextureInitializer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds all the components needed.  <a href="classhob_1_1TextureInitializer.html#a66c14992ab67add015efe9c447cd5f43">More...</a><br /></td></tr>
@@ -200,6 +201,14 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
+    <tr><td class="paramname">isAlliance</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -227,6 +236,14 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -253,6 +270,14 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -289,6 +314,15 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td></td></tr>
+    <tr><td class="paramname">socket</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -338,6 +372,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>The variable signaled when the opponent sends a start game notification. </p>
+<hr  />
+ 
 </div>
 </div>
 <a id="a4d9b64ac2b40f6bc68a6c5999deae291"></a>
@@ -360,6 +397,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Mutex protecting interruptWait. </p>
+<hr  />
+ 
 </div>
 </div>
 <a id="a1255755f6ebd2ac4890fe7d6521e0df5"></a>
@@ -382,28 +422,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a2bb430631d3c0aba3e3fcd2d3539b9a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bb430631d3c0aba3e3fcd2d3539b9a6">&#9670;&nbsp;</a></span>isOpponentReady</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hob::LoadingScreen::isOpponentReady</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
+<p>The index of the last added progress bar fill component. </p>
+<hr  />
+ 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

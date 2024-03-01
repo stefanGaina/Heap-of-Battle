@@ -129,39 +129,32 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     * @brief Loads the textures and initializes the buildings.</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">     * @param loadingScreen: TODO</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">     * @param loadingScreen: Loading screen will be stepped after construction is finalized.</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">    */</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classhob_1_1Buildings1.html#a90124f32abc9b1e44c461d7f9f77e9dd">Buildings1</a>(SDL_Renderer* renderer, <a class="code" href="classhob_1_1LoadingScreen.html">LoadingScreen</a>&amp; loadingScreen) noexcept;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">     * @brief Destroys the loaded textures.</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classhob_1_1Buildings1.html#af22750c4a32cb0e773e91bcaebf5f017">   66</a></span>&#160;    <a class="code" href="classhob_1_1Buildings1.html#af22750c4a32cb0e773e91bcaebf5f017">~Buildings1</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     * @brief Changes the textures of the buildings.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     * @param isWinter: true - winter, false - otherwise.</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">     * @brief Changes the textures of the buildings.</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     * @param isWinter: true - winter, false - otherwise.</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Buildings1.html#acd827534fd22024028d4d07126d1bf68">changeWeather</a>(<span class="keywordtype">bool</span> isWinter) noexcept;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">     * @brief The season that the textures are set to.</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Buildings1.html#acd827534fd22024028d4d07126d1bf68">changeWeather</a>(<span class="keywordtype">bool</span> isWinter) noexcept;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @brief The season that the textures are set to.</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">   79</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">previousSeason</a>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_BUILDINGS1_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">   73</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">previousSeason</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_BUILDINGS1_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshob_1_1BuildingInitializer_html"><div class="ttname"><a href="classhob_1_1BuildingInitializer.html">hob::BuildingInitializer</a></div><div class="ttdoc">Initializes a list of buildings.</div><div class="ttdef"><b>Definition:</b> hob_BuildingInitializer.hpp:64</div></div>
 <div class="ttc" id="aclasshob_1_1Buildings1_html"><div class="ttname"><a href="classhob_1_1Buildings1.html">hob::Buildings1</a></div><div class="ttdoc">Graphical representation of all the buildings used in scenario 1.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.hpp:53</div></div>
-<div class="ttc" id="aclasshob_1_1Buildings1_html_a5aae1d3d1a21d1c37f50740b2b43cfe1"><div class="ttname"><a href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">hob::Buildings1::previousSeason</a></div><div class="ttdeci">bool previousSeason</div><div class="ttdoc">The season that the textures are set to.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.hpp:79</div></div>
+<div class="ttc" id="aclasshob_1_1Buildings1_html_a5aae1d3d1a21d1c37f50740b2b43cfe1"><div class="ttname"><a href="classhob_1_1Buildings1.html#a5aae1d3d1a21d1c37f50740b2b43cfe1">hob::Buildings1::previousSeason</a></div><div class="ttdeci">bool previousSeason</div><div class="ttdoc">The season that the textures are set to.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.hpp:73</div></div>
 <div class="ttc" id="aclasshob_1_1Buildings1_html_a90124f32abc9b1e44c461d7f9f77e9dd"><div class="ttname"><a href="classhob_1_1Buildings1.html#a90124f32abc9b1e44c461d7f9f77e9dd">hob::Buildings1::Buildings1</a></div><div class="ttdeci">Buildings1(SDL_Renderer *renderer, LoadingScreen &amp;loadingScreen) noexcept</div><div class="ttdoc">Loads the textures and initializes the buildings.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.cpp:53</div></div>
 <div class="ttc" id="aclasshob_1_1Buildings1_html_acd827534fd22024028d4d07126d1bf68"><div class="ttname"><a href="classhob_1_1Buildings1.html#acd827534fd22024028d4d07126d1bf68">hob::Buildings1::changeWeather</a></div><div class="ttdeci">void changeWeather(bool isWinter) noexcept</div><div class="ttdoc">Changes the textures of the buildings.</div><div class="ttdef"><b>Definition:</b> hob_Buildings1.cpp:206</div></div>
-<div class="ttc" id="aclasshob_1_1Buildings1_html_af22750c4a32cb0e773e91bcaebf5f017"><div class="ttname"><a href="classhob_1_1Buildings1.html#af22750c4a32cb0e773e91bcaebf5f017">hob::Buildings1::~Buildings1</a></div><div class="ttdeci">~Buildings1(void)=default</div><div class="ttdoc">Destroys the loaded textures.</div></div>
 <div class="ttc" id="aclasshob_1_1LoadingScreen_html"><div class="ttname"><a href="classhob_1_1LoadingScreen.html">hob::LoadingScreen</a></div><div class="ttdef"><b>Definition:</b> hob_LoadingScreen.hpp:84</div></div>
 <div class="ttc" id="aclasshob_1_1TextureInitializer_html"><div class="ttname"><a href="classhob_1_1TextureInitializer.html">hob::TextureInitializer</a></div><div class="ttdoc">Initializes a list of textures and components.</div><div class="ttdef"><b>Definition:</b> hob_TextureInitializer.hpp:58</div></div>
 <div class="ttc" id="ahob__BuildingInitializer_8hpp_html"><div class="ttname"><a href="hob__BuildingInitializer_8hpp.html">hob_BuildingInitializer.hpp</a></div></div>

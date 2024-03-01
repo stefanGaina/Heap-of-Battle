@@ -67,12 +67,6 @@ FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 	update(renderer);
 }
 
-FramesPerSecond::~FramesPerSecond(void) noexcept
-{
-	plog_trace("Frames per second is being destructed.");
-	// TTF_CloseFont(font); <- this has been removed on purpose.
-}
-
 void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Frames per second is being drawn.");
@@ -103,19 +97,17 @@ void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 	if (framesCount == previousFramesCount)
 	{
 		plog_verbose("Frames per second does not need to be changed.");
-		reset(frameEndTime);
-		return;
+		goto RESET;
 	}
 
 	try
 	{
 		text = std::to_string(framesCount) + " FPS";
 	}
-	catch (const std::bad_alloc& exception)
+	catch (...)
 	{
-		plog_error("Failed to allocate memory for frames per second string!");
-		reset(frameEndTime);
-		return;
+		plog_error("Frames per second string threw an exception!");
+		goto RESET;
 	}
 	previousFramesCount = framesCount;
 
@@ -125,11 +117,7 @@ void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 	component.updateTexture(texture);
 	component.updatePosition({ .x = 30 * HSCALE + HSCALE / 2, .y = 0, .w = textureDimension.x, .h = textureDimension.y });
 
-	reset(frameEndTime);
-}
-
-void FramesPerSecond::reset(const uint64_t frameEndTime) noexcept
-{
+RESET:
 	framesCount	   = 0U;
 	frameStartTime = frameEndTime;
 }

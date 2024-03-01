@@ -50,6 +50,7 @@ public:
 	virtual SDL_RWops*	  SDL_RWFromFile(const char* file, const char* mode)															 = 0;
 	virtual int			  SDL_RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) = 0;
 	virtual int			  SDL_ShowCursor(int toggle)																					 = 0;
+	virtual Uint64		  SDL_GetTicks64(void)																							 = 0;
 };
 
 class SDLMock : public SDL
@@ -81,6 +82,7 @@ public:
 	MOCK_METHOD2(SDL_RWFromFile, SDL_RWops*(const char*, const char*));
 	MOCK_METHOD4(SDL_RenderCopy, int(SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*));
 	MOCK_METHOD1(SDL_ShowCursor, int(int));
+	MOCK_METHOD0(SDL_GetTicks64, Uint64(void));
 
 public:
 	static SDLMock* sdlMock;
@@ -232,6 +234,16 @@ int SDL_ShowCursor(const int toggle)
 		return -1;
 	}
 	return SDLMock::sdlMock->SDL_ShowCursor(toggle);
+}
+
+Uint64 SDL_GetTicks64(void)
+{
+	if (nullptr == SDLMock::sdlMock)
+	{
+		ADD_FAILURE() << "SDL_GetTicks64(): nullptr == SDLMock::sdlMock";
+		return 0UL;
+	}
+	return SDLMock::sdlMock->SDL_GetTicks64();
 }
 }
 

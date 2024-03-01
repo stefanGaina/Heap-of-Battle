@@ -9,6 +9,7 @@ all:
 	$(MAKE) -C hob_Component
 	$(MAKE) -C hob_Cursor
 	$(MAKE) -C hob_Encryptor
+	$(MAKE) -C hob_FramesPerSecond
 #	$(MAKE) -C hob_Game
 	$(MAKE) -C hob_Music
 	$(MAKE) -C hob_Sound
@@ -20,6 +21,7 @@ run_tests:
 	$(MAKE) run_tests -C hob_Component
 	$(MAKE) run_tests -C hob_Cursor
 	$(MAKE) run_tests -C hob_Encryptor
+	$(MAKE) run_tests -C hob_FramesPerSecond
 #	$(MAKE) run_tests -C hob_Game
 	$(MAKE) run_tests -C hob_Music
 	$(MAKE) run_tests -C hob_Sound
@@ -31,6 +33,7 @@ clean:
 	$(MAKE) clean -C hob_Component
 	$(MAKE) clean -C hob_Cursor
 	$(MAKE) clean -C hob_Encryptor
+	$(MAKE) clean -C hob_FramesPerSecond
 #	$(MAKE) clean -C hob_Game
 	$(MAKE) clean -C hob_Music
 	$(MAKE) clean -C hob_Sound

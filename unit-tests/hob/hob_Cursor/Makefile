@@ -13,7 +13,7 @@ INCLUDES = -I../../../vendor/gtest/include \
 		   -I../../../vendor/SDL2/include  \
 		   -I../../../hob-Game/include     \
 		   -I../../../hob/include/Common   \
-		   -I../../../hob/src/Common
+		   -I../../../hob/$(SRC)/Common
 
 TESTED_FILE_DIR  := ../../../hob/$(SRC)/Common
 TEST_FILE_NAME   := hob_Cursor_test

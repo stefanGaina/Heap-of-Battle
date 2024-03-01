@@ -19,9 +19,8 @@ var searchData=
   ['getpatch_159',['getPatch',['../classhobServer_1_1Version.html#af3553d9ec5234abe917f21b1f31b4e8f',1,'hobServer::Version']]],
   ['getrawtexture_160',['getRawTexture',['../classhob_1_1Component.html#abb396c3b56ed87d070af38331fb90e48',1,'hob::Component::getRawTexture()'],['../classhob_1_1Texture.html#a516b17db5883c3bae7ffc25405c91afc',1,'hob::Texture::getRawTexture()']]],
   ['getturn_161',['getTurn',['../classhobGame_1_1Game.html#adface847ccdb8e8fc00c2031e39c837c',1,'hobGame::Game']]],
-  ['gold_162',['Gold',['../classhob_1_1Gold.html#a76a98bc636cfac8be88b6fb7029795ff',1,'hob::Gold']]],
-  ['gold_163',['gold',['../classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4',1,'hob::Menu::gold()'],['../classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d',1,'hobGame::Game::gold()']]],
-  ['gold_164',['Gold',['../classhob_1_1Gold.html',1,'hob']]],
-  ['grid_165',['grid',['../classhob_1_1Map1.html#aeb89b67861019bcef3da02731e3f0ed3',1,'hob::Map1']]],
-  ['grid1_166',['Grid1',['../classhob_1_1Grid1.html',1,'hob']]]
+  ['gold_162',['gold',['../classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4',1,'hob::Menu::gold()'],['../classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d',1,'hobGame::Game::gold()']]],
+  ['gold_163',['Gold',['../classhob_1_1Gold.html#a76a98bc636cfac8be88b6fb7029795ff',1,'hob::Gold::Gold()'],['../classhob_1_1Gold.html',1,'hob::Gold']]],
+  ['grid_164',['grid',['../classhob_1_1Map1.html#aeb89b67861019bcef3da02731e3f0ed3',1,'hob::Map1']]],
+  ['grid1_165',['Grid1',['../classhob_1_1Grid1.html',1,'hob']]]
 ];

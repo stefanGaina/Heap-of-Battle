@@ -57,12 +57,6 @@ public:
 	FramesPerSecond(SDL_Renderer* renderer) noexcept;
 
 	/** ***********************************************************************************************
-	 * @brief Destroys the textures and closes the font.
-	 * @param void
-	 *************************************************************************************************/
-	~FramesPerSecond(void) noexcept;
-
-	/** ***********************************************************************************************
 	 * @brief Draws in top right corner in yellow "x FPS".
 	 * @param renderer: Rendering context of the window.
 	 * @return void
@@ -76,13 +70,6 @@ private:
 	 * @return void
 	 *************************************************************************************************/
 	void update(SDL_Renderer* renderer) noexcept;
-
-	/** ***********************************************************************************************
-	 * @brief Resets the frame count and the frame start time.
-	 * @param frameEndTime: Time when the last counted frame ended.
-	 * @return void
-	 *************************************************************************************************/
-	void reset(const uint64_t frameEndTime) noexcept;
 
 private:
 	/** ***********************************************************************************************

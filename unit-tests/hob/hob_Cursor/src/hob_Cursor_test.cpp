@@ -155,7 +155,7 @@ TEST_F(CursorTest, setTexture_success)
 
 	hob::Cursor cursor = { nullptr };
 
-	EXPECT_CALL(componentMock, updateTexture(testing::Matcher<const hob::Texture&>((testing::_)))) /**/
+	EXPECT_CALL(componentMock, updateTexture(testing::Matcher<const hob::Texture&>(testing::_))) /**/
 		.Times(4);
 
 	cursor.setTexture(hobGame::CursorType::IDLE);

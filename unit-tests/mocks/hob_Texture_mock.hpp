@@ -24,6 +24,8 @@
 
 #include <gmock/gmock.h>
 
+#include "stl_string_mock.hpp"
+#include "stl_string_begin.hpp"
 #include "hob_Texture.hpp"
 
 /******************************************************************************************************
@@ -90,7 +92,7 @@ void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) no
 	TextureMock::textureMock->load(filePath, renderer);
 }
 
-Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
+Coordinate Texture::create(std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
 {
 	if (nullptr == TextureMock::textureMock)
 	{
@@ -117,5 +119,7 @@ SDL_Texture* Texture::getRawTexture(void) const noexcept
 }
 
 } /*< namespace hob */
+
+#include "stl_string_end.hpp"
 
 #endif /*< HOB_TEXTURE_MOCK_HPP_ */

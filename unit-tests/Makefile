@@ -5,11 +5,13 @@
 # Description: This Makefile is used to invoke the Makefiles in the subdirectories.
 #######################################################################################################
 
-export LCOV     := ../../../vendor/lcov/$(BIN)/lcov.perl
+VENDOR = ../../../vendor
+
+export LCOV     := $(VENDOR)/lcov/$(BIN)/lcov.perl
 export VALGRIND := valgrind --leak-check=summary --show-leak-kinds=all
 
 export CXXFLAGS := -DPLOG_STRIP_ALL -fpermissive -fno-inline -O0 -g -fprofile-arcs -ftest-coverage --coverage
-export LDFLAGS  := -L../../../vendor/gtest/$(LIB) -lgtest -lgtest_main -lpthread -L../../../vendor/gmock/$(LIB) -lgmock -lgmock_main
+export LDFLAGS  := -L$(VENDOR)/gtest/$(LIB) -lgtest -lgtest_main -lpthread -L$(VENDOR)/gmock/$(LIB) -lgmock -lgmock_main
 
 export LCOV_BRANCH_FLAG := --rc lcov_branch_coverage=1
 export COVERAGE_REPORT  := ../coverage_report
@@ -17,12 +19,13 @@ export COVERAGE_REPORT  := ../coverage_report
 GENHTML       = ../vendor/lcov/$(BIN)/genhtml.perl
 GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory $(COVERAGE_REPORT) --dark-mode
 
-INFO_FILES = $(COVERAGE_REPORT)/hob_Component.info \
-			 $(COVERAGE_REPORT)/hob_Cursor.info    \
-			 $(COVERAGE_REPORT)/hob_Encryptor.info \
-			 $(COVERAGE_REPORT)/hob_Music.info     \
-			 $(COVERAGE_REPORT)/hob_Sound.info     \
-			 $(COVERAGE_REPORT)/hob_Texture.info   \
+INFO_FILES = $(COVERAGE_REPORT)/hob_Component.info       \
+			 $(COVERAGE_REPORT)/hob_Cursor.info          \
+			 $(COVERAGE_REPORT)/hob_Encryptor.info       \
+			 $(COVERAGE_REPORT)/hob_FramesPerSecond.info \
+			 $(COVERAGE_REPORT)/hob_Music.info           \
+			 $(COVERAGE_REPORT)/hob_Sound.info           \
+			 $(COVERAGE_REPORT)/hob_Texture.info         \
 			 $(COVERAGE_REPORT)/hob_Window.info
 
 ### MAKE SUBDIRECTORIES ###

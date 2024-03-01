@@ -81,10 +81,9 @@ void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) no
 Coordinate Texture::create(const std::string text, TTF_Font* const font, const SDL_Color color, SDL_Renderer* const renderer) noexcept
 {
 	SDL_Surface* temporarySurface = nullptr;
-	Coordinate	 dimension		  = {};
+	Coordinate	 dimension		  = { .x = 0, .y = 0 };
 
 	plog_verbose("Text texture is being created. (text: %s)", text.c_str());
-	plog_assert(nullptr != font);
 	plog_assert(nullptr != renderer);
 	// plog_assert(nullptr == rawTexture); <- it is okay not to assert this.
 
