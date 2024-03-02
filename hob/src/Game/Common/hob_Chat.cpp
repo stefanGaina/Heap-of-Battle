@@ -85,7 +85,7 @@ Chat::Chat(SDL_Renderer* const renderer,
 		encryptor.sendKey(*socket);
 	}
 
-	usleep(100 * 1000);
+	usleep(100U * 1000U);
 	loadingScreen.step(renderer);
 }
 

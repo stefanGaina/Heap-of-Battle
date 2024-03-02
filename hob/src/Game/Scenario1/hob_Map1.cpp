@@ -73,15 +73,15 @@ Map1::Map1(SDL_Renderer* const renderer,
 	plog_trace("Map1 is being constructed.");
 	plog_assert(nullptr != ping);
 
-	usleep(false == faction.getFaction() ? 225 * 1000 : 50 * 1000);
+	usleep(false == faction.getFaction() ? 225U * 1000U : 50U * 1000U);
 	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 175 * 1000 : 50 * 1000);
+	usleep(false == faction.getFaction() ? 175U * 1000U : 50U * 1000U);
 	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 250 * 1000 : 25 * 1000);
+	usleep(false == faction.getFaction() ? 250U * 1000U : 25U * 1000U);
 	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 175 * 1000 : 50 * 1000);
+	usleep(false == faction.getFaction() ? 175U * 1000U : 50U * 1000U);
 	loadingScreen.step(renderer);
-	usleep(false == faction.getFaction() ? 250 * 1000 : 25 * 1000);
+	usleep(false == faction.getFaction() ? 250U * 1000U : 25U * 1000U);
 	loadingScreen.step(renderer);
 
 	music.start(true == faction.getFaction() ? Song::SCENARIO_ALLIANCE : Song::SCENARIO_HORDE);

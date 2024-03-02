@@ -199,7 +199,7 @@ Buildings1::Buildings1(SDL_Renderer* const renderer, LoadingScreen& loadingScree
 	, previousSeason{ false }
 {
 	plog_trace("Buildings1 is being constructed.");
-	usleep(350 * 1000);
+	usleep(350U * 1000U);
 	loadingScreen.step(renderer);
 }
 

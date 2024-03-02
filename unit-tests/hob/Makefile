@@ -12,6 +12,7 @@ all:
 	$(MAKE) -C hob_FramesPerSecond
 #	$(MAKE) -C hob_Game
 	$(MAKE) -C hob_Music
+	$(MAKE) -C hob_Ping
 	$(MAKE) -C hob_Sound
 	$(MAKE) -C hob_Texture
 	$(MAKE) -C hob_Window
@@ -24,6 +25,7 @@ run_tests:
 	$(MAKE) run_tests -C hob_FramesPerSecond
 #	$(MAKE) run_tests -C hob_Game
 	$(MAKE) run_tests -C hob_Music
+	$(MAKE) run_tests -C hob_Ping
 	$(MAKE) run_tests -C hob_Sound
 	$(MAKE) run_tests -C hob_Texture
 	$(MAKE) run_tests -C hob_Window
@@ -36,6 +38,7 @@ clean:
 	$(MAKE) clean -C hob_FramesPerSecond
 #	$(MAKE) clean -C hob_Game
 	$(MAKE) clean -C hob_Music
+	$(MAKE) clean -C hob_Ping
 	$(MAKE) clean -C hob_Sound
 	$(MAKE) clean -C hob_Texture
 	$(MAKE) clean -C hob_Window

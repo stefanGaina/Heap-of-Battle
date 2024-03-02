@@ -32,7 +32,6 @@
 #include <plog.h>
 
 #include "hob_Ping.hpp"
-#include "hob_Socket.hpp"
 
 /******************************************************************************************************
  * LOCAL VARIABLES
@@ -143,7 +142,7 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
 	std::string text			 = {};
-	Coordinate	textureDimension = {};
+	Coordinate	textureDimension = { .x = 0, .y = 0 };
 	uint64_t	latency			 = 0UL;
 
 	plog_verbose("Queue is being handled.");
@@ -162,7 +161,7 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 		{
 			text = std::to_string(latency) + " ms";
 		}
-		catch (const std::bad_alloc& exception)
+		catch (...)
 		{
 			plog_error("Failed to allocate memory for ping string!");
 			return;

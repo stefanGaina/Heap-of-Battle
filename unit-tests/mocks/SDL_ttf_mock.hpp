@@ -39,6 +39,7 @@ public:
 	virtual void			   TTF_Quit(void)														  = 0;
 	virtual SDL_Surface*	   TTF_RenderText_Blended(TTF_Font* font, const char* text, SDL_Color fg) = 0;
 	virtual TTF_Font*		   TTF_OpenFont(const char* file, int ptsize)							  = 0;
+	virtual void			   TTF_CloseFont(TTF_Font* font)										  = 0;
 };
 
 class TTFMock : public TTF
@@ -59,6 +60,7 @@ public:
 	MOCK_METHOD0(TTF_Quit, void(void));
 	MOCK_METHOD3(TTF_RenderText_Blended, SDL_Surface*(TTF_Font*, const char*, SDL_Color));
 	MOCK_METHOD2(TTF_OpenFont, TTF_Font*(const char*, int));
+	MOCK_METHOD1(TTF_CloseFont, void(TTF_Font*));
 
 public:
 	static TTFMock* ttfMock;
@@ -120,6 +122,12 @@ TTF_Font* TTF_OpenFont(const char* const file, const int ptsize)
 		return nullptr;
 	}
 	return TTFMock::ttfMock->TTF_OpenFont(file, ptsize);
+}
+
+void TTF_CloseFont(TTF_Font* const font)
+{
+	ASSERT_NE(nullptr, TTFMock::ttfMock) << "TTF_CloseFont(): nullptr == TTFMock::ttfMock";
+	TTFMock::ttfMock->TTF_CloseFont(font);
 }
 }
 

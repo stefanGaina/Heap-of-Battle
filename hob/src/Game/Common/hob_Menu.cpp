@@ -91,7 +91,7 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 {
 	plog_trace("Game menu is being constructed.");
 	(void)handleClick({ 7 * HSCALE, 14 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
-	usleep(150 * 1000);
+	usleep(150U * 1000U);
 	loadingScreen.step(renderer);
 }
 

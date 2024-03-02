@@ -292,7 +292,7 @@ Units::Units(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexcep
 	, components{}
 {
 	plog_trace("Units are being constructed.");
-	usleep(400 * 1000);
+	usleep(400U * 1000U);
 	loadingScreen.step(renderer);
 }
 
