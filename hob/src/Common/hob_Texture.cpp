@@ -60,6 +60,7 @@ void Texture::load(const std::string& filePath, SDL_Renderer* const renderer) no
 	SDL_Surface* temporarySurface = nullptr;
 
 	plog_trace("Texture is being loaded. (file path: %s)", filePath.c_str());
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 	plog_assert(nullptr == rawTexture);
 
@@ -84,6 +85,7 @@ Coordinate Texture::create(const std::string text, TTF_Font* const font, const S
 	Coordinate	 dimension		  = { .x = 0, .y = 0 };
 
 	plog_verbose("Text texture is being created. (text: %s)", text.c_str());
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 	// plog_assert(nullptr == rawTexture); <- it is okay not to assert this.
 
@@ -116,6 +118,8 @@ Coordinate Texture::create(const std::string text, TTF_Font* const font, const S
 void Texture::destroy(void) noexcept
 {
 	plog_trace("Texture is being destroyed.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == rawTexture)
 	{
 		plog_warn("Texture is not loaded!");
@@ -128,6 +132,8 @@ void Texture::destroy(void) noexcept
 SDL_Texture* Texture::getRawTexture(void) const noexcept
 {
 	plog_verbose("Texture data is being got.");
+	plog_assert(nullptr != this);
+
 	return rawTexture;
 }
 

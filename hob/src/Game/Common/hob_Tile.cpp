@@ -46,6 +46,8 @@ void Tile::init(SDL_Texture* const summerTexture,
 				const Coordinate   position) noexcept
 {
 	plog_trace("Initializing tile. (position: %" PRId32 ", %" PRId32 ")", position.x, position.y);
+	plog_assert(nullptr != this);
+
 	if (nullptr == summerTexture || nullptr == autumnTexture || nullptr == winterTexture || nullptr == springTexture)
 	{
 		plog_warn("Tile is incomplete!");
@@ -68,6 +70,7 @@ void Tile::init(SDL_Texture* const summerTexture,
 void Tile::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Tile is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	component.draw(renderer);
@@ -76,6 +79,8 @@ void Tile::draw(SDL_Renderer* const renderer) noexcept
 void Tile::changeTexture(const Season season) noexcept
 {
 	plog_trace("Tile texture is being changed. (season: %" PRId32 ")", static_cast<int32_t>(season));
+	plog_assert(nullptr != this);
+
 	switch (season)
 	{
 		case Season::SUMMER:

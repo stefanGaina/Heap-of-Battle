@@ -56,6 +56,8 @@ Timer::~Timer(void) noexcept
 void Timer::startTimer(const uint16_t seconds) noexcept
 {
 	plog_info(LOG_PREFIX "Timer is being started! (time left: %" PRIu16 ")", seconds);
+	plog_assert(nullptr != this);
+
 	stopTimer(); /*< If timer is already started or timer thread is hanging. */
 
 	interruptWait = false;
@@ -65,6 +67,7 @@ void Timer::startTimer(const uint16_t seconds) noexcept
 void Timer::stopTimer(void) noexcept
 {
 	plog_info(LOG_PREFIX "Timer is being stopped!");
+	plog_assert(nullptr != this);
 
 	waitMutex.lock();
 	interruptWait = true;
@@ -85,6 +88,8 @@ void Timer::timerFunction(uint16_t timeLeft) noexcept
 	std::unique_lock<std::mutex> lockWait(waitMutex);
 
 	plog_trace(LOG_PREFIX "Timer has started. (time left: %" PRIu16 ")", timeLeft);
+	plog_assert(nullptr != this);
+
 	while (true)
 	{
 		onTimeUpdate(timeLeft);

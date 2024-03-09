@@ -47,6 +47,7 @@ void Grid1::draw(SDL_Renderer* const renderer) noexcept
 	SDL_Color color = { .r = 0, .g = 0, .b = 0, .a = 0 };
 
 	plog_verbose("Grid1 is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (0 != SDL_SetRenderDrawColor(renderer, 0x00U, 0x00U, 0x00U, ALPHA_OPAQUE)) /*< black */
@@ -91,6 +92,7 @@ void Grid1::drawHorizontalNeutralLines(SDL_Renderer* const renderer) const noexc
 	int32_t modifier = 0 * HSCALE;
 
 	plog_verbose("Horizontal neutral lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	for (modifier = 1 * HSCALE, row = 0; modifier > -2 * HSCALE; modifier -= 2 * HSCALE, row = 15 * HSCALE)
@@ -139,6 +141,7 @@ void Grid1::drawVerticalNeutralLines(SDL_Renderer* const renderer) const noexcep
 	int32_t modifier = 0 * HSCALE;
 
 	plog_verbose("Vertical neutral lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	for (modifier = 1 * HSCALE, column = 6 * HSCALE; modifier > -2 * HSCALE; modifier -= 2 * HSCALE, column = 32 * HSCALE)
@@ -222,6 +225,7 @@ void Grid1::drawHorizontalAllianceLines(SDL_Renderer* const renderer) const noex
 	int32_t row = 0 * HSCALE;
 
 	plog_verbose("Horizontal alliance lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	row = 9 * HSCALE;
@@ -267,6 +271,7 @@ void Grid1::drawVerticalAllianceLines(SDL_Renderer* const renderer) const noexce
 	int32_t column = 0 * HSCALE;
 
 	plog_verbose("Vertical alliance lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	column = 6 * HSCALE;
@@ -331,6 +336,7 @@ void Grid1::drawHorizontalHordeLines(SDL_Renderer* const renderer) const noexcep
 	int32_t row = 0 * HSCALE;
 
 	plog_verbose("Horizontal horde lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	row = 6 * HSCALE;
@@ -376,6 +382,7 @@ void Grid1::drawVerticalHordeLines(SDL_Renderer* const renderer) const noexcept
 	int32_t column = 0 * HSCALE;
 
 	plog_verbose("Vertical horde lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	column = 6 * HSCALE;
@@ -440,6 +447,7 @@ void Grid1::drawHorizontalObjectiveLines(SDL_Renderer* const renderer) const noe
 	int32_t row = 0 * HSCALE;
 
 	plog_verbose("Horizontal objective lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	row = 6 * HSCALE;
@@ -472,6 +480,7 @@ void Grid1::drawVerticalObjectiveLines(SDL_Renderer* const renderer) const noexc
 	int32_t column = 0 * HSCALE;
 
 	plog_verbose("Vertical objective lines are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	column = 6 * HSCALE;

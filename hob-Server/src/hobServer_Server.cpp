@@ -65,6 +65,8 @@ Server::~Server(void) noexcept
 void Server::runAsync(const uint16_t port, const uint16_t timeout) noexcept(false)
 {
 	plog_info(LOG_PREFIX "Server is running asynchronically (port: %" PRIu16 ")", port);
+	plog_assert(nullptr != this);
+
 	if (true == createAgain.load())
 	{
 		plog_error(LOG_PREFIX "Server is already running asynchronically!");
@@ -97,6 +99,7 @@ void Server::runAsync(const uint16_t port, const uint16_t timeout) noexcept(fals
 void Server::stop(void) noexcept
 {
 	plog_debug(LOG_PREFIX "Server is being stopped.");
+	plog_assert(nullptr != this);
 
 	createAgain.store(false);
 	socket.close();
@@ -114,6 +117,7 @@ void Server::onTimeUpdate(const uint16_t timeLeft) noexcept
 	Message timeUpdate = { .type = MessageType::TIME, .payload = {} };
 
 	plog_trace(LOG_PREFIX "Time updates are being sent. (time left: %" PRIu16 ")", timeLeft);
+	plog_assert(nullptr != this);
 
 	timeUpdate.payload.timeLeft = timeLeft;
 	socket.sendUpdate(timeUpdate, ClientType::PLAYER_1);
@@ -125,6 +129,7 @@ void Server::onTimesUp(uint16_t& timeLeft) const noexcept
 	Message timesUpUpdate = { .type = MessageType::END_TURN, .payload = {} };
 
 	plog_info(LOG_PREFIX "Time is up!");
+	plog_assert(nullptr != this);
 	plog_assert(0U == timeLeft);
 
 	timeLeft = TIME_PER_TURN;
@@ -138,6 +143,8 @@ void Server::runSync(const uint16_t port) noexcept
 	std::thread receiveFirstPlayerThread = {};
 
 	plog_debug(LOG_PREFIX "Server is running synchronically (port: %" PRIu16 ")", port);
+	plog_assert(nullptr != this);
+
 	while (true)
 	{
 		try
@@ -174,6 +181,7 @@ void Server::runSync(const uint16_t port) noexcept
 void Server::onSocketReady(void) noexcept
 {
 	plog_debug(LOG_PREFIX "Socket is ready to accept connections!");
+	plog_assert(nullptr != this);
 
 	mutex.lock();
 	isSocketReady = true;
@@ -188,6 +196,7 @@ void Server::receivePlayerUpdates(const ClientType clientType) noexcept
 	const ClientType otherPlayer = ClientType::PLAYER_1 == clientType ? ClientType::PLAYER_2 : ClientType::PLAYER_1;
 
 	plog_debug(LOG_PREFIX "Player updates are being received. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
+	plog_assert(nullptr != this);
 	plog_assert(ClientType::PLAYER_1 == clientType || ClientType::PLAYER_2 == clientType);
 
 	while (true)

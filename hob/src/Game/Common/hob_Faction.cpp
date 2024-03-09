@@ -48,12 +48,16 @@ Faction::Faction(void) noexcept
 void Faction::setFaction(const bool isAlliance) noexcept
 {
 	plog_info("Faction is being set! (flag: %" PRId8 ")", static_cast<int8_t>(isAlliance));
+	plog_assert(nullptr != this);
+
 	this->isAlliance = isAlliance;
 }
 
 bool Faction::getFaction(void) const noexcept
 {
 	plog_verbose("Faction is being got.");
+	plog_assert(nullptr != this);
+
 	return isAlliance;
 }
 
@@ -78,12 +82,16 @@ SDL_Color Faction::getHordeColor(void) noexcept
 SDL_Color Faction::getFriendlyColor(void) const noexcept
 {
 	plog_verbose("Friendly color is being got.");
+	plog_assert(nullptr != this);
+
 	return true == isAlliance ? getAllianceColor() : getHordeColor();
 }
 
 SDL_Color Faction::getOpponentColor(void) const noexcept
 {
 	plog_verbose("Opponent color is being got.");
+	plog_assert(nullptr != this);
+
 	return true == isAlliance ? Faction::getHordeColor() : Faction::getAllianceColor();
 }
 

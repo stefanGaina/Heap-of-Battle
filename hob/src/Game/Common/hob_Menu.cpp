@@ -98,6 +98,7 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 void Menu::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Game menu is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	TextureInitializer::draw(renderer);
@@ -109,6 +110,8 @@ void Menu::draw(SDL_Renderer* const renderer) noexcept
 Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
 {
 	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
+	plog_assert(nullptr != this);
+
 	if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
 	{
 		switch (menuMode)
@@ -165,6 +168,7 @@ void Menu::handleHover(const Coordinate mouse, const bool isAlliance) noexcept
 	int32_t y = 0;
 
 	plog_verbose("Menu is handling hover. (mouse: %" PRId32 ", % " PRId32 ")", mouse.x, mouse.y);
+	plog_assert(nullptr != this);
 
 	componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].updateTexture(nullptr);
 	if (0 >= mouse.x || 0 >= mouse.y)
@@ -224,17 +228,21 @@ void Menu::handleHover(const Coordinate mouse, const bool isAlliance) noexcept
 
 void Menu::updateTimer(const uint16_t seconds, const bool isAlliance) noexcept
 {
+	plog_assert(nullptr != this);
 	timer.update(seconds, isAlliance);
 }
 
 void Menu::updateGold(const uint8_t amount) noexcept
 {
+	plog_assert(nullptr != this);
 	gold.update(amount);
 }
 
 void Menu::setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture2) noexcept
 {
 	size_t index = 0UL;
+
+	plog_assert(nullptr != this);
 
 	componentContainer[MENU_COMPONENT_INDEX_FRAME_1].updateTexture(texture1);
 	for (index = MENU_COMPONENT_INDEX_FRAME_2; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)

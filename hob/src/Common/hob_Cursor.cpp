@@ -99,6 +99,8 @@ void Cursor::updatePosition(const Coordinate& mouse) noexcept
 	SDL_Rect destination = { .x = 0, .y = 0, .w = SCALE / 3, .h = SCALE / 3 };
 
 	plog_verbose("Cursor position is being updated. (coordinates: %" PRId32 ", %" PRId32 ")", mouse.x, mouse.y);
+	plog_assert(nullptr != this);
+
 	if (0L >= mouse.x || 0L >= mouse.y)
 	{
 		destination.x = SCREEN_WIDTH;
@@ -115,6 +117,7 @@ void Cursor::updatePosition(const Coordinate& mouse) noexcept
 void Cursor::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Cursor is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (true == enabled)
@@ -126,12 +129,16 @@ void Cursor::draw(SDL_Renderer* const renderer) noexcept
 void Cursor::setFaction(const bool isAlliance) noexcept
 {
 	plog_info("Cursor's faction is being set! (faction: %" PRId16 ")", static_cast<int16_t>(isAlliance));
+	plog_assert(nullptr != this);
+
 	textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
 }
 
 void Cursor::setTexture(const hobGame::CursorType type) noexcept
 {
 	plog_verbose("Cursor's texture is being set. (type: %" PRId32 ")", static_cast<int32_t>(type));
+	plog_assert(nullptr != this);
+
 	switch (type)
 	{
 		case hobGame::CursorType::IDLE:

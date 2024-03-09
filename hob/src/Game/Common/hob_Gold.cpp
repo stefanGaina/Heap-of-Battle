@@ -78,6 +78,7 @@ Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 void Gold::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Gold is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	handleQueue();
@@ -87,6 +88,8 @@ void Gold::draw(SDL_Renderer* const renderer) noexcept
 void Gold::update(const uint8_t amount) noexcept
 {
 	plog_trace("Gold is being updated. (amount: %" PRIu8 ")", amount);
+	plog_assert(nullptr != this);
+
 	if (amount == previousAmount)
 	{
 		return;
@@ -106,6 +109,8 @@ void Gold::handleQueue(void) noexcept
 	uint8_t amount = 0U;
 
 	plog_verbose("Queue is being handled.");
+	plog_assert(nullptr != this);
+
 	while (false == queue.isEmpty())
 	{
 		amount = queue.pop();

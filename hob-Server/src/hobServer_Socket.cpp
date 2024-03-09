@@ -64,6 +64,8 @@ void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 	int32_t		option = 1;
 
 	plog_debug(LOG_PREFIX "Server socket is being created.");
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID != serverSocket || SOCKET_INVALID != clientSockets[0] || SOCKET_INVALID != clientSockets[1])
 	{
 		plog_error(LOG_PREFIX "Socket is already created!");
@@ -109,6 +111,8 @@ void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 void Socket::close(void) noexcept
 {
 	plog_trace(LOG_PREFIX "Server socket is being closed.");
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID != serverSocket)
 	{
 		if (0 != shutdown(serverSocket, SHUT_RDWR))
@@ -132,6 +136,8 @@ void Socket::receiveUpdate(Message& updateMessage, const ClientType clientType) 
 	size_t	index		  = 0UL;
 
 	plog_verbose(LOG_PREFIX "Querrying for updates. (player: %" PRId32 ")", static_cast<int32_t>(clientType));
+	plog_assert(nullptr != this);
+
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
@@ -176,6 +182,8 @@ void Socket::sendUpdate(const Message& updateMessage, const ClientType clientTyp
 
 	plog_trace(LOG_PREFIX "Update is being sent. (type: %" PRId32 ") (player: %" PRId32 ")", static_cast<int32_t>(updateMessage.type),
 			   static_cast<int32_t>(clientType));
+	plog_assert(nullptr != this);
+
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:
@@ -217,6 +225,8 @@ void Socket::waitConnection(void) noexcept(false)
 	Message			 message		= { .type = MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_info(LOG_PREFIX "Waiting for incoming connections!");
+	plog_assert(nullptr != this);
+
 	if (0 != listen(serverSocket, 2))
 	{
 		plog_fatal(LOG_PREFIX "Server failed to open for connections! (error message: %s)", strerror(errno));
@@ -284,6 +294,8 @@ void Socket::closeClient(const ClientType clientType) noexcept
 	size_t index = 0UL;
 
 	plog_debug(LOG_PREFIX "Client socket is being closed. (client type: %" PRId32 ")", static_cast<int32_t>(clientType));
+	plog_assert(nullptr != this);
+
 	switch (clientType)
 	{
 		case ClientType::PLAYER_1:

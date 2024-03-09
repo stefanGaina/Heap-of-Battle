@@ -96,6 +96,7 @@ Timer::Timer(SDL_Renderer* const renderer) noexcept
 void Timer::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Timer is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	handleQueue();
@@ -105,6 +106,8 @@ void Timer::draw(SDL_Renderer* const renderer) noexcept
 void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
 {
 	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
+	plog_assert(nullptr != this);
+
 	queue.push({ .seconds = seconds, .isAlliance = isAlliance });
 }
 
@@ -114,6 +117,8 @@ void Timer::handleQueue(void) noexcept
 	size_t	   modifier	  = 0UL;
 
 	plog_verbose("Queue is being handled.");
+	plog_assert(nullptr != this);
+
 	while (false == queue.isEmpty())
 	{
 		timeFormat = queue.pop();

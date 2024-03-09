@@ -115,6 +115,8 @@ Map1::~Map1(void) noexcept
 void Map1::draw(void) noexcept
 {
 	plog_verbose("Map1 is being drawn.");
+	plog_assert(nullptr != this);
+
 	menu.draw(renderer);
 	chat.draw(renderer);
 	tiles.TileInitializer::draw(renderer);
@@ -128,6 +130,8 @@ void Map1::handleEvent(const SDL_Event& event) noexcept
 	Coordinate click = { .x = 0, .y = 0 };
 
 	plog_verbose("Event is being handled.");
+	plog_assert(nullptr != this);
+
 	switch (event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
@@ -212,6 +216,7 @@ void Map1::handleButtonDown(void) noexcept
 	Action		   action	  = Action::NOTHING;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
 #ifdef PLOG_STRIP_TRACE
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
@@ -263,6 +268,7 @@ void Map1::handleButtonUp(void) noexcept
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
 #ifdef PLOG_STRIP_TRACE
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
@@ -274,6 +280,7 @@ void Map1::handleMouseMotion(void) noexcept
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
 #ifdef PLOG_STRIP_VERBOSE
 	(void)mouseState;
 #endif /*< PLOG_STRIP_VERBOSE */
@@ -288,6 +295,7 @@ void Map1::handleQuit(void) noexcept
 	hobServer::Message message = { .type = hobServer::MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_info("Command to quit game was given!");
+	plog_assert(nullptr != this);
 
 	socket.sendUpdate(message);
 	stop(Scene::QUIT);
@@ -298,6 +306,8 @@ void Map1::receivingFunction(LoadingScreen* loadingScreen) noexcept
 	hobServer::Message receivedMessage = { .type = hobServer::MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_trace("Update messages are being received.");
+	plog_assert(nullptr != this);
+
 	while (true == receivingUpdates.load())
 	{
 		socket.receiveUpdate(receivedMessage);

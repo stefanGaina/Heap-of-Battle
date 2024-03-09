@@ -49,6 +49,7 @@ Component::Component(SDL_Texture* const texture, const SDL_Rect destination) noe
 void Component::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Component is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (nullptr == texture)
@@ -66,12 +67,16 @@ void Component::draw(SDL_Renderer* const renderer) noexcept
 void Component::updateTexture(SDL_Texture* const texture) noexcept
 {
 	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture);
+	plog_assert(nullptr != this);
+
 	this->texture = texture;
 }
 
 void Component::updateTexture(const Texture& texture) noexcept
 {
 	plog_verbose("Component's texture is being updated. (texture: 0x%p)", texture.getRawTexture());
+	plog_assert(nullptr != this);
+
 	this->texture = texture.getRawTexture();
 }
 
@@ -79,6 +84,8 @@ void Component::updatePosition(const SDL_Rect destination) noexcept
 {
 	plog_verbose("Component's position is being updated. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", destination.x, destination.y,
 				 destination.w, destination.h);
+	plog_assert(nullptr != this);
+
 	this->destination = destination;
 }
 
@@ -86,6 +93,7 @@ void Component::correctPosition(const SDL_Rect corrections) noexcept
 {
 	plog_verbose("Component is being corrected. (corrections: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", corrections.x, corrections.y, corrections.w,
 				 corrections.h);
+	plog_assert(nullptr != this);
 
 	destination.x += corrections.x;
 	destination.y += corrections.y;
@@ -103,6 +111,7 @@ bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections
 	plog_verbose("Checking if mouse is inside component. (mouse: { %" PRId32 ", %" PRId32 " }, corrections: { %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32
 				 " })",
 				 mouse.x, mouse.y, corrections.x, corrections.y, corrections.w, corrections.h);
+	plog_assert(nullptr != this);
 
 	return verticalBeginning < mouse.y && verticalEnding > mouse.y && horizontalBeginning < mouse.x && horizontalEnding > mouse.x;
 }
@@ -110,11 +119,14 @@ bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections
 SDL_Texture* Component::getRawTexture(void) const noexcept
 {
 	plog_verbose("Texture is being got.");
+	plog_assert(nullptr != this);
+
 	return texture;
 }
 
 bool Component::operator==(const Texture& texture) const noexcept
 {
+	plog_assert(nullptr != this);
 	return texture.getRawTexture() == this->texture;
 }
 

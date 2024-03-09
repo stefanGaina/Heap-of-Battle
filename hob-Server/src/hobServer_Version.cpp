@@ -60,18 +60,24 @@ Version::Version(const uint8_t major, const uint8_t minor, const uint8_t patch) 
 uint8_t Version::getMajor(void) const noexcept
 {
 	plog_verbose(LOG_PREFIX "Major version is being got.");
+	plog_assert(nullptr != this);
+
 	return major;
 }
 
 uint8_t Version::getMinor(void) const noexcept
 {
 	plog_verbose(LOG_PREFIX "Minor version is being got.");
+	plog_assert(nullptr != this);
+
 	return minor;
 }
 
 uint8_t Version::getPatch(void) const noexcept
 {
 	plog_verbose(LOG_PREFIX "Patch version is being got.");
+	plog_assert(nullptr != this);
+
 	return patch;
 }
 

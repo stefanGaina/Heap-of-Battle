@@ -94,6 +94,8 @@ void Icons::hide(void) noexcept
 	size_t index = 0UL;
 
 	plog_verbose("Icons are being hidden.");
+	plog_assert(nullptr != this);
+
 	for (index = ICONS_COMPONENT_INDEX_1; index <= ICONS_COMPONENT_INDEX_5; ++index)
 	{
 		componentContainer[index].updateTexture(nullptr);
@@ -105,6 +107,8 @@ void Icons::setAllianceKeep(const bool isAlliance) noexcept
 	size_t index = 0UL;
 
 	plog_verbose("Icons are being set to indicate alliance keep.");
+	plog_assert(nullptr != this);
+
 	if (true == isAlliance)
 	{
 		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_ELF]);
@@ -128,6 +132,8 @@ void Icons::setHordeKeep(const bool isAlliance) noexcept
 	size_t index = 0UL;
 
 	plog_verbose("Icons are being set to indicate horde keep.");
+	plog_assert(nullptr != this);
+
 	if (false == isAlliance)
 	{
 		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_TROLL]);

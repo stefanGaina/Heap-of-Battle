@@ -46,8 +46,8 @@ namespace hob
 
 void LogManager::handleCommand(const char* const command) noexcept
 {
-	plog_assert(nullptr != command);
 	plog_verbose("Log command is being handled. (command: %s)", command);
+	plog_assert(nullptr != command);
 
 	if ('s' == command[0])
 	{

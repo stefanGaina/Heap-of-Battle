@@ -70,6 +70,7 @@ FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Frames per second is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	update(renderer);
@@ -85,6 +86,7 @@ void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 	Coordinate	   textureDimension = {};
 
 	plog_verbose("Frames per second is being updated.(start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (SECOND_IN_MILLISECONDS > frameEndTime - frameStartTime)

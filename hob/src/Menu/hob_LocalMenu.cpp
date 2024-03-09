@@ -134,6 +134,7 @@ LocalMenu::~LocalMenu(void) noexcept
 void LocalMenu::draw(void) noexcept
 {
 	plog_verbose("Local menu is being drawn.");
+	plog_assert(nullptr != this);
 
 	handleQueue();
 	TextureInitializer::draw(renderer);
@@ -142,6 +143,8 @@ void LocalMenu::draw(void) noexcept
 void LocalMenu::handleEvent(const SDL_Event& event) noexcept
 {
 	plog_verbose("Event is being handled.");
+	plog_assert(nullptr != this);
+
 	switch (event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
@@ -187,6 +190,8 @@ void LocalMenu::handleButtonDown(void) noexcept
 	size_t		   index	  = 0UL;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
+
 	if (1 != SDL_BUTTON(mouseState))
 	{
 		plog_trace("Mouse click is not left click.");
@@ -213,6 +218,7 @@ void LocalMenu::handleButtonUp(void) noexcept
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
 #ifdef PLOG_STRIP_TRACE
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
@@ -317,6 +323,8 @@ void LocalMenu::handleMouseMotion(void) noexcept
 	size_t		   index	  = 0UL;
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
+
 	cursor.updatePosition(click);
 
 	if (1 == SDL_BUTTON(mouseState))
@@ -340,6 +348,8 @@ void LocalMenu::handleMouseMotion(void) noexcept
 void LocalMenu::handleQuit(void) noexcept
 {
 	plog_info("Command to quit game was given!");
+	plog_assert(nullptr != this);
+
 	stop(Scene::QUIT);
 	socket.close();
 	server.stop();
@@ -350,6 +360,8 @@ void LocalMenu::handleQueue(void) noexcept
 	ConnectionStatus connectionStatus = ConnectionStatus::ABORTED;
 
 	plog_verbose("Queue is being handled.");
+	plog_assert(nullptr != this);
+
 	while (false == queue.isEmpty())
 	{
 		connectionStatus = queue.pop();
@@ -399,6 +411,8 @@ void LocalMenu::handleQueue(void) noexcept
 void LocalMenu::joinReceivingThread(void) noexcept
 {
 	plog_trace("Checking if receiving thread is joinable.");
+	plog_assert(nullptr != this);
+
 	if (true == receivingThread.joinable())
 	{
 		plog_debug("Receiving thread is being joined.");
@@ -410,6 +424,8 @@ void LocalMenu::joinReceivingThread(void) noexcept
 void LocalMenu::joinWaitConnectionThread(void) noexcept
 {
 	plog_trace("Checking if wait connection thread is joinable.");
+	plog_assert(nullptr != this);
+
 	if (true == waitConnectionThread.joinable())
 	{
 		plog_debug("Wait connection thread is being joined.");
@@ -423,6 +439,8 @@ void LocalMenu::receivingFunction(void) noexcept
 	hobServer::Message receivedMessage = {};
 
 	plog_trace("Update messages are being received.");
+	plog_assert(nullptr != this);
+
 	while (true == receivingUpdates.load())
 	{
 		socket.receiveUpdate(receivedMessage);
@@ -475,6 +493,8 @@ void LocalMenu::receivingFunction(void) noexcept
 void LocalMenu::waitConnectionFunction(const std::string ipAddress) noexcept
 {
 	plog_info("Waiting for client connection to be established! (address: %s)", ipAddress.c_str());
+	plog_assert(nullptr != this);
+
 	try
 	{
 		socket.create(ipAddress);

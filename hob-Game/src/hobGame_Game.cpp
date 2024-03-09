@@ -80,6 +80,8 @@ Game::Game(const bool isAlliance) noexcept
 
 void Game::endTurn(void) noexcept
 {
+	plog_assert(nullptr != this);
+
 	turn = !turn;
 	if (true == turn)
 	{
@@ -89,17 +91,22 @@ void Game::endTurn(void) noexcept
 
 bool Game::getTurn(void) const noexcept
 {
+	plog_assert(nullptr != this);
 	return turn;
 }
 
 bool Game::isRecruitPossible(Unit unit) noexcept
 {
+	plog_assert(nullptr != this);
+
 	(void)unit;
 	return true;
 }
 
 CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
 {
+	plog_assert(nullptr != this);
+
 	if (x < 6 * hob::HSCALE || y > 15 * hob::HSCALE)
 	{
 		return CursorType::IDLE;
@@ -119,6 +126,8 @@ CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
 
 MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
 {
+	plog_assert(nullptr != this);
+
 	if (x < 6 * hob::HSCALE || y > 15 * hob::HSCALE)
 	{
 		return MenuMode::EMPTY;
@@ -143,6 +152,7 @@ MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
 
 uint8_t Game::getGold(void) const noexcept
 {
+	plog_assert(nullptr != this);
 	return gold;
 }
 

@@ -47,6 +47,7 @@ void Building::init(SDL_Texture* const summerTexture,
 {
 	plog_trace("Building is being initialized. (destination: %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32 ")", destination.x, destination.y, destination.w,
 			   destination.h);
+	plog_assert(nullptr != this);
 
 	this->summerTexture			   = summerTexture;
 	this->winterTexture			   = winterTexture;
@@ -60,6 +61,7 @@ void Building::init(SDL_Texture* const summerTexture,
 void Building::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Building is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	component.draw(renderer);
@@ -68,6 +70,8 @@ void Building::draw(SDL_Renderer* const renderer) noexcept
 void Building::changeWeather(const bool isWinter) noexcept
 {
 	plog_trace("Building weather is being changed. (flag: %" PRId32 ")", static_cast<int32_t>(isWinter));
+	plog_assert(nullptr != this);
+
 	if (false == isWinter)
 	{
 		changeWeather(winterTexture, alternativeWinterTexture, summerTexture, alternativeSummerTexture);
@@ -79,6 +83,8 @@ void Building::changeWeather(const bool isWinter) noexcept
 void Building::switchTexture(const bool isAlternative) noexcept
 {
 	plog_trace("Building texture is being switched. (flag: %" PRId32 ")", static_cast<int32_t>(isAlternative));
+	plog_assert(nullptr != this);
+
 	if (true == isAlternative)
 	{
 		changeWeather(summerTexture, winterTexture, alternativeSummerTexture, alternativeWinterTexture);
@@ -93,6 +99,9 @@ void Building::changeWeather(SDL_Texture* const weatherTexture1,
 							 SDL_Texture* const weatherTexture4) noexcept
 {
 	SDL_Texture* const currentTexture = component.getRawTexture();
+
+	plog_trace("Building weather is being changed.");
+	plog_assert(nullptr != this);
 
 	if (currentTexture == weatherTexture3 || currentTexture == weatherTexture4)
 	{

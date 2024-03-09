@@ -67,6 +67,8 @@ Scene Loop::start(void) noexcept
 	uint8_t failedRenderCount = 0U;
 
 	plog_debug("Loop is being started.");
+	plog_assert(nullptr != this);
+
 	if (true == isStopRequested.load())
 	{
 		plog_debug("Loop has been stopped before start.");
@@ -116,6 +118,8 @@ Scene Loop::start(void) noexcept
 void Loop::stop(const Scene nextScene) noexcept
 {
 	plog_debug("Loop is being stopped.");
+	plog_assert(nullptr != this);
+
 	isStopRequested.store(true);
 
 	if (false == isRunning.load())
@@ -133,6 +137,8 @@ void Loop::handleEvents(void) noexcept
 	SDL_Event event = {};
 
 	plog_verbose("Events are being handled.");
+	plog_assert(nullptr != this);
+
 	while (1 == SDL_PollEvent(&event))
 	{
 		plog_verbose("Event received.");
@@ -145,6 +151,8 @@ void Loop::render(void) noexcept(false)
 	static FramesPerSecond framesPerSecond = { renderer };
 
 	plog_verbose("Scene is being rendered.");
+	plog_assert(nullptr != this);
+
 	if (0 != SDL_RenderClear(renderer))
 	{
 		plog_error("Renderer failed to be cleared! (error message: %s)", SDL_GetError());

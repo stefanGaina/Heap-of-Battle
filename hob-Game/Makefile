@@ -5,7 +5,7 @@
 # Description: This Makefile is used to generate the game library.
 #######################################################################################################
 
-CFLAGS = -Wextra -Wall -Werror -fanalyzer -fPIC
+CFLAGS = -Wextra -Wall -Werror -Wno-nonnull-compare -fanalyzer -fPIC
 
 INCLUDES = -Iinclude                \
 		   -I../hob/include/Common  \

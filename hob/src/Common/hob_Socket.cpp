@@ -71,6 +71,8 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 	hobServer::Message versionMessage = { .type = hobServer::MessageType::VERSION, .payload = {} };
 
 	plog_debug("Client socket is being created. (IP address: %s)", ipAddress.c_str());
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID != socket)
 	{
 		plog_error("Socket is already created!");
@@ -103,6 +105,8 @@ void Socket::create(const std::string ipAddress) noexcept(false)
 void Socket::close(void) noexcept
 {
 	plog_trace("Client socket is being closed.");
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID == socket)
 	{
 		plog_warn("Client socket is already closed.");
@@ -119,6 +123,8 @@ void Socket::close(void) noexcept
 void Socket::sendUpdate(const hobServer::Message& updateMessage) const noexcept
 {
 	plog_trace("Update is being sent. (type: %" PRId32 ")", static_cast<int32_t>(updateMessage.type));
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID == socket)
 	{
 		plog_fatal("Connection is not established!");
@@ -136,6 +142,8 @@ void Socket::receiveUpdate(hobServer::Message& updateMessage) const noexcept
 	int32_t receivedBytes = 0;
 
 	plog_verbose("Querrying for updates.");
+	plog_assert(nullptr != this);
+
 	if (SOCKET_INVALID == socket)
 	{
 		plog_fatal("Connection is not established!");

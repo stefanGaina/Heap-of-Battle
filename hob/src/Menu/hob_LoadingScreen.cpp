@@ -112,6 +112,7 @@ LoadingScreen::LoadingScreen(SDL_Renderer* const renderer, const bool isAlliance
 void LoadingScreen::step(SDL_Renderer* const renderer) noexcept
 {
 	plog_trace("Loading screen is being stepped.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 	plog_assert(LOADING_SCREEN_COMPONENT_INDEX_FILL_LAST >= fillBarIndex);
 
@@ -135,6 +136,8 @@ void LoadingScreen::step(SDL_Renderer* const renderer) noexcept
 void LoadingScreen::startGame(void) noexcept
 {
 	plog_debug("Start game notification received.");
+	plog_assert(nullptr != this);
+
 	mutex.lock();
 	interruptWait = true;
 	mutex.unlock();
@@ -148,6 +151,8 @@ void LoadingScreen::waitOpponent(const uint16_t timeout, const Socket& socket) n
 	hobServer::Message			 startMessage = { .type = hobServer::MessageType::START_GAME, .payload = {} };
 
 	plog_debug("Waiting for the opponent to be ready. (timeout: %" PRIu16 ")", timeout);
+	plog_assert(nullptr != this);
+
 	socket.sendUpdate(startMessage);
 
 	(void)waitOpponentReady.wait_for(lockWait, std::chrono::milliseconds(timeout), [] { return interruptWait; });

@@ -61,6 +61,7 @@ Sound::~Sound(void) noexcept
 void Sound::load(const std::string& filePath) noexcept
 {
 	plog_trace("Sound is being loaded. (file path: %s)", filePath.c_str());
+	plog_assert(nullptr != this);
 
 	chunk = Mix_LoadWAV(filePath.c_str());
 	if (nullptr == chunk)
@@ -72,6 +73,8 @@ void Sound::load(const std::string& filePath) noexcept
 void Sound::free(void) noexcept
 {
 	plog_trace("Sound is being freed.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == chunk)
 	{
 		plog_warn("Sound was already destroyed!");
@@ -87,6 +90,8 @@ void Sound::play(void) const noexcept
 	int32_t channel = 0;
 
 	plog_trace("Sound is being played.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == chunk)
 	{
 		plog_error("Invalid chunk!");
@@ -100,6 +105,7 @@ void Sound::play(void) const noexcept
 void Sound::setVolume(const Volume volume) noexcept
 {
 	plog_trace("Setting sound volume. (volume: %" PRId32 ")", static_cast<int32_t>(volume));
+
 	switch (volume)
 	{
 		case Volume::MUTED:

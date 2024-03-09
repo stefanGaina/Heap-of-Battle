@@ -50,6 +50,7 @@ void Encryptor::sendKey(const Socket& socket) noexcept
 	struct timespec	   time		  = {};
 
 	plog_debug("The public key is being sent.");
+	plog_assert(nullptr != this);
 	plog_assert(0UL == privateKey);
 	plog_assert(0UL == exponent);
 
@@ -67,6 +68,8 @@ void Encryptor::sendKey(const Socket& socket) noexcept
 void Encryptor::receivedKey(const uint64_t enemyKey, const Socket& socket) noexcept
 {
 	plog_debug("Received the enemy key. (key: %" PRIu64 ")", enemyKey);
+	plog_assert(nullptr != this);
+
 	if (0UL == exponent)
 	{
 		sendKey(socket);
@@ -79,6 +82,7 @@ void Encryptor::receivedKey(const uint64_t enemyKey, const Socket& socket) noexc
 void Encryptor::encryptMessage(char* const message) noexcept
 {
 	plog_trace("Encrypting the message. (message: %s)", message);
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != message);
 	plog_assert(0UL != privateKey);
 
@@ -89,6 +93,7 @@ void Encryptor::encryptMessage(char* const message) noexcept
 void Encryptor::decryptMessage(char* const message) noexcept
 {
 	plog_trace("Decrypting the message. (message: %s)", message);
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != message);
 	plog_assert(0UL != privateKey);
 
@@ -99,6 +104,8 @@ void Encryptor::decryptMessage(char* const message) noexcept
 uint64_t Encryptor::diffieHellmanKey(const uint64_t base) const noexcept
 {
 	plog_verbose("Getting the Diffie-Hellan key. (base: %" PRIu64 ")", base);
+	plog_assert(nullptr != this);
+
 	return static_cast<uint64_t>(pow(static_cast<double>(base), static_cast<double>(exponent))) % obfuscator_get_prime_modulus();
 }
 

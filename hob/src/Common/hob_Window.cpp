@@ -46,6 +46,7 @@ SDL_Renderer* Window::create(void) noexcept(false)
 	SDL_Renderer* renderer = nullptr;
 
 	plog_debug("Window is being created.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr == window);
 
 	window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0U);
@@ -82,6 +83,7 @@ SDL_Renderer* Window::create(void) noexcept(false)
 void Window::destroy(void) noexcept
 {
 	plog_debug("Window is being destroyed.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != window);
 
 	SDL_DestroyWindow(window);
@@ -119,6 +121,7 @@ void Window::logInfo(SDL_Renderer* const renderer) const noexcept
 	int32_t			 batteryPercent = 0;
 
 	plog_trace("Information is being logged.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (0 != SDL_GetRendererInfo(renderer, &rendererInfo))

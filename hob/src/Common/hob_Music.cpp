@@ -60,6 +60,8 @@ void Music::start(const Song song) noexcept
 	int32_t		errorCode	   = 0;
 
 	plog_info("Music is being started. (song: %" PRId32 ")", static_cast<int32_t>(song));
+	plog_assert(nullptr != this);
+
 	if (song == playingSong && nullptr != this->song)
 	{
 		plog_warn("Music is already started! (song: %" PRId32 ")", static_cast<int32_t>(song));
@@ -111,6 +113,8 @@ void Music::start(const Song song) noexcept
 void Music::stop(void) noexcept
 {
 	plog_trace("Music is being stopped.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
@@ -123,6 +127,8 @@ void Music::stop(void) noexcept
 void Music::pause(void) const noexcept
 {
 	plog_info("Music is being paused.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
@@ -134,6 +140,8 @@ void Music::pause(void) const noexcept
 void Music::resume(void) const noexcept
 {
 	plog_info("Music is being resumed.");
+	plog_assert(nullptr != this);
+
 	if (nullptr == song)
 	{
 		plog_warn("Music is not being played!");
@@ -145,6 +153,8 @@ void Music::resume(void) const noexcept
 void Music::setVolume(const Volume volume) noexcept
 {
 	plog_debug("Setting music volume. (volume: %" PRId32 ")", static_cast<int32_t>(volume));
+	plog_assert(nullptr != this);
+
 	switch (volume)
 	{
 		case Volume::MUTED:

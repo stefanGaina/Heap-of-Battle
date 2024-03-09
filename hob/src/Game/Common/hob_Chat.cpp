@@ -103,6 +103,7 @@ void Chat::draw(SDL_Renderer* const renderer) noexcept
 	std::string opponentMessage = {};
 
 	plog_verbose("Chat is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	while (false == messageQueue.isEmpty())
@@ -141,6 +142,7 @@ void Chat::receivedMessage(char* const message) noexcept
 	std::string messageCopy = {};
 
 	plog_debug("Message from opponent is being received. (message: %s)", message);
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != message);
 
 	if (true == isMuted)
@@ -166,12 +168,15 @@ void Chat::receivedMessage(char* const message) noexcept
 void Chat::receivedEncryptKey(const uint64_t encryptKey, const Socket& socket) noexcept
 {
 	plog_verbose("Received encryption key from the other player.");
+	plog_assert(nullptr != this);
+
 	encryptor.receivedKey(encryptKey, socket);
 }
 
 void Chat::handleClick(const Coordinate click, SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Click is being handled.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (true == chatFrame.isClickInside(click) && false == isActive)
@@ -192,6 +197,7 @@ void Chat::handleButtonPress(const SDL_Event& event, SDL_Renderer* const rendere
 	const char* keyName		= nullptr;
 
 	plog_verbose("Handling key event.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (false == isActive)
@@ -223,6 +229,7 @@ void Chat::updateEnteringMessage(SDL_Renderer* const renderer) noexcept
 	Coordinate dimension = { .x = 0, .y = 0 };
 
 	plog_verbose("Entering message is being updated. (entering message: %s)", enteringMessage.c_str());
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	textures[CHAT_TEXTURE_INDEX_ENTERING_MESSAGE].destroy();
@@ -248,6 +255,7 @@ void Chat::sendMessage(SDL_Renderer* const renderer, const Socket& socket) noexc
 	hobServer::Message updateMessage = {};
 
 	plog_trace("Message is being sent.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if ("" == enteringMessage)
@@ -286,6 +294,7 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color, SDL_R
 	size_t	   index	 = 0UL;
 
 	plog_info("Message is being entered! (message: %s)", message.c_str());
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if (nullptr != textures[CHAT_TEXTURES_COUNT - 3].getRawTexture())
@@ -311,6 +320,7 @@ void Chat::enterMessage(const std::string& message, const SDL_Color color, SDL_R
 void Chat::activate(void) noexcept
 {
 	plog_debug("Chat is being activated.");
+	plog_assert(nullptr != this);
 
 	isActive = true;
 	barTicks = 0U;
@@ -334,8 +344,9 @@ char Chat::handleCharacterKey(const char* const keyName) noexcept
 	const char		 specialShiftCharacters2[] = "{|}";
 	const SDL_Keymod keyMod					   = SDL_GetModState();
 
-	plog_assert(nullptr != keyName);
 	plog_trace("Character key is being handled. (key name: %s)", keyName);
+	plog_assert(nullptr != this);
+	plog_assert(nullptr != keyName);
 
 	if ((keyName[0] >= 'a' && keyName[0] <= 'z') || (keyName[0] >= 'A' && keyName[0] <= 'Z'))
 	{
@@ -393,6 +404,8 @@ char Chat::handleCharacterKey(const char* const keyName) noexcept
 char Chat::handleSpecialKey(const SDL_Keycode keyCode, SDL_Renderer* const renderer, const Socket& socket) noexcept
 {
 	plog_trace("Special key is being handled. (key code: %" PRId32 ")", static_cast<int32_t>(keyCode));
+	plog_assert(nullptr != this);
+
 	switch (keyCode)
 	{
 		case SDLK_SPACE:
@@ -443,6 +456,7 @@ void Chat::handleUserCommand(SDL_Renderer* const renderer) noexcept
 	size_t	   index	 = 0UL;
 
 	plog_trace("User command is being handled.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	if ("./unmute" == enteringMessage)
@@ -491,6 +505,7 @@ void Chat::handleUserCommand(SDL_Renderer* const renderer) noexcept
 void Chat::cleanEnteringMessage(SDL_Renderer* const renderer) noexcept
 {
 	plog_trace("Entering message is being cleaned.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	enteringMessage = "";

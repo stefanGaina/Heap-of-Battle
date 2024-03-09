@@ -5,7 +5,7 @@
 # Description: This Makefile is used to generate the game executable.
 #######################################################################################################
 
-CFLAGS  = -Wextra -Wall -Werror -fanalyzer -pthread
+CFLAGS  = -Wextra -Wall -Werror -Wno-nonnull-compare -fanalyzer -pthread
 LDFLAGS = -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server \
 		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game   \
 		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/Obfuscator/$(LIB) -lobfuscator \

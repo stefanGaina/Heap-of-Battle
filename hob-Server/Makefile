@@ -5,7 +5,7 @@
 # Description: This Makefile is used to generate the server.
 #######################################################################################################
 
-CFLAGS = -Wextra -Wall -Werror -fPIC
+CFLAGS = -Wextra -Wall -Werror -Wno-nonnull-compare -fPIC
 
 INCLUDES = -Iinclude             \
 		   -I../hob/include/Main \

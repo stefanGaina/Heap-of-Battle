@@ -208,6 +208,8 @@ void Buildings1::changeWeather(const bool isWinter) noexcept
 	size_t index = 0UL;
 
 	plog_debug("Buildings are changing weather. (flag: %" PRId16 ")", static_cast<int16_t>(isWinter));
+	plog_assert(nullptr != this);
+
 	if (isWinter == previousSeason)
 	{
 		plog_debug("Buildings already changed weather.");

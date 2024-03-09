@@ -69,6 +69,7 @@ Ping::~Ping(void) noexcept
 void Ping::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Ping is being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	handleQueue(renderer);
@@ -83,6 +84,8 @@ void Ping::update(const Socket& socket) noexcept
 	const uint64_t latency	   = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
 
 	plog_verbose("Ping is being updated. (latency: %" PRIu64 ")", latency);
+	plog_assert(nullptr != this);
+
 	if (true == pingThread.joinable())
 	{
 		queue.push(latency);
@@ -102,6 +105,7 @@ void Ping::update(const Socket& socket) noexcept
 void Ping::clean(void) noexcept
 {
 	plog_debug("Ping is being cleaned!");
+	plog_assert(nullptr != this);
 
 	if (nullptr != font)
 	{
@@ -122,6 +126,7 @@ void Ping::clean(void) noexcept
 void Ping::stop(void) noexcept
 {
 	plog_debug("Ping is being stopped.");
+	plog_assert(nullptr != this);
 
 	waitMutex.lock();
 	interruptWait = true;
@@ -146,6 +151,7 @@ void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 	uint64_t	latency			 = 0UL;
 
 	plog_verbose("Queue is being handled.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	while (false == queue.isEmpty())
@@ -182,6 +188,7 @@ void Ping::sendPings(const Socket* const socket) noexcept
 	hobServer::Message			 pingMessage = { .type = hobServer::MessageType::PING, .payload = {} };
 
 	plog_trace("Send pings thread has started.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != socket);
 
 	while (true)

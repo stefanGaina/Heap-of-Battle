@@ -116,12 +116,16 @@ MainMenu::MainMenu(SDL_Renderer* const renderer, Cursor& cursor, Music& music) n
 void MainMenu::draw(void) noexcept
 {
 	plog_verbose("Main menu is being drawn.");
+	plog_assert(nullptr != this);
+
 	TextureInitializer::draw(renderer);
 }
 
 void MainMenu::handleEvent(const SDL_Event& event) noexcept
 {
 	plog_verbose("Event is being handled.");
+	plog_assert(nullptr != this);
+
 	switch (event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
@@ -160,6 +164,8 @@ void MainMenu::handleButtonDown(void) noexcept
 	size_t		   index	  = 0UL;
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
+
 	if (1 != SDL_BUTTON(mouseState))
 	{
 		plog_trace("Mouse click is not left click.");
@@ -186,6 +192,7 @@ void MainMenu::handleButtonUp(void) noexcept
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
 #ifdef PLOG_STRIP_TRACE
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
@@ -229,6 +236,8 @@ void MainMenu::handleMouseMotion(void) noexcept
 	size_t		   index	  = 0UL;
 
 	plog_verbose("Mouse (%" PRIu32 ") was moved. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
+	plog_assert(nullptr != this);
+
 	cursor.updatePosition(click);
 
 	if (1 == SDL_BUTTON(mouseState))
@@ -252,6 +261,8 @@ void MainMenu::handleMouseMotion(void) noexcept
 void MainMenu::handleQuit(void) noexcept
 {
 	plog_info("Command to quit game was given!");
+	plog_assert(nullptr != this);
+
 	stop(Scene::QUIT);
 }
 

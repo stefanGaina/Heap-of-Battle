@@ -299,6 +299,7 @@ Units::Units(SDL_Renderer* const renderer, LoadingScreen& loadingScreen) noexcep
 void Units::draw(SDL_Renderer* const renderer) noexcept
 {
 	plog_verbose("Units are being drawn.");
+	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 
 	for (auto component : components)
@@ -312,6 +313,8 @@ void Units::add(const hobGame::Unit unit, const bool isAlliance) noexcept(false)
 	Component component			 = {};
 	size_t	  textureIndexOffset = 0UL;
 	SDL_Rect  destination		 = { .x = 10 * HSCALE, .y = 14 * HSCALE, .w = 1 * HSCALE, .h = 1 * HSCALE };
+
+	plog_assert(nullptr != this);
 
 	if (false == isAlliance)
 	{

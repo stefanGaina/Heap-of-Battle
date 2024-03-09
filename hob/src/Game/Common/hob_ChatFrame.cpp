@@ -86,18 +86,24 @@ ChatFrame::ChatFrame(SDL_Renderer* const renderer) noexcept
 bool ChatFrame::isClickInside(const Coordinate click) const noexcept
 {
 	plog_verbose("Checking if click is inside chat frame. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
+	plog_assert(nullptr != this);
+
 	return componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_CORE].isMouseInside(click, { .x = 0, .y = 0, .w = 0, .h = HSCALE - 8 });
 }
 
 void ChatFrame::showInputBox(void) noexcept
 {
 	plog_trace("Input box is being shown.");
+	plog_assert(nullptr != this);
+
 	componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ .x = 0, .y = 14 * HSCALE, .w = 6 * HSCALE, .h = HSCALE });
 }
 
 void ChatFrame::hideInputBox(void) noexcept
 {
 	plog_trace("Input box is being hidden.");
+	plog_assert(nullptr != this);
+
 	componentContainer[CHAT_FRAME_COMPONENT_INDEX_FRAME_INPUT].updatePosition({ .x = 0, .y = 0, .w = 0, .h = 0 });
 }
 
