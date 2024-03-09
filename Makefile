@@ -66,15 +66,15 @@ doxygen:
 
 ### MAKE FORMAT ###
 format:
-	$(FORMAT) hob/src/*/*.cpp
+	$(FORMAT) hob/$(SRC)/*/*.cpp
 	$(FORMAT) hob/include/*/*.hpp
-	$(FORMAT) hob/src/*/*/*.cpp
+	$(FORMAT) hob/$(SRC)/*/*/*.cpp
 	$(FORMAT) hob/include/*/*/*.hpp
-	$(FORMAT) hob-Game/src/*.cpp
+	$(FORMAT) hob-Game/$(SRC)/*.cpp
 	$(FORMAT) hob-Game/include/*.hpp
-	$(FORMAT) hob-Server/src/*.cpp
+	$(FORMAT) hob-Server/$(SRC)/*.cpp
 	$(FORMAT) hob-Server/include/*.hpp
-	$(FORMAT) hob-Server-Instance/src/*.cpp
+	$(FORMAT) hob-Server-Instance/$(SRC)/*.cpp
 	$(FORMAT) hob-Server-Instance/include/*.hpp
 
 ### MAKE UNIT-TESTS ###

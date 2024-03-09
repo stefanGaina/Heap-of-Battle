@@ -44,7 +44,7 @@ namespace hob
 {
 
 template<size_t TEXTURES_COUNT, size_t COMPONENTS_COUNT>
-class TextureInitializer : public hob::IDrawable
+class TextureInitializer : public IDrawable
 {
 public:
 	TextureInitializer(std::array<std::string, TEXTURES_COUNT> filePaths,
@@ -56,8 +56,8 @@ public:
 	virtual void draw(SDL_Renderer* renderer) noexcept override;
 
 protected:
-	std::array<hob::Component, COMPONENTS_COUNT> componentContainer;
-	std::array<hob::Texture, TEXTURES_COUNT>	 textureContainer;
+	std::array<Component, COMPONENTS_COUNT> componentContainer;
+	std::array<Texture, TEXTURES_COUNT>		textureContainer;
 };
 
 } /*< namespace hob */

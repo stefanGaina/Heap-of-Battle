@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 	{
 		hob::Game::run();
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		plog_fatal("Game failed to start!");
 #ifdef DEVEL_BUILD

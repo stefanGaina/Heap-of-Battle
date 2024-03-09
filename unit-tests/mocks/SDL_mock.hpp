@@ -51,6 +51,8 @@ public:
 	virtual int			  SDL_RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) = 0;
 	virtual int			  SDL_ShowCursor(int toggle)																					 = 0;
 	virtual Uint64		  SDL_GetTicks64(void)																							 = 0;
+	virtual int			  SDL_RenderClear(SDL_Renderer* renderer)																		 = 0;
+	virtual void		  SDL_RenderPresent(SDL_Renderer* renderer)																		 = 0;
 };
 
 class SDLMock : public SDL
@@ -83,6 +85,8 @@ public:
 	MOCK_METHOD4(SDL_RenderCopy, int(SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*));
 	MOCK_METHOD1(SDL_ShowCursor, int(int));
 	MOCK_METHOD0(SDL_GetTicks64, Uint64(void));
+	MOCK_METHOD1(SDL_RenderClear, int(SDL_Renderer*));
+	MOCK_METHOD1(SDL_RenderPresent, void(SDL_Renderer*));
 
 public:
 	static SDLMock* sdlMock;
@@ -244,6 +248,22 @@ Uint64 SDL_GetTicks64(void)
 		return 0UL;
 	}
 	return SDLMock::sdlMock->SDL_GetTicks64();
+}
+
+int SDL_RenderClear(SDL_Renderer* const renderer)
+{
+	if (nullptr == SDLMock::sdlMock)
+	{
+		ADD_FAILURE() << "SDL_RenderClear(): nullptr == SDLMock::sdlMock";
+		return 0;
+	}
+	return SDLMock::sdlMock->SDL_RenderClear(renderer);
+}
+
+void SDL_RenderPresent(SDL_Renderer* const renderer)
+{
+	ASSERT_NE(nullptr, SDLMock::sdlMock) << "SDL_RenderPresent(): nullptr == SDLMock::sdlMock";
+	SDLMock::sdlMock->SDL_RenderPresent(renderer);
 }
 }
 
