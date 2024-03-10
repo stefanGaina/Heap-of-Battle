@@ -19,7 +19,8 @@ export COVERAGE_REPORT  := ../coverage_report
 GENHTML       = ../vendor/lcov/$(BIN)/genhtml.perl
 GENHTML_FLAGS = --branch-coverage --num-spaces=4 --output-directory $(COVERAGE_REPORT) --dark-mode
 
-INFO_FILES = $(COVERAGE_REPORT)/hob_Component.info       \
+INFO_FILES = $(COVERAGE_REPORT)/hob_ChatFrame.info       \
+			 $(COVERAGE_REPORT)/hob_Component.info       \
 			 $(COVERAGE_REPORT)/hob_Cursor.info          \
 			 $(COVERAGE_REPORT)/hob_Encryptor.info       \
 			 $(COVERAGE_REPORT)/hob_FramesPerSecond.info \

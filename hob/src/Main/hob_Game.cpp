@@ -61,19 +61,19 @@ void Game::run(void) noexcept(false)
 	{
 		init();
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
-		throw exception;
+		throw std::exception();
 	}
 
 	try
 	{
 		renderer = window.create();
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		deinit();
-		throw exception;
+		throw std::exception();
 	}
 
 #ifdef DEVEL_BUILD
@@ -241,7 +241,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 	{
 		persistentData = std::make_unique<PersistentData>(renderer);
 	}
-	catch (const std::bad_alloc& exception)
+	catch (...)
 	{
 		plog_fatal("Failed to allocate memory for persistent data! (bytes: %" PRIu64 ")", sizeof(PersistentData));
 		return;
@@ -257,7 +257,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				{
 					persistentData->sceneLoop = std::make_unique<MainMenu>(renderer, persistentData->cursor, persistentData->music);
 				}
-				catch (const std::bad_alloc& exception)
+				catch (...)
 				{
 					plog_fatal("Failed to allocate memory for main menu scene! (bytes: %" PRIu64 ")", sizeof(MainMenu));
 					return;
@@ -271,7 +271,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 					persistentData->sceneLoop = std::make_unique<LocalMenu>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music,
 																			persistentData->faction, persistentData->server, persistentData->socket);
 				}
-				catch (const std::bad_alloc& exception)
+				catch (...)
 				{
 					plog_fatal("Failed to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
 					persistentData->nextScene = Scene::MAIN_MENU;
@@ -285,7 +285,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				{
 					persistentData->loadingScreen = std::make_unique<LoadingScreen>(renderer, persistentData->faction.getFaction());
 				}
-				catch (const std::bad_alloc& exception)
+				catch (...)
 				{
 					plog_fatal("Failed to allocate memory for loading screen! (bytes: %" PRIu64 ")", sizeof(LoadingScreen));
 					persistentData->nextScene = Scene::MAIN_MENU;
@@ -298,7 +298,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 						std::make_unique<Map1>(renderer, persistentData->cursor, &persistentData->ping, persistentData->music, persistentData->faction,
 											   persistentData->server, persistentData->socket, *persistentData->loadingScreen);
 				}
-				catch (const std::bad_alloc& exception)
+				catch (...)
 				{
 					plog_fatal("Failed to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
 					persistentData->loadingScreen = nullptr;
@@ -310,7 +310,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 				{
 					persistentData->loadingScreen->waitOpponent(3000U, persistentData->socket);
 				}
-				catch (const std::exception& exception)
+				catch (...)
 				{
 					plog_error("Timeout while waiting for opponent occurred!");
 					persistentData->sceneLoop	  = nullptr;

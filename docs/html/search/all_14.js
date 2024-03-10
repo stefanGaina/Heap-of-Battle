@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['version_643',['Version',['../classhobServer_1_1Version.html',1,'hobServer::Version'],['../classhobServer_1_1Version.html#ad4a6703604a735be6ffb1effba662b67',1,'hobServer::Version::Version(void) noexcept'],['../classhobServer_1_1Version.html#ace654e3996845296c85f808c287aea51',1,'hobServer::Version::Version(uint8_t major, uint8_t minor, uint8_t patch) noexcept']]],
-  ['version_644',['version',['../unionhobServer_1_1MessagePayload.html#a1becd65ab87a950ed90a3fdab155e1f6',1,'hobServer::MessagePayload']]],
-  ['version_645',['VERSION',['../namespacehobServer.html#a3e240bc18c64221f7a14ba0df867983da021321e8c168ba3ae39ce3a2e7b3ec87',1,'hobServer']]],
-  ['version_5fmajor_646',['VERSION_MAJOR',['../namespacehobServerInstance.html#ac891269ded11276647b022e6544c95fc',1,'hobServerInstance::VERSION_MAJOR()'],['../namespacehobServer.html#a563302bbf20394d31c378975d79ec4e9',1,'hobServer::VERSION_MAJOR()'],['../namespacehob.html#a2bd24e47090af8cc8a3e3b522cecd713',1,'hob::VERSION_MAJOR()']]],
-  ['version_5fminor_647',['VERSION_MINOR',['../namespacehob.html#a486bccf365a20c07de617e22ec43c6ef',1,'hob::VERSION_MINOR()'],['../namespacehobServer.html#ac46db4a87a2cb13f00e7e164343131c0',1,'hobServer::VERSION_MINOR()'],['../namespacehobServerInstance.html#a898d91ab6d448089203044bb058a5681',1,'hobServerInstance::VERSION_MINOR()']]],
-  ['version_5fpatch_648',['VERSION_PATCH',['../namespacehob.html#af7b1576836f356d51666bca17fb6ba50',1,'hob::VERSION_PATCH()'],['../namespacehobServer.html#ae218ffc7cb3351f869f637c0e534a77b',1,'hobServer::VERSION_PATCH()'],['../namespacehobServerInstance.html#aa30700d7ba99f0118e3b5aee1b63bb01',1,'hobServerInstance::VERSION_PATCH()']]],
-  ['very_5fhigh_649',['VERY_HIGH',['../namespacehob.html#ad6eb7021bfcde40d722b2c9b17bc841ea2eae31361b8d1a454cadc17a8d4b70ac',1,'hob']]],
-  ['volume_650',['volume',['../classhob_1_1Sound.html#ad71a818d5041d30c8eff47092957ad60',1,'hob::Sound::volume()'],['../classhob_1_1Music.html#aeaa9881dbf79968011267a6b37c8a4ff',1,'hob::Music::volume()']]],
-  ['volume_651',['Volume',['../namespacehob.html#ad6eb7021bfcde40d722b2c9b17bc841e',1,'hob']]]
+  ['version_641',['Version',['../classhobServer_1_1Version.html',1,'hobServer']]],
+  ['version_642',['version',['../unionhobServer_1_1MessagePayload.html#a1becd65ab87a950ed90a3fdab155e1f6',1,'hobServer::MessagePayload']]],
+  ['version_643',['Version',['../classhobServer_1_1Version.html#ad4a6703604a735be6ffb1effba662b67',1,'hobServer::Version::Version(void) noexcept'],['../classhobServer_1_1Version.html#ace654e3996845296c85f808c287aea51',1,'hobServer::Version::Version(uint8_t major, uint8_t minor, uint8_t patch) noexcept']]],
+  ['version_644',['VERSION',['../namespacehobServer.html#a3e240bc18c64221f7a14ba0df867983da021321e8c168ba3ae39ce3a2e7b3ec87',1,'hobServer']]],
+  ['version_5fmajor_645',['VERSION_MAJOR',['../namespacehobServerInstance.html#ac891269ded11276647b022e6544c95fc',1,'hobServerInstance::VERSION_MAJOR()'],['../namespacehobServer.html#a563302bbf20394d31c378975d79ec4e9',1,'hobServer::VERSION_MAJOR()'],['../namespacehob.html#a2bd24e47090af8cc8a3e3b522cecd713',1,'hob::VERSION_MAJOR()']]],
+  ['version_5fminor_646',['VERSION_MINOR',['../namespacehob.html#a486bccf365a20c07de617e22ec43c6ef',1,'hob::VERSION_MINOR()'],['../namespacehobServer.html#ac46db4a87a2cb13f00e7e164343131c0',1,'hobServer::VERSION_MINOR()'],['../namespacehobServerInstance.html#a898d91ab6d448089203044bb058a5681',1,'hobServerInstance::VERSION_MINOR()']]],
+  ['version_5fpatch_647',['VERSION_PATCH',['../namespacehob.html#af7b1576836f356d51666bca17fb6ba50',1,'hob::VERSION_PATCH()'],['../namespacehobServer.html#ae218ffc7cb3351f869f637c0e534a77b',1,'hobServer::VERSION_PATCH()'],['../namespacehobServerInstance.html#aa30700d7ba99f0118e3b5aee1b63bb01',1,'hobServerInstance::VERSION_PATCH()']]],
+  ['very_5fhigh_648',['VERY_HIGH',['../namespacehob.html#ad6eb7021bfcde40d722b2c9b17bc841ea2eae31361b8d1a454cadc17a8d4b70ac',1,'hob']]],
+  ['volume_649',['volume',['../classhob_1_1Sound.html#ad71a818d5041d30c8eff47092957ad60',1,'hob::Sound::volume()'],['../classhob_1_1Music.html#aeaa9881dbf79968011267a6b37c8a4ff',1,'hob::Music::volume()']]],
+  ['volume_650',['Volume',['../namespacehob.html#ad6eb7021bfcde40d722b2c9b17bc841e',1,'hob']]]
 ];

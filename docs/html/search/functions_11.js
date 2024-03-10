@@ -6,5 +6,6 @@ var searchData=
   ['updategold_1003',['updateGold',['../classhob_1_1Menu.html#a77eac65dc035945f2177450c747873c6',1,'hob::Menu']]],
   ['updateposition_1004',['updatePosition',['../classhob_1_1Component.html#a8e8d8c3d11c7565f4addb2e75c51cf75',1,'hob::Component::updatePosition()'],['../classhob_1_1Cursor.html#ae7069be7dab9e0e8afc81afe9415466a',1,'hob::Cursor::updatePosition()']]],
   ['updatetexture_1005',['updateTexture',['../classhob_1_1Component.html#ac414e4361908fe7d1837d77deb3a3727',1,'hob::Component::updateTexture(SDL_Texture *texture) noexcept'],['../classhob_1_1Component.html#a8ba40f1c05afb50132a5b3c72bcc46e2',1,'hob::Component::updateTexture(const Texture &amp;texture) noexcept']]],
-  ['updatetimer_1006',['updateTimer',['../classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4',1,'hob::Menu']]]
+  ['updatetimer_1006',['updateTimer',['../classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4',1,'hob::Menu']]],
+  ['upgrade_1007',['upgrade',['../classhob_1_1Buildings1.html#a21b7e03b3715d773259dfb679ce2181d',1,'hob::Buildings1']]]
 ];

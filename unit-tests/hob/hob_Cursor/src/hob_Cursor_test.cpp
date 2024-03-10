@@ -38,8 +38,6 @@
 
 #include "SDL_mock.hpp"
 #include "hob_TextureInitializer_mock.hpp"
-#include "hob_Texture_mock.hpp"
-#include "hob_Component_mock.hpp"
 #include "hob_Cursor.cpp"
 
 /******************************************************************************************************

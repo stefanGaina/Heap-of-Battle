@@ -98,103 +98,103 @@ Buildings1::Buildings1(SDL_Renderer* const renderer, LoadingScreen& loadingScree
 
 							   textureContainer[1].getRawTexture(), /*< 2 */
 							   textureContainer[2].getRawTexture(),
-							   nullptr,
-							   nullptr,
+							   textureContainer[3].getRawTexture(),
+							   textureContainer[4].getRawTexture(),
 
 							   textureContainer[5].getRawTexture(), /*< 3 */
 							   textureContainer[6].getRawTexture(),
-							   nullptr,
-							   nullptr,
+							   textureContainer[7].getRawTexture(),
+							   textureContainer[8].getRawTexture(),
 
-							   textureContainer[9].getRawTexture(), /**< 4 */
+							   textureContainer[9].getRawTexture(), /*< 4 */
 							   textureContainer[10].getRawTexture(),
 							   textureContainer[11].getRawTexture(),
 							   textureContainer[12].getRawTexture(),
 
-							   textureContainer[9].getRawTexture(), /**< 5 */
+							   textureContainer[9].getRawTexture(), /*< 5 */
 							   textureContainer[10].getRawTexture(),
 							   textureContainer[11].getRawTexture(),
 							   textureContainer[12].getRawTexture(),
 
-							   textureContainer[9].getRawTexture(), /**< 6 */
+							   textureContainer[9].getRawTexture(), /*< 6 */
 							   textureContainer[10].getRawTexture(),
 							   textureContainer[11].getRawTexture(),
 							   textureContainer[12].getRawTexture(),
 
-							   textureContainer[9].getRawTexture(), /**< 7 */
+							   textureContainer[9].getRawTexture(), /*< 7 */
 							   textureContainer[10].getRawTexture(),
 							   textureContainer[11].getRawTexture(),
 							   textureContainer[12].getRawTexture(),
 
-							   textureContainer[13].getRawTexture(), /**< 8 */
+							   textureContainer[13].getRawTexture(), /*< 8 */
 							   nullptr,
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[17].getRawTexture(), /**< 9 */
+							   textureContainer[17].getRawTexture(), /*< 9 */
 							   nullptr,
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[21].getRawTexture(), /**< 10 */
+							   textureContainer[21].getRawTexture(), /*< 10 */
 							   textureContainer[22].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[21].getRawTexture(), /**< 11 */
+							   textureContainer[21].getRawTexture(), /*< 11 */
 							   textureContainer[22].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[23].getRawTexture(), /**< 12 */
+							   textureContainer[23].getRawTexture(), /*< 12 */
 							   textureContainer[24].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[23].getRawTexture(), /**< 13 */
+							   textureContainer[23].getRawTexture(), /*< 13 */
 							   textureContainer[24].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[25].getRawTexture(), /**< 14 */
+							   textureContainer[25].getRawTexture(), /*< 14 */
 							   textureContainer[26].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[25].getRawTexture(), /**< 15 */
+							   textureContainer[25].getRawTexture(), /*< 15 */
 							   textureContainer[26].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[27].getRawTexture(), /**< 16 */
+							   textureContainer[27].getRawTexture(), /*< 16 */
 							   textureContainer[28].getRawTexture(),
 							   nullptr,
 							   nullptr,
 
-							   textureContainer[27].getRawTexture(), /**< 17 */
+							   textureContainer[27].getRawTexture(), /*< 17 */
 							   textureContainer[28].getRawTexture(),
 							   nullptr,
 							   nullptr,
 						   },
 						   { {
-							   { 16 * HSCALE, 2 * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /**< 0  */
-							   { 16 * HSCALE, 9 * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /**< 1  */
-							   { 6 * HSCALE, 11 * HSCALE, 4 * HSCALE, 4 * HSCALE },								 /**< 2  */
-							   { 6 * HSCALE, 0, 4 * HSCALE, 4 * HSCALE },										 /**< 3  */
-							   { 6 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /**< 4  */
-							   { 13 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /**< 5  */
-							   { 22 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /**< 6  */
-							   { 29 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /**< 7  */
-							   { 29 * HSCALE, 12 * HSCALE, 3 * HSCALE, 3 * HSCALE },							 /**< 8  */
-							   { 29 * HSCALE, 0, 3 * HSCALE, 3 * HSCALE },										 /**< 9  */
-							   { 14 * HSCALE, 13 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /**< 10 */
-							   { 22 * HSCALE, 13 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /**< 11 */
-							   { 14 * HSCALE, 0, 2 * HSCALE, 2 * HSCALE },										 /**< 12 */
-							   { 22 * HSCALE, 0, 2 * HSCALE, 2 * HSCALE },										 /**< 13 */
-							   { 10 * HSCALE, 10 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /**< 14 */
-							   { 26 * HSCALE, 10 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /**< 15 */
-							   { 10 * HSCALE, 3 * HSCALE, 2 * HSCALE, 2 * HSCALE },								 /**< 16 */
-							   { 26 * HSCALE, 3 * HSCALE, 2 * HSCALE, 2 * HSCALE },								 /**< 17 */
+							   { 16 * HSCALE, 2 * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /*< 0  */
+							   { 16 * HSCALE, 9 * HSCALE + SCALE / 3 + 6, 6 * HSCALE, 3 * HSCALE + HSCALE / 3 }, /*< 1  */
+							   { 6 * HSCALE, 11 * HSCALE, 4 * HSCALE, 4 * HSCALE },								 /*< 2  */
+							   { 6 * HSCALE, 0, 4 * HSCALE, 4 * HSCALE },										 /*< 3  */
+							   { 6 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /*< 4  */
+							   { 13 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /*< 5  */
+							   { 22 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /*< 6  */
+							   { 29 * HSCALE, 6 * HSCALE, 3 * HSCALE, 3 * HSCALE },								 /*< 7  */
+							   { 29 * HSCALE, 12 * HSCALE, 3 * HSCALE, 3 * HSCALE },							 /*< 8  */
+							   { 29 * HSCALE, 0, 3 * HSCALE, 3 * HSCALE },										 /*< 9  */
+							   { 14 * HSCALE, 13 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /*< 10 */
+							   { 22 * HSCALE, 13 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /*< 11 */
+							   { 14 * HSCALE, 0, 2 * HSCALE, 2 * HSCALE },										 /*< 12 */
+							   { 22 * HSCALE, 0, 2 * HSCALE, 2 * HSCALE },										 /*< 13 */
+							   { 10 * HSCALE, 10 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /*< 14 */
+							   { 26 * HSCALE, 10 * HSCALE, 2 * HSCALE, 2 * HSCALE },							 /*< 15 */
+							   { 10 * HSCALE, 3 * HSCALE, 2 * HSCALE, 2 * HSCALE },								 /*< 16 */
+							   { 26 * HSCALE, 3 * HSCALE, 2 * HSCALE, 2 * HSCALE },								 /*< 17 */
 						   } } }
 	, previousSeason{ false }
 {
@@ -221,6 +221,12 @@ void Buildings1::changeWeather(const bool isWinter) noexcept
 		buildingContainer[index].changeWeather(isWinter);
 	}
 	previousSeason = isWinter;
+}
+
+void Buildings1::upgrade(const bool isAlliance) noexcept
+{
+	size_t index = true == isAlliance ? 2 : 3;
+	buildingContainer[index].switchTexture(true);
 }
 
 } /*< namespace hob */

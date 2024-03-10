@@ -70,18 +70,18 @@ Icons::Icons(SDL_Renderer* const renderer) noexcept
 			TEXTURE_FILE_PATH("hall_icon")			 /*< 13 */
 		},
 		{
-			ICONS_TEXTURE_INDEX_ELF,		   /**< 0 */
-			ICONS_TEXTURE_INDEX_KNIGHT,		   /**< 1 */
-			ICONS_TEXTURE_INDEX_GRYPHON_RIDER, /**< 2 */
-			ICONS_TEXTURE_INDEX_MAGE,		   /**< 3 */
-			ICONS_TEXTURE_INDEX_CASTLE		   /**< 4 */
+			ICONS_TEXTURE_INDEX_ELF,		   /*< 0 */
+			ICONS_TEXTURE_INDEX_KNIGHT,		   /*< 1 */
+			ICONS_TEXTURE_INDEX_GRYPHON_RIDER, /*< 2 */
+			ICONS_TEXTURE_INDEX_MAGE,		   /*< 3 */
+			ICONS_TEXTURE_INDEX_CASTLE		   /*< 4 */
 		},
 		{ {
-			{ .x = 8, .y = 1 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 0 */
-			{ .x = 8, .y = 3 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/**< 1 */
-			{ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /**< 2 */
-			{ .x = 8, .y = 6 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/**< 3 */
-			{ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }	/**< 4 */
+			{ .x = 8, .y = 1 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /*< 0 */
+			{ .x = 8, .y = 3 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/*< 1 */
+			{ .x = 8, .y = 4 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }, /*< 2 */
+			{ .x = 8, .y = 6 * HSCALE + 4, .w = HSCALE - 8, .h = HSCALE - 8 },				/*< 3 */
+			{ .x = 8, .y = 7 * HSCALE + HSCALE / 2 + 4, .w = HSCALE - 8, .h = HSCALE - 8 }	/*< 4 */
 		} },
 		renderer
 	}

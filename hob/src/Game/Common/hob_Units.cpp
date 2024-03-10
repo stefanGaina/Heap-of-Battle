@@ -335,14 +335,17 @@ void Units::add(const hobGame::Unit unit, const bool isAlliance) noexcept(false)
 		}
 		case hobGame::Unit::RANGED:
 		{
+			component.updateTexture(textureContainer[35 + textureIndexOffset]);
 			break;
 		}
 		case hobGame::Unit::CAVALRY:
 		{
+			component.updateTexture(textureContainer[62 + textureIndexOffset]);
 			break;
 		}
 		case hobGame::Unit::AIRCRAFT:
 		{
+			component.updateTexture(textureContainer[97 + textureIndexOffset]);
 			break;
 		}
 		case hobGame::Unit::MAGE:
@@ -362,10 +365,10 @@ void Units::add(const hobGame::Unit unit, const bool isAlliance) noexcept(false)
 	{
 		components.push_back(component);
 	}
-	catch (const std::bad_alloc& exception)
+	catch (...)
 	{
 		plog_error("Failed to add unit into the component list!");
-		throw exception;
+		throw std::exception();
 	}
 }
 

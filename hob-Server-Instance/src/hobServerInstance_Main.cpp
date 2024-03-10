@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 	{
 		hobServerInstance::Server::run(port);
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		plog_fatal("Server instance failed to run!");
 		return EXIT_FAILURE;

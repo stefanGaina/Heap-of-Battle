@@ -101,10 +101,10 @@ void Socket::create(const uint16_t port, Callback callback) noexcept(false)
 	{
 		waitConnection();
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		plog_error(LOG_PREFIX "Server failed to establish connections!");
-		throw exception;
+		throw std::exception();
 	}
 }
 

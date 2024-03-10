@@ -61,16 +61,16 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 							  TEXTURE_FILE_PATH("hourglass_inactive")																 /*< 5 */
 						  },
 						  {
-							  MENU_TEXTURE_INDEX_BACKGROUND,																				 /**< 0 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 1 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 2 */
-							  MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE,																		 /**< 3 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 4 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 5 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 6 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 7 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /**< 8 */
-							  MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE																	 /**< 9 */
+							  MENU_TEXTURE_INDEX_BACKGROUND,																				 /*< 0 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 1 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 2 */
+							  MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE,																		 /*< 3 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 4 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 5 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 6 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 7 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 8 */
+							  MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE																	 /*< 9 */
 						  },
 						  { {
 							  { 0, 0, 6 * HSCALE, 15 * HSCALE },					  /*< 0 */
@@ -88,6 +88,7 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 	, timer{ renderer }
 	, gold{ renderer, gold }
 	, icons{ renderer }
+	, isUpgradeDone{ false }
 {
 	plog_trace("Game menu is being constructed.");
 	(void)handleClick({ 7 * HSCALE, 14 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
@@ -107,7 +108,7 @@ void Menu::draw(SDL_Renderer* const renderer) noexcept
 	icons.draw(renderer);
 }
 
-Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
+MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
 {
 	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
 	plog_assert(nullptr != this);
@@ -143,24 +144,49 @@ Action Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMod
 			default:
 			{
 				plog_error("Invalid menu mode! (mode: %" PRId32 ")", static_cast<int32_t>(menuMode));
+				plog_assert(false);
 				break;
 			}
 		}
 
-		return Action::NOTHING;
+		return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
 	}
 
-	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].getRawTexture())
+	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].getRawTexture() || 3 * HSCALE <= click.x)
 	{
-		return Action::NOTHING;
+		return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
 	}
 
-	if (3 * HSCALE > click.x && HSCALE + HSCALE / 2 < click.y && 2 * HSCALE + HSCALE / 2 > click.y)
+	if (1 * HSCALE + HSCALE / 2 < click.y && 2 * HSCALE + HSCALE / 2 > click.y)
 	{
-		return Action::RECRUIT_INFANTRY;
+		return { .recruitUnit = hobGame::Unit::RANGED, .doUpgrade = false };
 	}
 
-	return Action::NOTHING;
+	if (3 * HSCALE < click.y && 4 * HSCALE > click.y)
+	{
+		return { .recruitUnit = hobGame::Unit::CAVALRY, .doUpgrade = false };
+	}
+
+	if (4 * HSCALE + HSCALE / 2 < click.y && 5 * HSCALE + HSCALE / 2 > click.y)
+	{
+		return { .recruitUnit = hobGame::Unit::AIRCRAFT, .doUpgrade = false };
+	}
+
+	if (6 * HSCALE < click.y && 7 * HSCALE > click.y)
+	{
+		return { .recruitUnit = hobGame::Unit::MAGE, .doUpgrade = false };
+	}
+
+	if (7 * HSCALE + HSCALE < click.y && 8 * HSCALE + HSCALE > click.y)
+	{
+		(void)handleClick({ .x = 7 * HSCALE, .y = 16 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
+		isUpgradeDone = true;
+		(void)handleClick({ .x = 7 * HSCALE, .y = 16 * HSCALE }, true == isAlliance ? hobGame::MenuMode::ALLIANCE_KEEP : hobGame::MenuMode::HORDE_KEEP, isAlliance);
+
+		return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = true };
+	}
+
+	return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
 }
 
 void Menu::handleHover(const Coordinate mouse, const bool isAlliance) noexcept
@@ -245,7 +271,12 @@ void Menu::setFramesKeep(SDL_Texture* const texture1, SDL_Texture* const texture
 	plog_assert(nullptr != this);
 
 	componentContainer[MENU_COMPONENT_INDEX_FRAME_1].updateTexture(texture1);
-	for (index = MENU_COMPONENT_INDEX_FRAME_2; index <= MENU_COMPONENT_INDEX_FRAME_5; ++index)
+	for (index = MENU_COMPONENT_INDEX_FRAME_2; index < MENU_COMPONENT_INDEX_FRAME_5; ++index)
+	{
+		componentContainer[index].updateTexture(texture2);
+	}
+
+	if (false == isUpgradeDone)
 	{
 		componentContainer[index].updateTexture(texture2);
 	}

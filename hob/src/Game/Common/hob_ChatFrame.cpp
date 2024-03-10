@@ -53,28 +53,28 @@ namespace hob
 ChatFrame::ChatFrame(SDL_Renderer* const renderer) noexcept
 	: TextureInitializer{
 		{
-			TEXTURE_FILE_PATH("frame"),		   /**< 0 */
-			TEXTURE_FILE_PATH("core"),		   /**< 1 */
-			TEXTURE_FILE_PATH("top_frame"),	   /**< 2 */
-			TEXTURE_FILE_PATH("bottom_frame"), /**< 3 */
-			TEXTURE_FILE_PATH("left_frame"),   /**< 4 */
-			TEXTURE_FILE_PATH("right_frame")   /**< 5 */
+			TEXTURE_FILE_PATH("frame"),		   /*< 0 */
+			TEXTURE_FILE_PATH("core"),		   /*< 1 */
+			TEXTURE_FILE_PATH("top_frame"),	   /*< 2 */
+			TEXTURE_FILE_PATH("bottom_frame"), /*< 3 */
+			TEXTURE_FILE_PATH("left_frame"),   /*< 4 */
+			TEXTURE_FILE_PATH("right_frame")   /*< 5 */
 		},
 		{
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_CORE,   /**< 0 */
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_BOTTOM, /**< 1 */
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_LEFT,   /**< 2 */
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_TOP,	   /**< 3 */
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_RIGHT,  /**< 4 */
-			CHAT_FRAME_TEXTURE_INDEX_FRAME_INPUT   /**< 5 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_CORE,   /*< 0 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_BOTTOM, /*< 1 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_LEFT,   /*< 2 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_TOP,	   /*< 3 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_RIGHT,  /*< 4 */
+			CHAT_FRAME_TEXTURE_INDEX_FRAME_INPUT   /*< 5 */
 		},
 		{ {
-			{ 8, 9 * HSCALE + 8, 6 * HSCALE - 16, 5 * HSCALE }, /**< 0 */
-			{ 0, 14 * HSCALE - 1, 6 * HSCALE, 8 },				/**< 1 */
-			{ 0, 9 * HSCALE, 8, 5 * HSCALE },					/**< 2 */
-			{ 0, 9 * HSCALE, 6 * HSCALE, 8 },					/**< 3 */
-			{ 6 * HSCALE - 8, 9 * HSCALE, 8, 5 * HSCALE },		/**< 4 */
-			{ 0, 0, 0, 0 }										/**< 5 */
+			{ 8, 9 * HSCALE + 8, 6 * HSCALE - 16, 5 * HSCALE }, /*< 0 */
+			{ 0, 14 * HSCALE - 1, 6 * HSCALE, 8 },				/*< 1 */
+			{ 0, 9 * HSCALE, 8, 5 * HSCALE },					/*< 2 */
+			{ 0, 9 * HSCALE, 6 * HSCALE, 8 },					/*< 3 */
+			{ 6 * HSCALE - 8, 9 * HSCALE, 8, 5 * HSCALE },		/*< 4 */
+			{ 0, 0, 0, 0 }										/*< 5 */
 		} },
 		renderer
 	}

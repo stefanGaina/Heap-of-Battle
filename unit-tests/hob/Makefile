@@ -6,6 +6,7 @@
 #######################################################################################################
 
 all:
+	$(MAKE) -C hob_ChatFrame
 	$(MAKE) -C hob_Component
 	$(MAKE) -C hob_Cursor
 	$(MAKE) -C hob_Encryptor
@@ -20,6 +21,7 @@ all:
 
 ### RUN TESTS ###
 run_tests:
+	$(MAKE) run_tests -C hob_ChatFrame
 	$(MAKE) run_tests -C hob_Component
 	$(MAKE) run_tests -C hob_Cursor
 	$(MAKE) run_tests -C hob_Encryptor
@@ -34,6 +36,7 @@ run_tests:
 
 ### CLEAN ###
 clean:
+	$(MAKE) clean -C hob_ChatFrame
 	$(MAKE) clean -C hob_Component
 	$(MAKE) clean -C hob_Cursor
 	$(MAKE) clean -C hob_Encryptor

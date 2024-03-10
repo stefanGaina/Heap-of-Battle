@@ -47,5 +47,6 @@ var searchData=
   ['isrecruitpossible_335',['isRecruitPossible',['../classhobGame_1_1Game.html#a907d1710e3919072484164dc1aceb3cc',1,'hobGame::Game']]],
   ['isrunning_336',['isRunning',['../classhob_1_1Loop.html#af5bd6af3830580d4b3e47c72ed152d5e',1,'hob::Loop']]],
   ['issocketready_337',['isSocketReady',['../classhobServer_1_1Server.html#a344047212d2c9c21e078e075f2d47267',1,'hobServer::Server']]],
-  ['isstoprequested_338',['isStopRequested',['../classhob_1_1Loop.html#a844e22037a33a8f9729279f3e95f369f',1,'hob::Loop']]]
+  ['isstoprequested_338',['isStopRequested',['../classhob_1_1Loop.html#a844e22037a33a8f9729279f3e95f369f',1,'hob::Loop']]],
+  ['isupgradedone_339',['isUpgradeDone',['../classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868',1,'hob::Menu']]]
 ];

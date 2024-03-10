@@ -251,7 +251,7 @@ void LocalMenu::handleButtonUp(void) noexcept
 					{
 						server.runAsync(8787U, 40U);
 					}
-					catch (const std::exception& exception)
+					catch (...)
 					{
 						plog_error("Failed to create the local server!");
 						soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
@@ -499,7 +499,7 @@ void LocalMenu::waitConnectionFunction(const std::string ipAddress) noexcept
 	{
 		socket.create(ipAddress);
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		plog_error("Failed to create client socket!");
 		queue.push(ConnectionStatus::FAILED);

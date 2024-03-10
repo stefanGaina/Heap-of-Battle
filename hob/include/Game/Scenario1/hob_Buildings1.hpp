@@ -66,6 +66,8 @@ public:
 	*/
 	void changeWeather(bool isWinter) noexcept;
 
+	void upgrade(bool isAlliance) noexcept;
+
 private:
 	/**
 	 * @brief The season that the textures are set to.

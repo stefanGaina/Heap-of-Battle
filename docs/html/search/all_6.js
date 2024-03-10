@@ -1,7 +1,8 @@
 var searchData=
 [
+  ['game_143',['Game',['../classhobGame_1_1Game.html#acf144f65fff9d86001cb91f3b0080683',1,'hobGame::Game']]],
   ['game_144',['game',['../classhob_1_1Map1.html#a3a8ef6feec501c2ded69e2b77e9d8ce1',1,'hob::Map1']]],
-  ['game_145',['Game',['../classhobGame_1_1Game.html#acf144f65fff9d86001cb91f3b0080683',1,'hobGame::Game::Game()'],['../classhob_1_1Game.html',1,'hob::Game'],['../classhobGame_1_1Game.html',1,'hobGame::Game']]],
+  ['game_145',['Game',['../classhob_1_1Game.html',1,'hob::Game'],['../classhobGame_1_1Game.html',1,'hobGame::Game']]],
   ['gamemenucomponentindex_146',['GameMenuComponentIndex',['../namespacehob.html#a8ff1618c70ce54bd1f8add33e48e39e1',1,'hob']]],
   ['gamemenutextureindex_147',['GameMenuTextureIndex',['../namespacehob.html#a7bb90dcc21a67b6ff17d3125f740c79f',1,'hob']]],
   ['getalliancecolor_148',['getAllianceColor',['../classhob_1_1Faction.html#a517fa27facb7eaae19c70e260a55b65f',1,'hob::Faction']]],

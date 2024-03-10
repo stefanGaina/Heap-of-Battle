@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 		{
 			hob::Test::init(argv[1]);
 		}
-		catch (const std::exception& exception)
+		catch (...)
 		{
 			std::cerr << "Failed to start test! (file: " << argv[1] << ")" << std::endl;
 			return EXIT_FAILURE;

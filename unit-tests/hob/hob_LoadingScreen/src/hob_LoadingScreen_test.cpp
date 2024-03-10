@@ -39,7 +39,6 @@
 #include "SDL_mock.hpp"
 #include "hob_TextureInitializer_mock.hpp"
 #include "hob_SoundInitializer_mock.hpp"
-#include "hob_Component_mock.hpp"
 #include "hob_Socket_mock.hpp"
 #include "hob_Sound_mock.hpp"
 #include "stl_string_begin.hpp"

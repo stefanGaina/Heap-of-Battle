@@ -151,7 +151,7 @@ void Server::runSync(const uint16_t port) noexcept
 		{
 			socket.create(port, std::bind(&Server::onSocketReady, this));
 		}
-		catch (const std::exception& exception)
+		catch (...)
 		{
 			plog_fatal(LOG_PREFIX "Socket failed to be created!");
 			return;

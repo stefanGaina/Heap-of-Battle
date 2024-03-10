@@ -213,7 +213,7 @@ void Map1::handleButtonDown(void) noexcept
 {
 	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
-	Action		   action	  = Action::NOTHING;
+	MenuAction	   menuAction = { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
 
 	plog_trace("Mouse (%" PRIu32 ") was clicked. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
 	plog_assert(nullptr != this);
@@ -229,36 +229,33 @@ void Map1::handleButtonDown(void) noexcept
 
 	chat.handleClick(click, renderer);
 
-	action = menu.handleClick(click, game.getMenuMode(click.x, click.y), faction.getFaction());
-	switch (action)
+	menuAction = menu.handleClick(click, game.getMenuMode(click.x, click.y), faction.getFaction());
+	if (true == menuAction.doUpgrade)
 	{
-		case Action::NOTHING:
+		plog_assert(hobGame::Unit::NONE == menuAction.recruitUnit);
+		buildings.upgrade(faction.getFaction());
+
+		return;
+	}
+
+	if (true == game.isRecruitPossible(menuAction.recruitUnit))
+	{
+		try
 		{
-			break;
+			units.add(menuAction.recruitUnit, faction.getFaction());
 		}
-		case Action::RECRUIT_INFANTRY:
+		catch (...)
 		{
-			if (true == game.isRecruitPossible(hobGame::Unit::INFANTRY))
-			{
-				try
-				{
-					units.add(hobGame::Unit::INFANTRY, faction.getFaction());
-				}
-				catch (const std::exception& exception)
-				{
-					plog_error("Failed to add infantry unit!");
-				}
-			}
-			break;
+			plog_error("Failed to add unit!");
+			soundContainer[0].play(); // TODO: update index
 		}
-		case Action::RECRUIT_RANGED:
-		{
-			break;
-		}
-		default:
-		{
-			break;
-		}
+
+		return;
+	}
+
+	if (hobGame::Unit::NONE != menuAction.recruitUnit)
+	{
+		soundContainer[0].play(); // TODO: update index
 	}
 }
 

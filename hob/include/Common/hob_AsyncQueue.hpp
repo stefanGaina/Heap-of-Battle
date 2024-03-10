@@ -108,7 +108,7 @@ void AsyncQueue<TYPE>::push(TYPE element) noexcept
 	{
 		queue.push(element);
 	}
-	catch (const std::bad_alloc& exception)
+	catch (...)
 	{
 		plog_error("Failed to push element to queue! (bytes: %" PRIu64 ")", sizeof(element));
 	}

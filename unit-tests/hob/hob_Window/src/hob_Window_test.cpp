@@ -90,7 +90,7 @@ TEST_F(WindowTest, create_createWindow_fail)
 	{
 		EXPECT_EQ(nullptr, window.create()) << "Window create did not return nullptr even though it failed!";
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		return;
 	}
@@ -112,7 +112,7 @@ TEST_F(WindowTest, create_createRenderer_fail)
 	{
 		EXPECT_EQ(nullptr, window.create()) << "Window create did not return nullptr even though it failed!";
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		return;
 	}
@@ -135,7 +135,7 @@ TEST_F(WindowTest, create_success)
 	{
 		EXPECT_NE(nullptr, window.create()) << "Window create returned nullptr even though it did not failed!";
 	}
-	catch (const std::exception& exception)
+	catch (...)
 	{
 		ADD_FAILURE() << "Window create threw exception even though it did not failed!";
 	}

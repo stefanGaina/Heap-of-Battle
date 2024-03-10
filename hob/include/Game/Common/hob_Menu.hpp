@@ -75,18 +75,24 @@ enum GameMenuComponentIndex
 	MENU_COMPONENTS_COUNT				= 10 /**< How many components the game menu uses. */
 };
 
-/**
- * @brief TODO
-*/
-enum class Action
+struct MenuAction
 {
-	NOTHING			 = 0, /**< TODO */
-	RECRUIT_INFANTRY = 1, /**< TODO */
-	RECRUIT_RANGED	 = 2,
-	RECRUIT_CAVALRY	 = 3,
-	RECRUIT_AIRCRAFT = 4,
-	RECRUIT_MAGE	 = 5
+	hobGame::Unit recruitUnit;
+	bool		  doUpgrade;
 };
+
+// /**
+//  * @brief TODO
+// */
+// enum class Action
+// {
+// 	NOTHING			 = 0, /**< TODO */
+// 	RECRUIT_INFANTRY = 1, /**< TODO */
+// 	RECRUIT_RANGED	 = 2,
+// 	RECRUIT_CAVALRY	 = 3,
+// 	RECRUIT_AIRCRAFT = 4,
+// 	RECRUIT_MAGE	 = 5
+// };
 
 /**
  * @brief Draws in-game menu depending of the user's faction.
@@ -123,7 +129,7 @@ public:
 	 * @param isAlliance: TODO
 	 * @return TODO
 	*/
-	Action handleClick(Coordinate click, hobGame::MenuMode menuMode, bool isAlliance) noexcept;
+	MenuAction handleClick(Coordinate click, hobGame::MenuMode menuMode, bool isAlliance) noexcept;
 
 	/**
 	 * @brief TODO
@@ -166,6 +172,8 @@ private:
 	 * @brief TODO
 	*/
 	Icons icons;
+
+	bool isUpgradeDone;
 };
 
 } /*< namespace hob */

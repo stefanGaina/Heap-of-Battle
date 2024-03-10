@@ -99,7 +99,7 @@ void Test::init(const char* file_path) noexcept(false)
 			throw std::exception();
 		}
 	}
-	catch (const std::ifstream::failure& exception)
+	catch (...)
 	{
 		throw std::exception();
 	}
@@ -144,7 +144,7 @@ void Test::parseCommands(void) noexcept
 			parseCommand(line);
 		}
 	}
-	catch (const std::ifstream::failure& exception)
+	catch (...)
 	{
 		plog_warn("Exception caught while parsing commands!");
 	}
@@ -232,7 +232,7 @@ void Test::parseCommand(std::string& line) noexcept
 			{
 				socket.create("127.0.0.1");
 			}
-			catch (const std::exception& exception)
+			catch (...)
 			{
 				plog_error("Failed to create client socket!");
 			}
@@ -248,7 +248,7 @@ void Test::parseCommand(std::string& line) noexcept
 				server.runAsync(8787U, 100U);
 				socket.create("127.0.0.1");
 			}
-			catch (const std::exception& exception)
+			catch (...)
 			{
 				plog_error("Failed to host server!");
 			}
