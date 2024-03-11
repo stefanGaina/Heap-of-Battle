@@ -74,12 +74,6 @@ public:
 	/**
 	 * @brief
 	 * @param void
-	*/
-	~Game(void) = default;
-
-	/**
-	 * @brief
-	 * @param void
 	 * @return void
 	*/
 	void endTurn(void) noexcept;

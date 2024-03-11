@@ -60,17 +60,6 @@ public:
 	{
 	}
 
-	~MusicTest(void) = default;
-
-protected:
-	void SetUp(void) override
-	{
-	}
-
-	void TearDown(void) override
-	{
-	}
-
 public:
 	MixMock mixMock;
 };

@@ -64,17 +64,6 @@ public:
 	{
 	}
 
-	~TextureTest(void) = default;
-
-protected:
-	void SetUp(void) override
-	{
-	}
-
-	void TearDown(void) override
-	{
-	}
-
 public:
 	SDLMock sdlMock;
 	IMGMock imgMock;

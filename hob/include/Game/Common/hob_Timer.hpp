@@ -90,12 +90,6 @@ public:
 	Timer(SDL_Renderer* renderer) noexcept;
 
 	/**
-	 * @brief Destroys the loaded textures.
-	 * @param void
-	*/
-	~Timer(void) = default;
-
-	/**
 	 * @brief Draws the time left.
 	 * @param renderer: Rendering context of the window.
 	 * @return void

@@ -110,12 +110,6 @@ public:
 	Menu(SDL_Renderer* renderer, LoadingScreen& loadingScreen, bool isAlliance, uint8_t gold) noexcept;
 
 	/**
-	 * @brief Destroys the loaded textures.
-	 * @param void
-	*/
-	~Menu(void) = default;
-
-	/**
 	 * @brief TODO
 	 * @param renderer: Rendering context of the window.
 	 * @return void

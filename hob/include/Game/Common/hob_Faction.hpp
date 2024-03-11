@@ -57,12 +57,6 @@ public:
 	Faction(void) noexcept;
 
 	/**
-	 * @brief Default destructor.
-	 * @param void
-	*/
-	~Faction(void) = default;
-
-	/**
 	 * @brief Sets the faction of the user.
 	 * @param isAlliance: true - alliance, false - horde.
 	 * @return void

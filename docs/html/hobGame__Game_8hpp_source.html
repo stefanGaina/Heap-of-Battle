@@ -148,67 +148,60 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">    /**</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * @brief</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classhobGame_1_1Game.html#ae280a2da78ae1a60d60b85b9701b3b6f">   78</a></span>&#160;    <a class="code" href="classhobGame_1_1Game.html#ae280a2da78ae1a60d60b85b9701b3b6f">~Game</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * @brief</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhobGame_1_1Game.html#a7ef578b522dd4e81c8185f75a1861322">endTurn</a>(<span class="keywordtype">void</span>) noexcept;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">     * @brief</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     * @return true - it is user&#39;s turn.</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     * @return false - it is opponent&#39;s turn.</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#adface847ccdb8e8fc00c2031e39c837c">getTurn</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#a907d1710e3919072484164dc1aceb3cc">isRecruitPossible</a>(<a class="code" href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">Unit</a> unit) noexcept;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     * @brief</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="namespacehobGame.html#a96b47dfbfd0684d854d2a9b6815faabf">CursorType</a> <a class="code" href="classhobGame_1_1Game.html#a20285d2c61716f6690349449f7ad184b">getCursorType</a>(int32_t x, int32_t y) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">     * @brief</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="namespacehobGame.html#ad93f927ef6130efddcfaf0f49152d32a">MenuMode</a> <a class="code" href="classhobGame_1_1Game.html#a20ad4af34bd2f3c635e1703c993bab15">getMenuMode</a>(int32_t x, int32_t y) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhobGame_1_1Game.html#a7ef578b522dd4e81c8185f75a1861322">endTurn</a>(<span class="keywordtype">void</span>) noexcept;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @brief</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * @param void</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     * @return true - it is user&#39;s turn.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     * @return false - it is opponent&#39;s turn.</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#adface847ccdb8e8fc00c2031e39c837c">getTurn</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#a907d1710e3919072484164dc1aceb3cc">isRecruitPossible</a>(<a class="code" href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">Unit</a> unit) noexcept;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">     * @brief</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="namespacehobGame.html#a96b47dfbfd0684d854d2a9b6815faabf">CursorType</a> <a class="code" href="classhobGame_1_1Game.html#a20285d2c61716f6690349449f7ad184b">getCursorType</a>(int32_t x, int32_t y) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * @brief</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="namespacehobGame.html#ad93f927ef6130efddcfaf0f49152d32a">MenuMode</a> <a class="code" href="classhobGame_1_1Game.html#a20ad4af34bd2f3c635e1703c993bab15">getMenuMode</a>(int32_t x, int32_t y) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">     * @brief</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    uint8_t <a class="code" href="classhobGame_1_1Game.html#ade0d4dac68791d86cdc1b45aec61ae9e">getGold</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">     * @brief</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">     * @brief Flag indicating if it is the user&#39;s turn.</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    uint8_t <a class="code" href="classhobGame_1_1Game.html#ade0d4dac68791d86cdc1b45aec61ae9e">getGold</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     * @brief Flag indicating if it is the user&#39;s turn.</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">  116</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">turn</a>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">  121</a></span>&#160;    uint8_t <a class="code" href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">gold</a>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">/*&lt; namespace hobGame */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_GAME_GAME_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">  110</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">turn</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">  115</a></span>&#160;    uint8_t <a class="code" href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">gold</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">/*&lt; namespace hobGame */</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_GAME_GAME_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html"><div class="ttname"><a href="classhobGame_1_1Game.html">hobGame::Game</a></div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:66</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_a20285d2c61716f6690349449f7ad184b"><div class="ttname"><a href="classhobGame_1_1Game.html#a20285d2c61716f6690349449f7ad184b">hobGame::Game::getCursorType</a></div><div class="ttdeci">CursorType getCursorType(int32_t x, int32_t y) const noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:106</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_a20ad4af34bd2f3c635e1703c993bab15"><div class="ttname"><a href="classhobGame_1_1Game.html#a20ad4af34bd2f3c635e1703c993bab15">hobGame::Game::getMenuMode</a></div><div class="ttdeci">MenuMode getMenuMode(int32_t x, int32_t y) const noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:127</div></div>
-<div class="ttc" id="aclasshobGame_1_1Game_html_a4c56614432a29f8c6bc1e178488aba5d"><div class="ttname"><a href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">hobGame::Game::gold</a></div><div class="ttdeci">uint8_t gold</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:121</div></div>
+<div class="ttc" id="aclasshobGame_1_1Game_html_a4c56614432a29f8c6bc1e178488aba5d"><div class="ttname"><a href="classhobGame_1_1Game.html#a4c56614432a29f8c6bc1e178488aba5d">hobGame::Game::gold</a></div><div class="ttdeci">uint8_t gold</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:115</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_a7ef578b522dd4e81c8185f75a1861322"><div class="ttname"><a href="classhobGame_1_1Game.html#a7ef578b522dd4e81c8185f75a1861322">hobGame::Game::endTurn</a></div><div class="ttdeci">void endTurn(void) noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:81</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_a907d1710e3919072484164dc1aceb3cc"><div class="ttname"><a href="classhobGame_1_1Game.html#a907d1710e3919072484164dc1aceb3cc">hobGame::Game::isRecruitPossible</a></div><div class="ttdeci">bool isRecruitPossible(Unit unit) noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:98</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_acf144f65fff9d86001cb91f3b0080683"><div class="ttname"><a href="classhobGame_1_1Game.html#acf144f65fff9d86001cb91f3b0080683">hobGame::Game::Game</a></div><div class="ttdeci">Game(bool isAlliance) noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:74</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_ade0d4dac68791d86cdc1b45aec61ae9e"><div class="ttname"><a href="classhobGame_1_1Game.html#ade0d4dac68791d86cdc1b45aec61ae9e">hobGame::Game::getGold</a></div><div class="ttdeci">uint8_t getGold(void) const noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:153</div></div>
 <div class="ttc" id="aclasshobGame_1_1Game_html_adface847ccdb8e8fc00c2031e39c837c"><div class="ttname"><a href="classhobGame_1_1Game.html#adface847ccdb8e8fc00c2031e39c837c">hobGame::Game::getTurn</a></div><div class="ttdeci">bool getTurn(void) const noexcept</div><div class="ttdef"><b>Definition:</b> hobGame_Game.cpp:92</div></div>
-<div class="ttc" id="aclasshobGame_1_1Game_html_ae280a2da78ae1a60d60b85b9701b3b6f"><div class="ttname"><a href="classhobGame_1_1Game.html#ae280a2da78ae1a60d60b85b9701b3b6f">hobGame::Game::~Game</a></div><div class="ttdeci">~Game(void)=default</div></div>
-<div class="ttc" id="aclasshobGame_1_1Game_html_af67518b7200162a256526e5864f2bcc5"><div class="ttname"><a href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">hobGame::Game::turn</a></div><div class="ttdeci">bool turn</div><div class="ttdoc">Flag indicating if it is the user's turn.</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:116</div></div>
+<div class="ttc" id="aclasshobGame_1_1Game_html_af67518b7200162a256526e5864f2bcc5"><div class="ttname"><a href="classhobGame_1_1Game.html#af67518b7200162a256526e5864f2bcc5">hobGame::Game::turn</a></div><div class="ttdeci">bool turn</div><div class="ttdoc">Flag indicating if it is the user's turn.</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:110</div></div>
 <div class="ttc" id="anamespacehobGame_html"><div class="ttname"><a href="namespacehobGame.html">hobGame</a></div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:28</div></div>
 <div class="ttc" id="anamespacehobGame_html_a540fcc5785d06eeba2e5ae2ba3c79457"><div class="ttname"><a href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457">hobGame::Unit</a></div><div class="ttdeci">Unit</div><div class="ttdef"><b>Definition:</b> hobGame_Game.hpp:53</div></div>
 <div class="ttc" id="anamespacehobGame_html_a540fcc5785d06eeba2e5ae2ba3c79457a5a40ccc917a4a5ad53c21209abbdf2a3"><div class="ttname"><a href="namespacehobGame.html#a540fcc5785d06eeba2e5ae2ba3c79457a5a40ccc917a4a5ad53c21209abbdf2a3">hobGame::Unit::RANGED</a></div><div class="ttdeci">@ RANGED</div></div>

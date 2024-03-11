@@ -81,12 +81,6 @@ public:
 	/**
 	 * @brief TODO
 	 * @param void
-	*/
-	~Icons(void) = default;
-
-	/**
-	 * @brief TODO
-	 * @param void
 	 * @return void
 	*/
 	void hide(void) noexcept;

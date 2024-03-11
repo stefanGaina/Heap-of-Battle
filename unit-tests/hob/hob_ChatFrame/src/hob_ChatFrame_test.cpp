@@ -52,17 +52,6 @@ public:
 	{
 	}
 
-	~ChatFrameTest(void) = default;
-
-protected:
-	void SetUp(void) override
-	{
-	}
-
-	void TearDown(void) override
-	{
-	}
-
 public:
 	TextureInitializerMock textureInitializerMock;
 	ComponentMock		   componentMock;

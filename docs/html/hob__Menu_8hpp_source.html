@@ -184,89 +184,82 @@ $(function() {
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="classhob_1_1Menu.html#a127352cdfba4dd86947ae0eeadb4f6f9">Menu</a>(SDL_Renderer* renderer, <a class="code" href="classhob_1_1LoadingScreen.html">LoadingScreen</a>&amp; loadingScreen, <span class="keywordtype">bool</span> isAlliance, uint8_t <a class="code" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">gold</a>) noexcept;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">     * @brief Destroys the loaded textures.</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     * @param void</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#abe6a3839779727ec80c77ad99d8a3d2b">  116</a></span>&#160;    <a class="code" href="classhob_1_1Menu.html#abe6a3839779727ec80c77ad99d8a3d2b">~Menu</a>(<span class="keywordtype">void</span>) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ae27bc5a8c377d3881389a3798d57284d">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">     * @param click: TODO</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">     * @param menuMode: TODO</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     * @return TODO</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="structhob_1_1MenuAction.html">MenuAction</a> <a class="code" href="classhob_1_1Menu.html#a6d5c8d8cd0a01a80da086a0374526cc2">handleClick</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> click, <a class="code" href="namespacehobGame.html#ad93f927ef6130efddcfaf0f49152d32a">hobGame::MenuMode</a> menuMode, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">     * @param mouse: TODO</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#aa2b7b2436084ef55e7881d9e96c0c0d5">handleHover</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> mouse, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">     * @param seconds: TODO</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4">updateTimer</a>(uint16_t seconds, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">     * @param amount: TODO</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">     * @return void</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#a77eac65dc035945f2177450c747873c6">updateGold</a>(uint8_t amount) noexcept;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ae9b5236226b64470862fa5904a61072c">setFramesKeep</a>(SDL_Texture* <span class="keyword">const</span> texture1, SDL_Texture* <span class="keyword">const</span> texture2) noexcept;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">     * @brief Graphical representation of the time left.</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">  164</a></span>&#160;    <a class="code" href="classhob_1_1Timer.html">Timer</a> <a class="code" href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">timer</a>;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">  169</a></span>&#160;    <a class="code" href="classhob_1_1Gold.html">Gold</a> <a class="code" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">gold</a>;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">    /**</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">     * @brief TODO</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">  174</a></span>&#160;    <a class="code" href="classhob_1_1Icons.html">Icons</a> <a class="code" href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">icons</a>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">  176</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">isUpgradeDone</a>;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;};</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_MENU_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     * @param renderer: Rendering context of the window.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ae27bc5a8c377d3881389a3798d57284d">draw</a>(SDL_Renderer* renderer) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">     * @param click: TODO</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">     * @param menuMode: TODO</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">     * @return TODO</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="structhob_1_1MenuAction.html">MenuAction</a> <a class="code" href="classhob_1_1Menu.html#a6d5c8d8cd0a01a80da086a0374526cc2">handleClick</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> click, <a class="code" href="namespacehobGame.html#ad93f927ef6130efddcfaf0f49152d32a">hobGame::MenuMode</a> menuMode, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">     * @param mouse: TODO</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#aa2b7b2436084ef55e7881d9e96c0c0d5">handleHover</a>(<a class="code" href="structhob_1_1Coordinate.html">Coordinate</a> mouse, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">     * @param seconds: TODO</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">     * @param isAlliance: TODO</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4">updateTimer</a>(uint16_t seconds, <span class="keywordtype">bool</span> isAlliance) noexcept;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">     * @param amount: TODO</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">     * @return void</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#a77eac65dc035945f2177450c747873c6">updateGold</a>(uint8_t amount) noexcept;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classhob_1_1Menu.html#ae9b5236226b64470862fa5904a61072c">setFramesKeep</a>(SDL_Texture* <span class="keyword">const</span> texture1, SDL_Texture* <span class="keyword">const</span> texture2) noexcept;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">     * @brief Graphical representation of the time left.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">  158</a></span>&#160;    <a class="code" href="classhob_1_1Timer.html">Timer</a> <a class="code" href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">timer</a>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">  163</a></span>&#160;    <a class="code" href="classhob_1_1Gold.html">Gold</a> <a class="code" href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">gold</a>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">     * @brief TODO</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">  168</a></span>&#160;    <a class="code" href="classhob_1_1Icons.html">Icons</a> <a class="code" href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">icons</a>;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">  170</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">isUpgradeDone</a>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;} <span class="comment">/*&lt; namespace hob */</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*&lt; HOB_MENU_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclasshob_1_1Gold_html"><div class="ttname"><a href="classhob_1_1Gold.html">hob::Gold</a></div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Gold.hpp:33</div></div>
 <div class="ttc" id="aclasshob_1_1Icons_html"><div class="ttname"><a href="classhob_1_1Icons.html">hob::Icons</a></div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Icons.hpp:73</div></div>
 <div class="ttc" id="aclasshob_1_1LoadingScreen_html"><div class="ttname"><a href="classhob_1_1LoadingScreen.html">hob::LoadingScreen</a></div><div class="ttdef"><b>Definition:</b> hob_LoadingScreen.hpp:84</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html"><div class="ttname"><a href="classhob_1_1Menu.html">hob::Menu</a></div><div class="ttdoc">Draws in-game menu depending of the user's faction.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:101</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html_a00315cb8a635c39ce1fb3efa44f610c7"><div class="ttname"><a href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">hob::Menu::timer</a></div><div class="ttdeci">Timer timer</div><div class="ttdoc">Graphical representation of the time left.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:164</div></div>
+<div class="ttc" id="aclasshob_1_1Menu_html_a00315cb8a635c39ce1fb3efa44f610c7"><div class="ttname"><a href="classhob_1_1Menu.html#a00315cb8a635c39ce1fb3efa44f610c7">hob::Menu::timer</a></div><div class="ttdeci">Timer timer</div><div class="ttdoc">Graphical representation of the time left.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:158</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_a127352cdfba4dd86947ae0eeadb4f6f9"><div class="ttname"><a href="classhob_1_1Menu.html#a127352cdfba4dd86947ae0eeadb4f6f9">hob::Menu::Menu</a></div><div class="ttdeci">Menu(SDL_Renderer *renderer, LoadingScreen &amp;loadingScreen, bool isAlliance, uint8_t gold) noexcept</div><div class="ttdoc">Loads textures for the menu.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:54</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_a6d5c8d8cd0a01a80da086a0374526cc2"><div class="ttname"><a href="classhob_1_1Menu.html#a6d5c8d8cd0a01a80da086a0374526cc2">hob::Menu::handleClick</a></div><div class="ttdeci">MenuAction handleClick(Coordinate click, hobGame::MenuMode menuMode, bool isAlliance) noexcept</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:111</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_a77eac65dc035945f2177450c747873c6"><div class="ttname"><a href="classhob_1_1Menu.html#a77eac65dc035945f2177450c747873c6">hob::Menu::updateGold</a></div><div class="ttdeci">void updateGold(uint8_t amount) noexcept</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:261</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_aa2b7b2436084ef55e7881d9e96c0c0d5"><div class="ttname"><a href="classhob_1_1Menu.html#aa2b7b2436084ef55e7881d9e96c0c0d5">hob::Menu::handleHover</a></div><div class="ttdeci">void handleHover(Coordinate mouse, bool isAlliance) noexcept</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:192</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html_aae98ca10234ca29c60322280f62772e4"><div class="ttname"><a href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">hob::Menu::gold</a></div><div class="ttdeci">Gold gold</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:169</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html_aaf6316aba8563cfe93fff38486032868"><div class="ttname"><a href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">hob::Menu::isUpgradeDone</a></div><div class="ttdeci">bool isUpgradeDone</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:176</div></div>
+<div class="ttc" id="aclasshob_1_1Menu_html_aae98ca10234ca29c60322280f62772e4"><div class="ttname"><a href="classhob_1_1Menu.html#aae98ca10234ca29c60322280f62772e4">hob::Menu::gold</a></div><div class="ttdeci">Gold gold</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:163</div></div>
+<div class="ttc" id="aclasshob_1_1Menu_html_aaf6316aba8563cfe93fff38486032868"><div class="ttname"><a href="classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868">hob::Menu::isUpgradeDone</a></div><div class="ttdeci">bool isUpgradeDone</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:170</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_ab4eb3458b348621e192039a6629ba5d4"><div class="ttname"><a href="classhob_1_1Menu.html#ab4eb3458b348621e192039a6629ba5d4">hob::Menu::updateTimer</a></div><div class="ttdeci">void updateTimer(uint16_t seconds, bool isAlliance) noexcept</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:255</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html_abe6a3839779727ec80c77ad99d8a3d2b"><div class="ttname"><a href="classhob_1_1Menu.html#abe6a3839779727ec80c77ad99d8a3d2b">hob::Menu::~Menu</a></div><div class="ttdeci">~Menu(void)=default</div><div class="ttdoc">Destroys the loaded textures.</div></div>
-<div class="ttc" id="aclasshob_1_1Menu_html_ac75a66a1a4034ea66592cd3f189a29b6"><div class="ttname"><a href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">hob::Menu::icons</a></div><div class="ttdeci">Icons icons</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:174</div></div>
+<div class="ttc" id="aclasshob_1_1Menu_html_ac75a66a1a4034ea66592cd3f189a29b6"><div class="ttname"><a href="classhob_1_1Menu.html#ac75a66a1a4034ea66592cd3f189a29b6">hob::Menu::icons</a></div><div class="ttdeci">Icons icons</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.hpp:168</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_ae27bc5a8c377d3881389a3798d57284d"><div class="ttname"><a href="classhob_1_1Menu.html#ae27bc5a8c377d3881389a3798d57284d">hob::Menu::draw</a></div><div class="ttdeci">void draw(SDL_Renderer *renderer) noexcept override</div><div class="ttdoc">TODO.</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:99</div></div>
 <div class="ttc" id="aclasshob_1_1Menu_html_ae9b5236226b64470862fa5904a61072c"><div class="ttname"><a href="classhob_1_1Menu.html#ae9b5236226b64470862fa5904a61072c">hob::Menu::setFramesKeep</a></div><div class="ttdeci">void setFramesKeep(SDL_Texture *const texture1, SDL_Texture *const texture2) noexcept</div><div class="ttdef"><b>Definition:</b> hob_Menu.cpp:267</div></div>
 <div class="ttc" id="aclasshob_1_1TextureInitializer_html"><div class="ttname"><a href="classhob_1_1TextureInitializer.html">hob::TextureInitializer</a></div><div class="ttdoc">Initializes a list of textures and components.</div><div class="ttdef"><b>Definition:</b> hob_TextureInitializer.hpp:58</div></div>

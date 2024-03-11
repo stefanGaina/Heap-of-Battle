@@ -103,12 +103,6 @@ public:
 	*/
 	MainMenu(SDL_Renderer* renderer, Cursor& cursor, Music& music) noexcept;
 
-	/**
-	 * @brief Destroys the loaded textures and sound needed for this scene.
-	 * @param void
-	*/
-	~MainMenu(void) = default;
-
 private:
 	/**
 	 * @brief Handles an event.

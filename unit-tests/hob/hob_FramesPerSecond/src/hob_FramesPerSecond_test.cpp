@@ -60,17 +60,6 @@ public:
 	{
 	}
 
-	~FramesPerSecondTest(void) = default;
-
-protected:
-	void SetUp(void) override
-	{
-	}
-
-	void TearDown(void) override
-	{
-	}
-
 public:
 	TextureMock	  textureMock;
 	ComponentMock componentMock;

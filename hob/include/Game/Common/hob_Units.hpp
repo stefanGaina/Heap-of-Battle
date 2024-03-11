@@ -32,8 +32,6 @@ class Units final : public TextureInitializer<268UL, 0UL>
 public:
 	Units(SDL_Renderer* renderer, LoadingScreen& loadingScreen) noexcept;
 
-	~Units(void) = default;
-
 	void draw(SDL_Renderer* renderer) noexcept override;
 
 	void add(hobGame::Unit unit, bool isAlliance) noexcept(false);

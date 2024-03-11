@@ -60,17 +60,6 @@ public:
 	{
 	}
 
-	~LoadingScreenTest(void) = default;
-
-protected:
-	void SetUp(void) override
-	{
-	}
-
-	void TearDown(void) override
-	{
-	}
-
 public:
 	SDLMock				   sdlMock;
 	TextureInitializerMock textureInitializerMock;
