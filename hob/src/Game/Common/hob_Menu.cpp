@@ -92,6 +92,7 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 {
 	plog_trace("Game menu is being constructed.");
 	(void)handleClick({ 7 * HSCALE, 14 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
+
 	usleep(150U * 1000U);
 	loadingScreen.step(renderer);
 }
@@ -110,46 +111,53 @@ void Menu::draw(SDL_Renderer* const renderer) noexcept
 
 MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode menuMode, const bool isAlliance) noexcept
 {
-	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ")", click.x, click.y);
+	plog_verbose("Menu is handling click. (click: %" PRId32 ", %" PRId32 ") (mode: %" PRId32 ")", click.x, click.y, static_cast<int32_t>(menuMode));
 	plog_assert(nullptr != this);
 
-	if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
+	switch (menuMode)
 	{
-		switch (menuMode)
+		case hobGame::MenuMode::EMPTY:
 		{
-			case hobGame::MenuMode::EMPTY:
-			{
-				setFramesKeep(nullptr, nullptr);
-				icons.hide();
-				break;
-			}
-			case hobGame::MenuMode::UNCHANGED:
-			{
-				break;
-			}
-			case hobGame::MenuMode::ALLIANCE_KEEP:
-			{
-				setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture(),
-							  true == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture() : nullptr);
-				icons.setAllianceKeep(isAlliance);
-				break;
-			}
-			case hobGame::MenuMode::HORDE_KEEP:
-			{
-				setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture(),
-							  false == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture() : nullptr);
-				icons.setHordeKeep(isAlliance);
-				break;
-			}
-			default:
-			{
-				plog_error("Invalid menu mode! (mode: %" PRId32 ")", static_cast<int32_t>(menuMode));
-				plog_assert(false);
-				break;
-			}
+			setFramesKeep(nullptr, nullptr);
+			icons.hide();
+			break;
 		}
+		case hobGame::MenuMode::UNCHANGED:
+		{
+			break;
+		}
+		case hobGame::MenuMode::ALLIANCE_KEEP:
+		{
+			setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture(),
+						  true == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture() : nullptr);
+			icons.setAllianceKeep(isAlliance);
 
-		return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
+			if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
+			{
+				return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
+			}
+
+			break;
+		}
+		case hobGame::MenuMode::HORDE_KEEP:
+		{
+			setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture(),
+						  false == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture() : nullptr);
+			icons.setHordeKeep(isAlliance);
+
+			if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
+			{
+				return { .recruitUnit = hobGame::Unit::NONE, .doUpgrade = false };
+			}
+
+			break;
+		}
+		default:
+		{
+			plog_error("Invalid menu mode! (mode: %" PRId32 ")", static_cast<int32_t>(menuMode));
+			plog_assert(false);
+			break;
+		}
 	}
 
 	if (nullptr == componentContainer[MENU_COMPONENT_INDEX_SELECTED_FRAME].getRawTexture() || 3 * HSCALE <= click.x)
@@ -177,7 +185,7 @@ MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode men
 		return { .recruitUnit = hobGame::Unit::MAGE, .doUpgrade = false };
 	}
 
-	if (7 * HSCALE + HSCALE < click.y && 8 * HSCALE + HSCALE > click.y)
+	if (7 * HSCALE + HSCALE / 2 < click.y && 8 * HSCALE + HSCALE / 2 > click.y)
 	{
 		(void)handleClick({ .x = 7 * HSCALE, .y = 16 * HSCALE }, hobGame::MenuMode::EMPTY, isAlliance);
 		isUpgradeDone = true;

@@ -16,7 +16,7 @@
 ******************************************************************************************************/
 
 /******************************************************************************************************
- * HEADER FILE INCLUDES                                                                               *
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <plog.h>
@@ -24,58 +24,89 @@
 #include "hobGame_Game.hpp"
 #include "hob_Types.hpp"
 
-// Rename to alliance and horde
-enum class SquareType
-{
-	EMPTY		= 0,
-	HUMAN_KEEP	= 1,
-	HUMAN_TOWER = 2,
-	HUMAN_FARM	= 3,
-	HUMAN_ALTAR = 4,
-	ORC_KEEP	= 5,
-	ORC_FARM	= 6,
-	ORC_ALTAR	= 7,
-	ORC_TOWER	= 8,
-	MINE		= 9
-};
+#ifndef PLOG_STRIP_ASSERT
 
-static constexpr const int32_t E  = static_cast<int32_t>(SquareType::EMPTY);
-static constexpr const int32_t HK = static_cast<int32_t>(SquareType::HUMAN_KEEP);
-static constexpr const int32_t HF = static_cast<int32_t>(SquareType::HUMAN_FARM);
-static constexpr const int32_t HA = static_cast<int32_t>(SquareType::HUMAN_ALTAR);
-static constexpr const int32_t HT = static_cast<int32_t>(SquareType::HUMAN_TOWER);
-static constexpr const int32_t OK = static_cast<int32_t>(SquareType::ORC_KEEP);
-static constexpr const int32_t OF = static_cast<int32_t>(SquareType::ORC_FARM);
-static constexpr const int32_t OA = static_cast<int32_t>(SquareType::ORC_ALTAR);
-static constexpr const int32_t OT = static_cast<int32_t>(SquareType::ORC_TOWER);
-static constexpr const int32_t M  = static_cast<int32_t>(SquareType::MINE);
+#define assert_unit(unit)                                                                                                                                          \
+	do                                                                                                                                                             \
+	{                                                                                                                                                              \
+		switch (unit)                                                                                                                                              \
+		{                                                                                                                                                          \
+			case Unit::NONE:                                                                                                                                       \
+			case Unit::PEASANT:                                                                                                                                    \
+			case Unit::INFANTRY:                                                                                                                                   \
+			case Unit::RANGED:                                                                                                                                     \
+			case Unit::CAVALRY:                                                                                                                                    \
+			case Unit::AIRCRAFT:                                                                                                                                   \
+			case Unit::MAGE:                                                                                                                                       \
+			{                                                                                                                                                      \
+				break;                                                                                                                                             \
+			}                                                                                                                                                      \
+			default:                                                                                                                                               \
+			{                                                                                                                                                      \
+				plog_error("Invalid unit! (unit: %" PRId32 ")", unit);                                                                                             \
+				plog_assert(false);                                                                                                                                \
+				break;                                                                                                                                             \
+			}                                                                                                                                                      \
+		}                                                                                                                                                          \
+	}                                                                                                                                                              \
+	while (false)
 
-int32_t board[15][26] = {
-	{ OK, OK, OK, OK, E, E, E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E, E, E, OA, OA, OA },
-	{ OK, OK, OK, OK, E, E, E, E, OF, OF, E, E, E, E, E, E, OF, OF, E, E, E, E, E, OA, OA, OA },
-	{ OK, OK, OK, OK, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OA, OA, OA },
-	{ OK, OK, OK, OK, OT, OT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OT, OT, E, E, E, E },
-	{ E, E, E, E, OT, OT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, OT, OT, E, E, E, E },
-	{ E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E },
-	{ M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
-	{ M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
-	{ M, M, M, E, E, E, E, M, M, M, E, E, E, E, E, E, M, M, M, E, E, E, E, M, M, M },
-	{ E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E },
-	{ E, E, E, E, HT, HT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HT, HT, E, E, E, E },
-	{ HK, HK, HK, HK, HT, HT, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HT, HT, E, E, E, E },
-	{ HK, HK, HK, HK, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, E, HA, HA, HA },
-	{ HK, HK, HK, HK, E, E, E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E, E, E, HA, HA, HA },
-	{ HK, HK, HK, HK, E, E, E, E, HF, HF, E, E, E, E, E, E, HF, HF, E, E, E, E, E, HA, HA, HA }
-};
+#else
+
+#define assert_unit(unit)
+
+#endif /*< PLOG_STRIP_ASSERT */
 
 namespace hobGame
 {
 
+enum class SquareType : Square_t
+{
+	EMPTY		   = 6,
+	ALLIANCE_KEEP  = 7,
+	ALLIANCE_TOWER = 8,
+	ALLIANCE_FARM  = 9,
+	ALLIANCE_ALTAR = 10,
+	HORDE_KEEP	   = 11,
+	HORDE_FARM	   = 12,
+	HORDE_ALTAR	   = 13,
+	HORDE_TOWER	   = 14,
+	MINE		   = 15
+};
+
+static constexpr const Square_t NE = static_cast<Square_t>(SquareType::EMPTY);
+static constexpr const Square_t AK = static_cast<Square_t>(SquareType::ALLIANCE_KEEP);
+static constexpr const Square_t AF = static_cast<Square_t>(SquareType::ALLIANCE_FARM);
+static constexpr const Square_t AA = static_cast<Square_t>(SquareType::ALLIANCE_ALTAR);
+static constexpr const Square_t AT = static_cast<Square_t>(SquareType::ALLIANCE_TOWER);
+static constexpr const Square_t HK = static_cast<Square_t>(SquareType::HORDE_KEEP);
+static constexpr const Square_t HF = static_cast<Square_t>(SquareType::HORDE_FARM);
+static constexpr const Square_t HA = static_cast<Square_t>(SquareType::HORDE_ALTAR);
+static constexpr const Square_t HT = static_cast<Square_t>(SquareType::HORDE_TOWER);
+static constexpr const Square_t NM = static_cast<Square_t>(SquareType::MINE);
+
 Game::Game(const bool isAlliance) noexcept
-	: turn{ isAlliance }
+	: board{ { HK, HK, HK, HK, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, HA, HA, HA },
+			 { HK, HK, HK, HK, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, HA, HA, HA },
+			 { HK, HK, HK, HK, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, HA, HA, HA },
+			 { HK, HK, HK, HK, HT, HT, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, HT, HT, NE, NE, NE, NE },
+			 { NE, NE, NE, NE, HT, HT, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, HT, HT, NE, NE, NE, NE },
+			 { NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE },
+			 { NM, NM, NM, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NM, NM, NM },
+			 { NM, NM, NM, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NM, NM, NM },
+			 { NM, NM, NM, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NE, NE, NM, NM, NM, NE, NE, NE, NE, NM, NM, NM },
+			 { NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE },
+			 { NE, NE, NE, NE, AT, AT, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, AT, AT, NE, NE, NE, NE },
+			 { AK, AK, AK, AK, AT, AT, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, AT, AT, NE, NE, NE, NE },
+			 { AK, AK, AK, AK, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, NE, AA, AA, AA },
+			 { AK, AK, AK, AK, NE, NE, NE, NE, AF, AF, NE, NE, NE, NE, NE, NE, AF, AF, NE, NE, NE, NE, NE, AA, AA, AA },
+			 { AK, AK, AK, AK, NE, NE, NE, NE, AF, AF, NE, NE, NE, NE, NE, NE, AF, AF, NE, NE, NE, NE, NE, AA, AA, AA } }
+	, prices{ 5U, 10U, 15U, 25U, 30U, 50U }
+	, faction{ isAlliance }
+	, turn{ isAlliance }
 	, gold{ 100U }
 {
-	plog_trace("Game is being constructed.");
+	plog_trace("Game is being constructed. (faction: %s)", true == isAlliance ? "alliance" : "horde");
 }
 
 void Game::endTurn(void) noexcept
@@ -83,10 +114,7 @@ void Game::endTurn(void) noexcept
 	plog_assert(nullptr != this);
 
 	turn = !turn;
-	if (true == turn)
-	{
-		gold += 5U;
-	}
+	gold += true == turn ? 5U : 0U;
 }
 
 bool Game::getTurn(void) const noexcept
@@ -95,12 +123,29 @@ bool Game::getTurn(void) const noexcept
 	return turn;
 }
 
-bool Game::isRecruitPossible(Unit unit) noexcept
+bool Game::isRecruitPossible(const Unit unit) noexcept
 {
-	plog_assert(nullptr != this);
+	const Square_t square = true == faction ? board[14][4] : board[0][4];
 
-	(void)unit;
-	return true;
+	plog_assert(nullptr != this);
+	assert_unit(unit);
+
+	return Unit::NONE != unit && prices[static_cast<size_t>(unit)] <= gold && NE == square;
+}
+
+void Game::recruit(const Unit unit) noexcept
+{
+	Square_t& square = true == faction ? board[14][4] : board[0][4];
+
+	plog_assert(nullptr != this);
+	assert_unit(unit);
+	plog_assert(Unit::NONE != unit);
+	plog_assert(prices[static_cast<size_t>(unit)] <= gold);
+	plog_assert(NE == square);
+	plog_assert(true == turn);
+
+	gold -= prices[static_cast<size_t>(unit)];
+	square = static_cast<int32_t>(unit);
 }
 
 CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
@@ -112,16 +157,9 @@ CursorType Game::getCursorType(int32_t x, int32_t y) const noexcept
 		return CursorType::IDLE;
 	}
 
-	x -= 6 * hob::HSCALE;
-	x /= hob::HSCALE;
-	y /= hob::HSCALE;
+	coordinatesToBoardFormat(x, y);
 
-	if (E == board[y][x])
-	{
-		return CursorType::IDLE;
-	}
-
-	return CursorType::SELECT;
+	return NE == board[y][x] ? CursorType::IDLE : CursorType::SELECT;
 }
 
 MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
@@ -133,16 +171,14 @@ MenuMode Game::getMenuMode(int32_t x, int32_t y) const noexcept
 		return MenuMode::EMPTY;
 	}
 
-	x -= 6 * hob::HSCALE;
-	x /= hob::HSCALE;
-	y /= hob::HSCALE;
+	coordinatesToBoardFormat(x, y);
 
-	if (HK == board[y][x])
+	if (AK == board[y][x])
 	{
 		return MenuMode::ALLIANCE_KEEP;
 	}
 
-	if (OK == board[y][x])
+	if (HK == board[y][x])
 	{
 		return MenuMode::HORDE_KEEP;
 	}
@@ -154,6 +190,13 @@ uint8_t Game::getGold(void) const noexcept
 {
 	plog_assert(nullptr != this);
 	return gold;
+}
+
+void Game::coordinatesToBoardFormat(int32_t& x, int32_t& y) noexcept
+{
+	x -= 6 * hob::HSCALE;
+	x /= hob::HSCALE;
+	y /= hob::HSCALE;
 }
 
 } /*< namespace hobGame */

@@ -248,7 +248,12 @@ void Map1::handleButtonDown(void) noexcept
 		{
 			plog_error("Failed to add unit!");
 			soundContainer[0].play(); // TODO: update index
+
+			return;
 		}
+
+		game.recruit(menuAction.recruitUnit);
+		menu.updateGold(game.getGold());
 
 		return;
 	}
@@ -256,7 +261,10 @@ void Map1::handleButtonDown(void) noexcept
 	if (hobGame::Unit::NONE != menuAction.recruitUnit)
 	{
 		soundContainer[0].play(); // TODO: update index
+		return;
 	}
+
+	// units.select(game.getUnit(click.x, click.y));
 }
 
 void Map1::handleButtonUp(void) noexcept
