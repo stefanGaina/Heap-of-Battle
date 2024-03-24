@@ -57,20 +57,18 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 							  TEXTURE_FILE_PATH("frame_selected_alliance"),															 /*< 1 */
 							  TEXTURE_FILE_PATH("frame_selected_horde"),															 /*< 2 */
 							  TEXTURE_FILE_PATH("frame_unselected_alliance"),														 /*< 3 */
-							  TEXTURE_FILE_PATH("frame_unselected_horde"),															 /*< 4 */
-							  TEXTURE_FILE_PATH("hourglass_inactive")																 /*< 5 */
+							  TEXTURE_FILE_PATH("frame_unselected_horde")															 /*< 4 */
 						  },
 						  {
 							  MENU_TEXTURE_INDEX_BACKGROUND,																				 /*< 0 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 1 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 2 */
-							  MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE,																		 /*< 3 */
+							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 3 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 4 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 5 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 6 */
 							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 7 */
-							  true == isAlliance ? MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE : MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE, /*< 8 */
-							  MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE																	 /*< 9 */
+							  MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE																	 /*< 8 */
 						  },
 						  { {
 							  { 0, 0, 6 * HSCALE, 15 * HSCALE },					  /*< 0 */
@@ -81,8 +79,7 @@ Menu::Menu(SDL_Renderer* const renderer, LoadingScreen& loadingScreen, const boo
 							  { 0, 3 * HSCALE, 3 * HSCALE, 1 * HSCALE },			  /*< 5 */
 							  { 0, 4 * HSCALE + HSCALE / 2, 3 * HSCALE, 1 * HSCALE }, /*< 6 */
 							  { 0, 6 * HSCALE, 3 * HSCALE, 1 * HSCALE },			  /*< 7 */
-							  { 0, 7 * HSCALE + HSCALE / 2, 3 * HSCALE, 1 * HSCALE }, /*< 8 */
-							  { 0, 0, 0, 0 }										  /*< 9 */
+							  { 0, 7 * HSCALE + HSCALE / 2, 3 * HSCALE, 1 * HSCALE }  /*< 8 */
 						  } },
 						  renderer }
 	, timer{ renderer }
@@ -260,10 +257,10 @@ void Menu::handleHover(const Coordinate mouse, const bool isAlliance) noexcept
 	}
 }
 
-void Menu::updateTimer(const uint16_t seconds, const bool isAlliance) noexcept
+void Menu::updateTimer(const uint16_t seconds, const bool isAlliance, const bool turn) noexcept
 {
 	plog_assert(nullptr != this);
-	timer.update(seconds, isAlliance);
+	timer.update(seconds, isAlliance, turn);
 }
 
 void Menu::updateGold(const uint8_t amount) noexcept

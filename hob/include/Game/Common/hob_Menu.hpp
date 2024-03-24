@@ -57,8 +57,7 @@ enum GameMenuTextureIndex
 	MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE		 = 2, /**< TODO */
 	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_ALLIANCE = 3, /**< TODO */
 	MENU_TEXTURE_INDEX_FRAME_UNSELECTED_HORDE	 = 4, /**< TODO */
-	MENU_TEXTURE_INDEX_HOURGLASS_INACTIVE		 = 5, /**< TODO */
-	MENU_TEXTURES_COUNT							 = 6  /**< How many textures game menu loads.                     */
+	MENU_TEXTURES_COUNT							 = 5  /**< How many textures game menu loads.                     */
 };
 
 /**
@@ -66,13 +65,13 @@ enum GameMenuTextureIndex
 */
 enum GameMenuComponentIndex
 {
-	MENU_COMPONENT_INDEX_FRAME_1		= 4, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_2		= 5, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_3		= 6, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_4		= 7, /**< TODO */
-	MENU_COMPONENT_INDEX_FRAME_5		= 8, /**< TODO */
-	MENU_COMPONENT_INDEX_SELECTED_FRAME = 9, /**< TODO */
-	MENU_COMPONENTS_COUNT				= 10 /**< How many components the game menu uses. */
+	MENU_COMPONENT_INDEX_FRAME_1		= 3, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_2		= 4, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_3		= 5, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_4		= 6, /**< TODO */
+	MENU_COMPONENT_INDEX_FRAME_5		= 7, /**< TODO */
+	MENU_COMPONENT_INDEX_SELECTED_FRAME = 8, /**< TODO */
+	MENU_COMPONENTS_COUNT				= 9	 /**< How many components the game menu uses. */
 };
 
 struct MenuAction
@@ -137,9 +136,10 @@ public:
 	 * @brief TODO
 	 * @param seconds: TODO
 	 * @param isAlliance: TODO
+	 * @param turn:
 	 * @return void
 	*/
-	void updateTimer(uint16_t seconds, bool isAlliance) noexcept;
+	void updateTimer(uint16_t seconds, bool isAlliance, bool turn) noexcept;
 
 	/**
 	 * @brief TODO

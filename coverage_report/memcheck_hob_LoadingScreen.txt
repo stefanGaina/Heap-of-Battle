@@ -1,15 +1,15 @@
-==57141== Memcheck, a memory error detector
-==57141== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==57141== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==57141== Command: obj/hob_LoadingScreen_ut
-==57141== Parent PID: 57140
-==57141== 
-==57141== 
-==57141== HEAP SUMMARY:
-==57141==     in use at exit: 0 bytes in 0 blocks
-==57141==   total heap usage: 813 allocs, 813 frees, 189,742 bytes allocated
-==57141== 
-==57141== All heap blocks were freed -- no leaks are possible
-==57141== 
-==57141== For lists of detected and suppressed errors, rerun with: -s
-==57141== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==22279== Memcheck, a memory error detector
+==22279== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22279== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==22279== Command: obj/hob_LoadingScreen_ut
+==22279== Parent PID: 22278
+==22279== 
+==22279== 
+==22279== HEAP SUMMARY:
+==22279==     in use at exit: 0 bytes in 0 blocks
+==22279==   total heap usage: 813 allocs, 813 frees, 189,742 bytes allocated
+==22279== 
+==22279== All heap blocks were freed -- no leaks are possible
+==22279== 
+==22279== For lists of detected and suppressed errors, rerun with: -s
+==22279== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

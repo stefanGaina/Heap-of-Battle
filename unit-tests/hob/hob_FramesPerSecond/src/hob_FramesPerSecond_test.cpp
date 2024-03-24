@@ -74,7 +74,7 @@ public:
 
 TEST_F(FramesPerSecondTest, draw_success)
 {
-	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
+	static constexpr uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
 	EXPECT_CALL(ttfMock, TTF_OpenFont(testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));

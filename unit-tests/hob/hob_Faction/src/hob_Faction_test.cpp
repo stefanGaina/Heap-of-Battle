@@ -45,17 +45,17 @@
 /** ***************************************************************************************************
  * @brief The color assigned to neutral objectives.
  *****************************************************************************************************/
-static constexpr const SDL_Color neutralColor = { .r = 0xAAU, .g = 0xAAU, .b = 0xAAU, .a = 0xFFU };
+static constexpr SDL_Color neutralColor = { .r = 0xAAU, .g = 0xAAU, .b = 0xAAU, .a = 0xFFU };
 
 /** ***************************************************************************************************
  * @brief The color assigned to alliance faction.
  *****************************************************************************************************/
-static constexpr const SDL_Color allianceColor = { .r = 0x00U, .g = 0xBFU, .b = 0xBFU, .a = 0xFFU };
+static constexpr SDL_Color allianceColor = { .r = 0x00U, .g = 0xBFU, .b = 0xBFU, .a = 0xFFU };
 
 /** ***************************************************************************************************
  * @brief The color assigned to horde faction.
  *****************************************************************************************************/
-static constexpr const SDL_Color hordeColor = { .r = 0xFFU, .g = 0x31U, .b = 0x31U, .a = 0xFFU };
+static constexpr SDL_Color hordeColor = { .r = 0xFFU, .g = 0x31U, .b = 0x31U, .a = 0xFFU };
 
 /******************************************************************************************************
  * setFaction

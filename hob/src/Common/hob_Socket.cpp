@@ -47,7 +47,7 @@ namespace hob
 /** ***********************************************************************************************
  * @brief The value indicating a socket error/ the socket is closed or in an invalid state.
  *************************************************************************************************/
-static constexpr const int32_t SOCKET_INVALID = -1;
+static constexpr int32_t SOCKET_INVALID = -1;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS

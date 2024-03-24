@@ -181,6 +181,7 @@ void Game::init(void) noexcept(false)
 
 		throw std::exception();
 	}
+
 	plog_info("Everything initialized successfully!");
 }
 
@@ -217,6 +218,7 @@ void Game::sceneLoop(SDL_Renderer* const renderer) noexcept
 			, server{}
 			, socket{}
 			, ping{}
+			, loadingScreen{}
 		{
 			plog_trace("Persistent data is being constructed.");
 		}

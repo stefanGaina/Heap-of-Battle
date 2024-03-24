@@ -78,7 +78,7 @@ void Ping::draw(SDL_Renderer* const renderer) noexcept
 
 void Ping::update(const Socket& socket) noexcept
 {
-	static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
+	static constexpr uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
 	const uint64_t pingEndTime = SDL_GetTicks64();
 	const uint64_t latency	   = SECOND_IN_MILLISECONDS <= pingEndTime - messageStartTime ? SECOND_IN_MILLISECONDS - 1UL : pingEndTime - messageStartTime;
@@ -98,6 +98,7 @@ void Ping::update(const Socket& socket) noexcept
 		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
 		return;
 	}
+
 	interruptWait = false;
 	pingThread	  = std::thread{ std::bind(&Ping::sendPings, this, &socket) };
 }
@@ -144,7 +145,7 @@ void Ping::stop(void) noexcept
 
 void Ping::handleQueue(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
+	static constexpr SDL_Color YELLOW = { 0xFFU, 0xFFU, 0x00U, 0xFFU };
 
 	std::string text			 = {};
 	Coordinate	textureDimension = { .x = 0, .y = 0 };

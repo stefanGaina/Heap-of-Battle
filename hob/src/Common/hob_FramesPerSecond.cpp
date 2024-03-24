@@ -43,7 +43,7 @@ namespace hob
 /** ***************************************************************************************************
  * @brief How many milliseconds are in a second.
  *****************************************************************************************************/
-static constexpr const uint64_t SECOND_IN_MILLISECONDS = 1000UL;
+static constexpr uint64_t SECOND_IN_MILLISECONDS = 1000UL;
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -79,7 +79,7 @@ void FramesPerSecond::draw(SDL_Renderer* const renderer) noexcept
 
 void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const SDL_Color YELLOW = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
+	static constexpr SDL_Color YELLOW = { .r = 0xFFU, .g = 0xFFU, .b = 0x00U, .a = 0xFFU };
 
 	const uint64_t frameEndTime		= SDL_GetTicks64();
 	std::string	   text				= {};

@@ -74,16 +74,16 @@ enum class SquareType : Square_t
 	MINE		   = 15
 };
 
-static constexpr const Square_t NE = static_cast<Square_t>(SquareType::EMPTY);
-static constexpr const Square_t AK = static_cast<Square_t>(SquareType::ALLIANCE_KEEP);
-static constexpr const Square_t AF = static_cast<Square_t>(SquareType::ALLIANCE_FARM);
-static constexpr const Square_t AA = static_cast<Square_t>(SquareType::ALLIANCE_ALTAR);
-static constexpr const Square_t AT = static_cast<Square_t>(SquareType::ALLIANCE_TOWER);
-static constexpr const Square_t HK = static_cast<Square_t>(SquareType::HORDE_KEEP);
-static constexpr const Square_t HF = static_cast<Square_t>(SquareType::HORDE_FARM);
-static constexpr const Square_t HA = static_cast<Square_t>(SquareType::HORDE_ALTAR);
-static constexpr const Square_t HT = static_cast<Square_t>(SquareType::HORDE_TOWER);
-static constexpr const Square_t NM = static_cast<Square_t>(SquareType::MINE);
+static constexpr Square_t NE = static_cast<Square_t>(SquareType::EMPTY);
+static constexpr Square_t AK = static_cast<Square_t>(SquareType::ALLIANCE_KEEP);
+static constexpr Square_t AF = static_cast<Square_t>(SquareType::ALLIANCE_FARM);
+static constexpr Square_t AA = static_cast<Square_t>(SquareType::ALLIANCE_ALTAR);
+static constexpr Square_t AT = static_cast<Square_t>(SquareType::ALLIANCE_TOWER);
+static constexpr Square_t HK = static_cast<Square_t>(SquareType::HORDE_KEEP);
+static constexpr Square_t HF = static_cast<Square_t>(SquareType::HORDE_FARM);
+static constexpr Square_t HA = static_cast<Square_t>(SquareType::HORDE_ALTAR);
+static constexpr Square_t HT = static_cast<Square_t>(SquareType::HORDE_TOWER);
+static constexpr Square_t NM = static_cast<Square_t>(SquareType::MINE);
 
 Game::Game(const bool isAlliance) noexcept
 	: board{ { HK, HK, HK, HK, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, NE, HF, HF, NE, NE, NE, NE, NE, HA, HA, HA },

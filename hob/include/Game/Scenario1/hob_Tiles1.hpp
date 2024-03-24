@@ -45,17 +45,17 @@ namespace hob
 /** ***************************************************************************************************
  * @brief How many times of tiles are being used.
  *****************************************************************************************************/
-constexpr const size_t TILES1_COUNT = 13UL;
+inline constexpr size_t TILES1_COUNT = 13UL;
 
 /** ***************************************************************************************************
  * @brief How many textures scenario 1 tiles loads.
  *****************************************************************************************************/
-constexpr const size_t TILES1_TEXTURES_COUNT = 34UL;
+inline constexpr size_t TILES1_TEXTURES_COUNT = 34UL;
 
 /** ***************************************************************************************************
  * @brief How many components the tiles of scenario 1 uses.
  *****************************************************************************************************/
-constexpr const size_t TILES1_COMPONENTS_COUNT = 0UL;
+inline constexpr size_t TILES1_COMPONENTS_COUNT = 0UL;
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

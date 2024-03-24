@@ -94,16 +94,18 @@ private:
 template<typename TYPE>
 bool AsyncQueue<TYPE>::isEmpty(void) noexcept
 {
-	std::unique_lock<std::mutex> lock(mutex);
+	plog_assert(nullptr != this);
+
+	std::lock_guard<std::mutex> lock(mutex);
 	return queue.empty();
 }
 
 template<typename TYPE>
 void AsyncQueue<TYPE>::push(TYPE element) noexcept
 {
-	std::unique_lock<std::mutex> lock(mutex);
-
 	plog_verbose("Element is being pushed into asynchronically queue.");
+	plog_assert(nullptr != this);
+
 	try
 	{
 		queue.push(element);
@@ -120,12 +122,15 @@ TYPE AsyncQueue<TYPE>::pop(void) noexcept
 	TYPE element;
 
 	plog_verbose("Element is being popped from asynchronically queue.");
-	plog_assert(false == isEmpty());
+	plog_assert(nullptr != this);
 
-	mutex.lock();
-	element = queue.front();
-	queue.pop();
-	mutex.unlock();
+	{
+		std::lock_guard<std::mutex> lock(mutex);
+		plog_assert(false == queue.empty());
+
+		element = queue.front();
+		queue.pop();
+	}
 
 	return element;
 }

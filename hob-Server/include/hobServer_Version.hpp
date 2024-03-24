@@ -43,17 +43,17 @@ namespace hobServer
 /** ***************************************************************************************************
  * @brief The compiled major version of the HOB-Server.
  *****************************************************************************************************/
-static constexpr const uint8_t VERSION_MAJOR = 0U;
+inline constexpr uint8_t VERSION_MAJOR = 0U;
 
 /** ***************************************************************************************************
  * @brief The compiled minor version of the HOB-Server.
  *****************************************************************************************************/
-static constexpr const uint8_t VERSION_MINOR = 0U;
+inline constexpr uint8_t VERSION_MINOR = 0U;
 
 /** ***************************************************************************************************
  * @brief The compiled patch version of the HOB-Server.
  *****************************************************************************************************/
-static constexpr const uint8_t VERSION_PATCH = 0U;
+inline constexpr uint8_t VERSION_PATCH = 0U;
 
 /** ***************************************************************************************************
  * @brief Encapsulates the version.

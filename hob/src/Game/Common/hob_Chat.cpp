@@ -97,7 +97,7 @@ Chat::~Chat(void) noexcept
 
 void Chat::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint8_t BAR_FREQUENCY = 40U;
+	static constexpr uint8_t BAR_FREQUENCY = 40U;
 
 	size_t		index			= 0UL;
 	std::string opponentMessage = {};

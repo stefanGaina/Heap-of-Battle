@@ -48,7 +48,7 @@
 /** ***************************************************************************************************
  * @brief Dummy address to pass the != nulllptr check.
  *****************************************************************************************************/
-static constexpr const size_t not_nullptr = 0x1UL;
+static constexpr size_t not_nullptr = 0x1UL;
 
 /******************************************************************************************************
  * TEST CLASS
@@ -131,8 +131,8 @@ TEST_F(TextureTest, create_renderText_fail)
 
 TEST_F(TextureTest, create_success)
 {
-	static constexpr const int32_t SURFACE_WIDTH  = 10;
-	static constexpr const int32_t SURFACE_HEIGHT = 10;
+	static constexpr int32_t SURFACE_WIDTH	= 10;
+	static constexpr int32_t SURFACE_HEIGHT = 10;
 
 	hob::Texture	texture	  = {};
 	hob::Coordinate dimension = {};

@@ -71,11 +71,15 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">hob_Timer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This file defines the class and method prototypes of the timer.  
+<a href="#details">More...</a></p>
 
 <p><a href="hob__Timer_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -95,10 +99,15 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a8d1f1be8417cd3a876693bac56a52d96"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96">hob::TimerTextureIndex</a> { <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96aadf10c1ab9a5ed8e087024d558a3d7e8">hob::TIMER_TEXTURE_INDEX_ALLIANCE_0</a> = 0
+<tr class="memitem:a8d1f1be8417cd3a876693bac56a52d96"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96">hob::TimerTextureIndex</a> { <br />
+&#160;&#160;<a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96aadf10c1ab9a5ed8e087024d558a3d7e8">hob::TIMER_TEXTURE_INDEX_ALLIANCE_0</a> = 0
 , <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96a3ef20c16cab9b91204711ed44fd91515">hob::TIMER_TEXTURE_INDEX_DOUBLE_POINTS</a> = 10
 , <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96a3f4ab6b4fa2981d415d158a08af5f8d0">hob::TIMER_TEXTURE_INDEX_HORDE_0</a> = 11
-, <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96af25bb7b9b0c95457a2865f6042f83358">hob::TIMER_TEXTURES_COUNT</a> = 22
+, <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96af752e907c1b576406d7360726d4f1aac">hob::TIMER_TEXTURE_INDEX_HOURGLASS_ACTIVE</a> = 22
+, <br />
+&#160;&#160;<a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96a1bf4ac1aca65102ec5801248870b2372">hob::TIMER_TEXTURE_INDEX_HOURGLASS_INACTIVE</a> = 23
+, <a class="el" href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96af25bb7b9b0c95457a2865f6042f83358">hob::TIMER_TEXTURES_COUNT</a> = 24
+<br />
  }</td></tr>
 <tr class="memdesc:a8d1f1be8417cd3a876693bac56a52d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerates timer's textures index.  <a href="namespacehob.html#a8d1f1be8417cd3a876693bac56a52d96">More...</a><br /></td></tr>
 <tr class="separator:a8d1f1be8417cd3a876693bac56a52d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,13 +117,27 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56ab2ee9b684be2a163a0a06fdd213b30cd">hob::TIMER_COMPONENT_INDEX_SECOND_DIGIT_1</a> = 2
 , <a class="el" href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56a53707b8175c14e82d3b6f58629c90300">hob::TIMER_COMPONENT_INDEX_SECOND_DIGIT_2</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56a154a1c3e6940000f57534495172abcb3">hob::TIMER_COMPONENTS_COUNT</a> = 4
+&#160;&#160;<a class="el" href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56ab641b73430ba3a52871ea4e38639b357">hob::TIMER_COMPONENT_INDEX_HOURGLASS</a> = 4
+, <a class="el" href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56a154a1c3e6940000f57534495172abcb3">hob::TIMER_COMPONENTS_COUNT</a> = 5
 <br />
  }</td></tr>
 <tr class="memdesc:a67c3447698a7cd0b7496b76218fb4c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerates timer's changeable components index.  <a href="namespacehob.html#a67c3447698a7cd0b7496b76218fb4c56">More...</a><br /></td></tr>
 <tr class="separator:a67c3447698a7cd0b7496b76218fb4c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3e7dc918683a4a6bfd3d30d136973051"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehob.html#a3e7dc918683a4a6bfd3d30d136973051">hob::TIMER_SOUND_COUNT</a> = 5UL</td></tr>
+<tr class="memdesc:a3e7dc918683a4a6bfd3d30d136973051"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many sounds timer loads.  <a href="namespacehob.html#a3e7dc918683a4a6bfd3d30d136973051">More...</a><br /></td></tr>
+<tr class="separator:a3e7dc918683a4a6bfd3d30d136973051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This file defines the class and method prototypes of the timer. </p>
+<hr  />
+<dl class="section author"><dt>Author</dt><dd>Gaina Stefan </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>27.07.2023 </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>N/A. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000016">Bug:</a></b></dt><dd>No known bugs.</dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 		<script src="custom.js"></script>
 	</body>

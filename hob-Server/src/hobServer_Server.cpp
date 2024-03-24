@@ -44,7 +44,7 @@ namespace hobServer
 /** ***************************************************************************************************
  * @brief Default value for the time (seconds) allowed for every turn.
  *****************************************************************************************************/
-static constexpr const uint16_t TIME_PER_TURN = 30U;
+static constexpr uint16_t TIME_PER_TURN = 30U;
 
 /******************************************************************************************************
  * LOCAL VARIABLES

@@ -327,12 +327,7 @@ void Map1::receivingFunction(LoadingScreen* loadingScreen) noexcept
 			case hobServer::MessageType::TIME:
 			{
 				plog_verbose("Time update message received. (time left: %" PRIu16 ")", receivedMessage.payload.timeLeft);
-				if (false == faction.getFaction() && false == game.getTurn())
-				{
-					menu.updateTimer(receivedMessage.payload.timeLeft, true);
-					break;
-				}
-				menu.updateTimer(receivedMessage.payload.timeLeft, faction.getFaction() && game.getTurn());
+				menu.updateTimer(receivedMessage.payload.timeLeft, faction.getFaction(), faction.getFaction() == game.getTurn());
 				break;
 			}
 			case hobServer::MessageType::TEXT:

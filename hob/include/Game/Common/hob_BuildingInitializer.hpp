@@ -50,7 +50,7 @@ namespace hob
 /**
  * @brief How many seasons there are.
 */
-constexpr const size_t SEASONS_COUNT = 4UL;
+inline constexpr const size_t SEASONS_COUNT = 4UL;
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

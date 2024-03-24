@@ -42,7 +42,7 @@ namespace hob
 
 void Grid1::draw(SDL_Renderer* const renderer) noexcept
 {
-	static constexpr const uint8_t ALPHA_OPAQUE = 0xA0U;
+	static constexpr uint8_t ALPHA_OPAQUE = 0xA0U;
 
 	SDL_Color color = { .r = 0, .g = 0, .b = 0, .a = 0 };
 

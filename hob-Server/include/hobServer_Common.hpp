@@ -49,6 +49,6 @@
 /** ***************************************************************************************************
  * @brief The value indicating a socket error/ the socket is closed or in an invalid state.
  *****************************************************************************************************/
-static constexpr const int32_t SOCKET_INVALID = -1;
+inline constexpr int32_t SOCKET_INVALID = -1;
 
 #endif /*< HOB_SERVER_COMMON_HPP_ */

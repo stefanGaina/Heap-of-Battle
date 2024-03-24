@@ -49,7 +49,7 @@ namespace hob
 /**
  * @brief How many tiles are being initialized.
 */
-constexpr const size_t TILES_COUNT = 390UL;
+inline constexpr const size_t TILES_COUNT = 390UL;
 
 /******************************************************************************************************
  * TYPE DEFINITIONS                                                                                   *

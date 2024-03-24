@@ -26,7 +26,7 @@
  * <li> Functions:     100.0% (5/5)   </li>
  * <li> Branches:      83.3% (10/12) </li>
  * </ul>
- * @todo std::unique_lockand wait_for generate branches. Find out how to cover them too.
+ * @todo std::unique_lock and wait_for generate branches. Find out how to cover them too.
  * @bug No known bugs.
  *****************************************************************************************************/
 

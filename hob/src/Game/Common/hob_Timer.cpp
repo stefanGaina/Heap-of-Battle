@@ -73,21 +73,32 @@ Timer::Timer(SDL_Renderer* const renderer) noexcept
 							  TEXTURE_FILE_PATH("horde_7"),				   /*< 18 */
 							  TEXTURE_FILE_PATH("horde_8"),				   /*< 19 */
 							  TEXTURE_FILE_PATH("horde_9"),				   /*< 20 */
-							  TEXTURE_FILE_PATH("horde_double_points")	   /*< 21 */
+							  TEXTURE_FILE_PATH("horde_double_points"),	   /*< 21 */
+							  TEXTURE_FILE_PATH("hourglass_active"),	   /*< 22 */
+							  TEXTURE_FILE_PATH("hourglass_inactive")	   /*< 23 */
 						  },
 						  {
-							  TIMER_TEXTURE_INDEX_ALLIANCE_0,	 /*< 0 */
-							  TIMER_TEXTURE_INDEX_DOUBLE_POINTS, /*< 1 */
-							  TIMER_TEXTURE_INDEX_ALLIANCE_0,	 /*< 2 */
-							  TIMER_TEXTURE_INDEX_ALLIANCE_0	 /*< 3 */
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0,		 /*< 0 */
+							  TIMER_TEXTURE_INDEX_DOUBLE_POINTS,	 /*< 1 */
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0,		 /*< 2 */
+							  TIMER_TEXTURE_INDEX_ALLIANCE_0,		 /*< 3 */
+							  TIMER_TEXTURE_INDEX_HOURGLASS_INACTIVE /*< 4 */
 						  },
 						  { {
 							  { 3 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 },				/*< 0 */
 							  { 3 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
 							  { 4 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 },				/*< 2 */
-							  { 4 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }	/*< 3 */
+							  { 4 * HSCALE + HSCALE / 2 + 5, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 3 */
+							  { 5 * HSCALE, 0 * HSCALE, 1 * HSCALE, 1 * HSCALE }				/*< 4 */
 						  } },
 						  renderer }
+	, SoundInitializer{ {
+		  HOB_SOUNDS_FILE_PATH("tick1"), /*< 0 */
+		  HOB_SOUNDS_FILE_PATH("tick2"), /*< 1 */
+		  HOB_SOUNDS_FILE_PATH("tick3"), /*< 2 */
+		  HOB_SOUNDS_FILE_PATH("tick4"), /*< 3 */
+		  HOB_SOUNDS_FILE_PATH("tick5")	 /*< 4 */
+	  } }
 	, queue{}
 {
 	plog_trace("Timer is being constructed.");
@@ -103,17 +114,18 @@ void Timer::draw(SDL_Renderer* const renderer) noexcept
 	TextureInitializer::draw(renderer);
 }
 
-void Timer::update(const uint16_t seconds, const bool isAlliance) noexcept
+void Timer::update(const uint16_t seconds, const bool isAlliance, const bool turn) noexcept
 {
-	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ")", seconds, isAlliance);
+	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ") (turn: %" PRIu8 ")", seconds, isAlliance, turn);
 	plog_assert(nullptr != this);
+	plog_assert(60U * 10U > seconds);
 
-	queue.push({ .seconds = seconds, .isAlliance = isAlliance });
+	queue.push({ .seconds = seconds, .isAlliance = isAlliance, .turn = turn });
 }
 
 void Timer::handleQueue(void) noexcept
 {
-	TimeFormat timeFormat = {};
+	TimeFormat timeFormat = { .seconds = 0U, .isAlliance = true, .turn = true };
 	size_t	   modifier	  = 0UL;
 
 	plog_verbose("Queue is being handled.");
@@ -122,21 +134,21 @@ void Timer::handleQueue(void) noexcept
 	while (false == queue.isEmpty())
 	{
 		timeFormat = queue.pop();
-		if (false == timeFormat.isAlliance)
+		if (TIMER_SOUND_COUNT > timeFormat.seconds && timeFormat.isAlliance == timeFormat.turn)
 		{
-			modifier = TIMER_TEXTURE_INDEX_HORDE_0;
+			soundContainer[timeFormat.seconds].play();
 		}
-		else
-		{
-			modifier = TIMER_TEXTURE_INDEX_ALLIANCE_0;
-		}
+		modifier = true == timeFormat.turn ? TIMER_TEXTURE_INDEX_ALLIANCE_0 : TIMER_TEXTURE_INDEX_HORDE_0;
 
+		plog_assert(60U * 10U > timeFormat.seconds);
 		componentContainer[TIMER_COMPONENT_INDEX_MINUTE].updateTexture(textureContainer[static_cast<size_t>(timeFormat.seconds) / 60UL + modifier]);
 		componentContainer[TIMER_COMPONENT_INDEX_DOUBLE_POINTS].updateTexture(textureContainer[TIMER_TEXTURE_INDEX_DOUBLE_POINTS + modifier]);
 		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_1].updateTexture(
 			textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) / 10UL + modifier]);
 		componentContainer[TIMER_COMPONENT_INDEX_SECOND_DIGIT_2].updateTexture(
 			textureContainer[(static_cast<size_t>(timeFormat.seconds) % 60UL) % 10UL + modifier]);
+		componentContainer[TIMER_COMPONENT_INDEX_HOURGLASS].updateTexture(
+			textureContainer[timeFormat.isAlliance == timeFormat.turn ? TIMER_TEXTURE_INDEX_HOURGLASS_ACTIVE : TIMER_TEXTURE_INDEX_HOURGLASS_INACTIVE]);
 	}
 }
 
