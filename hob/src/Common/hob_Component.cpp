@@ -103,10 +103,10 @@ void Component::correctPosition(const SDL_Rect corrections) noexcept
 
 bool Component::isMouseInside(const Coordinate mouse, const SDL_Rect corrections) const noexcept
 {
-	int32_t verticalBeginning	= destination.y + corrections.y;
-	int32_t verticalEnding		= destination.y + destination.h + corrections.h;
-	int32_t horizontalBeginning = destination.x + corrections.x;
-	int32_t horizontalEnding	= destination.x + destination.w + corrections.w;
+	const int32_t verticalBeginning	  = destination.y + corrections.y;
+	const int32_t verticalEnding	  = destination.y + destination.h + corrections.h;
+	const int32_t horizontalBeginning = destination.x + corrections.x;
+	const int32_t horizontalEnding	  = destination.x + destination.w + corrections.w;
 
 	plog_verbose("Checking if mouse is inside component. (mouse: { %" PRId32 ", %" PRId32 " }, corrections: { %" PRId32 ", %" PRId32 ", %" PRId32 ", %" PRId32
 				 " })",

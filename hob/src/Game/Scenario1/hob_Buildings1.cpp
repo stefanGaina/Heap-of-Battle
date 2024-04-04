@@ -225,7 +225,11 @@ void Buildings1::changeWeather(const bool isWinter) noexcept
 
 void Buildings1::upgrade(const bool isAlliance) noexcept
 {
-	size_t index = true == isAlliance ? 2 : 3;
+	size_t index = true == isAlliance ? 2UL : 3UL;
+
+	plog_trace("Building is being upgraded. (faction: %s)", FACTION_TO_STRING(isAlliance));
+	plog_assert(nullptr != this);
+
 	buildingContainer[index].switchTexture(true);
 }
 

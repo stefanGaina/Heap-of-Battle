@@ -60,18 +60,49 @@ Gold::Gold(SDL_Renderer* const renderer, const uint8_t amount) noexcept
 							  TEXTURE_FILE_PATH("gold_9"), /*< 9  */
 							  TEXTURE_FILE_PATH("gold")	   /*< 10 */
 						  },
-						  { 0UL, 0UL, 0UL, 10UL },
+						  {
+							  GOLD_TEXTURE_INDEX_0,	   /*< 0  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 1  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 2  */
+							  GOLD_TEXTURE_INDEX_GOLD, /*< 3  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 4  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 5  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 6  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 7  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 8  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 9  */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 10 */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 11 */
+							  GOLD_TEXTURE_INDEX_0,	   /*< 12 */
+							  GOLD_TEXTURE_INDEX_0	   /*< 13 */
+						  },
 						  { {
-							  { 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 0 */
-							  { HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 1 */
-							  { 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 2 */
-							  { 2 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 }	/*< 3 */
+							  { 0 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 },							  /*< 0  */
+							  { HSCALE / 2 + 15, SCALE / 9, SCALE / 3, SCALE / 3 },							  /*< 1  */
+							  { 1 * HSCALE + 15, SCALE / 9, SCALE / 3, SCALE / 3 },							  /*< 2  */
+							  { 2 * HSCALE + 5, SCALE / 9, SCALE / 3, SCALE / 3 },							  /*< 3  */
+							  { HSCALE / 2 + 15, HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 },	  /*< 4  */
+							  { 1 * HSCALE + 15, HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 },	  /*< 5  */
+							  { 2 * HSCALE + 5, HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 },	  /*< 6  */
+							  { HSCALE / 2 + 15, 3 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },			  /*< 7  */
+							  { 1 * HSCALE + 15, 3 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },			  /*< 8  */
+							  { 2 * HSCALE + 5, 3 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },				  /*< 9  */
+							  { HSCALE / 2 + 15, 4 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 10 */
+							  { 1 * HSCALE + 15, 4 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 11 */
+							  { 2 * HSCALE + 5, 4 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 },  /*< 12 */
+							  { HSCALE / 2 + 15, 6 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },			  /*< 13 */
+							  { 1 * HSCALE + 15, 6 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },			  /*< 14 */
+							  { 2 * HSCALE + 5, 6 * HSCALE + SCALE / 9, SCALE / 3, SCALE / 3 },				  /*< 15 */
+							  { HSCALE / 2 + 15, 7 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 16 */
+							  { 1 * HSCALE + 15, 7 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 }, /*< 17 */
+							  { 2 * HSCALE + 5, 7 * HSCALE + HSCALE / 2 + SCALE / 9, SCALE / 3, SCALE / 3 }	  /*< 18 */
 						  } },
 						  renderer }
 	, SoundInitializer{ { HOB_SOUNDS_FILE_PATH("gold_received") } }
 	, queue{}
 	, previousAmount{ amount }
 {
+	hide();
 	update(--previousAmount + 1U);
 }
 
@@ -90,18 +121,35 @@ void Gold::update(const uint8_t amount) noexcept
 	plog_trace("Gold is being updated. (amount: %" PRIu8 ")", amount);
 	plog_assert(nullptr != this);
 
-	if (amount == previousAmount)
-	{
-		return;
-	}
+	queue.push(amount);
+}
 
-	if (amount > previousAmount)
+void Gold::hide(void) noexcept
+{
+	size_t index = GOLD_COMPONENT_INDEX_PRICE_1_TENS;
+
+	plog_assert(nullptr != this);
+
+	for (; index <= GOLD_COMPONENT_INDEX_PRICE_5_ICON; ++index)
 	{
-		plog_verbose("Gold increased.");
-		soundContainer[0].play();
+		componentContainer[index].updateTexture(nullptr);
 	}
-	previousAmount = amount;
-	queue.push(previousAmount);
+}
+
+void Gold::setAllianceKeep(const bool isAlliance) noexcept
+{
+	plog_trace("Alliance keep gold is being set. (faction: %s)", FACTION_TO_STRING(isAlliance));
+	plog_assert(nullptr != this);
+
+	setKeep(isAlliance, true);
+}
+
+void Gold::setHordeKeep(const bool isAlliance) noexcept
+{
+	plog_trace("Horde hall gold is being set. (faction: %s)", FACTION_TO_STRING(isAlliance));
+	plog_assert(nullptr != this);
+
+	setKeep(isAlliance, false);
 }
 
 void Gold::handleQueue(void) noexcept
@@ -114,25 +162,76 @@ void Gold::handleQueue(void) noexcept
 	while (false == queue.isEmpty())
 	{
 		amount = queue.pop();
-
-		componentContainer[2].updateTexture(textureContainer[amount % 10]);
-		amount /= 10;
-		if (0U == amount)
+		if (amount == previousAmount)
 		{
-			componentContainer[1].updateTexture(nullptr);
-			componentContainer[0].updateTexture(nullptr);
+			plog_warn("Gold has not changed! (amount: %" PRIu8 ")", previousAmount);
 			continue;
 		}
 
-		componentContainer[1].updateTexture(textureContainer[amount % 10]);
+		if (amount > previousAmount)
+		{
+			plog_verbose("Gold increased. (amount: %" PRIu8 ")", amount);
+			soundContainer[GOLD_SOUND_INDEX_INCREASE].play();
+		}
+		previousAmount = amount;
+
+		componentContainer[GOLD_COMPONENT_INDEX_ONES].updateTexture(textureContainer[amount % 10]);
 		amount /= 10;
 		if (0U == amount)
 		{
-			componentContainer[0].updateTexture(nullptr);
+			componentContainer[GOLD_COMPONENT_INDEX_TENS].updateTexture(nullptr);
+			componentContainer[GOLD_COMPONENT_INDEX_HUNDREDS].updateTexture(nullptr);
 			continue;
 		}
-		componentContainer[0].updateTexture(textureContainer[amount % 10]);
+
+		componentContainer[GOLD_COMPONENT_INDEX_TENS].updateTexture(textureContainer[amount % 10]);
+		amount /= 10;
+		if (0U == amount)
+		{
+			componentContainer[GOLD_COMPONENT_INDEX_HUNDREDS].updateTexture(nullptr);
+			continue;
+		}
+		componentContainer[GOLD_COMPONENT_INDEX_HUNDREDS].updateTexture(textureContainer[amount % 10]);
 	}
+}
+
+void Gold::setKeep(const bool isAlliance, const bool userFaction) noexcept
+{
+	static constexpr uint8_t PRICES[]		  = { 5U, 10U, 15U, 25U, 50U };
+	static constexpr size_t	 PRICES_COUNT	  = sizeof(PRICES);
+	static constexpr size_t	 COMPONENT_OFFSET = GOLD_COMPONENT_INDEX_PRICE_2_TENS - GOLD_COMPONENT_INDEX_PRICE_1_TENS;
+
+	size_t index = 0UL;
+
+	plog_assert(nullptr != this);
+
+	if (userFaction != isAlliance)
+	{
+		hide();
+		return;
+	}
+
+	for (; index < PRICES_COUNT; ++index)
+	{
+		setPrice(GOLD_COMPONENT_INDEX_PRICE_1_TENS + index * COMPONENT_OFFSET, PRICES[index]);
+	}
+}
+
+void Gold::setPrice(const size_t componentIndex, const uint8_t price) noexcept
+{
+	static constexpr size_t COMPONENT_OFFSET_TENS		 = GOLD_COMPONENT_INDEX_PRICE_1_TENS - GOLD_COMPONENT_INDEX_PRICE_1_TENS;
+	static constexpr size_t COMPONENT_OFFSET_ONES		 = GOLD_COMPONENT_INDEX_PRICE_1_ONES - GOLD_COMPONENT_INDEX_PRICE_1_TENS;
+	static constexpr size_t COMPONENT_OFFSET_PURCHASABLE = GOLD_COMPONENT_INDEX_PRICE_1_ICON - GOLD_COMPONENT_INDEX_PRICE_1_TENS;
+
+	plog_assert(nullptr != this);
+	plog_assert(100U > price);
+	plog_assert(GOLD_COMPONENT_INDEX_PRICE_1_TENS <= componentIndex && GOLD_COMPONENT_INDEX_PRICE_5_TENS >= componentIndex);
+	plog_assert(0UL == (componentIndex - GOLD_COMPONENT_INDEX_PRICE_1_TENS) % (GOLD_COMPONENT_INDEX_PRICE_2_TENS - GOLD_COMPONENT_INDEX_PRICE_1_TENS));
+
+	componentContainer[componentIndex + COMPONENT_OFFSET_TENS].updateTexture(0 < price / 10U ? textureContainer[price / 10U].getRawTexture() : nullptr);
+	componentContainer[componentIndex + COMPONENT_OFFSET_ONES].updateTexture(textureContainer[price % 10]);
+	componentContainer[componentIndex + COMPONENT_OFFSET_PURCHASABLE].updateTexture(
+		previousAmount >= price ? textureContainer[GOLD_TEXTURE_INDEX_GOLD].getRawTexture() : nullptr);
 }
 
 } /*< namespace hob */

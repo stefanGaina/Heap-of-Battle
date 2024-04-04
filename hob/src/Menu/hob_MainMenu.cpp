@@ -159,7 +159,7 @@ void MainMenu::handleEvent(const SDL_Event& event) noexcept
 
 void MainMenu::handleButtonDown(void) noexcept
 {
-	Coordinate	   click	  = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 	size_t		   index	  = 0UL;
 
@@ -177,9 +177,11 @@ void MainMenu::handleButtonDown(void) noexcept
 		if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
 		{
 			plog_verbose("Bar is pressed. (index: %" PRIu64 ")", index);
+
 			componentContainer[index].updateTexture(textureContainer[MAIN_MENU_TEXTURE_INDEX_BUTTON_PRESSED]);
 			soundContainer[MAIN_MENU_SOUND_INDEX_CLICK].play();
 			clickDownIndex = index;
+
 			return;
 		}
 		componentContainer[index].updateTexture(textureContainer[MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
@@ -188,7 +190,7 @@ void MainMenu::handleButtonDown(void) noexcept
 
 void MainMenu::handleButtonUp(void) noexcept
 {
-	Coordinate	   click	  = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 
 	plog_trace("Mouse (%" PRIu32 ") was released. (coordinates: %" PRId32 ", %" PRId32 ")", mouseState, click.x, click.y);
@@ -197,41 +199,46 @@ void MainMenu::handleButtonUp(void) noexcept
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
 
-	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
+	if (0UL == clickDownIndex || false == componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
 	{
-		switch (clickDownIndex)
+		goto RESET_INDEX;
+	}
+
+	switch (clickDownIndex)
+	{
+		case MAIN_MENU_COMPONENT_INDEX_BUTTON_START_GAME:
 		{
-			case MAIN_MENU_COMPONENT_INDEX_BUTTON_START_GAME:
-			{
-				plog_debug("Start game bar was selected, clicked and released.");
-				stop(Scene::LOCAL_MENU);
-				break;
-			}
-			case MAIN_MENU_COMPONENT_INDEX_BUTTON_SETTINGS:
-			{
-				plog_debug("Settings bar was selected, clicked and released.");
-				stop(Scene::SETTINGS);
-				break;
-			}
-			case MAIN_MENU_COMPONENT_INDEX_BUTTON_EXIT:
-			{
-				plog_debug("Exit bar was selected, clicked and released.");
-				stop(Scene::QUIT);
-				break;
-			}
-			default:
-			{
-				plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
-				break;
-			}
+			plog_debug("Start game bar was selected, clicked and released.");
+			stop(Scene::LOCAL_MENU);
+			break;
+		}
+		case MAIN_MENU_COMPONENT_INDEX_BUTTON_SETTINGS:
+		{
+			plog_debug("Settings bar was selected, clicked and released.");
+			stop(Scene::SETTINGS);
+			break;
+		}
+		case MAIN_MENU_COMPONENT_INDEX_BUTTON_EXIT:
+		{
+			plog_debug("Exit bar was selected, clicked and released.");
+			stop(Scene::QUIT);
+			break;
+		}
+		default:
+		{
+			plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
+			plog_assert(false);
+			break;
 		}
 	}
+
+RESET_INDEX:
 	clickDownIndex = 0UL;
 }
 
 void MainMenu::handleMouseMotion(void) noexcept
 {
-	Coordinate	   click	  = {};
+	Coordinate	   click	  = { .x = 0, .y = 0 };
 	const uint32_t mouseState = SDL_GetMouseState(&click.x, &click.y);
 	size_t		   index	  = 0UL;
 
@@ -252,7 +259,7 @@ void MainMenu::handleMouseMotion(void) noexcept
 		{
 			plog_verbose("Bar is selected. (index: %" PRIu64 ")", index);
 			componentContainer[index].updateTexture(textureContainer[MAIN_MENU_TEXTURE_INDEX_BUTTON_ACTIVE]);
-			return;
+			continue;
 		}
 		componentContainer[index].updateTexture(textureContainer[MAIN_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
 	}

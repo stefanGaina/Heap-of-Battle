@@ -66,7 +66,7 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 						  } },
 						  renderer }
 	, textureIndexOffset{ CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE }
-	, enabled{ false }
+	, enabled{ true }
 {
 	int32_t errorCode = 0;
 
@@ -76,6 +76,7 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 	if (0 > errorCode)
 	{
 		plog_error("SDL Cursor failed to be queried! (SDL error message: %s)", SDL_GetError());
+		enabled = false;
 		return;
 	}
 
@@ -84,34 +85,21 @@ Cursor::Cursor(SDL_Renderer* const renderer) noexcept
 		if (SDL_DISABLE > SDL_ShowCursor(SDL_DISABLE))
 		{
 			plog_error("SDL Cursor failed to be hidden! (SDL error message: %s)", SDL_GetError());
-			return;
+			enabled = false;
 		}
+		return;
 	}
-	else
-	{
-		plog_debug("SDL Cursor is already hidden.");
-	}
-	enabled = true;
+
+	plog_debug("SDL Cursor is already hidden.");
 }
 
 void Cursor::updatePosition(const Coordinate& mouse) noexcept
 {
-	SDL_Rect destination = { .x = 0, .y = 0, .w = SCALE / 3, .h = SCALE / 3 };
-
 	plog_verbose("Cursor position is being updated. (coordinates: %" PRId32 ", %" PRId32 ")", mouse.x, mouse.y);
 	plog_assert(nullptr != this);
 
-	if (0L >= mouse.x || 0L >= mouse.y)
-	{
-		destination.x = SCREEN_WIDTH;
-		destination.y = SCREEN_HEIGHT;
-	}
-	else
-	{
-		destination.x = mouse.x;
-		destination.y = mouse.y;
-	}
-	componentContainer[CURSOR_COMPONENT_INDEX].updatePosition(destination);
+	componentContainer[CURSOR_COMPONENT_INDEX].updatePosition(
+		{ .x = 0 >= mouse.x ? SCREEN_WIDTH : mouse.x, .y = 0 >= mouse.y ? SCREEN_HEIGHT : mouse.y, .w = SCALE / 3, .h = SCALE / 3 });
 }
 
 void Cursor::draw(SDL_Renderer* const renderer) noexcept
@@ -128,10 +116,10 @@ void Cursor::draw(SDL_Renderer* const renderer) noexcept
 
 void Cursor::setFaction(const bool isAlliance) noexcept
 {
-	plog_info("Cursor's faction is being set! (faction: %" PRId16 ")", static_cast<int16_t>(isAlliance));
+	plog_info("Cursor's faction is being set! (faction: %s)", FACTION_TO_STRING(isAlliance));
 	plog_assert(nullptr != this);
 
-	textureIndexOffset = (true == isAlliance) ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
+	textureIndexOffset = true == isAlliance ? static_cast<size_t>(CURSOR_TEXTURE_INDEX_ALLIANCE_IDLE) : static_cast<size_t>(CURSOR_TEXTURE_INDEX_HORDE_IDLE);
 }
 
 void Cursor::setTexture(const hobGame::CursorType type) noexcept

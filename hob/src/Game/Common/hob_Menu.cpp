@@ -117,6 +117,7 @@ MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode men
 		{
 			setFramesKeep(nullptr, nullptr);
 			icons.hide();
+			gold.hide();
 			break;
 		}
 		case hobGame::MenuMode::UNCHANGED:
@@ -128,6 +129,7 @@ MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode men
 			setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture(),
 						  true == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_ALLIANCE].getRawTexture() : nullptr);
 			icons.setAllianceKeep(isAlliance);
+			gold.setAllianceKeep(isAlliance);
 
 			if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
 			{
@@ -141,6 +143,7 @@ MenuAction Menu::handleClick(const Coordinate click, const hobGame::MenuMode men
 			setFramesKeep(textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture(),
 						  false == isAlliance ? textureContainer[MENU_TEXTURE_INDEX_FRAME_SELECTED_HORDE].getRawTexture() : nullptr);
 			icons.setHordeKeep(isAlliance);
+			gold.setHordeKeep(isAlliance);
 
 			if (6 * HSCALE < click.x || 15 * HSCALE < click.y)
 			{

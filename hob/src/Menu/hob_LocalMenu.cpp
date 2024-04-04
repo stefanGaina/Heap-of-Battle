@@ -203,9 +203,11 @@ void LocalMenu::handleButtonDown(void) noexcept
 		if (componentContainer[index].isMouseInside(click, BAR_CORRECTIONS))
 		{
 			plog_verbose("Bar is pressed. (index: %" PRIu64 ")", index);
+
 			componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_PRESSED]);
 			soundContainer[LOCAL_MENU_SOUND_INDEX_CLICK].play();
 			clickDownIndex = index;
+
 			return;
 		}
 		componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
@@ -223,96 +225,101 @@ void LocalMenu::handleButtonUp(void) noexcept
 	(void)mouseState;
 #endif /*< PLOG_STRIP_TRACE */
 
-	if (0UL != clickDownIndex && componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
+	if (0UL == clickDownIndex || false == componentContainer[clickDownIndex].isMouseInside(click, BAR_CORRECTIONS))
 	{
-		switch (clickDownIndex)
+		goto RESET_INDEX;
+	}
+
+	switch (clickDownIndex)
+	{
+		case LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME:
 		{
-			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_HOST_GAME:
+			plog_debug("Host game bar was selected, clicked and released.");
+			if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
 			{
-				plog_debug("Host game bar was selected, clicked and released.");
-				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
+				plog_debug("Aborting the connection to the opponent's server.");
+
+				socket.close();
+				joinWaitConnectionThread();
+
+				while (false == queue.isEmpty())
 				{
-					plog_debug("Aborting the connection to the opponent's server.");
-
-					socket.close();
-					joinWaitConnectionThread();
-
-					while (false == queue.isEmpty())
-					{
-						plog_trace("Ignored status from queue.");
-						(void)queue.pop();
-					}
-					componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
+					plog_trace("Ignored status from queue.");
+					(void)queue.pop();
 				}
-				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT])
-				{
-					plog_debug("Hosting the game by running the server locally.");
-					try
-					{
-						server.runAsync(8787U, 40U);
-					}
-					catch (...)
-					{
-						plog_error("Failed to create the local server!");
-						soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
-						break;
-					}
-
-					componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
-					waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") };
-					break;
-				}
-				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
-				{
-					plog_debug("Aborting the host.");
-
-					receivingUpdates.store(false);
-					socket.close();
-					server.stop();
-					joinReceivingThread();
-					componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT]);
-					break;
-				}
-				plog_error("First button text is not host game or waiting!");
-				break;
+				componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
 			}
-			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT:
+			if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT])
 			{
-				plog_debug("Connect bar was selected, clicked and released.");
-				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
+				plog_debug("Hosting the game by running the server locally.");
+				try
 				{
-					plog_debug("Connection has been interruped by the user.");
-					socket.close();
-					joinWaitConnectionThread();
-					componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
-					break;
+					server.runAsync(8787U, 40U);
 				}
-				if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
+				catch (...)
 				{
-					plog_debug("Connecting while hosting is not supported.");
+					plog_error("Failed to create the local server!");
 					soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
 					break;
 				}
-				waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") }; // TODO: Update this
-				componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT]);
+
+				componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT]);
+				waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") };
 				break;
 			}
-			case LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK:
+			if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
 			{
-				plog_debug("Back bar was selected, clicked and released.");
+				plog_debug("Aborting the host.");
+
 				receivingUpdates.store(false);
 				socket.close();
 				server.stop();
-				stop(Scene::MAIN_MENU);
+				joinReceivingThread();
+				componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_HOST_GAME_TEXT]);
 				break;
 			}
-			default:
+			plog_error("First button text is not host game or waiting!");
+			break;
+		}
+		case LOCAL_MENU_COMPONENT_INDEX_BUTTON_CONNECT:
+		{
+			plog_debug("Connect bar was selected, clicked and released.");
+			if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT])
 			{
-				plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
+				plog_debug("Connection has been interruped by the user.");
+				socket.close();
+				joinWaitConnectionThread();
+				componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECT_TEXT]);
 				break;
 			}
+			if (componentContainer[LOCAL_MENU_COMPONENT_INDEX_HOST_GAME_TEXT] == textureContainer[LOCAL_MENU_TEXTURE_INDEX_WAITING_TEXT])
+			{
+				plog_debug("Connecting while hosting is not supported.");
+				soundContainer[LOCAL_MENU_SOUND_INDEX_ERROR].play();
+				break;
+			}
+			waitConnectionThread = std::thread{ std::bind(&LocalMenu::waitConnectionFunction, this, "127.0.0.1") }; // TODO: Update this
+			componentContainer[LOCAL_MENU_COMPONENT_INDEX_CONNECT_TEXT].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_CONNECTING_TEXT]);
+			break;
+		}
+		case LOCAL_MENU_COMPONENT_INDEX_BUTTON_BACK:
+		{
+			plog_debug("Back bar was selected, clicked and released.");
+			receivingUpdates.store(false);
+			socket.close();
+			server.stop();
+			stop(Scene::MAIN_MENU);
+			break;
+		}
+		default:
+		{
+			plog_error("Invalid click down index! (index: %" PRIu64 ")", clickDownIndex);
+			plog_assert(false);
+			break;
 		}
 	}
+
+RESET_INDEX:
 	clickDownIndex = 0UL;
 }
 
@@ -339,7 +346,7 @@ void LocalMenu::handleMouseMotion(void) noexcept
 		{
 			plog_verbose("Bar is selected. (index: %" PRIu64 ")", index);
 			componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_ACTIVE]);
-			return;
+			continue;
 		}
 		componentContainer[index].updateTexture(textureContainer[LOCAL_MENU_TEXTURE_INDEX_BUTTON_IDLE]);
 	}
@@ -436,7 +443,7 @@ void LocalMenu::joinWaitConnectionThread(void) noexcept
 
 void LocalMenu::receivingFunction(void) noexcept
 {
-	hobServer::Message receivedMessage = {};
+	hobServer::Message receivedMessage = { .type = hobServer::MessageType::END_COMMUNICATION, .payload = {} };
 
 	plog_trace("Update messages are being received.");
 	plog_assert(nullptr != this);

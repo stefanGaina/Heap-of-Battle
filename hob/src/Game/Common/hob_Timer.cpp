@@ -116,7 +116,7 @@ void Timer::draw(SDL_Renderer* const renderer) noexcept
 
 void Timer::update(const uint16_t seconds, const bool isAlliance, const bool turn) noexcept
 {
-	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %" PRIu8 ") (turn: %" PRIu8 ")", seconds, isAlliance, turn);
+	plog_verbose("Timer is being updated. (time left: %" PRIu16 ") (faction: %s) (turn: %" PRIu8 ")", seconds, FACTION_TO_STRING(isAlliance), turn);
 	plog_assert(nullptr != this);
 	plog_assert(60U * 10U > seconds);
 

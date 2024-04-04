@@ -31,11 +31,82 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
+#include <iostream>
 #include <fstream>
 #include <thread>
 
 #include "hob_Socket.hpp"
 #include "hobServer_Server.hpp"
+
+/******************************************************************************************************
+ * MACROS
+ *****************************************************************************************************/
+
+#ifdef DEVEL_BUILD
+
+/** ***************************************************************************************************
+ * @brief Handles the command line arguments for development builds initializing the test mechanism (if
+ * possible).
+ * @param argc: How many command line arguments have been passed.
+ * @param argv: Array of strings of the command line arguments.
+ * @return void
+ *****************************************************************************************************/
+#define handle_arguments(argc, argv)                                                                                                                               \
+	do                                                                                                                                                             \
+	{                                                                                                                                                              \
+		if (1 < argc)                                                                                                                                              \
+		{                                                                                                                                                          \
+			try                                                                                                                                                    \
+			{                                                                                                                                                      \
+				hob::Test::init(argv[1]);                                                                                                                          \
+			}                                                                                                                                                      \
+			catch (...)                                                                                                                                            \
+			{                                                                                                                                                      \
+				std::cerr << "Failed to start test! (file: " << argv[1] << ")" << std::endl;                                                                       \
+				return EXIT_FAILURE;                                                                                                                               \
+			}                                                                                                                                                      \
+		}                                                                                                                                                          \
+		if (2 < argc)                                                                                                                                              \
+		{                                                                                                                                                          \
+			std::cout << "Extra parameters will be ignored!" << std::endl;                                                                                         \
+		}                                                                                                                                                          \
+	}                                                                                                                                                              \
+	while (false)
+
+/** ***************************************************************************************************
+ * @brief Deinitializes the test mechanism for development builds.
+ * @param void
+ * @return void
+ *****************************************************************************************************/
+#define test_deinit() hob::Test::deinit();
+
+#else
+
+/** ***************************************************************************************************
+ * @brief Handles the command line arguments for production builds.
+ * @param argc: How many command line arguments have been passed.
+ * @param argv: Array of strings of the command line arguments.
+ * @return void
+ *****************************************************************************************************/
+#define handle_arguments(argc, argv)                                                                                                                               \
+	do                                                                                                                                                             \
+	{                                                                                                                                                              \
+		if (1 < argc)                                                                                                                                              \
+		{                                                                                                                                                          \
+			std::cout << "Parameters are ignored!" << std::endl;                                                                                                   \
+		}                                                                                                                                                          \
+		(void)argv;                                                                                                                                                \
+	}                                                                                                                                                              \
+	while (false)
+
+/** ***************************************************************************************************
+ * @brief Does nothing for production builds.
+ * @param void
+ * @return void
+ *****************************************************************************************************/
+#define test_deinit()
+
+#endif /*< DEVEL_BUILD */
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
@@ -116,8 +187,14 @@ private:
 	 *************************************************************************************************/
 	static std::thread thread;
 
+	/** ***********************************************************************************************
+	 * @brief Client socket used for sending test messages.
+	 *************************************************************************************************/
 	static Socket socket;
 
+	/** ***********************************************************************************************
+	 * @brief Server used for hosting the test match.
+	 *************************************************************************************************/
 	static hobServer::Server server;
 };
 

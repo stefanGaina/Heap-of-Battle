@@ -124,7 +124,7 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * @brief How many seasons there are.</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacehob.html#a9a3a82dd6f3d9839aeb54fc671ac4927">   53</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a9a3a82dd6f3d9839aeb54fc671ac4927">SEASONS_COUNT</a> = 4UL;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacehob.html#a60dd6f3cbab4e231ba7cb35d36112290">   53</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">size_t</span> <a class="code" href="namespacehob.html#a60dd6f3cbab4e231ba7cb35d36112290">SEASONS_COUNT</a> = 4UL;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">/******************************************************************************************************</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * TYPE DEFINITIONS                                                                                   *</span></div>
@@ -179,7 +179,7 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    plog_trace(<span class="stringliteral">&quot;BuildingInitializer is being constructed.&quot;</span>);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">for</span> (; index &lt; BUILDINGS_COUNT; ++index)</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        textureIndex = <a class="code" href="namespacehob.html#a9a3a82dd6f3d9839aeb54fc671ac4927">SEASONS_COUNT</a> * index;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        textureIndex = <a class="code" href="namespacehob.html#a60dd6f3cbab4e231ba7cb35d36112290">SEASONS_COUNT</a> * index;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        buildingContainer[index].init(</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            textures[textureIndex], textures[textureIndex + 1UL], textures[textureIndex + 2UL], textures[textureIndex + 3UL], destinations[index]);</div>
@@ -210,7 +210,7 @@ $(function() {
 <div class="ttc" id="ahob__Building_8hpp_html"><div class="ttname"><a href="hob__Building_8hpp.html">hob_Building.hpp</a></div><div class="ttdoc">This file defines the class and method prototypes of the building.</div></div>
 <div class="ttc" id="ahob__Texture_8hpp_html"><div class="ttname"><a href="hob__Texture_8hpp.html">hob_Texture.hpp</a></div></div>
 <div class="ttc" id="anamespacehob_html"><div class="ttname"><a href="namespacehob.html">hob</a></div><div class="ttdef"><b>Definition:</b> hob_AsyncQueue.hpp:42</div></div>
-<div class="ttc" id="anamespacehob_html_a9a3a82dd6f3d9839aeb54fc671ac4927"><div class="ttname"><a href="namespacehob.html#a9a3a82dd6f3d9839aeb54fc671ac4927">hob::SEASONS_COUNT</a></div><div class="ttdeci">constexpr const size_t SEASONS_COUNT</div><div class="ttdoc">How many seasons there are.</div><div class="ttdef"><b>Definition:</b> hob_BuildingInitializer.hpp:53</div></div>
+<div class="ttc" id="anamespacehob_html_a60dd6f3cbab4e231ba7cb35d36112290"><div class="ttname"><a href="namespacehob.html#a60dd6f3cbab4e231ba7cb35d36112290">hob::SEASONS_COUNT</a></div><div class="ttdeci">constexpr size_t SEASONS_COUNT</div><div class="ttdoc">How many seasons there are.</div><div class="ttdef"><b>Definition:</b> hob_BuildingInitializer.hpp:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 		<script src="custom.js"></script>

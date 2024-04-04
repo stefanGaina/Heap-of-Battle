@@ -28,8 +28,6 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#define SDL_MAIN_HANDLED
-#include <iostream>
 #include <plog.h>
 
 #include "hob_Game.hpp"
@@ -39,52 +37,25 @@
  * ENTRY POINT
  *****************************************************************************************************/
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
-#ifdef DEVEL_BUILD
-	if (1 < argc)
-	{
-		try
-		{
-			hob::Test::init(argv[1]);
-		}
-		catch (...)
-		{
-			std::cerr << "Failed to start test! (file: " << argv[1] << ")" << std::endl;
-			return EXIT_FAILURE;
-		}
-	}
+	int32_t					   exitCode = EXIT_SUCCESS;
+	std::unique_ptr<hob::Game> game		= nullptr;
 
-	if (2 < argc)
-	{
-		std::cout << "Extra parameters will be ignored!" << std::endl;
-	}
-#else
-	if (1 < argc)
-	{
-		std::cout << "Parameters are ignored!" << std::endl;
-	}
-	(void)argv;
-#endif /*< DEVEL_BUILD */
-
+	handle_arguments(argc, argv);
 	try
 	{
-		hob::Game::run();
+		game = std::make_unique<hob::Game>();
+		game->run();
 	}
 	catch (...)
 	{
-		plog_fatal("Game failed to start!");
-#ifdef DEVEL_BUILD
-		hob::Test::deinit();
-#endif /*< DEVEL_BUILD */
-
-		return EXIT_FAILURE;
+		plog_fatal("Game failed to be initialized!");
+		exitCode = EXIT_FAILURE;
 	}
 
-	plog_info("Thank you for playing!");
-#ifdef DEVEL_BUILD
-	hob::Test::deinit();
-#endif /*< DEVEL_BUILD */
+	plog_info("Thank you for playing! (exit code: %" PRId32 ")", exitCode);
+	test_deinit();
 
-	return EXIT_SUCCESS;
+	return exitCode;
 }

@@ -108,9 +108,9 @@ Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a825824eea95141b0da119c2235b08e73"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LogManager.html#a825824eea95141b0da119c2235b08e73">isCommandTerminalMode</a> (const char *command) noexcept</td></tr>
 <tr class="memdesc:a825824eea95141b0da119c2235b08e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the command starts with "tm".  <a href="classhob_1_1LogManager.html#a825824eea95141b0da119c2235b08e73">More...</a><br /></td></tr>
 <tr class="separator:a825824eea95141b0da119c2235b08e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea19c9410580e66f8d3fd9afc30dd7b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LogManager.html#a7ea19c9410580e66f8d3fd9afc30dd7b">isCommandBufferSize</a> (const char *command) noexcept</td></tr>
-<tr class="memdesc:a7ea19c9410580e66f8d3fd9afc30dd7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the command starts with "bs".  <a href="classhob_1_1LogManager.html#a7ea19c9410580e66f8d3fd9afc30dd7b">More...</a><br /></td></tr>
-<tr class="separator:a7ea19c9410580e66f8d3fd9afc30dd7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053c1e13df768fdc59a89866d5ae8487"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LogManager.html#a053c1e13df768fdc59a89866d5ae8487">isCommandBufferMode</a> (const char *command) noexcept</td></tr>
+<tr class="memdesc:a053c1e13df768fdc59a89866d5ae8487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the command starts with "bm".  <a href="classhob_1_1LogManager.html#a053c1e13df768fdc59a89866d5ae8487">More...</a><br /></td></tr>
+<tr class="separator:a053c1e13df768fdc59a89866d5ae8487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a618aed1f1526b1123a08f2e6ac80925f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1LogManager.html#a618aed1f1526b1123a08f2e6ac80925f">isCommand</a> (const char *command, const char *identifier) noexcept</td></tr>
 <tr class="memdesc:a618aed1f1526b1123a08f2e6ac80925f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the command starts with a string.  <a href="classhob_1_1LogManager.html#a618aed1f1526b1123a08f2e6ac80925f">More...</a><br /></td></tr>
 <tr class="separator:a618aed1f1526b1123a08f2e6ac80925f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -402,8 +402,8 @@ false - the command is invalid or is requesting something else. </dd></dl>
 
 </div>
 </div>
-<a id="a7ea19c9410580e66f8d3fd9afc30dd7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ea19c9410580e66f8d3fd9afc30dd7b">&#9670;&nbsp;</a></span>isCommandBufferSize()</h2>
+<a id="a053c1e13df768fdc59a89866d5ae8487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053c1e13df768fdc59a89866d5ae8487">&#9670;&nbsp;</a></span>isCommandBufferMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +412,7 @@ false - the command is invalid or is requesting something else. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool hob::LogManager::isCommandBufferSize </td>
+          <td class="memname">bool hob::LogManager::isCommandBufferMode </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -426,7 +426,7 @@ false - the command is invalid or is requesting something else. </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Checks if the command starts with "bs". </p>
+<p>Checks if the command starts with "bm". </p>
 <hr  />
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -434,7 +434,7 @@ false - the command is invalid or is requesting something else. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true - the command is requesting log buffer size. </dd>
+<dl class="section return"><dt>Returns</dt><dd>true - the command is requesting log buffer mode. </dd>
 <dd>
 false - the command is invalid or is requesting something else. </dd></dl>
 

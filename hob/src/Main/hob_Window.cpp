@@ -41,27 +41,22 @@
 namespace hob
 {
 
-SDL_Renderer* Window::create(void) noexcept(false)
+Window::Window(void) noexcept(false)
+	: window{ SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0U) }
+	, renderer{ SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED) }
 {
-	SDL_Renderer* renderer = nullptr;
+	plog_debug("Window is being constructed.");
 
-	plog_debug("Window is being created.");
-	plog_assert(nullptr != this);
-	plog_assert(nullptr == window);
-
-	window = SDL_CreateWindow("Heap-of-Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0U);
 	if (nullptr == window)
 	{
 		plog_fatal("Window failed to be created! (SDL error message: %s)", SDL_GetError());
 		throw std::exception();
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	if (nullptr == renderer)
 	{
 		plog_fatal("Renderer failed to be created! (SDL error message: %s)", SDL_GetError());
 		SDL_DestroyWindow(window);
-		window = nullptr;
 
 		throw std::exception();
 	}
@@ -76,19 +71,32 @@ SDL_Renderer* Window::create(void) noexcept(false)
 		plog_warn("Renderer failed to set draw color to white! (SDL error message: %s)", SDL_GetError());
 	}
 
+#ifdef DEVEL_BUILD
+	logInfo();
+#endif /*< DEVEL_BUILD */
+
 	plog_info("Window has been created successfully!");
-	return renderer;
 }
 
-void Window::destroy(void) noexcept
+Window::~Window(void) noexcept
 {
-	plog_debug("Window is being destroyed.");
-	plog_assert(nullptr != this);
-	plog_assert(nullptr != window);
+	plog_debug("Window is being destructed.");
+	plog_expect(nullptr != window);
+	plog_expect(nullptr != renderer);
 
 	SDL_DestroyWindow(window);
-	window = nullptr;
+	SDL_DestroyRenderer(renderer);
+
 	plog_info("Window was destroyed successfully!");
+}
+
+SDL_Renderer* Window::getRenderer(void) const noexcept
+{
+	plog_assert(nullptr != this);
+	plog_verbose("Renderer is being got. (renderer: 0x%p)", renderer);
+	plog_assert(nullptr != renderer);
+
+	return renderer;
 }
 
 // void Window::setIcon(void) const noexcept
@@ -113,7 +121,7 @@ void Window::destroy(void) noexcept
 
 #ifdef DEVEL_BUILD
 
-void Window::logInfo(SDL_Renderer* const renderer) const noexcept
+void Window::logInfo(void) const noexcept
 {
 	SDL_RendererInfo rendererInfo	= {};
 	SDL_PowerState	 powerState		= SDL_POWERSTATE_UNKNOWN;

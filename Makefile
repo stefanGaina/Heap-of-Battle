@@ -12,8 +12,8 @@ export BIN := bin
 
 export INSTALL_DIRECTORY := Heap-of-Battle
 
-FORMAT            = clang-format -i
-COMPILATION_TIMER = cd vendor/Compilation-Timer && ./compilation-timer
+FORMAT			  := clang-format -i
+COMPILATION_TIMER := cd vendor/Compilation-Timer && ./compilation-timer
 
 ### MAKE SUBDIRECTORIES ###
 all: start_timer format debug install install_plog doxygen end_timer

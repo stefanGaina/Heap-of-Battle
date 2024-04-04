@@ -104,9 +104,9 @@ Game::Game(const bool isAlliance) noexcept
 	, prices{ 5U, 10U, 15U, 25U, 30U, 50U }
 	, faction{ isAlliance }
 	, turn{ isAlliance }
-	, gold{ 100U }
+	, gold{ 20U }
 {
-	plog_trace("Game is being constructed. (faction: %s)", true == isAlliance ? "alliance" : "horde");
+	plog_trace("Game is being constructed. (faction: %s)", FACTION_TO_STRING(isAlliance));
 }
 
 void Game::endTurn(void) noexcept

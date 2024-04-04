@@ -59,6 +59,13 @@
  *****************************************************************************************************/
 #define HOB_MUSIC_FILE_PATH(path) "assets/sounds/" path ".mp3"
 
+/** ***************************************************************************************************
+ * @brief Transforms the faction from boolean to string format.
+ * @param isAlliance: true - Alliance, false - Horde.
+ * @return The faction in string format.
+ *****************************************************************************************************/
+#define FACTION_TO_STRING(isAlliance) true == isAlliance ? "Alliance" : "Horde"
+
 /******************************************************************************************************
  * CONSTANTS
  *****************************************************************************************************/
@@ -95,12 +102,11 @@ inline constexpr int32_t SCREEN_HEIGHT = 9 * SCALE;
  *****************************************************************************************************/
 enum class Scene
 {
-	QUIT		= 0, /**< The game is closing.             */
-	MAIN_MENU	= 1, /**< The game is in main menu.        */
-	LOCAL_MENU	= 2, /**< The game is in LAN menu.         */
-	SETTINGS	= 3, /**< The game is in settings menu.    */
-	MULTIPLAYER = 4, /**< The game is in multiplayer menu. */
-	MAP_1		= 5	 /**< The game is in map 1.            */
+	QUIT		= 0, /**< The game is closing.			   */
+	MAIN_MENU	= 1, /**< The game is in main menu.		   */
+	LOCAL_MENU	= 2, /**< The game is in LAN menu.		   */
+	SETTINGS	= 3, /**< The game is in settings menu.	   */
+	MAP_1		= 4	 /**< The game is in map 1.			   */
 };
 
 /** ***************************************************************************************************

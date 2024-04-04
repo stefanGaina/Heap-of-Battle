@@ -16,22 +16,16 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file hob_Window.hpp
+ * @file hob_Initializer.hpp
  * @author Gaina Stefan
- * @date 23.07.2023
- * @brief This file defines the class and method prototypes of the window.
+ * @date 28.03.2024
+ * @brief This file defines the class and method prototypes of the initializer.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_WINDOW_HPP_
-#define HOB_WINDOW_HPP_
-
-/******************************************************************************************************
- * HEADER FILE INCLUDES
- *****************************************************************************************************/
-
-#include "hob_Types.hpp"
+#ifndef HOB_INITIALIZER_HPP_
+#define HOB_INITIALIZER_HPP_
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
@@ -41,50 +35,30 @@ namespace hob
 {
 
 /** ***************************************************************************************************
- * @brief Class used to set up the screen where graphics will be rendered.
+ * @brief Class used to control the intialization of subsystems.
+ * @details The initialization is done through constructor and deinitialization is done through
+ * destructor. The object should be instantiated before all else ensuring it will be the last to do
+ * the clean-up.
  *****************************************************************************************************/
-class Window final
+class Initializer final
 {
 public:
 	/** ***********************************************************************************************
-	 * @brief Creates the window where the textures will be renderer.
+	 * @brief Checks for loaded libraries versions and initializes SDL, SDL image, SDL mixer, SDL ttf,
+	 * and Plog in case of development builds.
 	 * @param void
-	 * @return The rendering context of the window.
+	 * @throws std::exception If the initialization of any of the subsystems fails.
 	 *************************************************************************************************/
-	SDL_Renderer* create(void) noexcept(false);
+	Initializer(void) noexcept(false);
 
 	/** ***********************************************************************************************
-	 * @brief Destroys the created window and renderer.
+	 * @brief Deinitializes SDL, SDL image, SDL mixer, SDL ttff and deinitializes Plog in case of
+	 * development builds.
 	 * @param void
-	 * @return void
 	 *************************************************************************************************/
-	void destroy(void) noexcept;
-
-	// /** ***********************************************************************************************
-	//  * @brief Sets the icon of the window.
-	//  * @param void
-	//  * @return void
-	//  *************************************************************************************************/
-	// void setIcon(void) const noexcept;
-
-#ifdef DEVEL_BUILD
-
-	/** ***********************************************************************************************
-	 * @brief Logs information about renderer and power for debugging purposes.
-	 * @param renderer: Rendering context of the window.
-	 * @return void
-	 *************************************************************************************************/
-	void logInfo(SDL_Renderer* renderer) const noexcept;
-
-#endif /*< DEVEL_BUILD */
-
-private:
-	/** ***********************************************************************************************
-	 * @brief The SDL window handle.
-	 *************************************************************************************************/
-	SDL_Window* window;
+	~Initializer(void) noexcept;
 };
 
 } /*< namespace hob */
 
-#endif /*< HOB_WINDOW_HPP_ */
+#endif /*< HOB_INITIALIZER_HPP_ */

@@ -69,43 +69,150 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classhob_1_1Game-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">hob::Game Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Static class that initializes subsystems and run the scene loop of the game.  
+<p>Main class that runs the scene loop of the game.  
  <a href="classhob_1_1Game.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="hob__Game_8hpp_source.html">hob_Game.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for hob::Game:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhob_1_1Game__coll__graph.png" border="0" usemap="#ahob_1_1Game_coll__map" alt="Collaboration graph"/></div>
+<map name="ahob_1_1Game_coll__map" id="ahob_1_1Game_coll__map">
+<area shape="rect" title="Main class that runs the scene loop of the game." alt="" coords="944,284,1037,311"/>
+<area shape="rect" href="classhob_1_1Music.html" title="Music wrapper." alt="" coords="673,36,765,63"/>
+<area shape="rect" href="classhob_1_1Socket.html" title="Client socket wrapper for server types." alt="" coords="671,87,768,113"/>
+<area shape="rect" href="classhobServer_1_1Server.html" title="This class offers a way to run the server for matches." alt="" coords="650,137,789,164"/>
+<area shape="rect" href="classhobServer_1_1Timer.html" title="Timer with second precision." alt="" coords="317,33,451,60"/>
+<area shape="rect" title=" " alt="" coords="19,249,111,276"/>
+<area shape="rect" href="classhob_1_1Ping.html" title="Displays the latency (milliseconds)." alt="" coords="678,360,761,387"/>
+<area shape="rect" title=" " alt="" coords="19,33,111,60"/>
+<area shape="rect" href="classhobServer_1_1Socket.html" title="Server socket that supports connections from 2 clients." alt="" coords="315,84,453,111"/>
+<area shape="rect" title=" " alt="" coords="307,135,461,161"/>
+<area shape="rect" title=" " alt="" coords="640,193,799,234"/>
+<area shape="rect" href="classhob_1_1Faction.html" title="Global user faction (Alliance | Horde)." alt="" coords="669,259,769,285"/>
+<area shape="rect" href="classhob_1_1Initializer.html" title="Class used to control the intialization of subsystems." alt="" coords="662,309,777,336"/>
+<area shape="rect" href="classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,525,125,552"/>
+<area shape="rect" href="classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="319,525,449,552"/>
+<area shape="rect" href="classhob_1_1TextureInitializer.html" title=" " alt="" coords="259,576,509,632"/>
+<area shape="rect" href="classhob_1_1AsyncQueue.html" title=" " alt="" coords="275,475,493,501"/>
+<area shape="rect" href="classhob_1_1Texture.html" title="Texture wrapper." alt="" coords="333,311,435,337"/>
+<area shape="rect" href="classhob_1_1Cursor.html" title="Provides a way to customize the cursor." alt="" coords="671,411,767,437"/>
+<area shape="rect" title=" " alt="" coords="640,462,799,503"/>
+<area shape="rect" href="classhob_1_1Window.html" title="Class used to set up the screen where graphics will be rendered." alt="" coords="666,528,773,555"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2709039035c93d19d7dd79b71aaf9ac7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a2709039035c93d19d7dd79b71aaf9ac7">run</a> (void) noexcept(false)</td></tr>
-<tr class="memdesc:a2709039035c93d19d7dd79b71aaf9ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all subsystems and runs the scenes of the game.  <a href="classhob_1_1Game.html#a2709039035c93d19d7dd79b71aaf9ac7">More...</a><br /></td></tr>
-<tr class="separator:a2709039035c93d19d7dd79b71aaf9ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adcbf4f9263e44262b0f998f3c6b9d85a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#adcbf4f9263e44262b0f998f3c6b9d85a">Game</a> (void) noexcept(false)</td></tr>
+<tr class="memdesc:adcbf4f9263e44262b0f998f3c6b9d85a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all subsystems and creates the window.  <a href="classhob_1_1Game.html#adcbf4f9263e44262b0f998f3c6b9d85a">More...</a><br /></td></tr>
+<tr class="separator:adcbf4f9263e44262b0f998f3c6b9d85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef662e36cc9a4ab727cc75f4fde8795"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a4ef662e36cc9a4ab727cc75f4fde8795">run</a> (void) noexcept</td></tr>
+<tr class="separator:a4ef662e36cc9a4ab727cc75f4fde8795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a3cac9a71ca9d815a7d421d742dea7f37"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a3cac9a71ca9d815a7d421d742dea7f37">init</a> (void) noexcept(false)</td></tr>
-<tr class="memdesc:a3cac9a71ca9d815a7d421d742dea7f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for loaded libraries versions and initializes SDL, SDL image, SDL mixer, SDL ttf, and Plog in case of development builds.  <a href="classhob_1_1Game.html#a3cac9a71ca9d815a7d421d742dea7f37">More...</a><br /></td></tr>
-<tr class="separator:a3cac9a71ca9d815a7d421d742dea7f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cf42810585a5e182847717a4cae0f44"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a5cf42810585a5e182847717a4cae0f44">deinit</a> (void) noexcept</td></tr>
-<tr class="memdesc:a5cf42810585a5e182847717a4cae0f44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deinitializes SDL, SDL image, SDL mixer, SDL ttff and deinitializes Plog in case of development builds.  <a href="classhob_1_1Game.html#a5cf42810585a5e182847717a4cae0f44">More...</a><br /></td></tr>
-<tr class="separator:a5cf42810585a5e182847717a4cae0f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a681418f77c45d283b21c9825b40da5c2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a681418f77c45d283b21c9825b40da5c2">sceneLoop</a> (SDL_Renderer *renderer) noexcept</td></tr>
-<tr class="memdesc:a681418f77c45d283b21c9825b40da5c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the game loop for the current scene.  <a href="classhob_1_1Game.html#a681418f77c45d283b21c9825b40da5c2">More...</a><br /></td></tr>
-<tr class="separator:a681418f77c45d283b21c9825b40da5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab316ad02bb470adf1da1e9e6a52517f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#ab316ad02bb470adf1da1e9e6a52517f9">doScene</a> (void) noexcept</td></tr>
+<tr class="memdesc:ab316ad02bb470adf1da1e9e6a52517f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the game loop for the current scene.  <a href="classhob_1_1Game.html#ab316ad02bb470adf1da1e9e6a52517f9">More...</a><br /></td></tr>
+<tr class="separator:ab316ad02bb470adf1da1e9e6a52517f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af3c0a9a5a1a7608667ab93891c49489f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Initializer.html">Initializer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#af3c0a9a5a1a7608667ab93891c49489f">initializer</a></td></tr>
+<tr class="memdesc:af3c0a9a5a1a7608667ab93891c49489f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#af3c0a9a5a1a7608667ab93891c49489f">More...</a><br /></td></tr>
+<tr class="separator:af3c0a9a5a1a7608667ab93891c49489f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c3566f6d7a0c7ae0f18c7f76e60d16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Window.html">Window</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a88c3566f6d7a0c7ae0f18c7f76e60d16">window</a></td></tr>
+<tr class="memdesc:a88c3566f6d7a0c7ae0f18c7f76e60d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a88c3566f6d7a0c7ae0f18c7f76e60d16">More...</a><br /></td></tr>
+<tr class="separator:a88c3566f6d7a0c7ae0f18c7f76e60d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf80fba3ebc76786c9e8af6bc84e5f65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacehob.html#adce1020898cd8a4512fe3372fffe0fdf">Scene</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#adf80fba3ebc76786c9e8af6bc84e5f65">nextScene</a></td></tr>
+<tr class="memdesc:adf80fba3ebc76786c9e8af6bc84e5f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#adf80fba3ebc76786c9e8af6bc84e5f65">More...</a><br /></td></tr>
+<tr class="separator:adf80fba3ebc76786c9e8af6bc84e5f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b49cac92b4cf5818634e03c6ba1ee8"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classhob_1_1Loop.html">Loop</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a37b49cac92b4cf5818634e03c6ba1ee8">sceneLoop</a></td></tr>
+<tr class="memdesc:a37b49cac92b4cf5818634e03c6ba1ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a37b49cac92b4cf5818634e03c6ba1ee8">More...</a><br /></td></tr>
+<tr class="separator:a37b49cac92b4cf5818634e03c6ba1ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d13b84e92b31e438a357a39a6ae3aa4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Cursor.html">Cursor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a8d13b84e92b31e438a357a39a6ae3aa4">cursor</a></td></tr>
+<tr class="memdesc:a8d13b84e92b31e438a357a39a6ae3aa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a8d13b84e92b31e438a357a39a6ae3aa4">More...</a><br /></td></tr>
+<tr class="separator:a8d13b84e92b31e438a357a39a6ae3aa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7961f221af0dc87bec24bd52d716fd44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Music.html">Music</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a7961f221af0dc87bec24bd52d716fd44">music</a></td></tr>
+<tr class="memdesc:a7961f221af0dc87bec24bd52d716fd44"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a7961f221af0dc87bec24bd52d716fd44">More...</a><br /></td></tr>
+<tr class="separator:a7961f221af0dc87bec24bd52d716fd44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59533ee0fb3893958842bf63fcc152fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Faction.html">Faction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a59533ee0fb3893958842bf63fcc152fe">faction</a></td></tr>
+<tr class="memdesc:a59533ee0fb3893958842bf63fcc152fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a59533ee0fb3893958842bf63fcc152fe">More...</a><br /></td></tr>
+<tr class="separator:a59533ee0fb3893958842bf63fcc152fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a812b72a76a9ada225708664d19911d28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhobServer_1_1Server.html">hobServer::Server</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a812b72a76a9ada225708664d19911d28">server</a></td></tr>
+<tr class="memdesc:a812b72a76a9ada225708664d19911d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a812b72a76a9ada225708664d19911d28">More...</a><br /></td></tr>
+<tr class="separator:a812b72a76a9ada225708664d19911d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49b524c591efebb393aed6d9114c9984"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Socket.html">Socket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a49b524c591efebb393aed6d9114c9984">socket</a></td></tr>
+<tr class="memdesc:a49b524c591efebb393aed6d9114c9984"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a49b524c591efebb393aed6d9114c9984">More...</a><br /></td></tr>
+<tr class="separator:a49b524c591efebb393aed6d9114c9984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0207e14027b31b77a4cd5c905381d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhob_1_1Ping.html">Ping</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#a3b0207e14027b31b77a4cd5c905381d6">ping</a></td></tr>
+<tr class="memdesc:a3b0207e14027b31b77a4cd5c905381d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#a3b0207e14027b31b77a4cd5c905381d6">More...</a><br /></td></tr>
+<tr class="separator:a3b0207e14027b31b77a4cd5c905381d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a28457e7261386ae5a1590700e6cad"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#ac3a28457e7261386ae5a1590700e6cad">loadingScreen</a></td></tr>
+<tr class="memdesc:ac3a28457e7261386ae5a1590700e6cad"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#ac3a28457e7261386ae5a1590700e6cad">More...</a><br /></td></tr>
+<tr class="separator:ac3a28457e7261386ae5a1590700e6cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad620f21547c92d30602fd6c777515ca6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhob_1_1Game.html#ad620f21547c92d30602fd6c777515ca6">isRunning</a></td></tr>
+<tr class="memdesc:ad620f21547c92d30602fd6c777515ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <a href="classhob_1_1Game.html#ad620f21547c92d30602fd6c777515ca6">More...</a><br /></td></tr>
+<tr class="separator:ad620f21547c92d30602fd6c777515ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Static class that initializes subsystems and run the scene loop of the game. </p>
+<div class="textblock"><p>Main class that runs the scene loop of the game. </p>
 <hr  />
- </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2709039035c93d19d7dd79b71aaf9ac7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2709039035c93d19d7dd79b71aaf9ac7">&#9670;&nbsp;</a></span>run()</h2>
+<p>This stores the common data needed by the scenes (they need to persist without destructing through scene changes), so the size of this class is large, consider instantiating it on the heap. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adcbf4f9263e44262b0f998f3c6b9d85a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcbf4f9263e44262b0f998f3c6b9d85a">&#9670;&nbsp;</a></span>Game()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hob::Game::Game </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes all subsystems and creates the window. </p>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::exception</td><td>If the initialization of any of the subsystems fails or the creation of the window fails. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4ef662e36cc9a4ab727cc75f4fde8795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef662e36cc9a4ab727cc75f4fde8795">&#9670;&nbsp;</a></span>run()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,12 +230,10 @@ Static Private Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Initializes all subsystems and runs the scenes of the game. </p>
 <hr  />
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -137,17 +242,11 @@ Static Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::exception</td><td>If the initialization of any of the subsystems fails or the creation of the window fails. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
-<a id="a3cac9a71ca9d815a7d421d742dea7f37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cac9a71ca9d815a7d421d742dea7f37">&#9670;&nbsp;</a></span>init()</h2>
+<a id="ab316ad02bb470adf1da1e9e6a52517f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab316ad02bb470adf1da1e9e6a52517f9">&#9670;&nbsp;</a></span>doScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +255,7 @@ Static Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hob::Game::init </td>
+          <td class="memname">void hob::Game::doScene </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -165,85 +264,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Checks for loaded libraries versions and initializes SDL, SDL image, SDL mixer, SDL ttf, and Plog in case of development builds. </p>
-<hr  />
- <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::exception</td><td>If the initialization of any of the subsystems fails. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a5cf42810585a5e182847717a4cae0f44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cf42810585a5e182847717a4cae0f44">&#9670;&nbsp;</a></span>deinit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hob::Game::deinit </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Deinitializes SDL, SDL image, SDL mixer, SDL ttff and deinitializes Plog in case of development builds. </p>
-<hr  />
- <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">void</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-
-</div>
-</div>
-<a id="a681418f77c45d283b21c9825b40da5c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a681418f77c45d283b21c9825b40da5c2">&#9670;&nbsp;</a></span>sceneLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hob::Game::sceneLoop </td>
-          <td>(</td>
-          <td class="paramtype">SDL_Renderer *&#160;</td>
-          <td class="paramname"><em>renderer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -252,12 +273,313 @@ Static Private Member Functions</h2></td></tr>
 <hr  />
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">renderer</td><td>Rendering context of the window. </td></tr>
+    <tr><td class="paramname">void</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af3c0a9a5a1a7608667ab93891c49489f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c0a9a5a1a7608667ab93891c49489f">&#9670;&nbsp;</a></span>initializer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Initializer.html">Initializer</a> hob::Game::initializer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a88c3566f6d7a0c7ae0f18c7f76e60d16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c3566f6d7a0c7ae0f18c7f76e60d16">&#9670;&nbsp;</a></span>window</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Window.html">Window</a> hob::Game::window</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="adf80fba3ebc76786c9e8af6bc84e5f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf80fba3ebc76786c9e8af6bc84e5f65">&#9670;&nbsp;</a></span>nextScene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehob.html#adce1020898cd8a4512fe3372fffe0fdf">Scene</a> hob::Game::nextScene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a37b49cac92b4cf5818634e03c6ba1ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b49cac92b4cf5818634e03c6ba1ee8">&#9670;&nbsp;</a></span>sceneLoop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhob_1_1Loop.html">Loop</a>&gt; hob::Game::sceneLoop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a8d13b84e92b31e438a357a39a6ae3aa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d13b84e92b31e438a357a39a6ae3aa4">&#9670;&nbsp;</a></span>cursor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Cursor.html">Cursor</a> hob::Game::cursor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a7961f221af0dc87bec24bd52d716fd44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7961f221af0dc87bec24bd52d716fd44">&#9670;&nbsp;</a></span>music</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Music.html">Music</a> hob::Game::music</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a59533ee0fb3893958842bf63fcc152fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59533ee0fb3893958842bf63fcc152fe">&#9670;&nbsp;</a></span>faction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Faction.html">Faction</a> hob::Game::faction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a812b72a76a9ada225708664d19911d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a812b72a76a9ada225708664d19911d28">&#9670;&nbsp;</a></span>server</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhobServer_1_1Server.html">hobServer::Server</a> hob::Game::server</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a49b524c591efebb393aed6d9114c9984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49b524c591efebb393aed6d9114c9984">&#9670;&nbsp;</a></span>socket</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Socket.html">Socket</a> hob::Game::socket</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="a3b0207e14027b31b77a4cd5c905381d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0207e14027b31b77a4cd5c905381d6">&#9670;&nbsp;</a></span>ping</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhob_1_1Ping.html">Ping</a> hob::Game::ping</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="ac3a28457e7261386ae5a1590700e6cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a28457e7261386ae5a1590700e6cad">&#9670;&nbsp;</a></span>loadingScreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhob_1_1LoadingScreen.html">LoadingScreen</a>&gt; hob::Game::loadingScreen</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
+</div>
+</div>
+<a id="ad620f21547c92d30602fd6c777515ca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad620f21547c92d30602fd6c777515ca6">&#9670;&nbsp;</a></span>isRunning</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hob::Game::isRunning</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<hr  />
+ 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

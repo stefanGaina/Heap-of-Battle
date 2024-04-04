@@ -93,11 +93,11 @@ void LogManager::handleSetCommand(const char* command) noexcept
 		return;
 	}
 
-	if (true == isCommandBufferSize(command))
+	if (true == isCommandBufferMode(command))
 	{
-		if (FALSE == plog_set_buffer_size(atoll(command + 3)))
+		if (FALSE == plog_set_buffer_mode(atoi(command + 3)))
 		{
-			plog_error("Failed to set log buffer size!");
+			plog_error("Failed to set log buffer mode!");
 		}
 		return;
 	}
@@ -130,13 +130,13 @@ void LogManager::handleGetCommand(const char* const command) noexcept
 
 	if (true == isCommandTerminalMode(command))
 	{
-		plog_info("Log terminal mode: %" PRIu32 "!", plog_get_terminal_mode());
+		plog_info("Log terminal mode: %" PRId32 "!", plog_get_terminal_mode());
 		return;
 	}
 
-	if (true == isCommandBufferSize(command))
+	if (true == isCommandBufferMode(command))
 	{
-		plog_info("Log buffer size: %" PRIu64 "!", plog_get_buffer_size());
+		plog_info("Log buffer mode: %" PRId32 "!", plog_get_buffer_mode());
 		return;
 	}
 
@@ -167,10 +167,10 @@ bool LogManager::isCommandTerminalMode(const char* const command) noexcept
 	return isCommand(command, "tm");
 }
 
-bool LogManager::isCommandBufferSize(const char* const command) noexcept
+bool LogManager::isCommandBufferMode(const char* const command) noexcept
 {
 	plog_assert(nullptr != command);
-	return isCommand(command, "bs");
+	return isCommand(command, "bm");
 }
 
 bool LogManager::isCommand(const char* const command, const char* const identifier) noexcept

@@ -59,11 +59,8 @@ FramesPerSecond::FramesPerSecond(SDL_Renderer* const renderer) noexcept
 {
 	plog_trace("Frames per second is being constructed.");
 	plog_assert(nullptr != renderer);
+	plog_expect_m(nullptr != font, TTF_GetError());
 
-	if (nullptr == font)
-	{
-		plog_error("Font failed to be opened! (TTF error message: %s)", TTF_GetError());
-	}
 	update(renderer);
 }
 

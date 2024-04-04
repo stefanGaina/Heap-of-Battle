@@ -5,21 +5,21 @@
 # Description: This Makefile is used to generate the game executable.
 #######################################################################################################
 
-CFLAGS  = -Wextra -Wall -Werror -Wno-nonnull-compare -fanalyzer -pthread
-LDFLAGS = -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)        -lHOB_server \
-		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)          -lHOB_game   \
+CFLAGS  = -Wextra -Wall -Werror -Wno-nonnull-compare -fanalyzer -pthread -DSDL_MAIN_HANDLED
+LDFLAGS = -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Server/$(LIB)		   -lHOB_server \
+		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../hob-Game/$(LIB)		   -lHOB_game	\
 		  -Wl,-Bdynamic,-rpath,'$$ORIGIN'/$(LIB) -L../vendor/Obfuscator/$(LIB) -lobfuscator \
-		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'                  \
+		  -Wl,-rpath,'$$ORIGIN'/$(LIB),-rpath-link,'../vendor/SDL2/$(LIB)'					\
 		  -L../vendor/SDL2/$(LIB) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
-INCLUDES = -Iinclude/Common               \
-		   -Iinclude/Game/Common          \
-		   -Iinclude/Game/Scenario1       \
-		   -Iinclude/Main                 \
-		   -Iinclude/Menu                 \
-		   -I../hob-Server/include        \
-		   -I../hob-Game/include          \
-		   -I../vendor/Plog/include       \
+INCLUDES = -Iinclude/Common				  \
+		   -Iinclude/Game/Common		  \
+		   -Iinclude/Game/Scenario1		  \
+		   -Iinclude/Main				  \
+		   -Iinclude/Menu				  \
+		   -I../hob-Server/include		  \
+		   -I../hob-Game/include		  \
+		   -I../vendor/Plog/include		  \
 		   -I../vendor/Obfuscator/include \
 		   -I../vendor/SDL2/include
 

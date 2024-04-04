@@ -91,12 +91,12 @@ Icons::Icons(SDL_Renderer* const renderer) noexcept
 
 void Icons::hide(void) noexcept
 {
-	size_t index = 0UL;
+	size_t index = ICONS_COMPONENT_INDEX_1;
 
-	plog_verbose("Icons are being hidden.");
+	plog_trace("Icons are being hidden.");
 	plog_assert(nullptr != this);
 
-	for (index = ICONS_COMPONENT_INDEX_1; index <= ICONS_COMPONENT_INDEX_5; ++index)
+	for (; index <= ICONS_COMPONENT_INDEX_5; ++index)
 	{
 		componentContainer[index].updateTexture(nullptr);
 	}
@@ -104,51 +104,62 @@ void Icons::hide(void) noexcept
 
 void Icons::setAllianceKeep(const bool isAlliance) noexcept
 {
-	size_t index = 0UL;
-
-	plog_verbose("Icons are being set to indicate alliance keep.");
+	plog_trace("Alliance keep icons are being set. (faction: %s)", FACTION_TO_STRING(isAlliance));
 	plog_assert(nullptr != this);
 
-	if (true == isAlliance)
-	{
-		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_ELF]);
-		componentContainer[ICONS_COMPONENT_INDEX_2].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_KNIGHT]);
-		componentContainer[ICONS_COMPONENT_INDEX_3].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_GRYPHON_RIDER]);
-		componentContainer[ICONS_COMPONENT_INDEX_4].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_MAGE]);
-		componentContainer[ICONS_COMPONENT_INDEX_5].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_CASTLE]);
-
-		return;
-	}
-
-	componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_KEEP]);
-	for (index = ICONS_COMPONENT_INDEX_2; index <= ICONS_COMPONENT_INDEX_5; ++index)
-	{
-		componentContainer[index].updateTexture(nullptr);
-	}
+	setKeep(isAlliance, true, ICONS_TEXTURE_INDEX_ELF, ICONS_TEXTURE_INDEX_KEEP);
 }
 
 void Icons::setHordeKeep(const bool isAlliance) noexcept
 {
-	size_t index = 0UL;
-
-	plog_verbose("Icons are being set to indicate horde keep.");
+	plog_trace("Horde keep icons are being set. (faction: %s)", FACTION_TO_STRING(isAlliance));
 	plog_assert(nullptr != this);
 
-	if (false == isAlliance)
-	{
-		componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_TROLL]);
-		componentContainer[ICONS_COMPONENT_INDEX_2].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_DEATH_RIDER]);
-		componentContainer[ICONS_COMPONENT_INDEX_3].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_DRAGON]);
-		componentContainer[ICONS_COMPONENT_INDEX_4].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_OGRE]);
-		componentContainer[ICONS_COMPONENT_INDEX_5].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_STRONGHOLD]);
+	setKeep(isAlliance, false, ICONS_TEXTURE_INDEX_TROLL, ICONS_TEXTURE_INDEX_HALL);
+}
 
+void Icons::setKeep(const bool isAlliance, const bool userFaction, const size_t unitTextureIndex, const size_t keepTextureIndex) noexcept
+{
+	plog_verbose("Keep icons are being set. (faction: %s) (user faction: %s) (unit index: %" PRIu64 ") (keep index: % " PRIu64 ")", FACTION_TO_STRING(isAlliance),
+				 FACTION_TO_STRING(userFaction), unitTextureIndex, keepTextureIndex);
+	plog_assert(nullptr != this);
+	plog_assert(ICONS_TEXTURE_INDEX_FOOTMAN <= unitTextureIndex && ICONS_TEXTURES_COUNT > unitTextureIndex);
+	plog_assert(ICONS_TEXTURE_INDEX_FOOTMAN <= keepTextureIndex && ICONS_TEXTURES_COUNT > keepTextureIndex);
+
+	if (userFaction == isAlliance)
+	{
+		setKeep(unitTextureIndex);
 		return;
 	}
+	setFirstIcon(keepTextureIndex);
+}
 
-	componentContainer[ICONS_COMPONENT_INDEX_1].updateTexture(textureContainer[ICONS_TEXTURE_INDEX_HALL]);
-	for (index = ICONS_COMPONENT_INDEX_2; index <= ICONS_COMPONENT_INDEX_5; ++index)
+void Icons::setKeep(size_t textureIndex) noexcept
+{
+	size_t componentIndex = ICONS_COMPONENT_INDEX_1;
+
+	plog_verbose("Keep icons are being set. (index: %" PRIu64 ")", textureIndex);
+	plog_assert(nullptr != this);
+	plog_assert(ICONS_TEXTURE_INDEX_FOOTMAN <= textureIndex && ICONS_TEXTURES_COUNT > textureIndex);
+
+	for (; componentIndex <= ICONS_COMPONENT_INDEX_5; ++componentIndex, ++textureIndex)
 	{
-		componentContainer[index].updateTexture(nullptr);
+		componentContainer[componentIndex].updateTexture(textureContainer[textureIndex]);
+	}
+}
+
+void Icons::setFirstIcon(const size_t textureIndex) noexcept
+{
+	size_t componentIndex = ICONS_COMPONENT_INDEX_1;
+
+	plog_verbose("First icon is being set. (index: %" PRIu64 ")", textureIndex);
+	plog_assert(nullptr != this);
+	plog_assert(ICONS_TEXTURE_INDEX_FOOTMAN <= textureIndex && ICONS_TEXTURES_COUNT > textureIndex);
+
+	componentContainer[componentIndex].updateTexture(textureContainer[textureIndex]);
+	for (componentIndex = ICONS_COMPONENT_INDEX_2; componentIndex <= ICONS_COMPONENT_INDEX_5; ++componentIndex)
+	{
+		componentContainer[componentIndex].updateTexture(nullptr);
 	}
 }
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ranged_1358',['RANGED',['../namespacehobGame.html#ac67b60faa6b04f7d6fc3db3fdc5086afa5a40ccc917a4a5ad53c21209abbdf2a3',1,'hobGame']]]
+  ['quit_1459',['QUIT',['../namespacehob.html#adce1020898cd8a4512fe3372fffe0fdfa5dfd352dd6b7a5d118237fcf1e19fcc1',1,'hob']]]
 ];

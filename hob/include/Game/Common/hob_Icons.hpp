@@ -34,7 +34,7 @@ namespace hob
 /**
  * @brief Enumerates icons' textures index.
 */
-enum IconsTextureIndex
+enum IconsTextureIndex : uint8_t
 {
 	ICONS_TEXTURE_INDEX_FOOTMAN		  = 0,	/**< TODO */
 	ICONS_TEXTURE_INDEX_ELF			  = 1,	/**< TODO */
@@ -56,7 +56,7 @@ enum IconsTextureIndex
 /**
  * @brief Enumerates icons' changeable components index.
 */
-enum IconsComponentIndex
+enum IconsComponentIndex : uint8_t
 {
 	ICONS_COMPONENT_INDEX_1 = 0, /**< TODO */
 	ICONS_COMPONENT_INDEX_2 = 1, /**< TODO */
@@ -98,6 +98,11 @@ public:
 	 * @return void
 	*/
 	void setHordeKeep(bool isAlliance) noexcept;
+
+private:
+	void setKeep(bool isAlliance, bool userFaction, size_t unitTextureIndex, size_t keepTextureIndex) noexcept;
+	void setKeep(size_t textureIndex) noexcept;
+	void setFirstIcon(size_t textureIndex) noexcept;
 };
 
 } /*< namespace hob */

@@ -1,7 +1,7 @@
 <map id="hob::Gold" name="hob::Gold">
-<area shape="rect" id="node1" title="TODO." alt="" coords="479,78,563,105"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="199,5,361,47"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,13,125,39"/>
-<area shape="rect" id="node4" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="203,71,357,112"/>
-<area shape="rect" id="node5" href="$classhob_1_1AsyncQueue.html" title=" " alt="" coords="175,137,385,163"/>
+<area shape="rect" id="node1" title="Graphical representation of the user&#39;s amount of gold and prices." alt="" coords="500,93,584,120"/>
+<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="175,5,407,61"/>
+<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,20,125,47"/>
+<area shape="rect" id="node4" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="187,86,394,127"/>
+<area shape="rect" id="node5" href="$classhob_1_1AsyncQueue.html" title=" " alt="" coords="185,152,396,179"/>
 </map>

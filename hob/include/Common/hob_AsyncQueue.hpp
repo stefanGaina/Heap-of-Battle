@@ -94,6 +94,7 @@ private:
 template<typename TYPE>
 bool AsyncQueue<TYPE>::isEmpty(void) noexcept
 {
+	plog_verbose("Checking if the queue is empty.");
 	plog_assert(nullptr != this);
 
 	std::lock_guard<std::mutex> lock(mutex);
@@ -101,7 +102,7 @@ bool AsyncQueue<TYPE>::isEmpty(void) noexcept
 }
 
 template<typename TYPE>
-void AsyncQueue<TYPE>::push(TYPE element) noexcept
+void AsyncQueue<TYPE>::push(const TYPE element) noexcept
 {
 	plog_verbose("Element is being pushed into asynchronically queue.");
 	plog_assert(nullptr != this);

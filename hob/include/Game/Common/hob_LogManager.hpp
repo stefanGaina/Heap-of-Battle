@@ -110,12 +110,12 @@ private:
 	static bool isCommandTerminalMode(const char* command) noexcept;
 
 	/** ***********************************************************************************************
-	 * @brief Checks if the command starts with "bs".
+	 * @brief Checks if the command starts with "bm".
 	 * @param command: The command ommiting the "./" and the character for set/get ("s"/"g").
-	 * @return true - the command is requesting log buffer size.
+	 * @return true - the command is requesting log buffer mode.
 	 * @return false - the command is invalid or is requesting something else.
 	 *************************************************************************************************/
-	static bool isCommandBufferSize(const char* command) noexcept;
+	static bool isCommandBufferMode(const char* command) noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Checks if the command starts with a string.

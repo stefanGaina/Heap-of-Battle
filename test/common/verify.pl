@@ -12,20 +12,21 @@
 
 use Term::ANSIColor;
 
-open_files();
-read_files();
-print_results();
-exit;
+main();
 
-sub open_files()
-{
-	if (-1 == $#ARGV)
-	{
+sub main() {
+	open_files();
+	read_files();
+	print_results();
+	exit;
+}
+
+sub open_files() {
+	if (-1 == $#ARGV) {
 		die "Expected directory command line argument!";
 	}
 
-	if (0 < $#ARGV)
-	{
+	if (0 < $#ARGV) {
 		printf("Extra parameters will be ignored!\n");
 	}
 
@@ -38,146 +39,117 @@ sub open_files()
 	open(exceptions_file, "<$exceptions_file_path") or die "Failed to open \"$exceptions_file_path\" in read mode!";
 }
 
-sub read_files()
-{
+sub read_files() {
 	$required_index = 0;
-	while (<required_file>)
-	{
+	while (<required_file>) {
 		$required_logs[$required_index++] = $_;
 	}
 
 	$exceptions_index = 0;
-	while (<exceptions_file>)
-	{
+	while (<exceptions_file>) {
 		$exceptions_count[$exceptions_index]   = $_ + 0;
 		$exceptions_logs [$exceptions_index++] = $_ =~ s/^\d+:\s*//r;
 	}
 
 	$error_index = 0;
-	while (<log_file>)
-	{
+	while (<log_file>) {
 		my $required_found = 0;
-		for (my $temp_index = 0; $temp_index < $required_index; ++$temp_index)
-		{
-			if (-1 != index($_, $required_logs[$temp_index]))
-			{
+		for (my $temp_index = 0; $temp_index < $required_index; ++$temp_index) {
+			if (-1 != index($_, $required_logs[$temp_index])) {
 				$required_flags[$temp_index] = 1;
 				$required_found              = 1;
 				last;
 			}
 		}
 
-		if (0 != $required_found)
-		{
+		if (0 != $required_found) {
 			next;
 		}
 
 		my $exception_found = 0;
-		for ($temp_index = 0; $temp_index < $exceptions_index; ++$temp_index)
-		{
-			if (-1 != index($_, $exceptions_logs[$temp_index]))
-			{
+		for ($temp_index = 0; $temp_index < $exceptions_index; ++$temp_index) {
+			if (-1 != index($_, $exceptions_logs[$temp_index])) {
 				--$exceptions_count[$temp_index];
 				$exception_found = 1;
 				last;
 			}
 		}
 
-		if (0 != $exception_found)
-		{
+		if (0 != $exception_found) {
 			next;
 		}
 
 		if (-1 != index($_, "[warn]")
 		 || -1 != index($_, "[error]")
-		 || -1 != index($_, "[fatal]"))
-		{
+		 || -1 != index($_, "[fatal]")) {
 			$error_logs[$error_index++] = $_;
 		}
 	}
 }
 
-sub print_results()
-{
+sub print_results() {
 	$required_failed = 0;
-	for (my $temp_index = 0; $temp_index < $required_index; ++$temp_index)
-	{
-		if (1 != $required_flags[$temp_index])
-		{
+	for (my $temp_index = 0; $temp_index < $required_index; ++$temp_index) {
+		if (1 != $required_flags[$temp_index]) {
 			printf("%s %s", colored("Required log not found:", "bright_red"), colored_log($required_logs[$temp_index]));
 			$required_failed = 1;
 		}
 	}
 
-	if (0 == $required_failed)
-	{
+	if (0 == $required_failed) {
 		printf("%s\n", colored("All required logs have been found!", "green"));
 	}
 
 	my $exception_found = 0;
-	for ($temp_index = 0; $temp_index < $exceptions_index; ++$temp_index)
-	{
-		if (0 != $exceptions_count[$temp_index])
-		{
+	for ($temp_index = 0; $temp_index < $exceptions_index; ++$temp_index) {
+		if (0 != $exceptions_count[$temp_index]) {
 			printf("%s %s", colored("Exception failed:", "bright_red"), colored_log($exceptions_logs[$temp_index]));
 			$exception_found = 1;
 		}
 	}
 
-	if (0 == $exception_found)
-	{
+	if (0 == $exception_found) {
 		printf("%s\n", colored("All exception logs have been found!", "green"));
 	}
 
-	if (0 == $error_index)
-	{
+	if (0 == $error_index) {
 		printf("%s\n", colored("No unexpected errors have been found!", "green"));
+		return;
 	}
-	else
-	{
-		for (my $temp_index = 0; $temp_index < $error_index; ++$temp_index)
-		{
-			printf("%s %s", colored("Unexpected error:", "bright_red"), colored_log($error_logs[$temp_index]));
-		}
+
+	for (my $temp_index = 0; $temp_index < $error_index; ++$temp_index) {
+		printf("%s %s", colored("Unexpected error:", "bright_red"), colored_log($error_logs[$temp_index]));
 	}
 }
 
-sub colored_log()
-{
+sub colored_log() {
 	my $log_message = join("", @_);
 
-	if (-1 != index($log_message, "[verbose]"))
-	{
+	if (-1 != index($log_message, "[verbose]")) {
 		return colored($log_message, "bright_black");
 	}
 
-	if (-1 != index($log_message, "[trace]"))
-	{
+	if (-1 != index($log_message, "[trace]")) {
 		return $log_message;
 	}
 
-	if (-1 != index($log_message, "[debug]"))
-	{
+	if (-1 != index($log_message, "[debug]")) {
 		return colored($log_message, "bright_cyan");
 	}
 
-	if (-1 != index($log_message, "[info]"))
-	{
+	if (-1 != index($log_message, "[info]")) {
 		return colored($log_message, "green");
 	}
 
-	if (-1 != index($log_message, "[warn]"))
-	{
+	if (-1 != index($log_message, "[warn]")) {
 		return colored($log_message, "bright_yellow");
 	}
 
-	if (-1 != index($log_message, "[error]"))
-	{
+	if (-1 != index($log_message, "[error]")) {
 		return colored($log_message, "bright_red");
 	}
 
-	if (-1 != index($log_message, "[fatal]"))
-	{
+	if (-1 != index($log_message, "[fatal]")) {
 		return colored($log_message, "red");
 	}
 
