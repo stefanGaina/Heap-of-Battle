@@ -30,8 +30,6 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <plog.h>
-
 #include "hob_LocalMenu.hpp"
 #include "hob_MenuCommon.hpp"
 #include "hob_Music.hpp"

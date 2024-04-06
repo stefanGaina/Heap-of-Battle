@@ -28,8 +28,6 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <plog.h>
-
 #include "hob_Chat.hpp"
 #include "hob_Faction.hpp"
 #include "hob_Socket.hpp"

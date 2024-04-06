@@ -6,6 +6,7 @@
 #######################################################################################################
 
 all:
+	$(MAKE) -C hob_AsyncQueue
 	$(MAKE) -C hob_Building
 	$(MAKE) -C hob_ChatFrame
 	$(MAKE) -C hob_Component
@@ -23,6 +24,7 @@ all:
 
 ### RUN TESTS ###
 run_tests:
+	$(MAKE) run_tests -C hob_AsyncQueue
 	$(MAKE) run_tests -C hob_Building
 	$(MAKE) run_tests -C hob_ChatFrame
 	$(MAKE) run_tests -C hob_Component
@@ -40,6 +42,7 @@ run_tests:
 
 ### CLEAN ###
 clean:
+	$(MAKE) clean -C hob_AsyncQueue
 	$(MAKE) clean -C hob_Building
 	$(MAKE) clean -C hob_ChatFrame
 	$(MAKE) clean -C hob_Component

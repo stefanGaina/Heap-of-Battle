@@ -6,17 +6,18 @@
 # coverage report.
 #######################################################################################################
 
-INCLUDES = -I../../../vendor/gtest/include \
-		   -I../../../vendor/gmock/include \
-		   -I../../mocks                   \
-		   -I../../../vendor/Plog/include  \
-		   -I../../../vendor/SDL2/include  \
-		   -I../../../hob/include/Common
+INCLUDES := -I../../../vendor/gtest/include \
+			-I../../../vendor/gmock/include \
+			-I../../mocks					\
+			-I../../../vendor/Plog/include	\
+			-I../../../vendor/SDL2/include	\
+			-I../../../hob/include/Common	\
+			-I../../../hob/include/Main
 
-TESTED_FILE_DIR  := ../../../hob/$(SRC)/Common
-TEST_FILE_NAME   := hob_Window_test
+TESTED_FILE_DIR	 := ../../../hob/$(SRC)/Main
+TEST_FILE_NAME	 := hob_Window_test
 TESTED_FILE_NAME := hob_Window
-EXECUTABLE       := hob_Window_ut
+EXECUTABLE		 := hob_Window_ut
 
 all: | create_dir $(EXECUTABLE)
 

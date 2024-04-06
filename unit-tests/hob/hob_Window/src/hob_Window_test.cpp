@@ -23,7 +23,7 @@
  * @details Current coverage report:
  * <ul>
  * <li> Line coverage: 100.0% (17/17) </li>
- * <li> Functions:     100.0% (2/2)   </li>
+ * <li> Functions:     100.0% (3/3)   </li>
  * <li> Branches:      100.0% (4/4)   </li>
  * </ul>
  * @todo N/A.
@@ -65,79 +65,67 @@ public:
 };
 
 /******************************************************************************************************
- * create
+ * constructor
  *****************************************************************************************************/
 
-TEST_F(WindowTest, create_createWindow_fail)
+TEST_F(WindowTest, constructor_windowError_fail)
 {
-	hob::Window window = {};
-
 	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
 
 	try
 	{
-		EXPECT_EQ(nullptr, window.create()) << "Window create did not return nullptr even though it failed!";
+		hob::Window window = {};
 	}
 	catch (...)
 	{
 		return;
 	}
 
-	ADD_FAILURE() << "Window create did not throw exception even though it failed!";
+	ADD_FAILURE() << "Window did not throw exception even though constructor failed!";
 }
 
-TEST_F(WindowTest, create_createRenderer_fail)
+TEST_F(WindowTest, constructor_rendererError_fail)
 {
-	hob::Window window = {};
-
 	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Window*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return(nullptr));
-	EXPECT_CALL(sdlMock, SDL_DestroyWindow(testing::_));
 
 	try
 	{
-		EXPECT_EQ(nullptr, window.create()) << "Window create did not return nullptr even though it failed!";
+		hob::Window window = {};
 	}
 	catch (...)
 	{
 		return;
 	}
 
-	ADD_FAILURE() << "Window create did not throw exception even though it failed!";
+	ADD_FAILURE() << "Window did not throw exception even though constructor failed!";
 }
 
-TEST_F(WindowTest, create_success)
-{
-	hob::Window window = {};
+/******************************************************************************************************
+ * getRenderer
+ *****************************************************************************************************/
 
+TEST_F(WindowTest, getRenderer_success)
+{
 	EXPECT_CALL(sdlMock, SDL_CreateWindow(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_))
 		.WillOnce(testing::Return((SDL_Window*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_CreateRenderer(testing::_, testing::_, testing::_)) /**/
 		.WillOnce(testing::Return((SDL_Renderer*)not_nullptr));
 	EXPECT_CALL(sdlMock, SDL_SetRenderDrawBlendMode(testing::_, testing::_));
 	EXPECT_CALL(sdlMock, SDL_SetRenderDrawColor(testing::_, testing::_, testing::_, testing::_, testing::_));
+	EXPECT_CALL(sdlMock, SDL_DestroyWindow(testing::_));
+	EXPECT_CALL(sdlMock, SDL_DestroyRenderer(testing::_));
 
 	try
 	{
-		EXPECT_NE(nullptr, window.create()) << "Window create returned nullptr even though it did not failed!";
+		hob::Window window = {};
+		EXPECT_NE(nullptr, window.getRenderer()) << "Window returned nullptr renderer!";
 	}
 	catch (...)
 	{
-		ADD_FAILURE() << "Window create threw exception even though it did not failed!";
+		ADD_FAILURE() << "Window threw exception even though constructor succeeded!";
 	}
-}
-
-/******************************************************************************************************
- * destroy
- *****************************************************************************************************/
-
-TEST_F(WindowTest, destroy_success)
-{
-	hob::Window window = {};
-
-	EXPECT_CALL(sdlMock, SDL_DestroyWindow(testing::_));
-	window.destroy();
 }
