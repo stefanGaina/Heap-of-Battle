@@ -63,7 +63,7 @@ public:
 	/** ***********************************************************************************************
 	 * @brief Gets the SDL window rendering context handle.
 	 * @param void
-	 * @return The renderer (can be nullptr if construction threw exception).
+	 * @return The renderer (can not be nullptr).
 	 *************************************************************************************************/
 	SDL_Renderer* getRenderer(void) const noexcept;
 

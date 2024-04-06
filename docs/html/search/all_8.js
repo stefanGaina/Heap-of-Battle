@@ -28,7 +28,7 @@ var searchData=
   ['idle_362',['IDLE',['../namespacehobGame.html#aa9675b1d9edf7262031008f1612dd9bbaa5daf7f2ebbba4975d61dab1c40188c7',1,'hobGame']]],
   ['idrawable_363',['IDrawable',['../classhob_1_1IDrawable.html',1,'hob']]],
   ['infantry_364',['INFANTRY',['../namespacehobGame.html#ac67b60faa6b04f7d6fc3db3fdc5086afab996611024d490862356921e5b4bef17',1,'hobGame']]],
-  ['init_365',['init',['../classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8',1,'hob::Building::init()'],['../classhobServerInstance_1_1Server.html#a1335e085d9786e155bbd6d48eabf234f',1,'hobServerInstance::Server::init()'],['../classhob_1_1Test.html#a47f3f126cefa3cea4819538caafcbc1d',1,'hob::Test::init()'],['../classhob_1_1Tile.html#ad90cffc456fcd381924265cd80b54139',1,'hob::Tile::init()']]],
+  ['init_365',['init',['../classhobServerInstance_1_1Server.html#a1335e085d9786e155bbd6d48eabf234f',1,'hobServerInstance::Server::init()'],['../classhob_1_1Building.html#abc5622d96d841cfb014ba510ec901ad8',1,'hob::Building::init()'],['../classhob_1_1Tile.html#ad90cffc456fcd381924265cd80b54139',1,'hob::Tile::init()'],['../classhob_1_1Test.html#a47f3f126cefa3cea4819538caafcbc1d',1,'hob::Test::init()']]],
   ['initializer_366',['Initializer',['../classhob_1_1Initializer.html',1,'hob']]],
   ['initializer_367',['initializer',['../classhob_1_1Game.html#af3c0a9a5a1a7608667ab93891c49489f',1,'hob::Game']]],
   ['initializer_368',['Initializer',['../classhob_1_1Initializer.html#a099ec87e829aa93a7691070f5edbecc8',1,'hob::Initializer']]],
@@ -47,7 +47,7 @@ var searchData=
   ['ismouseoverridden_381',['isMouseOverridden',['../hob__Test_8cpp.html#aab4a9e023cfd564dc1a5d79521f9be22',1,'hob_Test.cpp']]],
   ['ismuted_382',['isMuted',['../classhob_1_1Chat.html#aec43620e10626757d6f6d7ea8e9c3c64',1,'hob::Chat']]],
   ['isrecruitpossible_383',['isRecruitPossible',['../classhobGame_1_1Game.html#a907d1710e3919072484164dc1aceb3cc',1,'hobGame::Game']]],
-  ['isrunning_384',['isRunning',['../classhob_1_1Game.html#ad620f21547c92d30602fd6c777515ca6',1,'hob::Game::isRunning()'],['../classhob_1_1Loop.html#af5bd6af3830580d4b3e47c72ed152d5e',1,'hob::Loop::isRunning()']]],
+  ['isrunning_384',['isRunning',['../classhob_1_1Loop.html#af5bd6af3830580d4b3e47c72ed152d5e',1,'hob::Loop']]],
   ['issocketready_385',['isSocketReady',['../classhobServer_1_1Server.html#a344047212d2c9c21e078e075f2d47267',1,'hobServer::Server']]],
   ['isstoprequested_386',['isStopRequested',['../classhob_1_1Loop.html#a844e22037a33a8f9729279f3e95f369f',1,'hob::Loop']]],
   ['isupgradedone_387',['isUpgradeDone',['../classhob_1_1Menu.html#aaf6316aba8563cfe93fff38486032868',1,'hob::Menu']]]

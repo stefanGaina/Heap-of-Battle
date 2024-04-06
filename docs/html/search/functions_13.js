@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['waitconnection_1066',['waitConnection',['../classhobServer_1_1Socket.html#adc4130e3325d88817157cb2dfe48242e',1,'hobServer::Socket']]],
-  ['waitconnectionfunction_1067',['waitConnectionFunction',['../classhob_1_1LocalMenu.html#a0dfa1ab13f7b549862c6da0491d803b9',1,'hob::LocalMenu']]],
-  ['waitopponent_1068',['waitOpponent',['../classhob_1_1LoadingScreen.html#af5fca1d07d3f36ea00752bfde403e3a6',1,'hob::LoadingScreen']]],
-  ['window_1069',['Window',['../classhob_1_1Window.html#af65be370b477821aa996a0b06c4ce1b2',1,'hob::Window']]]
+  ['waitconnection_1067',['waitConnection',['../classhobServer_1_1Socket.html#adc4130e3325d88817157cb2dfe48242e',1,'hobServer::Socket']]],
+  ['waitconnectionfunction_1068',['waitConnectionFunction',['../classhob_1_1LocalMenu.html#a0dfa1ab13f7b549862c6da0491d803b9',1,'hob::LocalMenu']]],
+  ['waitopponent_1069',['waitOpponent',['../classhob_1_1LoadingScreen.html#af5fca1d07d3f36ea00752bfde403e3a6',1,'hob::LoadingScreen']]],
+  ['window_1070',['Window',['../classhob_1_1Window.html#af65be370b477821aa996a0b06c4ce1b2',1,'hob::Window']]]
 ];

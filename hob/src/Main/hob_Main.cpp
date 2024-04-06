@@ -37,7 +37,7 @@
  * ENTRY POINT
  *****************************************************************************************************/
 
-int main(int argc, char** argv)
+int main(const int argc, char** const argv)
 {
 	int32_t					   exitCode = EXIT_SUCCESS;
 	std::unique_ptr<hob::Game> game		= nullptr;

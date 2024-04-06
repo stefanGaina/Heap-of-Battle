@@ -33,7 +33,7 @@ all: LDFLAGS += -Wl,-Bdynamic,-rpath='$$ORIGIN'/$(LIB) -L../vendor/Plog/$(LIB) -
 all: build
 
 ### PRODUCTION ###
-release: CFLAGS += -O2 -DPLOG_STRIP_ALL
+release: CFLAGS += -Wno-error=analyzer-possible-null-argument -Wno-error=analyzer-possible-null-dereference -O2 -DPLOG_STRIP_ALL
 release: build
 
 ### BUILD ###

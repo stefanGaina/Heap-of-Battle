@@ -27,6 +27,7 @@ INFO_FILES := $(COVERAGE_REPORT)/hob_AsyncQueue.info	  \
 			  $(COVERAGE_REPORT)/hob_Encryptor.info		  \
 			  $(COVERAGE_REPORT)/hob_Faction.info		  \
 			  $(COVERAGE_REPORT)/hob_FramesPerSecond.info \
+			  $(COVERAGE_REPORT)/hob_Initializer.info	  \
 			  $(COVERAGE_REPORT)/hob_LoadingScreen.info	  \
 			  $(COVERAGE_REPORT)/hob_Music.info			  \
 			  $(COVERAGE_REPORT)/hob_Ping.info			  \

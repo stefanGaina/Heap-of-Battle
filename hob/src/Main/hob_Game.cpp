@@ -45,35 +45,36 @@ namespace hob
 Game::Game(void) noexcept(false)
 	: initializer{} /*< Can throw, but not handled here. */
 	, window{}		/*< Can throw, but not handled here. */
-	, nextScene{ Scene::MAIN_MENU }
-	, sceneLoop{ nullptr }
 	, cursor{ window.getRenderer() }
 	, music{}
 	, faction{}
 	, server{}
 	, socket{}
 	, ping{}
-	, loadingScreen{}
-	, isRunning{ false }
 {
 	plog_trace("Game is being constructed.");
 }
 
 void Game::run(void) noexcept
 {
+	bool  isRunning = true;
+	Scene nextScene = Scene::MAIN_MENU;
+
 	plog_debug("Scene loop is being started!");
 	plog_assert(nullptr != this);
-	plog_assert(false == isRunning);
 
-	isRunning = true;
 	while (isRunning)
 	{
-		doScene();
+		isRunning = doScene(nextScene);
 	}
 }
 
-void Game::doScene(void) noexcept
+bool Game::doScene(Scene& nextScene) noexcept
 {
+	std::unique_ptr<Loop>		   sceneLoop	 = nullptr;
+	std::unique_ptr<LoadingScreen> loadingScreen = nullptr;
+
+	plog_debug("Scene is being executed.");
 	plog_assert(nullptr != this);
 
 	switch (nextScene)
@@ -87,8 +88,7 @@ void Game::doScene(void) noexcept
 			catch (...)
 			{
 				plog_fatal("Failed to allocate memory for main menu scene! (bytes: %" PRIu64 ")", sizeof(MainMenu));
-				isRunning = false;
-				return;
+				return false;
 			}
 			break;
 		}
@@ -102,7 +102,7 @@ void Game::doScene(void) noexcept
 			{
 				plog_fatal("Failed to allocate memory for local menu scene! (bytes: %" PRIu64 ")", sizeof(LocalMenu));
 				nextScene = Scene::MAIN_MENU;
-				return;
+				return true;
 			}
 			break;
 		}
@@ -116,7 +116,7 @@ void Game::doScene(void) noexcept
 			{
 				plog_fatal("Failed to allocate memory for loading screen! (bytes: %" PRIu64 ")", sizeof(LoadingScreen));
 				nextScene = Scene::MAIN_MENU;
-				return;
+				return true;
 			}
 
 			try
@@ -126,11 +126,8 @@ void Game::doScene(void) noexcept
 			catch (...)
 			{
 				plog_fatal("Failed to allocate memory for map 1 scene! (bytes: %" PRIu64 ")", sizeof(Map1));
-
-				loadingScreen = nullptr;
-				nextScene	  = Scene::MAIN_MENU;
-
-				return;
+				nextScene = Scene::MAIN_MENU;
+				return true;
 			}
 
 			try
@@ -140,12 +137,8 @@ void Game::doScene(void) noexcept
 			catch (...)
 			{
 				plog_error("Timeout while waiting for opponent occurred!");
-
-				sceneLoop	  = nullptr;
-				nextScene	  = Scene::MAIN_MENU;
-				loadingScreen = nullptr;
-
-				return;
+				nextScene = Scene::MAIN_MENU;
+				return true;
 			}
 
 			loadingScreen = nullptr;
@@ -154,18 +147,18 @@ void Game::doScene(void) noexcept
 		case Scene::QUIT:
 		{
 			plog_info("Quit scene received!");
-			isRunning = false;
-			return;
+			return false;
 		}
 		default:
 		{
 			plog_fatal("Scene is invalid! (scene: %" PRId32 ")", static_cast<int32_t>(nextScene));
 			plog_assert(false);
-			return;
+			return false;
 		}
 	}
+
 	nextScene = sceneLoop->start();
-	sceneLoop = nullptr;
+	return true;
 }
 
 } /*< namespace hob */

@@ -1,8 +1,8 @@
 #######################################################################################################
 # Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
-# Date: 01.03.2024
-# Description: This Makefile is used to compile unit-tests for hob_Ping.cpp, run them and generate
+# Date: 04.04.2024
+# Description: This Makefile is used to compile unit-tests for hob_AsyncQueue.hpp, run them and generate
 # coverage report.
 #######################################################################################################
 

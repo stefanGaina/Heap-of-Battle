@@ -6,18 +6,17 @@
 # generate coverage report.
 #######################################################################################################
 
-INCLUDES = -I../../../vendor/gtest/include      \
-		   -I../../../vendor/gmock/include      \
-		   -I../../mocks                        \
-		   -I../../../vendor/Plog/include       \
-		   -I../../../vendor/Obfuscator/include \
-		   -I../../../hob/include/Common        \
-		   -I../../../hob/include/Game/Common
+INCLUDES := -I../../../vendor/gtest/include	   \
+			-I../../../vendor/gmock/include	   \
+			-I../../mocks					   \
+			-I../../../vendor/Plog/include	   \
+			-I../../../hob/include/Common	   \
+			-I../../../hob/include/Game/Common
 
-TESTED_FILE_DIR  := ../../../hob/$(SRC)/Game/Common
-TEST_FILE_NAME   := hob_Faction_test
+TESTED_FILE_DIR	 := ../../../hob/$(SRC)/Game/Common
+TEST_FILE_NAME	 := hob_Faction_test
 TESTED_FILE_NAME := hob_Faction
-EXECUTABLE       := hob_Faction_ut
+EXECUTABLE		 := hob_Faction_ut
 
 all: | create_dir $(EXECUTABLE)
 

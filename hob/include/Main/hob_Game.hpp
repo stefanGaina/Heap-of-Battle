@@ -77,10 +77,11 @@ public:
 private:
 	/** ***********************************************************************************************
 	 * @brief Runs the game loop for the current scene.
-	 * @param void
-	 * @return void
+	 * @param nextScene: TODO
+	 * @return true - the loop scene shall continue running.
+	 * @return false - the game shall exit.
 	 *************************************************************************************************/
-	void doScene(void) noexcept;
+	bool doScene(Scene& nextScene) noexcept;
 
 private:
 	/** ***********************************************************************************************
@@ -92,17 +93,6 @@ private:
 	 * @brief The screen where graphics will be rendered.
 	 *************************************************************************************************/
 	Window window;
-
-	/** ***********************************************************************************************
-	 * @brief The scene that will be executed after the current one is finished.
-	 *************************************************************************************************/
-	Scene nextScene;
-
-	/** ***********************************************************************************************
-	 * @brief Pointer to the class which all scenes inherit from (used to load/unload scenes at
-	 * runtime).
-	 *************************************************************************************************/
-	std::unique_ptr<Loop> sceneLoop;
 
 	/** ***********************************************************************************************
 	 * @brief Cursor object (instantiated here to be able to be transfered in between scenes).
@@ -133,16 +123,6 @@ private:
 	 * @brief Ping object (instantiated here to be able to be transfered in between scenes).
 	 *************************************************************************************************/
 	Ping ping;
-
-	/** ***********************************************************************************************
-	 * @brief Pointer to loading screen (used only for scenes that require a loading screen).
-	 *************************************************************************************************/
-	std::unique_ptr<LoadingScreen> loadingScreen;
-
-	/** ***********************************************************************************************
-	 * @brief Flag indicating if the scene loop is still running.
-	 *************************************************************************************************/
-	bool isRunning;
 };
 
 } /*< namespace hob */

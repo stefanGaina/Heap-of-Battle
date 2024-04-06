@@ -48,19 +48,17 @@ namespace hob
 Initializer::Initializer(void) noexcept(false)
 {
 #ifndef PLOG_STRIP_ALL
-	plog_Version_t plogVersion = plog_get_version();
-#endif /*< PLOG_STRIP_ALL */
-	SDL_version		   sdlVersion	 = { .major = 0U, .minor = 0U, .patch = 0U };
-	const SDL_version* sdlVersionRef = IMG_Linked_Version();
-	hobServer::Version serverVersion = {};
+	const plog_Version_t	 plogVersion   = plog_get_version();
+	SDL_version				 sdlVersion	   = { .major = 0U, .minor = 0U, .patch = 0U };
+	const SDL_version*		 sdlVersionRef = IMG_Linked_Version();
+	const hobServer::Version serverVersion = {};
 
-#ifndef PLOG_STRIP_ALL
 	if (false == plog_init("hob_logs.txt"))
 	{
 		std::cout << "Failed to initialize logger!" << std::endl;
 	}
+
 	plog_expect(PLOG_VERSION_MAJOR == plogVersion.major && PLOG_VERSION_MINOR == plogVersion.minor && PLOG_VERSION_PATCH == plogVersion.patch);
-#endif /*< PLOG_STRIP_ALL */
 	plog_info("Using Plog %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", plogVersion.major, plogVersion.minor, plogVersion.patch);
 	plog_info("Running Heap-of-Battle %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
@@ -81,6 +79,7 @@ Initializer::Initializer(void) noexcept(false)
 	plog_info("Using HOB server %" PRIu8 ".%" PRIu8 ".%" PRIu8 "!", serverVersion.getMajor(), serverVersion.getMinor(), serverVersion.getPatch());
 	plog_expect(hobServer::VERSION_MAJOR == serverVersion.getMajor() && hobServer::VERSION_MINOR == serverVersion.getMinor() &&
 				hobServer::VERSION_PATCH == serverVersion.getPatch());
+#endif /*< PLOG_STRIP_ALL */
 
 	if (0 != SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
 	{

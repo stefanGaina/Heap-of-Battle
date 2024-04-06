@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['faction_139',['Faction',['../classhob_1_1Faction.html#a74751e1d569c1c19a50812582f41a835',1,'hob::Faction']]],
   ['faction_140',['faction',['../classhob_1_1Map1.html#ad6b574d46ab78e877a86f5d1bee8a6ed',1,'hob::Map1::faction()'],['../classhob_1_1Game.html#a59533ee0fb3893958842bf63fcc152fe',1,'hob::Game::faction()'],['../classhob_1_1LocalMenu.html#a15d3ce864f8649be4dfa21207c300dc0',1,'hob::LocalMenu::faction()'],['../classhobGame_1_1Game.html#a144c02ed333a0d20ff488767115b7b4c',1,'hobGame::Game::faction()']]],
-  ['faction_141',['Faction',['../classhob_1_1Faction.html',1,'hob']]],
+  ['faction_141',['Faction',['../classhob_1_1Faction.html#a74751e1d569c1c19a50812582f41a835',1,'hob::Faction::Faction()'],['../classhob_1_1Faction.html',1,'hob::Faction']]],
   ['failed_142',['FAILED',['../namespacehob.html#a28ff2f4e91be80e1753e97d74f11cacaab9e14d9b2886bcff408b85aefa780419',1,'hob']]],
   ['file_143',['file',['../classhob_1_1Test.html#aa2b0ff3dc9b095d8cfe0ff7e65a55742',1,'hob::Test']]],
   ['fillbarindex_144',['fillBarIndex',['../classhob_1_1LoadingScreen.html#a1255755f6ebd2ac4890fe7d6521e0df5',1,'hob::LoadingScreen']]],
