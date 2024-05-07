@@ -82,7 +82,7 @@ void FramesPerSecond::update(SDL_Renderer* const renderer) noexcept
 	std::string	   text				= {};
 	Coordinate	   textureDimension = {};
 
-	plog_verbose("Frames per second is being updated.(start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
+	plog_verbose("Frames per second is being updated. (start time: %" PRIu64 ") (end time: %" PRIu64 ")", frameStartTime, frameEndTime);
 	plog_assert(nullptr != this);
 	plog_assert(nullptr != renderer);
 

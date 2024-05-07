@@ -16,10 +16,10 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file hob_Main.hpp
+ * @file hob_Main.cpp
  * @author Gaina Stefan
  * @date 23.07.2023
- * @brief This file provides an entry point for the Heap-of-Battle game.
+ * @brief This file provides an entry point for the Heap of Battle game.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/

@@ -102,11 +102,11 @@ inline constexpr int32_t SCREEN_HEIGHT = 9 * SCALE;
  *****************************************************************************************************/
 enum class Scene
 {
-	QUIT	   = 0, /**< The game is closing.			   */
-	MAIN_MENU  = 1, /**< The game is in main menu.		   */
-	LOCAL_MENU = 2, /**< The game is in LAN menu.		   */
-	SETTINGS   = 3, /**< The game is in settings menu.	   */
-	MAP_1	   = 4	/**< The game is in map 1.			   */
+	QUIT	   = 0, /**< The game is closing.		   */
+	MAIN_MENU  = 1, /**< The game is in main menu.	   */
+	LOCAL_MENU = 2, /**< The game is in LAN menu.	   */
+	SETTINGS   = 3, /**< The game is in settings menu. */
+	MAP_1	   = 4	/**< The game is in map 1.		   */
 };
 
 /** ***************************************************************************************************

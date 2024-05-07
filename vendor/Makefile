@@ -9,7 +9,7 @@
 # Description: This Makefile is used to install third party binaries/assets to install directory.     #
 #######################################################################################################
 
-INSTALL_PATH = ../$(INSTALL_DIRECTORY)
+INSTALL_PATH := ../$(INSTALL_DIRECTORY)
 
 ### INSTALL ###
 install:

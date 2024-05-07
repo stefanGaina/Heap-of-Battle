@@ -37,8 +37,8 @@ namespace hob
 /** ***************************************************************************************************
  * @brief Class used to control the intialization of subsystems.
  * @details The initialization is done through constructor and deinitialization is done through
- * destructor. The object should be instantiated before all else ensuring it will be the last to do
- * the clean-up.
+ * destructor. The object should be instantiated before everything else ensuring it will be the last
+ * to do the clean-up.
  *****************************************************************************************************/
 class Initializer final
 {
