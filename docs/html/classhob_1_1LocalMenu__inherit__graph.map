@@ -1,7 +1,0 @@
-<map id="hob::LocalMenu" name="hob::LocalMenu">
-<area shape="rect" id="node1" title="LAN scene." alt="" coords="495,79,619,105"/>
-<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="267,5,353,32"/>
-<area shape="rect" id="node3" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,57,447,127"/>
-<area shape="rect" id="node4" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,79,125,105"/>
-<area shape="rect" id="node5" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="181,151,439,193"/>
-</map>

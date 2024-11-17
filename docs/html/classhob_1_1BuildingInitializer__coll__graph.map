@@ -1,7 +1,0 @@
-<map id="hob::BuildingInitializer&lt; BUILDINGS_COUNT &gt;" name="hob::BuildingInitializer&lt; BUILDINGS_COUNT &gt;">
-<area shape="rect" id="node1" title="Initializes a list of buildings." alt="" coords="5,364,184,405"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="64,5,184,32"/>
-<area shape="rect" id="node4" href="$classhob_1_1Building.html" title="Building supporting textures 2 types of textures each with 2 seasons." alt="" coords="152,171,259,197"/>
-<area shape="rect" id="node5" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="162,81,291,108"/>
-<area shape="rect" id="node3" title=" " alt="" coords="111,260,299,301"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="hob::Cursor" name="hob::Cursor">
-<area shape="rect" id="node1" title="Provides a way to customize the cursor." alt="" coords="83,184,179,211"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="5,80,256,136"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="71,5,191,32"/>
-</map>

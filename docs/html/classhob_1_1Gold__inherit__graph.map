@@ -1,6 +1,0 @@
-<map id="hob::Gold" name="hob::Gold">
-<area shape="rect" id="node1" title="Graphical representation of the user&#39;s amount of gold and prices." alt="" coords="453,57,537,84"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,5,405,61"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,20,125,47"/>
-<area shape="rect" id="node4" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="186,86,393,127"/>
-</map>

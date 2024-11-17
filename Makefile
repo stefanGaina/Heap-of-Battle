@@ -1,102 +1,57 @@
 #######################################################################################################
 # Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
-# Date: 23.07.2023
-# Description: This Makefile is used to invoke the Makefiles in the subdirectories.
+# Date: 16.11.2024
+# Description: This Makefile is used to abstract some common commands over CMake.
 #######################################################################################################
 
-export SRC := src
-export OBJ := obj
-export LIB := lib
-export BIN := bin
+BUILD_DIRECTORY		 := build
+DEBUG_DIRECTORY		 := debug
+RELEASE_DIRECTORY	 := release
+UNIT_TESTS_DIRECTORY := unit-tests
+CMAKE_TIME			 := cmake -E time
+CMAKE_BUILD			 := cmake --build
+CMAKE_BUILD_FLAGS	 := -- -j$(shell nproc)
 
-export INSTALL_DIRECTORY := Heap-of-Battle
-
-FORMAT			  := clang-format -i
-COMPILATION_TIMER := cd vendor/Compilation-Timer && ./compilation-timer
-
-### MAKE SUBDIRECTORIES ###
-all: start_timer format debug install install_plog doxygen end_timer
-production: start_timer format release uninstall install doxygen end_timer
+all:
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY) $(CMAKE_BUILD_FLAGS)
 
 debug:
-	$(MAKE) -C hob-Server
-	$(MAKE) -C hob-Game
-	$(MAKE) -C hob
-	$(MAKE) -C hob-Server-Instance
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) $(CMAKE_BUILD_FLAGS)
+.PHONY: debug
 
-release:
-	$(MAKE) release -C hob-Server
-	$(MAKE) release -C hob-Game
-	$(MAKE) release -C hob
-	$(MAKE) release -C hob-Server-Instance
+cmake:
+	mkdir -p $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY)
+	$(CMAKE_TIME) cmake -DCMAKE_BUILD_TYPE=Release -S . -B $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY)
+.PHONY: cmake
 
-### CLEAN SUBDIRECTORIES ###
-clean: start_timer
-	$(MAKE) clean -C hob-Server
-	$(MAKE) clean -C hob-Game
-	$(MAKE) clean -C hob
-	$(MAKE) clean -C hob-Server-Instance
-	$(COMPILATION_TIMER) end
+cmake-debug:
+	mkdir -p $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY)
+	$(CMAKE_TIME) cmake -DCMAKE_BUILD_TYPE=Debug -S . -B $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY)
+.PHONY: cmake-debug
 
-### INSTALL SUBDIRECTORIES ###
-install:
-	mkdir -p $(INSTALL_DIRECTORY)/$(LIB)
-	$(MAKE) install -C hob-Server
-	$(MAKE) install -C hob-Game
-	$(MAKE) install -C hob
-	$(MAKE) install -C hob-Server-Instance
-	$(MAKE) install -C vendor
+clean:
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY) --target clean
+.PHONY: clean
 
-### INSTALL PLOG ###
-install_plog:
-	$(MAKE) install_plog -C vendor
+clean-debug:
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) --target clean
+.PHONY: clean-debug
 
-### UNINSTALL SUBDIRECTORIES ###
-uninstall:
-	$(MAKE) uninstall -C hob-Server
-	$(MAKE) uninstall -C hob-Game
-	$(MAKE) uninstall -C hob
-	$(MAKE) uninstall -C hob-Server-Instance
-	$(MAKE) uninstall -C vendor
-
-### MAKE DOXYGEN ###
-doxygen:
-	doxygen docs/doxygen.conf
-
-### MAKE FORMAT ###
 format:
-	$(FORMAT) hob/$(SRC)/*/*.cpp
-	$(FORMAT) hob/include/*/*.hpp
-	$(FORMAT) hob/$(SRC)/*/*/*.cpp
-	$(FORMAT) hob/include/*/*/*.hpp
-	$(FORMAT) hob-Game/$(SRC)/*.cpp
-	$(FORMAT) hob-Game/include/*.hpp
-	$(FORMAT) hob-Server/$(SRC)/*.cpp
-	$(FORMAT) hob-Server/include/*.hpp
-	$(FORMAT) hob-Server-Instance/$(SRC)/*.cpp
-	$(FORMAT) hob-Server-Instance/include/*.hpp
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY) --target clang-format
+.PHONY: format
 
-### MAKE UNIT-TESTS ###
-ut: start_timer ut-clean
-	$(FORMAT) unit-tests/*/*/*/*.cpp
-	$(FORMAT) unit-tests/*/*.hpp
-	$(MAKE) -C unit-tests
-	$(COMPILATION_TIMER) end
+unit-tests:
+	$(CMAKE_TIME) sh -c ' \
+		mkdir -p $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && \
+		cmake -DBUILD_UNIT_TESTS=ON -S . -B $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && \
+		$(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) $(CMAKE_BUILD_FLAGS) && \
+		cd $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && ctest --verbose && \
+		cd ../../.. && $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --target coverage'
+		xdg-open $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/coverage_report/index.html
+.PHONY: unit-tests
 
-### CLEAN UNIT-TESTS ###
-ut-clean:
-	$(MAKE) clean -C unit-tests
-
-### TEST ###
-tst: start_timer
-	$(MAKE) -C test
-	$(COMPILATION_TIMER) end
-
-### START TIMER ###
-start_timer:
-	$(COMPILATION_TIMER) start
-
-### END TIMER ###
-end_timer:
-	$(COMPILATION_TIMER) end
+unit-tests-clean:
+	$(CMAKE_TIME) $(MAKE) clean -C $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)
+.PHONY: unit-tests-clean

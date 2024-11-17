@@ -1,6 +1,0 @@
-<map id="hob::Timer" name="hob::Timer">
-<area shape="rect" id="node1" title="Graphical representation of the time left." alt="" coords="457,57,549,84"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,5,409,61"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,20,125,47"/>
-<area shape="rect" id="node4" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="190,86,393,127"/>
-</map>

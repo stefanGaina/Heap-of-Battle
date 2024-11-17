@@ -1,4 +1,0 @@
-<map id="hob::FramesPerSecond" name="hob::FramesPerSecond">
-<area shape="rect" id="node1" title="Displays the FPS (frames per second)." alt="" coords="5,80,176,107"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="31,5,151,32"/>
-</map>

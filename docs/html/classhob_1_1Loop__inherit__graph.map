@@ -1,6 +1,0 @@
-<map id="hob::Loop" name="hob::Loop">
-<area shape="rect" id="node1" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="173,5,258,32"/>
-<area shape="rect" id="node2" href="$classhob_1_1LocalMenu.html" title="LAN scene." alt="" coords="5,80,129,107"/>
-<area shape="rect" id="node3" href="$classhob_1_1MainMenu.html" title="Main menu scene." alt="" coords="154,80,277,107"/>
-<area shape="rect" id="node4" href="$classhob_1_1Map1.html" title="Main class of the scenario 1." alt="" coords="301,80,391,107"/>
-</map>

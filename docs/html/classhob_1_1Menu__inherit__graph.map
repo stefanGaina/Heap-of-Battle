@@ -1,5 +1,0 @@
-<map id="hob::Menu" name="hob::Menu">
-<area shape="rect" id="node1" title="Draws in&#45;game menu depending of the user&#39;s faction." alt="" coords="77,184,168,211"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="5,80,240,136"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="63,5,183,32"/>
-</map>

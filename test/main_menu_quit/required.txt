@@ -1,6 +1,0 @@
-[init] [info] Everything initialized successfully!
-[create] [info] Window has been created successfully!
-[sceneLoop] [debug] Scene loop is being started!
-[handleQuit] [info] Command to quit game was given!
-[stop] [debug] Loop is being stopped.
-[deinit] [info] Plog is being deinitialized!

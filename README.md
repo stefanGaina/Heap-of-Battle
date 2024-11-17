@@ -1,2 +1,5 @@
-# Heap-of-Battle
-Work in progress. This meant to improve the old version (https://github.com/stefanGaina/Heap-of-Battle-old) by adding spells, multiplayer and campaign.
+This project is a *work in progress*!
+
+If you're interested in contributing, please check out the [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+For detailed documentation, visit the [Wiki](https://github.com/stefanGaina/Heap-of-Battle/wiki).

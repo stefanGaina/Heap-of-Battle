@@ -1,4 +1,0 @@
-<map id="hob::Ping" name="hob::Ping">
-<area shape="rect" id="node1" title="Displays the latency (milliseconds)." alt="" coords="24,80,107,107"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,5,125,32"/>
-</map>

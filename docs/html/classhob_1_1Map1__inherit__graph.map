@@ -1,5 +1,0 @@
-<map id="hob::Map1" name="hob::Map1">
-<area shape="rect" id="node1" title="Main class of the scenario 1." alt="" coords="75,95,165,121"/>
-<area shape="rect" id="node2" href="$classhob_1_1Loop.html" title="Abstract class that provides the inherited mechanism to keeping up a scene." alt="" coords="5,13,91,39"/>
-<area shape="rect" id="node3" href="$classhob_1_1SoundInitializer.html" title=" " alt="" coords="115,5,269,47"/>
-</map>

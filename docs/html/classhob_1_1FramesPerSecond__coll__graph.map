@@ -1,6 +1,0 @@
-<map id="hob::FramesPerSecond" name="hob::FramesPerSecond">
-<area shape="rect" id="node1" title="Displays the FPS (frames per second)." alt="" coords="67,171,237,197"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node4" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="87,81,217,108"/>
-<area shape="rect" id="node3" href="$classhob_1_1Texture.html" title="Texture wrapper." alt="" coords="241,81,343,108"/>
-</map>

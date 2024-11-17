@@ -1,5 +1,0 @@
-<map id="hob::Tile" name="hob::Tile">
-<area shape="rect" id="node1" title="HSCALE by HSCALE tile supporting texture for each season." alt="" coords="31,171,110,197"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node3" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="87,81,217,108"/>
-</map>

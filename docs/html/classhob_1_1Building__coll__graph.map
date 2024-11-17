@@ -1,5 +1,0 @@
-<map id="hob::Building" name="hob::Building">
-<area shape="rect" id="node1" title="Building supporting textures 2 types of textures each with 2 seasons." alt="" coords="17,171,124,197"/>
-<area shape="rect" id="node2" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node3" href="$classhob_1_1Component.html" title="Packs texture and dimension/position on screen." alt="" coords="87,81,217,108"/>
-</map>

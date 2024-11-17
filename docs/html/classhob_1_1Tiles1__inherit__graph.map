@@ -1,6 +1,0 @@
-<map id="hob::Tiles1" name="hob::Tiles1">
-<area shape="rect" id="node1" title="Tiles of the scenario 1." alt="" coords="460,57,553,84"/>
-<area shape="rect" id="node2" href="$classhob_1_1TextureInitializer.html" title=" " alt="" coords="173,5,412,61"/>
-<area shape="rect" id="node3" href="$classhob_1_1IDrawable.html" title="Interface of classes that can be drawn." alt="" coords="5,57,125,84"/>
-<area shape="rect" id="node4" href="$classhob_1_1TileInitializer.html" title=" " alt="" coords="218,86,367,127"/>
-</map>

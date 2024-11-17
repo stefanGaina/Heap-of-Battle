@@ -1,6 +1,0 @@
-wait 50
-hover 700 550 0
-wait 50
-click 700 550 1
-wait 50
-release 700 550 0
