@@ -1,7 +1,7 @@
 #######################################################################################################
 # Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
-# Date: 16.11.2024
+# Date: 17.11.2024
 # Description: This Makefile is used to abstract some common commands over CMake.
 #######################################################################################################
 
@@ -37,6 +37,11 @@ clean:
 clean-debug:
 	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) --target clean
 .PHONY: clean-debug
+
+doxygen:
+	doxygen docs/doxygen.conf
+	xdg-open docs/html/index.html
+.PHONY: doxygen
 
 format:
 	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY) --target clang-format

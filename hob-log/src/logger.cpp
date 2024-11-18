@@ -17,6 +17,16 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file logger.cpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This file implements the interface defined in logger.hpp.
+ * @todo Only the hardcoded first sink is being used, extend the implementation to allow addition,
+ * removal and runtime configuration.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 /******************************************************************************************************
  * HEADER FILE INCLUDES
  *****************************************************************************************************/

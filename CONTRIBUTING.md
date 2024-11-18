@@ -40,10 +40,11 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
      ```
    - [Git Clone Documentation](https://git-scm.com/docs/git-clone)
 
-4. **Create a new branch**: Before making any changes, create a new branch off of `master`.
+4. **Create a new branch**: Before making any changes, create a new branch off of `develop`.
    - You can create a branch with the following command:
      ```bash
-     git checkout -b your-branch-name
+     git switch develop
+     git switch -c your-branch-name
      ```
    - [Git Branching Documentation](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows)
 
@@ -54,7 +55,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
      ```
    - Or, to stage individual files:
      ```bash
-     git add path/to/your/file.cpp
+     git add path/to/your/file
      ```
 
 6. **Commit your changes**: After staging your changes, commit them with a descriptive message.
@@ -74,7 +75,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
 
 ### How to compile
 
-1. **Install g++**
+1. **Install C++ compiler**: A compiler that supports **C++23** is required. If your package manager does not provide a newer version of **g++** or **clang++** for example, manual compilation is required. That compiler needs to be configured for **CMake** after that.
 
 2. **Install CMake**: You can skip this step if you already have **CMake** installed.
 
@@ -99,7 +100,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
        ```bash
        brew install cmake
        ```
-
 
 3. **Install Make**: You can skip this step if you already have **Make** or one of your favorite build systems installed and configured for **Cmake**, but it is recommended because build commands are already abstracted with **Make**.
 
@@ -168,6 +168,32 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
 ### How to run the tests
    - This is not yet implemented.
 
+### How to generate documentation
+
+1. **Install doxygen**: You can skip this step if you have doxygen already installed.
+
+   - **Option 1: Download Doxygen**: You can download the latest version from the official website:
+     [Doxygen Download](https://www.doxygen.nl/download.html)
+
+   - **Option 2: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install doxygen
+       ```
+
+     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
+       ```bash
+       sudo dnf install doxygen # For Fedora
+       sudo yum install doxygen # For RHEL/CentOS
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install doxygen
+       ```
+
 ### Code style guidelines
   To maintain consistency and readability across the project, we follow a set of coding style conventions. Please adhere to the following guidelines when contributing code:
 
@@ -198,6 +224,16 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
       * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       *****************************************************************************************************/
 
+     /** ***************************************************************************************************
+      * @file example.hpp
+      * @author your_name
+      * @date DD.MM.YYYY
+      * @brief Example header file.
+      * @details Optional description.
+      * @todo N/A.
+      * @bug No known bugs.
+      *****************************************************************************************************/
+
      #ifndef HOB_CONTRIBUTING_EXAMPLE_HPP_
      #define HOB_CONTRIBUTING_EXAMPLE_HPP_
 
@@ -213,6 +249,13 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
       * MACROS
       *****************************************************************************************************/
 
+     /** ***************************************************************************************************
+      * @brief Example macro.
+      * @details Optional description.
+      * @param void
+      * @returns void
+      * @throws N/A.
+      *****************************************************************************************************/
      #define MACRO_EXAMPLE() (void)0
 
      /******************************************************************************************************
@@ -222,24 +265,63 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
      namespace contributing
      {
 
+     /** ***************************************************************************************************
+      * @brief Example constant.
+      * @details Optional description.
+      *****************************************************************************************************/
      inline constexpr std::uint32_t CONSTANT_EXAMPLE = 0U;
 
      /******************************************************************************************************
       * TYPE DEFINITIONS
       *****************************************************************************************************/
 
-     class test_example
+     /** ***************************************************************************************************
+      * @brief Example class.
+      * @details Optional description.
+      *****************************************************************************************************/
+     class example
      {
      public:
-         void method_example(std::uint32_t variable_example) const noexcept(false) final;
+         /** ***********************************************************************************************
+          * @brief Example constructor. The public section should be the first in a class.
+          * @details Optional description.
+          * @param void
+          * @throws N/A.
+          *************************************************************************************************/
+         example(void) noexcept;
+
+         /** ***********************************************************************************************
+          * @brief Example method.
+          * @details Optional description.
+          * @param parameter_example: Example parameter.
+          * @returns void
+          * @throws
+          *************************************************************************************************/
+         void method_example(std::uint32_t parameter_example) const noexcept(false);
 
      protected:
+         /** ***********************************************************************************************
+          * @brief Example method. The protected section should be the second in a class.
+          * @details Optional description.
+          * @param void
+          * @returns void
+          * @throws N/A.
+          *************************************************************************************************/
          virtual void method2_example(void) noexcept = 0;
 
      protected:
+         /** ***********************************************************************************************
+          * @brief Example protected member variable. The methods and member variables should be in
+          * separated sections.
+          * @details Optional description.
+          *************************************************************************************************/
          std::uint32_t variable_example;
 
      private:
+         /** ***********************************************************************************************
+          * @brief Example private member variable. The private section should be the last in a class.
+          * @details Optional description.
+          *************************************************************************************************/
          const std::uint32_t variable2_example;
      };
 
@@ -250,12 +332,61 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
      ```
 
      ```cpp
+     /******************************************************************************************************
+      * Copyright (C) 2024 Gaina Stefan
+      *
+      * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+      * associated documentation files (the "Software"), to deal in the Software without restriction,
+      * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+      * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+      * furnished to do so, subject to the following conditions:
+      *
+      * The above copyright notice and this permission notice shall be included in all copies or
+      * substantial portions of the Software.
+      *
+      * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+      * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+      * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+      * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+      * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+      *****************************************************************************************************/
+
+     /** ***************************************************************************************************
+      * @file example.cpp
+      * @author your_name
+      * @date DD.MM.YYYY
+      * @brief Example source file.
+      * @details Optional description.
+      * @todo N/A.
+      * @bug No known bugs.
+      *****************************************************************************************************/
+
+     /******************************************************************************************************
+      * HEADER FILE INCLUDES
+      *****************************************************************************************************/
+
      #include "example.hpp"
+
+     /******************************************************************************************************
+      * METHOD DEFINITIONS
+      *****************************************************************************************************/
 
      namespace contributing
      {
 
+     example::example(void) noexcept
+         : variable_example{ 0U }
+         , variable2_example{ 0U }
+     {
+     }
+
+     void example::method_example(const std::uint32_t parameter_example) const noexcept(false)
+     {
+         (void)parameter_example;
+     }
+
      } /*< namespace contributing */
+
      ```
 
 ### Contact Information

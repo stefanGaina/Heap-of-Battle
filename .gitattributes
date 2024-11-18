@@ -1,0 +1,4 @@
+docs/coverage_report/** linguist-vendored
+docs/** linguist-vendored
+vendor/** linguist-vendored
+
