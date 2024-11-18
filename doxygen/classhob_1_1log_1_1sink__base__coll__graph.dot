@@ -1,0 +1,19 @@
+digraph "hob::log::sink_base"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="hob::log::sink_base",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This class implements the common propierties of the sinks (besides composed sink)."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="hob::log::sink",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classhob_1_1log_1_1sink.html",tooltip="Interface that all the sinks shall implement, because it is the way the logger can redirect messages."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" name" ,fontname="Helvetica"];
+  Node3 [label="std::string",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="std::basic_string\<\l Char \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" lost_logs_count" ,fontname="Helvetica"];
+  Node5 [label="std::atomic\< std::uint64_t \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" format\ntime_format" ,fontname="Helvetica"];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" async_worker" ,fontname="Helvetica"];
+  Node6 [label="std::unique_ptr\< hob\l::log::worker \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+}

@@ -1,0 +1,16 @@
+var searchData=
+[
+  ['log_56',['log',['../classhob_1_1log_1_1sink.html#a5c8eda51cfa9d725ec813fe7fcf1943f',1,'hob::log::sink::log()'],['../classhob_1_1log_1_1sink__base.html#a129f5511e2767c0c40401c96aaa97e2d',1,'hob::log::sink_base::log(std::uint8_t severity_bit, std::string_view tag, std::string_view file_path, std::string_view function_name, std::int32_t line, std::string_view message) noexcept override final'],['../classhob_1_1log_1_1sink__base.html#ab29ac373419a87eec078a40562f3c1a3',1,'hob::log::sink_base::log(std::uint8_t severity_bit, std::string_view message) noexcept=0'],['../classhob_1_1log_1_1sink__terminal.html#a3bf7097fae5214340b6b24d9b67bade4',1,'hob::log::sink_terminal::log()'],['../classhob_1_1log_1_1worker.html#aa37ce86af94ea4b6e778420318a61f88',1,'hob::log::worker::log()'],['../namespacehob_1_1log_1_1details.html#abd18eae86927d46ef6caf90c024f5f14',1,'hob::log::details::log(std::string_view sink_name, const std::uint8_t severity_bit, const std::string_view tag, const std::string_view file_path, const std::string_view function_name, const std::int32_t line, const std::string_view format, args &amp;&amp;... arguments) noexcept'],['../namespacehob_1_1log_1_1details.html#af6eaa72ac38bfb8770354a341512af60',1,'hob::log::details::log(std::string_view sink_name, std::uint8_t severity_bit, std::string_view tag, std::string_view file_path, std::string_view function_name, std::int32_t line, std::string_view format, args &amp;&amp;... arguments) noexcept'],['../namespacehob_1_1log_1_1details.html#a18d109fd89a6295c40c7d1ae03e1a751',1,'hob::log::details::log(std::string_view sink_name, std::uint8_t severity_bit, std::string_view tag, std::string_view file_path, std::string_view function_name, std::int32_t line, const std::string &amp;message) noexcept']]],
+  ['log_5ffunction_57',['log_function',['../classhob_1_1log_1_1worker.html#a580af05c70d05ab5e47c2bbc31653284',1,'hob::log::worker']]],
+  ['log_5fmessages_58',['log_messages',['../classhob_1_1log_1_1worker.html#a485a8bc67345ad732ca947e5ce975ada',1,'hob::log::worker']]],
+  ['log_5ftag_5fdebug_59',['LOG_TAG_DEBUG',['../namespacehob_1_1log.html#a1e3888a35ddbd2fcf54c1f743cfd8b3f',1,'hob::log']]],
+  ['log_5ftag_5ferror_60',['LOG_TAG_ERROR',['../namespacehob_1_1log.html#a208cba0fcea18d2b2578d9eb3bdfa582',1,'hob::log']]],
+  ['log_5ftag_5ffatal_61',['LOG_TAG_FATAL',['../namespacehob_1_1log.html#ae50000fee032a8cd30c6cea8280fc95d',1,'hob::log']]],
+  ['log_5ftag_5finfo_62',['LOG_TAG_INFO',['../namespacehob_1_1log.html#af4cb03b84eb93fc8d8ed65af6b745b8e',1,'hob::log']]],
+  ['log_5ftag_5ftrace_63',['LOG_TAG_TRACE',['../namespacehob_1_1log.html#af5f2d97df776b5a3dbad61ed4dc06d91',1,'hob::log']]],
+  ['log_5ftag_5fwarn_64',['LOG_TAG_WARN',['../namespacehob_1_1log.html#aa1dcdd80e9de0e728e8a7334b56db4cd',1,'hob::log']]],
+  ['logger_2ecpp_65',['logger.cpp',['../logger_8cpp.html',1,'']]],
+  ['logger_2ecpp_2eo_2ed_66',['logger.cpp.o.d',['../logger_8cpp_8o_8d.html',1,'']]],
+  ['logger_2ehpp_67',['logger.hpp',['../logger_8hpp.html',1,'']]],
+  ['lost_5flogs_5fcount_68',['lost_logs_count',['../classhob_1_1log_1_1worker.html#a0456d5bbcb2c1c81cfac2ba693c84aef',1,'hob::log::worker::lost_logs_count()'],['../classhob_1_1log_1_1sink__base.html#aec3a2b2abca7f7318c23df52351cea52',1,'hob::log::sink_base::lost_logs_count()']]]
+];

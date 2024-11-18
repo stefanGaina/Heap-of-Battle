@@ -1,0 +1,13 @@
+digraph "hob::log::sink_terminal_configuration"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="hob::log::sink_terminal\l_configuration",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Defines the configuration parameters for the unique terminal sink."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" base" ,fontname="Helvetica"];
+  Node2 [label="hob::log::sink_base\l_configuration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structhob_1_1log_1_1sink__base__configuration.html",tooltip="Defines the common configuration parameters for the sinks."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" format\ntime_format" ,fontname="Helvetica"];
+  Node3 [label="std::string_view",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="std::basic_string_view\l\< Char \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+}

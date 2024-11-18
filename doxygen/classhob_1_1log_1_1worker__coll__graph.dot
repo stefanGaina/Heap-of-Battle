@@ -1,0 +1,17 @@
+digraph "hob::log::worker"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="hob::log::worker",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" queue" ,fontname="Helvetica"];
+  Node2 [label="hob::log::message_queue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classhob_1_1log_1_1message__queue.html",tooltip="Thread safe STL queue for one consumer thread and one supplier thread. It is used for sending message..."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" mutex" ,fontname="Helvetica"];
+  Node3 [label="std::mutex",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" queue" ,fontname="Helvetica"];
+  Node4 [label="std::queue\< payload \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" lost_logs_count" ,fontname="Helvetica"];
+  Node5 [label="std::atomic\< std::uint64_t \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" thread" ,fontname="Helvetica"];
+  Node6 [label="std::thread",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+}
