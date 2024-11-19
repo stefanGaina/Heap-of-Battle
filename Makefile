@@ -54,7 +54,7 @@ unit-tests:
 		$(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) $(CMAKE_BUILD_FLAGS) && \
 		cd $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && ctest --verbose && \
 		cd ../../.. && $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --target coverage'
-		xdg-open $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/coverage_report/index.html
+		xdg-open docs/coverage_report/index.html
 .PHONY: unit-tests
 
 unit-tests-clean:

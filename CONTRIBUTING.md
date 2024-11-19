@@ -166,11 +166,71 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
      ```
 
 ### How to run the tests
-   - This is not yet implemented.
+
+1. **Install Google Test (gtest) and Google Mock (gmock)**: You can skip this step if you have **gtest** and **gmock** already installed.
+
+   - **Option 1: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install libgtest-dev libgmock-dev
+       ```
+
+     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
+       ```bash
+       sudo dnf install googletest # For Fedora
+       sudo yum install googletest # For RHEL/CentOS
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install googletest
+       ```
+
+   - **Option 2: Compile from source**: If you want the latest version or the version is not available in your package manager, you can build from source. You should have **Git**, **Make** and a **C++** compiler installed by now.
+     ```bash
+     git clone https://github.com/google/googletest.git
+     cd googletest
+     mkdir build
+     cd build
+     cmake ..
+     make
+     sudo make install
+     ```
+
+2. **Install Perl**: You can skip this step if you have **Perl** already installed.
+
+   - **Option 1: Download Perl**: You can download the latest version from the official website:
+     - [Perl Download](https://www.perl.org/get.html)
+
+   - **Option 2: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install perl
+       ```
+
+     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
+       ```bash
+       sudo dnf install perl # For Fedora
+       sudo yum install perl # For RHEL/CentOS
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install perl
+       ```
+
+3. **Run unit tests**:
+   ```bash
+   make unit-tests
+   ```
 
 ### How to generate documentation
 
-1. **Install doxygen**: You can skip this step if you have doxygen already installed.
+1. **Install doxygen**: You can skip this step if you have **doxygen** already installed.
 
    - **Option 1: Download Doxygen**: You can download the latest version from the official website:
      [Doxygen Download](https://www.doxygen.nl/download.html)
@@ -193,6 +253,11 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but shou
        ```bash
        brew install doxygen
        ```
+
+2. **Generate and run documentation**:
+   ```bash
+   make doxygen
+   ```
 
 ### Code style guidelines
   To maintain consistency and readability across the project, we follow a set of coding style conventions. Please adhere to the following guidelines when contributing code:

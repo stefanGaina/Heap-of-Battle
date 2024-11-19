@@ -26,7 +26,7 @@
 
 #ifdef HOB_LOG_BUILD
 
-#ifdef __GNUC__ || __clang__
+#if defined(__GNUC__) || defined(__clang__)
 
 /** ***************************************************************************************************
  * @brief Defines the visibility attribute for exported symbols.

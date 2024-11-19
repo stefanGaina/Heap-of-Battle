@@ -38,8 +38,8 @@ if(NOT BUILD_UNIT_TESTS)
 	add_custom_target(pre-build ALL
 					  DEPENDS clang-format)
 
-#	add_subdirectory(${HOB_DIRECTORY})
-#	add_subdirectory(${HOB_ENGINE_DIRECTORY})
+	# add_subdirectory(${HOB_DIRECTORY})
+	# add_subdirectory(${HOB_ENGINE_DIRECTORY})
 	add_subdirectory(${HOB_LOG})
 	add_subdirectory(test)
 else()
@@ -47,9 +47,9 @@ else()
 	set(LCOV_DIRECTORY "${CMAKE_SOURCE_DIR}/vendor/lcov/bin")
 
 	add_custom_target(coverage
-		COMMAND perl ${LCOV_DIRECTORY}/lcov.perl --capture --directory . --exclude *_test* --exclude *_mock* --exclude usr/* --rc lcov_branch_coverage=1
-			--demangle-cpp --output-file coverage.info
-		COMMAND perl ${LCOV_DIRECTORY}/genhtml.perl --branch-coverage --num-spaces=4 coverage.info --output-directory coverage_report --dark-mode)
+		COMMAND perl ${LCOV_DIRECTORY}/lcov.perl --ignore-errors unused --capture --directory . --exclude *_test* --exclude *_mock* --exclude usr/*
+			--rc lcov_branch_coverage=1 --demangle-cpp --output-file coverage.info
+		COMMAND perl ${LCOV_DIRECTORY}/genhtml.perl --branch-coverage --num-spaces=4 coverage.info --output-directory ../../docs/coverage_report --dark-mode)
 
 	add_subdirectory(unit-tests)
 endif()

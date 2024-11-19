@@ -34,7 +34,7 @@ namespace hob::log
 {
 
 /** ***************************************************************************************************
- * @brief This class provides the unique (only 1 instance is allowed) terminal sink.
+ * @brief This class provides the terminal sink.
  *****************************************************************************************************/
 class HOB_LOG_LOCAL sink_terminal final : public sink_base
 {
