@@ -173,13 +173,13 @@ void log(const std::string_view sink_name,
 	{
 		get_logger().get_sink<sink>(sink_name).log(severity_bit, tag, file_path, function_name, line, message);
 	}
-	catch (const std::logic_error& exception)
-	{
-		DEBUG_PRINT("Caught std::logic_error while sending message to the logger! (error message: \"{}\")", exception.what());
-	}
 	catch (const std::invalid_argument& exception)
 	{
 		DEBUG_PRINT("Caught std::invalid_argument sending message to a sink! (error message: \"{}\")", exception.what());
+	}
+	catch (const std::logic_error& exception)
+	{
+		DEBUG_PRINT("Caught std::logic_error while sending message to the logger! (error message: \"{}\")", exception.what());
 	}
 }
 
