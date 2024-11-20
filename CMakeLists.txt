@@ -14,12 +14,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(HOB_DIRECTORY hob)
 set(HOB_ENGINE_DIRECTORY hob-engine)
 set(HOB_LOG_DIRECTORY hob-log)
-set(HOB_SANDBOX hob-sandbox)
+set(TEST_DIRECTORY test)
 
 if(NOT BUILD_UNIT_TESTS)
 	set(HOB Heap-of-Battle)
 	set(HOB_ENGINE hob_engine)
 	set(HOB_LOG hob-log)
+	set(HOB_SANDBOX hob-sandbox)
 
 	file(GLOB_RECURSE FORMAT_FILES
 		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/src/*.cpp"
@@ -27,7 +28,8 @@ if(NOT BUILD_UNIT_TESTS)
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/*/*.hpp"
-		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src/*.cpp")
+		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/sandbox/src/*.cpp")
 
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall -Werror -DNDEBUG -flto")

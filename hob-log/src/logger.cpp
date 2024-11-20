@@ -22,8 +22,9 @@
  * @author Gaina Stefan
  * @date 17.11.2024
  * @brief This file implements the interface defined in logger.hpp.
- * @todo Only the hardcoded first sink is being used, extend the implementation to allow addition,
- * removal and runtime configuration.
+ * @details It serves as a facade to the sink manager and all sink types, having the API centralized
+ * in C-style, not managing objects directly.
+ * @todo Add configurable compile time constructor.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -35,6 +36,7 @@
 #include <memory>
 
 #include "logger.hpp"
+#include "sink_manager.hpp"
 #include "sink_terminal.hpp"
 #include "utility.hpp"
 
@@ -46,20 +48,114 @@ namespace hob::log
 {
 
 /** ***************************************************************************************************
- * @brief The collection of the different type of sinks.
+ * @brief This is the unique logger instance.
+ * @details It is global (only in this file in contrast to a singleton) by design so the user does not
+ * have manage the object and multiple loggers are not allowed anyway.
  *****************************************************************************************************/
-static std::vector<std::shared_ptr<sink>> sinks = {};
+static std::unique_ptr<sink_manager> logger = nullptr;
+
+/******************************************************************************************************
+ * LOCAL FUNCTIONS
+ *****************************************************************************************************/
+
+/** ***************************************************************************************************
+ * @brief Gets the logger, ensuring that it is valid (non nullptr). It is thread-safe.
+ * @param void
+ * @returns Reference to the unique logger instance.
+ * @throws std::logic_error: If the logger has not been initialized successfully.
+ *****************************************************************************************************/
+static sink_manager& get_logger(void) noexcept(false);
 
 /******************************************************************************************************
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-void initialize(const std::string_view configuration_file) noexcept(false)
+bool is_initialized(void) noexcept
 {
-	// TODO: Parse configuration file
-	(void)configuration_file;
+	return nullptr != logger;
+}
 
-	(void)sinks.emplace_back(std::make_shared<sink_terminal>("terminal", sink_terminal_configuration{ { "[{TAG}] {MESSAGE}", "", 63U, false }, stdout, true }));
+void initialize(const std::string_view configuration_file_path) noexcept(false)
+{
+	logger =
+		false == is_initialized() ? std::make_unique<sink_manager>(configuration_file_path) : throw std::logic_error{ "The logger has already been initialized!" };
+}
+
+void add_sink(const std::string_view sink_name, const sink_terminal_configuration& configuration) noexcept(false)
+{
+	get_logger().add_sink(sink_name, configuration);
+}
+
+void remove_sink(const std::string_view sink_name) noexcept
+{
+	try
+	{
+		get_logger().remove_sink(sink_name);
+	}
+	catch (const std::logic_error& exception)
+	{
+		DEBUG_PRINT("Caught std::logic_error while removing sink! (error message: \"{}\")", exception.what());
+	}
+}
+
+void set_default_sink_name(const std::string_view sink_name) noexcept(false)
+{
+	get_logger().set_default_sink_name(sink_name);
+}
+
+std::string_view get_default_sink_name(void) noexcept(false)
+{
+	return get_logger().get_default_sink_name();
+}
+
+void set_format(const std::string_view sink_name, const std::string_view format) noexcept(false)
+{
+	get_logger().get_sink<sink_base>(sink_name).set_format(format);
+}
+
+std::string_view get_format(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_base>(sink_name).get_format();
+}
+
+void set_time_format(const std::string_view sink_name, const std::string_view time_format) noexcept(false)
+{
+	get_logger().get_sink<sink_base>(sink_name).set_time_format(time_format);
+}
+
+std::string_view get_time_format(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_base>(sink_name).get_time_format();
+}
+
+void set_severity_level(const std::string_view sink_name, const std::uint8_t severity_level) noexcept(false)
+{
+	get_logger().get_sink<sink_base>(sink_name).set_severity_level(severity_level);
+}
+
+std::uint8_t get_severity_level(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_base>(sink_name).get_severity_level();
+}
+
+void set_stream(const std::string_view sink_name, FILE* const stream) noexcept(false)
+{
+	get_logger().get_sink<sink_terminal>(sink_name).set_stream(stream);
+}
+
+FILE* get_stream(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_terminal>(sink_name).get_stream();
+}
+
+void set_color(const std::string_view sink_name, const bool color) noexcept(false)
+{
+	get_logger().get_sink<sink_terminal>(sink_name).set_color(color);
+}
+
+bool get_color(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_terminal>(sink_name).get_color();
 }
 
 namespace details
@@ -75,7 +171,7 @@ void log(const std::string_view sink_name,
 {
 	try
 	{
-		sinks[0]->log(severity_bit, tag, file_path, function_name, line, message);
+		get_logger().get_sink<sink>(sink_name).log(severity_bit, tag, file_path, function_name, line, message);
 	}
 	catch (const std::logic_error& exception)
 	{
@@ -88,5 +184,10 @@ void log(const std::string_view sink_name,
 }
 
 } /*< namespace details */
+
+static sink_manager& get_logger(void) noexcept(false)
+{
+	return true == is_initialized() ? *logger : throw std::logic_error{ "The logger has NOT been initialized successfully!" };
+}
 
 } /*< namespace hob::log */
