@@ -40,10 +40,10 @@ namespace hob::log
 {
 
 /** ***************************************************************************************************
- * @brief Thread safe STL queue for one consumer thread and one supplier thread. It is used for sending
- * messages to the thread that does the logging.
- * @details In the case of multiple consumer threads one might empty the queue after the other checked
- * it is not empty. This case is accepted as for the moment is not used this way.
+ * @brief Thread safe STL queue for one consumer thread and one supplier thread.
+ * @details It is used for sending messages to the thread that does the logging. In the case of
+ * multiple consumer threads one might empty the queue after the other checked it is not empty. This
+ * case is accepted as for the moment is not used this way.
  *****************************************************************************************************/
 class HOB_LOG_LOCAL message_queue final
 {
@@ -65,7 +65,7 @@ public:
 	/** ***********************************************************************************************
 	 * @brief Emplaces a log at the end of the queue.
 	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * log1cxx::severity_level).
+	 * hob::log::severity_level).
 	 * @param message: The message of the log.
 	 * @returns true - the log has been emplaced successfully.
 	 * @returns false - the log has been lost.

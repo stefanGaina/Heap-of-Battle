@@ -18,10 +18,10 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file worker.cpp
+ * @file sink_composed.cpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This file implements the class defined in worker.hpp.
+ * @date 22.11.2024
+ * @brief This file implements the class defined in sink_composed.hpp.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
@@ -30,9 +30,7 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <functional>
-
-#include "worker.hpp"
+#include "sink_composed.hpp"
 #include "utility.hpp"
 
 /******************************************************************************************************
@@ -42,63 +40,26 @@
 namespace hob::log
 {
 
-worker::worker(callback&& callback, std::atomic<std::uint64_t>& lost_logs_count) noexcept
-	: log_function{ std::move(callback) }
-	, lost_logs_count{ lost_logs_count }
-	, queue{}
-	, is_working{ true }
-	, thread{ std::bind(&worker::log_messages, this) }
+sink_composed::sink_composed(const std::string_view name, std::list<std::shared_ptr<sink>>&& sinks) noexcept(false)
+	: sink{ name }
+	, sinks{ std::move(sinks) }
 {
+	assert(false == sinks.empty());
 }
 
-worker::~worker(void) noexcept
+void sink_composed::log(const std::uint8_t	   severity_bit,
+						const std::string_view tag,
+						const std::string_view file_path,
+						const std::string_view function_name,
+						const std::int32_t	   line,
+						const std::string_view message) noexcept
 {
-	is_working = false;
-	queue.interrupt_wait();
+	assert(false == sinks.empty());
 
-	if (true == thread.joinable())
+	for (const std::shared_ptr<sink>& sink : sinks)
 	{
-		thread.join();
+		sink->log(severity_bit, tag, file_path, function_name, line, message);
 	}
-
-	while (false == queue.is_empty())
-	{
-		log_message();
-	}
-}
-
-bool worker::log(const std::uint8_t severity_bit, std::string&& message) noexcept
-{
-	assert(nullptr != this);
-	assert(true == is_working);
-
-	return queue.emplace(severity_bit, std::move(message));
-}
-
-void worker::log_messages(void) noexcept
-{
-	assert(nullptr != this);
-	assert(true == is_working);
-
-	while (true == is_working || false == queue.is_empty())
-	{
-		log_message();
-	}
-}
-
-void worker::log_message(void) noexcept
-{
-	std::optional<message_queue::payload> message = queue.pop();
-
-	assert(nullptr != this);
-	assert(true == is_working || false == queue.is_empty());
-
-	if (false == message.has_value())
-	{
-		return;
-	}
-
-	lost_logs_count += false == log_function(message->first, std::move(message->second)) ? UINT64_MAX > lost_logs_count ? 1UL : 0UL : 0UL;
 }
 
 } /*< namespace hob::log */

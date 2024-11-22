@@ -72,7 +72,7 @@ public:
 	/** ***********************************************************************************************
 	 * @brief Processes the message and delegates it to the concrete sink.
 	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * log1cxx::severity_level).
+	 * hob::log::severity_level).
 	 * @param tag: Tag indicating the type of message.
 	 * @param file_path: The path of the file where the log function is being called.
 	 * @param function_name: The name of the function where this call is made.
@@ -182,7 +182,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Method for concrete sinks to handle logs that have been processed.
 	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * log1cxx::severity_level).
+	 * hob::log::severity_level).
 	 * @param message: The message to be logged.
 	 * @returns true - the message has been logged successfully.
 	 * @returns false - the log has been lost.
@@ -228,8 +228,14 @@ private:
 	 *************************************************************************************************/
 	std::uint8_t severity_level;
 
+	/** ***********************************************************************************************
+	 * @brief TODO
+	 *************************************************************************************************/
 	std::unique_ptr<worker> async_worker;
 
+	/** ***********************************************************************************************
+	 * @brief How many logs have been lost due to unrecoverable errors.
+	 *************************************************************************************************/
 	std::atomic<std::uint64_t> lost_logs_count;
 };
 

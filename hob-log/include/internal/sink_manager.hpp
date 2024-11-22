@@ -6,6 +6,7 @@
  *****************************************************************************************************/
 
 #include <vector>
+#include <list>
 #include <memory>
 #include <cassert>
 
@@ -54,17 +55,29 @@ public:
 	~sink_manager(void) noexcept;
 
 	/** ***********************************************************************************************
-	 * @brief Adds the terminal sink to the logger. It is **not** thread-safe.
-	 * @param sink_name: TODO
+	 * @brief Adds a terminal sink to the logger. It is **not** thread-safe.
+	 * @param sink_name: The name of the terminal sink (can **not** be empty string).
 	 * @param configuration: The parameters that will be configured with.
 	 * @returns void
-	 * @throws std::logic_error: If the terminal sink has already been added.
+	 * @throws std::logic_error: If the sink name has already been added.
 	 * @throws std::invalid_argument: If the stream is **not** stdout or stderr or severity level is
 	 * not in the [0, 63] interval.
 	 * @throws std::bad_alloc: If the memory allocation of the sink or making the copy of the name
 	 * fails.
 	 *************************************************************************************************/
 	void add_sink(std::string_view sink_name, const sink_terminal_configuration& configuration) noexcept(false);
+
+	/** ***********************************************************************************************
+	 * @brief Adds a composed sink to the logger. It is **not** thread-safe.
+	 * @param sink_name: The name of the composed sink (can **not** be empty string).
+	 * @param arguments: The names of the sinks that will be in composition.
+	 * @returns void
+	 * @throws std::logic_error: If the sink name has already been added.
+	 * @throws std::invalid_argument: If a sink name is invalid.
+	 * @throws std::bad_alloc: If the memory allocation of the sink or making the copy of the name
+	 * fails.
+	 *************************************************************************************************/
+	void add_sink(std::string_view sink_name, const std::list<std::string>& sink_names) noexcept(false);
 
 	/** ***********************************************************************************************
 	 * @brief Removes a sink, making it not usable anymore. This function does not fail if the sink
