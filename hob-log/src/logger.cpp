@@ -86,6 +86,11 @@ void add_sink(const std::string_view sink_name, const sink_terminal_configuratio
 	get_logger().add_sink(sink_name, configuration);
 }
 
+void add_sink(const std::string_view sink_name, const std::list<std::string>& sink_names) noexcept(false)
+{
+	get_logger().add_sink(sink_name, sink_names);
+}
+
 void remove_sink(const std::string_view sink_name) noexcept
 {
 	try

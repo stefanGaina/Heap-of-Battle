@@ -1,5 +1,5 @@
 Thank you for your interest in contributing to Heap of Battle! This is an open-source project with educational goals, suitable for any level of experience.
-The following guide has been tested on GNU/Linux x86_64 with g++15.0.0, but should be working on other POSIX platforms.
+The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS with g++14.2.0. Currently it supports POSIX platforms (feel free to change this if you are not on a such platform) with a C++ compiler that supports C++23 standard.
 
 ### How to submit changes
 

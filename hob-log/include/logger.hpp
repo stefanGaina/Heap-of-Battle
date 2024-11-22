@@ -24,7 +24,8 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <string_view>
+#include <string>
+#include <list>
 
 #include "details/internal.hpp"
 #include "details/strip.hpp"
@@ -162,15 +163,32 @@ HOB_LOG_API void initialize(std::string_view configuration_file_path) noexcept(f
 HOB_LOG_API extern void deinitialize(void) noexcept;
 
 /** ***************************************************************************************************
- * @brief Adds the unique terminal sink (for its name see SINK_NAME_TERMINAL). It is **not**
- * thread-safe.
- * @param sink_name: TODO
- * @param configuration: The configuration of the terminal sink.
+ * @brief Adds a terminal sink to the logger. It is **not** thread-safe.
+ * @param sink_name: The name of the terminal sink (can **not** be empty string).
+ * @param configuration: The parameters that will be configured with.
  * @returns void
- * @throws std::logic_error: If the logger has not been initialized successfully.
- * @throws TODO
+ * @throws std::logic_error: If the logger has not been initialized successfully or the sink name has
+ * already been added.
+ * @throws std::invalid_argument: If the stream is **not** stdout or stderr or severity level is
+ * not in the [0, 63] interval.
+ * @throws std::bad_alloc: If the memory allocation of the sink or making the copy of the name
+ * fails.
  *****************************************************************************************************/
 HOB_LOG_API extern void add_sink(std::string_view sink_name, const sink_terminal_configuration& configuration) noexcept(false);
+
+/** ***************************************************************************************************
+ * @brief Adds a composed sink to the logger. This sink type can not be configured after creation. It
+ * is **not** thread-safe.
+ * @param sink_name: The name of the composed sink (can **not** be empty string).
+ * @param arguments: The names of the sinks that will be in composition.
+ * @returns void
+ * @throws std::logic_error: If the logger has not been initialized successfully or the sink name has
+ * already been added.
+ * @throws std::invalid_argument: If a sink name is invalid.
+ * @throws std::bad_alloc: If the memory allocation of the sink or making the copy of the name
+ * fails.
+ *****************************************************************************************************/
+HOB_LOG_API extern void add_sink(std::string_view sink_name, const std::list<std::string>& sink_names) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Removes a sink, making it not usable anymore. This function does not fail if the sink

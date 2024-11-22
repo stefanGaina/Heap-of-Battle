@@ -86,7 +86,7 @@ private:
 	/** ***********************************************************************************************
 	 * @brief Prints the message to the terminal. It is **not** thread-safe.
 	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * log1cxx::severity_level).
+	 * hob::log::severity_level).
 	 * @param message: The message to be logged.
 	 * @returns true - the message has been logged successfully.
 	 * @returns false - the log has been lost.
@@ -98,7 +98,7 @@ private:
 	 * @brief Changes the color of the terminal output depending on the severity level of the log. (0
 	 * will restore the color to its default).
 	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * log1cxx::severity_level).
+	 * hob::log::severity_level).
 	 * @returns void
 	 * @throws N/A.
 	 *************************************************************************************************/
