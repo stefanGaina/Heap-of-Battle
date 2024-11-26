@@ -69,6 +69,7 @@ public:
 	 * @param callback: The function that will be called to handle the logging of the message on the
 	 * working thread.
 	 * @param lost_logs_count: Reference to the counter of lost logs due to unrecoverable errors.
+	 * @throws N/A.
 	 *************************************************************************************************/
 	worker(callback&& callback, std::atomic<std::uint64_t>& lost_logs_count) noexcept;
 

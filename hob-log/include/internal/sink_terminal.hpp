@@ -103,16 +103,6 @@ private:
 	 *************************************************************************************************/
 	[[nodiscard]] bool log(std::uint8_t severity_bit, std::string_view message) noexcept override;
 
-	/** ***********************************************************************************************
-	 * @brief Changes the color of the terminal output depending on the severity level of the log. (0
-	 * will restore the color to its default).
-	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * hob::log::severity_level).
-	 * @returns void
-	 * @throws N/A.
-	 *************************************************************************************************/
-	void change_color(std::uint8_t severity_bit = 0U) const noexcept;
-
 private:
 	/** ***********************************************************************************************
 	 * @brief Stream which the messages will be printed to (only stdout and stderr is supported).

@@ -17,6 +17,15 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file sink_base.hpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This header defines the sink_base class.
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 #ifndef HOB_LOG_INTERNAL_SINK_BASE_HPP_
 #define HOB_LOG_INTERNAL_SINK_BASE_HPP_
 
@@ -87,6 +96,15 @@ public:
 			 std::string_view function_name,
 			 std::int32_t	  line,
 			 std::string_view message) noexcept override final;
+
+	/** ***********************************************************************************************
+	 * @brief Gets how many logs have been lost due to unrecoverable errors. In case of overflow there
+	 * is no way to detect that, but the value will remain to UINT64_MAX. It is thread-safe.
+	 * @param void
+	 * @returns How many logs have been lost due to unrecoverable errors.
+	 * @throws N/A.
+	 *************************************************************************************************/
+	[[nodiscard]] std::uint64_t get_lost_logs(void) const noexcept;
 
 	/** ***********************************************************************************************
 	 * @brief Sets a new message format. It is **not** thread-safe. The supported placeholders are:
@@ -164,11 +182,22 @@ public:
 	 *************************************************************************************************/
 	[[nodiscard]] std::uint8_t get_severity_level(void) const noexcept;
 
+	/** ***********************************************************************************************
+	 * @brief Sets a new asynchronous mode. It is **not** thread-safe.
+	 * @param async_mode: The asynchronous mode to be set.
+	 * @returns void
+	 * @throws std::bad_alloc: If the mode is enabled and the initialization fails.
+	 *************************************************************************************************/
 	void set_async_mode(const bool async_mode) noexcept(false);
 
+	/** ***********************************************************************************************
+	 * @brief Gets the current asynchronous mode. It is thread-safe.
+	 * @param void
+	 * @returns true - the messages will be logged asynchronous.
+	 * @returns false - the message will be logged synchronous.
+	 * @throws N/A.
+	 *************************************************************************************************/
 	[[nodiscard]] bool get_async_mode(void) const noexcept;
-
-	[[nodiscard]] std::uint64_t get_lost_logs(void) const noexcept;
 
 private:
 	/** ***********************************************************************************************
@@ -229,7 +258,7 @@ private:
 	std::uint8_t severity_level;
 
 	/** ***********************************************************************************************
-	 * @brief TODO
+	 * @brief Worker that logs the message asynchronically if this option is enabled.
 	 *************************************************************************************************/
 	std::unique_ptr<worker> async_worker;
 

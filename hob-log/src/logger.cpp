@@ -113,6 +113,11 @@ std::string_view get_default_sink_name(void) noexcept(false)
 	return get_logger().get_default_sink_name();
 }
 
+std::uint64_t get_lost_logs(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_base>(sink_name).get_lost_logs();
+}
+
 void set_format(const std::string_view sink_name, const std::string_view format) noexcept(false)
 {
 	get_logger().get_sink<sink_base>(sink_name).set_format(format);
@@ -141,6 +146,16 @@ void set_severity_level(const std::string_view sink_name, const std::uint8_t sev
 std::uint8_t get_severity_level(const std::string_view sink_name) noexcept(false)
 {
 	return get_logger().get_sink<sink_base>(sink_name).get_severity_level();
+}
+
+void set_async_mode(const std::string_view sink_name, const bool async_mode) noexcept(false)
+{
+	get_logger().get_sink<sink_base>(sink_name).set_async_mode(async_mode);
+}
+
+bool get_async_mode(const std::string_view sink_name) noexcept(false)
+{
+	return get_logger().get_sink<sink_base>(sink_name).get_async_mode();
 }
 
 void set_stream(const std::string_view sink_name, FILE* const stream) noexcept(false)

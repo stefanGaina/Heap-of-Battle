@@ -229,6 +229,17 @@ HOB_LOG_API extern void set_default_sink_name(std::string_view sink_name) noexce
 HOB_LOG_API [[nodiscard]] extern std::string_view get_default_sink_name(void) noexcept(false);
 
 /** ***************************************************************************************************
+ * @brief Gets how many logs have been lost due to unrecoverable errors. In case of overflow there
+ * is no way to detect that, but the value will remain to UINT64_MAX. It is thread-safe.
+ * @param sink_name: The name of the sink the lost logs count will be got from.
+ * @returns How many logs have been lost due to unrecoverable errors.
+ * @throws std::logic_error: If the logger has not been initialized successfully.
+ * @throws std::invalid_argument: If the sink has not been successfully added or it is of unsupported
+ * type.
+ *****************************************************************************************************/
+HOB_LOG_API [[nodiscard]] std::uint64_t get_lost_logs(std::string_view sink_name) noexcept(false);
+
+/** ***************************************************************************************************
  * @brief Sets a new message format. It is **not** thread-safe. The supported placeholders are:
  * - {TIME}: The time when the message has been logged (@see set_time_format()).
  * - {TAG}: Tag indicating the severity level of the log.
@@ -316,6 +327,29 @@ HOB_LOG_API extern void set_severity_level(std::string_view sink_name, std::uint
  * type.
  *****************************************************************************************************/
 HOB_LOG_API [[nodiscard]] extern std::uint8_t get_severity_level(std::string_view sink_name) noexcept(false);
+
+/** ***************************************************************************************************
+ * @brief Sets a new asynchronous mode. It is **not** thread-safe.
+ * @param sink_name: The name of the sink the asynchronous mode will be set to.
+ * @param async_mode: The asynchronous mode to be set.
+ * @returns void
+ * @throws std::logic_error: If the logger has not been initialized successfully.
+ * @throws std::invalid_argument: If the sink has not been successfully added or it is of unsupported
+ * type.
+ * @throws std::bad_alloc: If the mode is enabled and the initialization fails.
+ *****************************************************************************************************/
+HOB_LOG_API void set_async_mode(std::string_view sink_name, bool async_mode) noexcept(false);
+
+/** ***************************************************************************************************
+ * @brief Gets the current asynchronous mode. It is thread-safe.
+ * @param sink_name: The name of the sink the asynchronous mode will be got from.
+ * @returns true - the messages will be logged asynchronous.
+ * @returns false - the message will be logged synchronous.
+ * @throws std::logic_error: If the logger has not been initialized successfully.
+ * @throws std::invalid_argument: If the sink has not been successfully added or it is of unsupported
+ * type.
+ *****************************************************************************************************/
+HOB_LOG_API [[nodiscard]] bool get_async_mode(std::string_view sink_name) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Sets a new stream. It is **not** thread-safe.

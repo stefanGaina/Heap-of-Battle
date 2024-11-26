@@ -108,6 +108,12 @@ void sink_base::log(const std::uint8_t	   severity_bit,
 			: 0UL;
 }
 
+std::uint64_t sink_base::get_lost_logs(void) const noexcept
+{
+	assert(nullptr != this);
+	return lost_logs_count;
+}
+
 void sink_base::set_format(const std::string_view format) noexcept(false)
 {
 	assert(nullptr != this);
@@ -178,12 +184,6 @@ bool sink_base::get_async_mode(void) const noexcept
 {
 	assert(nullptr != this);
 	return nullptr != async_worker;
-}
-
-std::uint64_t sink_base::get_lost_logs(void) const noexcept
-{
-	assert(nullptr != this);
-	return lost_logs_count;
 }
 
 std::string sink_base::get_host_name(void) noexcept(false)
