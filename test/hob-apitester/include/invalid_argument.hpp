@@ -18,104 +18,67 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file message_queue.hpp
+ * @file invalid_argument.hpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This header defines the message_queue class.
+ * @date 26.11.2024
+ * @brief This header defines the invalid_argument class.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_LOG_INTERNAL_MESSAGE_QUEUE_HPP_
-#define HOB_LOG_INTERNAL_MESSAGE_QUEUE_HPP_
+#ifndef HOB_APITESTER_INVALID_ARGUMENT_HPP_
+#define HOB_APITESTER_INVALID_ARGUMENT_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
 #include <string>
-#include <queue>
-#include <mutex>
-#include <condition_variable>
-#include <optional>
 
-#include "details/visibility.hpp"
+#include "exception.hpp"
 
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-namespace hob::log
+namespace hob::apitester
 {
 
 /** ***************************************************************************************************
- * @brief Thread safe STL queue for one consumer thread and one supplier thread.
- * @details It is used for sending messages to the thread that does the logging. In the case of
- * multiple consumer threads one might empty the queue after the other checked it is not empty. This
- * case is accepted as for the moment is not used this way.
+ * @brief This class provides the exception thrown by the library when an invalid cast is performed.
  *****************************************************************************************************/
-class HOB_LOG_LOCAL message_queue final
+class invalid_argument final : public exception
 {
 public:
 	/** ***********************************************************************************************
-	 * @brief The data type of the log that is being stored inside the queue.
+	 * @brief Moves the description of the exception without the risk of std::bad_alloc.
+	 * @param message: The error message of the exception.
+	 * @throws N/A.
 	 *************************************************************************************************/
-	using payload = std::pair<std::uint8_t, std::string>;
+	invalid_argument(std::string&& message) noexcept;
 
 	/** ***********************************************************************************************
-	 * @brief Checks if the queue has any message stored in it.
+	 * @brief Copies the description of the exception.
+	 * @param message: The error message of the exception.
+	 * @throws std::bad_alloc: If making the copy of the error message fails.
+	 *************************************************************************************************/
+	invalid_argument(std::string_view message) noexcept(false);
+
+	/** ***********************************************************************************************
+	 * @brief Retrieves the description of the exception.
 	 * @param void
-	 * @returns true - queue is empty.
-	 * @returns false - queue has at least 1 message.
+	 * @returns The description of the exception.
 	 * @throws N/A.
 	 *************************************************************************************************/
-	[[nodiscard]] bool is_empty(void) const noexcept;
-
-	/** ***********************************************************************************************
-	 * @brief Emplaces a log at the end of the queue.
-	 * @param severity_bit: Bit indicating the type of message that is being logged (see
-	 * hob::log::severity_level).
-	 * @param message: The message of the log.
-	 * @returns true - the log has been emplaced successfully.
-	 * @returns false - the log has been lost.
-	 * @throws N/A.
-	 *************************************************************************************************/
-	[[nodiscard]] bool emplace(std::uint8_t severity_bit, std::string&& message) noexcept;
-
-	/** ***********************************************************************************************
-	 * @brief Gets the message at the beginning of the list and removes it. If the queue is empty waits
-	 * until a message is being emplaced.
-	 * @param void
-	 * @returns The first message stored.
-	 * @throws N/A.
-	 *************************************************************************************************/
-	[[nodiscard]] std::optional<payload> pop(void) noexcept;
-
-	/** ***********************************************************************************************
-	 * @brief Guarantees that the consumer thread is not stuck waiting in a pop() call.
-	 * @param void
-	 * @returns void
-	 * @throws N/A.
-	 *************************************************************************************************/
-	void interrupt_wait(void) noexcept;
+	std::string_view what(void) const noexcept override;
 
 private:
 	/** ***********************************************************************************************
-	 * @brief The queue where the messages are being placed.
+	 * @brief The error message describing the exception.
 	 *************************************************************************************************/
-	std::queue<payload> queue;
-
-	/** ***********************************************************************************************
-	 * @brief The mutex protecting the queue from multiple threads access.
-	 *************************************************************************************************/
-	mutable std::mutex mutex;
-
-	/** ***********************************************************************************************
-	 * @brief The variable that controls the consumer and the supplier thread.
-	 *************************************************************************************************/
-	std::condition_variable condition_notifier;
+	const std::string message;
 };
 
-} /*< namespace hob::log */
+} /*< namespace hob::apitester */
 
-#endif /*< HOB_LOG_INTERNAL_MESSAGE_QUEUE_HPP_ */
+#endif /*< HOB_APITESTER_INVALID_ARGUMENT_HPP_ */

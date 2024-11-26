@@ -172,7 +172,7 @@ void log(const std::string_view sink_name,
 		 const std::string_view file_path,
 		 const std::string_view function_name,
 		 const std::int32_t		line,
-		 const std::string&		message) noexcept
+		 const std::string_view message) noexcept
 {
 	try
 	{

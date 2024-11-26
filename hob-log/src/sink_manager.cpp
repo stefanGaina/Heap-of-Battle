@@ -17,6 +17,15 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file sink_manager.cpp
+ * @author Gaina Stefan
+ * @date 18.11.2024
+ * @brief This file implements the class defined in sink_manager.hpp.
+ * @todo Read the logger configuration from file and update it in case of runtime changes.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 /******************************************************************************************************
  * HEADER FILE INCLUDES
  *****************************************************************************************************/

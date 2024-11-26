@@ -5,4 +5,6 @@
 # Description: This CMake file is used to invoke the CMake files in the subdirectories.
 #######################################################################################################
 
-add_subdirectory(sandbox)
+add_subdirectory(${HOB_APITESTER_DIRECTORY})
+add_subdirectory(${HOB_LOG_TEST_DIRECTORY})
+add_subdirectory(${HOB_SANDBOX_DIRECTORY})

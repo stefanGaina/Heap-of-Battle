@@ -18,10 +18,10 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file worker.cpp
+ * @file worker.hpp
  * @author Gaina Stefan
  * @date 17.11.2024
- * @brief This header defines the worker class that processes logging messages asynchronously.
+ * @brief This header defines the worker class.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/

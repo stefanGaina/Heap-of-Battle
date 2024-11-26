@@ -15,11 +15,16 @@ set(HOB_DIRECTORY hob)
 set(HOB_ENGINE_DIRECTORY hob-engine)
 set(HOB_LOG_DIRECTORY hob-log)
 set(TEST_DIRECTORY test)
+set(HOB_APITESTER_DIRECTORY hob-apitester)
+set(HOB_LOG_TEST_DIRECTORY hob-log-test)
+set(HOB_SANDBOX_DIRECTORY hob-sandbox)
 
 if(NOT BUILD_UNIT_TESTS)
-	set(HOB Heap-of-Battle)
-	set(HOB_ENGINE hob_engine)
+	set(HOB heap-of-battle)
+	set(HOB_ENGINE hob-engine)
 	set(HOB_LOG hob-log)
+	set(HOB_APITESTER hob-apitester)
+	set(HOB_LOG_TEST hob-log-test)
 	set(HOB_SANDBOX hob-sandbox)
 
 	file(GLOB_RECURSE FORMAT_FILES
@@ -29,7 +34,10 @@ if(NOT BUILD_UNIT_TESTS)
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src/*.cpp"
-		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/sandbox/src/*.cpp")
+		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_APITESTER_DIRECTORY}/include/*/*.hpp"
+		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_APITESTER_DIRECTORY}/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_LOG_TEST_DIRECTORY}/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_SANDBOX_DIRECTORY}/src/*.cpp")
 
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall -Werror -DNDEBUG -flto")
@@ -42,8 +50,8 @@ if(NOT BUILD_UNIT_TESTS)
 
 	# add_subdirectory(${HOB_DIRECTORY})
 	# add_subdirectory(${HOB_ENGINE_DIRECTORY})
-	add_subdirectory(${HOB_LOG})
-	add_subdirectory(test)
+	add_subdirectory(${HOB_LOG_DIRECTORY})
+	add_subdirectory(${TEST_DIRECTORY})
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -DUNIT_TEST -DNDEBUG -fpermissive -fno-inline -fprofile-arcs -ftest-coverage --coverage")
 	set(LCOV_DIRECTORY "${CMAKE_SOURCE_DIR}/vendor/lcov/bin")

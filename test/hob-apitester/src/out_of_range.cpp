@@ -18,53 +18,43 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file visibility.hpp
+ * @file out_of_range.cpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This header defines the visibility attribute when compiling hob-log.
+ * @date 26.11.2024
+ * @brief This file implements the class defined in out_of_range.hpp.
  * @todo N/A.
- * @bug If compilation with clang++ is tried, g++ extensions will cause errors.
+ * @bug No known bugs.
  *****************************************************************************************************/
-
-#ifndef HOB_LOG_DETAILS_VISIBILITY_HPP_
-#define HOB_LOG_DETAILS_VISIBILITY_HPP_
 
 /******************************************************************************************************
- * MACROS
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#ifdef HOB_LOG_BUILD
+#include <cassert>
 
-#if defined(__GNUC__) || defined(__clang__)
+#include "out_of_range.hpp"
 
-/** ***************************************************************************************************
- * @brief Defines the visibility attribute for exported symbols.
+/******************************************************************************************************
+ * METHOD DEFINITIONS
  *****************************************************************************************************/
-#define HOB_LOG_API __attribute__((visibility("default")))
 
-/** ***************************************************************************************************
- * @brief Defines the visibility attribute for hidden symbols.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL __attribute__((visibility("hidden")))
+namespace hob::apitester
+{
 
-#else
+out_of_range::out_of_range(std::string&& message) noexcept
+	: message{ std::move(message) }
+{
+}
 
-#error "hob-log requires g++ or clang++ to be compiled."
+out_of_range::out_of_range(const std::string_view message) noexcept(false)
+	: message{ message }
+{
+}
 
-#endif /*< __GNUC__ || __clang__ */
+std::string_view out_of_range::what(void) const noexcept
+{
+	assert(nullptr != this);
+	return message;
+}
 
-#else
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_API
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL
-
-#endif /*< HOB_LOG_BUILD */
-
-#endif /*< HOB_LOG_DETAILS_VISIBILITY_HPP_ */
+} /*< namespace hob::apitester */

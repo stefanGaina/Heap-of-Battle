@@ -18,53 +18,54 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file visibility.hpp
+ * @file exception.hpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This header defines the visibility attribute when compiling hob-log.
+ * @date 26.11.2024
+ * @brief This header defines the exception class.
  * @todo N/A.
- * @bug If compilation with clang++ is tried, g++ extensions will cause errors.
+ * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_LOG_DETAILS_VISIBILITY_HPP_
-#define HOB_LOG_DETAILS_VISIBILITY_HPP_
+#ifndef HOB_APITESTER_EXCEPTION_HPP_
+#define HOB_APITESTER_EXCEPTION_HPP_
 
 /******************************************************************************************************
- * MACROS
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#ifdef HOB_LOG_BUILD
+#include <string_view>
 
-#if defined(__GNUC__) || defined(__clang__)
+/******************************************************************************************************
+ * TYPE DEFINITIONS
+ *****************************************************************************************************/
+
+namespace hob::apitester
+{
 
 /** ***************************************************************************************************
- * @brief Defines the visibility attribute for exported symbols.
+ * @brief This class defines the interface for custom exceptions.
+ * @details This is necessary so they can be caught togheter and allow the user to handle the
+ * exceptions from standard library if needed.
  *****************************************************************************************************/
-#define HOB_LOG_API __attribute__((visibility("default")))
+class exception
+{
+public:
+	/** ***********************************************************************************************
+	 * @brief Virtual destructor to avoid polymorphically delete undefined behavior.
+	 * @param void
+	 * @throws N/A.
+	 *************************************************************************************************/
+	virtual ~exception(void) noexcept = default;
 
-/** ***************************************************************************************************
- * @brief Defines the visibility attribute for hidden symbols.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL __attribute__((visibility("hidden")))
+	/** ***********************************************************************************************
+	 * @brief Retrieves the description of the exception.
+	 * @param void
+	 * @returns The description of the exception.
+	 * @throws N/A.
+	 *************************************************************************************************/
+	virtual std::string_view what(void) const noexcept = 0;
+};
 
-#else
+} /*< namespace hob::apitester */
 
-#error "hob-log requires g++ or clang++ to be compiled."
-
-#endif /*< __GNUC__ || __clang__ */
-
-#else
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_API
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL
-
-#endif /*< HOB_LOG_BUILD */
-
-#endif /*< HOB_LOG_DETAILS_VISIBILITY_HPP_ */
+#endif /*< HOB_APITESTER_EXCEPTION_HPP_ */

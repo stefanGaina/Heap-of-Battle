@@ -174,13 +174,13 @@ log(std::string_view sink_name,
  * @throws N/A.
  *************************************************************************************************/
 HOB_LOG_API extern void
-log(std::string_view   sink_name,
-	std::uint8_t	   severity_bit,
-	std::string_view   tag,
-	std::string_view   file_path,
-	std::string_view   function_name,
-	std::int32_t	   line,
-	const std::string& message) noexcept;
+log(std::string_view sink_name,
+	std::uint8_t	 severity_bit,
+	std::string_view tag,
+	std::string_view file_path,
+	std::string_view function_name,
+	std::int32_t	 line,
+	std::string_view message) noexcept;
 
 /******************************************************************************************************
  * FUNCTION DEFINITIONS

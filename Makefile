@@ -5,12 +5,13 @@
 # Description: This Makefile is used to abstract some common commands over CMake.
 #######################################################################################################
 
-OS					 	 := $(shell uname)
+OS := $(shell uname)
+
 ifeq ($(OS), Linux)
-	NPROC	 		 := $(shell nproc)
+	NPROC := $(shell nproc)
 else ifeq ($(OS), Darwin)
-	NPROC	 		 := $(shell sysctl -n hw.logicalcpu)
-else 
+	NPROC := $(shell sysctl -n hw.logicalcpu)
+else
 	$(error Unsupported OS: $(OS))
 endif
 
@@ -26,7 +27,7 @@ all:
 	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY) $(CMAKE_BUILD_FLAGS)
 
 debug:
-	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) $(CMAKE_BUILD_FLAGS)
+	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) --verbose $(CMAKE_BUILD_FLAGS)
 .PHONY: debug
 
 cmake:

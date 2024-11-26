@@ -17,6 +17,15 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file strip.hpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This header defines empty macros for those that have been disabled.
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 #ifndef HOB_LOG_DETAILS_STRIP_HPP_
 #define HOB_LOG_DETAILS_STRIP_HPP_
 

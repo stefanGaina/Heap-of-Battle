@@ -17,6 +17,15 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file sink_terminal.hpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This header defines the sink_terminal class.
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 #ifndef HOB_LOG_INTERNAL_SINK_TERMINAL_HPP_
 #define HOB_LOG_INTERNAL_SINK_TERMINAL_HPP_
 
