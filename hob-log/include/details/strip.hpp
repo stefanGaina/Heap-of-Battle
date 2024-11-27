@@ -85,6 +85,15 @@
  *****************************************************************************************************/
 #define HOB_LOG_FATAL(sink_name, format, ...) (void)0
 
+/** ***************************************************************************************************
+ * @brief Fatal error messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_FATAL(format, ...) (void)0
+
 #endif /*< HOB_LOG_STRIP_FATAL */
 
 #ifdef HOB_LOG_STRIP_ERROR
@@ -98,6 +107,15 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_ERROR(sink_name, format, ...) (void)0
+
+/** ***************************************************************************************************
+ * @brief Error messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_ERROR(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_ERROR */
 
@@ -113,6 +131,15 @@
  *****************************************************************************************************/
 #define HOB_LOG_WARN(sink_name, format, ...) (void)0
 
+/** ***************************************************************************************************
+ * @brief Warning messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_WARN(format, ...) (void)0
+
 #endif /*< HOB_LOG_STRIP_WARN */
 
 #ifdef HOB_LOG_STRIP_INFO
@@ -126,6 +153,15 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_INFO(sink_name, format, ...) (void)0
+
+/** ***************************************************************************************************
+ * @brief Information messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_INFO(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_INFO */
 
@@ -141,6 +177,15 @@
  *****************************************************************************************************/
 #define HOB_LOG_DEBUG(sink_name, format, ...) (void)0
 
+/** ***************************************************************************************************
+ * @brief Debug messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_DEBUG(format, ...) (void)0
+
 #endif /*< HOB_LOG_STRIP_DEBUG */
 
 #ifdef HOB_LOG_STRIP_TRACE
@@ -154,6 +199,15 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_TRACE(sink_name, format, ...) (void)0
+
+/** ***************************************************************************************************
+ * @brief Trace messages are stripped from compilation.
+ * @param format: Does not matter.
+ * @param VA_ARGS: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_TRACE(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_TRACE */
 

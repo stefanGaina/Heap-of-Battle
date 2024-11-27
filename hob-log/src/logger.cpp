@@ -81,6 +81,11 @@ void initialize(const std::string_view configuration_file_path) noexcept(false)
 		false == is_initialized() ? std::make_unique<sink_manager>(configuration_file_path) : throw std::logic_error{ "The logger has already been initialized!" };
 }
 
+void deinitialize(void) noexcept
+{
+	logger = nullptr;
+}
+
 void add_sink(const std::string_view sink_name, const sink_terminal_configuration& configuration) noexcept(false)
 {
 	get_logger().add_sink(sink_name, configuration);
@@ -100,6 +105,18 @@ void remove_sink(const std::string_view sink_name) noexcept
 	catch (const std::logic_error& exception)
 	{
 		DEBUG_PRINT("Caught std::logic_error while removing sink! (error message: \"{}\")", exception.what());
+	}
+}
+
+bool is_sink_valid(const std::string_view sink_name) noexcept
+{
+	try
+	{
+		return get_logger().is_sink_valid(sink_name);
+	}
+	catch (const std::logic_error& exception)
+	{
+		return false;
 	}
 }
 

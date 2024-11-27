@@ -47,6 +47,16 @@
  *****************************************************************************************************/
 #define HOB_LOG_FATAL(sink_name, format, ...) HOB_LOG_DETAILS_FATAL(sink_name, format, ##__VA_ARGS__)
 
+/** ***************************************************************************************************
+ * @brief Logs a fatal error message (system is unusable or application is crashing) to the default
+ * sink (does nothing if it was not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_FATAL(format, ...) HOB_LOG_FATAL(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+
 #endif /*< HOB_LOG_STRIP_FATAL */
 
 #ifndef HOB_LOG_STRIP_ERROR
@@ -61,6 +71,16 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_ERROR(sink_name, format, ...) HOB_LOG_DETAILS_ERROR(sink_name, format, ##__VA_ARGS__)
+
+/** ***************************************************************************************************
+ * @brief Logs a non-fatal error message (system or application is still usable) to the default sink
+ * (does nothing if it was not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_ERROR(format, ...) HOB_LOG_ERROR(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_ERROR */
 
@@ -77,6 +97,16 @@
  *****************************************************************************************************/
 #define HOB_LOG_WARN(sink_name, format, ...) HOB_LOG_DETAILS_WARN(sink_name, format, ##__VA_ARGS__)
 
+/** ***************************************************************************************************
+ * @brief Logs a warning message (something unusual that might require attention) to the default sink
+ * (does nothing if it was not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_WARN(format, ...) HOB_LOG_WARN(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+
 #endif /*< HOB_LOG_STRIP_WARN */
 
 #ifndef HOB_LOG_STRIP_INFO
@@ -91,6 +121,15 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_INFO(sink_name, format, ...) HOB_LOG_DETAILS_INFO(sink_name, format, ##__VA_ARGS__)
+
+/** ***************************************************************************************************
+ * @brief Logs an information message to the default sink (does nothing if it was not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_INFO(format, ...) HOB_LOG_INFO(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_INFO */
 
@@ -107,6 +146,15 @@
  *****************************************************************************************************/
 #define HOB_LOG_DEBUG(sink_name, format, ...) HOB_LOG_DETAILS_DEBUG(sink_name, format, ##__VA_ARGS__)
 
+/** ***************************************************************************************************
+ * @brief Logs a message for debugging purposes to the default sink (does nothing if it was not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_DEBUG(format, ...) HOB_LOG_DEBUG(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+
 #endif /*< HOB_LOG_STRIP_DEBUG */
 
 #ifndef HOB_LOG_STRIP_TRACE
@@ -121,6 +169,16 @@
  * @throws N/A.
  *****************************************************************************************************/
 #define HOB_LOG_TRACE(sink_name, format, ...) HOB_LOG_DETAILS_TRACE(sink_name, format, ##__VA_ARGS__)
+
+/** ***************************************************************************************************
+ * @brief Logs a message to show the path of the execution to the default sink (does nothing if it was
+ * not set).
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define HOB_LOG_DEFAULT_TRACE(format, ...) HOB_LOG_TRACE(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_TRACE */
 
@@ -150,7 +208,7 @@ HOB_LOG_API [[nodiscard]] extern bool is_initialized(void) noexcept;
  * @returns void
  * @throws TODO
  *****************************************************************************************************/
-HOB_LOG_API void initialize(std::string_view configuration_file_path) noexcept(false);
+HOB_LOG_API extern void initialize(std::string_view configuration_file_path) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Deinitializes the the logger library (safe to call even if not initialized) and saves the
@@ -237,7 +295,7 @@ HOB_LOG_API [[nodiscard]] extern std::string_view get_default_sink_name(void) no
  * @throws std::invalid_argument: If the sink has not been successfully added or it is of unsupported
  * type.
  *****************************************************************************************************/
-HOB_LOG_API [[nodiscard]] std::uint64_t get_lost_logs(std::string_view sink_name) noexcept(false);
+HOB_LOG_API [[nodiscard]] extern std::uint64_t get_lost_logs(std::string_view sink_name) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Sets a new message format. It is **not** thread-safe. The supported placeholders are:
@@ -338,7 +396,7 @@ HOB_LOG_API [[nodiscard]] extern std::uint8_t get_severity_level(std::string_vie
  * type.
  * @throws std::bad_alloc: If the mode is enabled and the initialization fails.
  *****************************************************************************************************/
-HOB_LOG_API void set_async_mode(std::string_view sink_name, bool async_mode) noexcept(false);
+HOB_LOG_API extern void set_async_mode(std::string_view sink_name, bool async_mode) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Gets the current asynchronous mode. It is thread-safe.
@@ -349,7 +407,7 @@ HOB_LOG_API void set_async_mode(std::string_view sink_name, bool async_mode) noe
  * @throws std::invalid_argument: If the sink has not been successfully added or it is of unsupported
  * type.
  *****************************************************************************************************/
-HOB_LOG_API [[nodiscard]] bool get_async_mode(std::string_view sink_name) noexcept(false);
+HOB_LOG_API [[nodiscard]] extern bool get_async_mode(std::string_view sink_name) noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Sets a new stream. It is **not** thread-safe.
