@@ -17,6 +17,15 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file logger.hpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This header defines the public interface of the hob-log.
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 #ifndef HOB_LOG_LOGGER_HPP_
 #define HOB_LOG_LOGGER_HPP_
 

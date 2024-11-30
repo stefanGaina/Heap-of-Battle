@@ -52,9 +52,9 @@ void utility::replace_placeholder(std::string& destination, const std::string_vi
 
 std::pair<std::tm*, std::int64_t> utility::get_time(void) noexcept
 {
-	std::chrono::time_point<std::chrono::system_clock> now		  = std::chrono::system_clock::now();
-	std::time_t										   now_time	  = std::chrono::system_clock::to_time_t(now);
-	std::tm* const									   local_time = std::localtime(&now_time);
+	const std::chrono::time_point<std::chrono::system_clock> now		= std::chrono::system_clock::now();
+	std::time_t												 now_time	= std::chrono::system_clock::to_time_t(now);
+	std::tm* const											 local_time = std::localtime(&now_time);
 
 	return { local_time, std::chrono::milliseconds{ std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000 }.count() };
 }

@@ -61,7 +61,7 @@ unit-tests:
 	$(CMAKE_TIME) sh -c ' \
 		mkdir -p $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && \
 		cmake -DBUILD_UNIT_TESTS=ON -S . -B $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && \
-		$(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) $(CMAKE_BUILD_FLAGS) && \
+		$(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --verbose $(CMAKE_BUILD_FLAGS) && \
 		cd $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && ctest --verbose && \
 		cd ../../.. && $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --target coverage'
 		xdg-open docs/coverage_report/index.html

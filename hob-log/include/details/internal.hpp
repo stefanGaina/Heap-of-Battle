@@ -17,6 +17,17 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
+/** ***************************************************************************************************
+ * @file internal.hpp
+ * @author Gaina Stefan
+ * @date 17.11.2024
+ * @brief This header defines internal macros and functions.
+ * @details They are included in the public interface, but are not meant to be used directly by the
+ * user.
+ * @todo N/A.
+ * @bug No known bugs.
+ *****************************************************************************************************/
+
 #ifndef HOB_LOG_DETAILS_INTERNAL_HPP_
 #define HOB_LOG_DETAILS_INTERNAL_HPP_
 
@@ -35,7 +46,17 @@
 
 #ifndef HOB_LOG_STRIP_ALL
 
-// TOOD: documentation
+/** ***************************************************************************************************
+ * @brief This macro is not meant to be called outside hob-log macros.
+ * @param sink_name: The name of the name the message will be sent to.
+ * @param severity_bit: Bit indicating the type of message that is being logged (see
+ * hob::log::severity_level).
+ * @param tag: Tag indicating the type of message.
+ * @param format: String that contains the text to be written.
+ * @param VA_ARGS: Arguments to be formatted (optional).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
 #define HOB_LOG_DETAILS(sink_name, severity_bit, tag, format, ...)                                                                                                 \
 	hob::log::details::log(sink_name, severity_bit, tag, __FILE__, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)
 

@@ -9,12 +9,9 @@ set(TESTED_FILE utility)
 set(TEST_FILE ${TESTED_FILE}_test)
 
 include_directories(
-	../../mocks
 	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include
-	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/details
 	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/internal
-	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src
-)
+	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src)
 
 add_executable(${TEST_FILE} src/${TEST_FILE}.cpp)
 

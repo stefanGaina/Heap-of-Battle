@@ -244,13 +244,14 @@ std::string sink_base::get_formatted_time(void) const noexcept(false)
 		return "TIME_ERROR";
 	}
 
+	assert(124 <= time.first->tm_year);
 	assert(0 <= time.first->tm_mon && MONTHS_COUNT > time.first->tm_mon);
 	assert(0 <= time.first->tm_yday && 366 > time.first->tm_yday);
 	assert(0 <= time.first->tm_wday && WEEK_DAY_COUNT > time.first->tm_wday);
 	assert(0 <= time.first->tm_hour && 24 > time.first->tm_hour);
 	assert(0 <= time.first->tm_min && 60 > time.first->tm_min);
 	assert(0 <= time.first->tm_sec && 60 > time.first->tm_sec);
-	assert(0 <= time.second && 1000 > time.second);
+	assert(0L <= time.second && 1000L > time.second);
 
 	// TODO: This should not be re-evaluated everytime if there are optional fields missing, an intermediary efficient representation is needed.
 	utility::replace_placeholder(formatted_time, "{YEAR}", std::format("{:04}", time.first->tm_year + 1900));
