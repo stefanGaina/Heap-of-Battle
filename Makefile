@@ -18,6 +18,7 @@ endif
 BUILD_DIRECTORY		 := build
 DEBUG_DIRECTORY		 := debug
 RELEASE_DIRECTORY	 := release
+DOCS_DIRECTORY		 := docs
 UNIT_TESTS_DIRECTORY := unit-tests
 CMAKE_TIME			 := cmake -E time
 CMAKE_BUILD			 := cmake --build
@@ -49,8 +50,8 @@ clean-debug:
 .PHONY: clean-debug
 
 doxygen:
-	doxygen docs/doxygen.conf
-	xdg-open docs/html/index.html
+	doxygen $(DOCS_DIRECTORY)/doxygen.conf
+	xdg-open $(DOCS_DIRECTORY)/html/index.html
 .PHONY: doxygen
 
 format:
@@ -64,9 +65,13 @@ unit-tests:
 		$(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --verbose $(CMAKE_BUILD_FLAGS) && \
 		cd $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) && ctest --verbose && \
 		cd ../../.. && $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY) --target coverage'
-		xdg-open docs/coverage_report/index.html
+		xdg-open $(DOCS_DIRECTORY)/coverage_report/index.html
 .PHONY: unit-tests
 
 unit-tests-clean:
 	$(CMAKE_TIME) $(MAKE) clean -C $(BUILD_DIRECTORY)/$(UNIT_TESTS_DIRECTORY)
 .PHONY: unit-tests-clean
+
+automated-tests:
+	$(MAKE) -C test/automation
+.PHONY: automated-tests

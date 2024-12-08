@@ -1,0 +1,17 @@
+is_initialized
+get_default_sink_name
+initialize null
+is_initialized
+get_default_sink_name
+set_default_sink_name default_test
+get_default_sink_name
+DEFAULT_FATAL "test message"
+DEFAULT_ERROR "test message"
+DEFAULT_WARN "test message"
+DEFAULT_INFO "test message"
+DEFAULT_DEBUG "test message"
+DEFAULT_TRACE "test message"
+deinitialize
+is_initialized
+get_default_sink_name
+quit

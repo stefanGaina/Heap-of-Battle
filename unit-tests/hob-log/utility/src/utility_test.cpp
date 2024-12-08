@@ -38,7 +38,7 @@
 
 #include <gtest/gtest.h>
 
-#include "utility.cpp"
+#include "utility.hpp"
 
 /******************************************************************************************************
  * replace_placeholder
@@ -49,7 +49,7 @@ TEST(utility_test, replace_placeholder_not_found)
 	std::string destination = "not found";
 
 	hob::log::utility::replace_placeholder(destination, "{TEST}", "test");
-	EXPECT_EQ("not found", destination);
+	EXPECT_EQ("not found", destination) << "The destination has been modified to: \"" << destination << '\"';
 }
 
 TEST(utility_test, replace_placeholder_found)
@@ -57,7 +57,7 @@ TEST(utility_test, replace_placeholder_found)
 	std::string destination = "found {TEST}";
 
 	hob::log::utility::replace_placeholder(destination, "{TEST}", "test");
-	EXPECT_EQ("found test", destination);
+	EXPECT_EQ("found test", destination) << "The destination has wrongly been modified to: \"" << destination << '\"';
 }
 
 /******************************************************************************************************
@@ -66,14 +66,14 @@ TEST(utility_test, replace_placeholder_found)
 
 TEST(utility_test, get_time)
 {
-	std::pair<std::tm*, std::int64_t> time = hob::log::utility::get_time();
+	const std::pair<std::tm*, std::int64_t> time = hob::log::utility::get_time();
 
-	EXPECT_TRUE(124 <= time.first->tm_year) << "Year has invalid value: " << time.first->tm_year;
-	EXPECT_TRUE(0 <= time.first->tm_mon && 12 > time.first->tm_mon) << "Month has invalid value: " << time.first->tm_mon;
-	EXPECT_TRUE(0 <= time.first->tm_yday && 366 > time.first->tm_yday) << "Year day has invalid value: " << time.first->tm_yday;
-	EXPECT_TRUE(0 <= time.first->tm_wday && 7 > time.first->tm_wday) << "Week day has invalid value: " << time.first->tm_wday;
-	EXPECT_TRUE(0 <= time.first->tm_hour && 24 > time.first->tm_hour) << "Hour has invalid value: " << time.first->tm_hour;
-	EXPECT_TRUE(0 <= time.first->tm_min && 60 > time.first->tm_min) << "Minute has invalid value: " << time.first->tm_min;
-	EXPECT_TRUE(0 <= time.first->tm_sec && 60 > time.first->tm_sec) << "Second has invalid value: " << time.first->tm_sec;
-	EXPECT_TRUE(0L <= time.second && 1000L > time.second) << "Millisecond has invalid value: " << time.second;
+	EXPECT_TRUE(124 <= time.first->tm_year)							   << "Year has invalid value: "		<< time.first->tm_year;
+	EXPECT_TRUE(0 <= time.first->tm_mon && 12 > time.first->tm_mon)    << "Month has invalid value: "		<< time.first->tm_mon;
+	EXPECT_TRUE(0 <= time.first->tm_yday && 366 > time.first->tm_yday) << "Year day has invalid value: "	<< time.first->tm_yday;
+	EXPECT_TRUE(0 <= time.first->tm_wday && 7 > time.first->tm_wday)   << "Week day has invalid value: "	<< time.first->tm_wday;
+	EXPECT_TRUE(0 <= time.first->tm_hour && 24 > time.first->tm_hour)  << "Hour has invalid value: "		<< time.first->tm_hour;
+	EXPECT_TRUE(0 <= time.first->tm_min && 60 > time.first->tm_min)	   << "Minute has invalid value: "		<< time.first->tm_min;
+	EXPECT_TRUE(0 <= time.first->tm_sec && 60 > time.first->tm_sec)	   << "Second has invalid value: "		<< time.first->tm_sec;
+	EXPECT_TRUE(0L <= time.second && 1000L > time.second)			   << "Millisecond has invalid value: " << time.second;
 }

@@ -75,7 +75,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
 
 ### How to compile
 
-1. **Install C++ compiler**: A compiler that supports **C++23** is required. If your package manager does not provide a newer version of **g++** or **clang++** for example, manual compilation is required. That compiler needs to be configured for **CMake** after that.
+1. **Install g++**: A **g++** version that supports **C++23** is required. If your package manager does not provide a newer version, manual compilation is required. Make sure the compiler is used by **CMake** after that.
 
 2. **Install CMake**: You can skip this step if you already have **CMake** installed.
 
@@ -165,7 +165,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
      ./build/debug/bin/hob-sandbox
      ```
 
-### How to run the tests
+### How to run the unit tests
 
 1. **Install Google Test (gtest) and Google Mock (gmock)**: You can skip this step if you have **gtest** and **gmock** already installed.
 
@@ -188,7 +188,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        brew install googletest
        ```
 
-   - **Option 2: Compile from source**: If you want the latest version or the version is not available in your package manager, you can build from source. You should have **Git**, **Make** and a **C++** compiler installed by now.
+   - **Option 2: Compile from source**: If you want the latest version or the version is not available in your package manager, you can build from source. You should have **Git**, **Make** and a **g++** compiler installed by now.
      ```bash
      git clone https://github.com/google/googletest.git
      cd googletest
@@ -228,12 +228,43 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
    make unit-tests
    ```
 
+### How to run the tests
+
+1. **Install Python 3**: You can skip this step if you have **Python 3** already installed.
+
+   - **Option 1: Download Python**: You can download the latest version of Python 3 from the official website:
+     - [Python Download](https://www.python.org/downloads/)
+
+   - **Option 2: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install python3
+       ```
+
+     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
+       ```bash
+       sudo dnf install python3 # For Fedora
+       sudo yum install python3 # For RHEL/CentOS
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install python3
+       ```
+
+2. **Run unit tests**:
+   ```bash
+   make automated-tests
+   ```
+
 ### How to generate documentation
 
 1. **Install doxygen**: You can skip this step if you have **doxygen** already installed.
 
    - **Option 1: Download Doxygen**: You can download the latest version from the official website:
-     [Doxygen Download](https://www.doxygen.nl/download.html)
+     - [Doxygen Download](https://www.doxygen.nl/download.html)
 
    - **Option 2: via package manager** (choose the appropriate method for your system):
 

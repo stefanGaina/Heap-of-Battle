@@ -1,8 +1,8 @@
 #######################################################################################################
-# Copyright (C) API-Test 2024
+# Copyright (C) Heap of Battle 2024
 # Author: Gaina Stefan
 # Date: 19.11.2024
-# Description: This Cmake file is used to compile unit-tests for the utility.cpp.
+# Description: This Cmake file is used to compile unit-tests for the hob-log/utility.cpp.
 #######################################################################################################
 
 set(TESTED_FILE utility)
@@ -13,7 +13,9 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/internal
 	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src)
 
-add_executable(${TEST_FILE} src/${TEST_FILE}.cpp)
+add_executable(${TEST_FILE}
+	src/${TEST_FILE}.cpp
+	${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src/${TESTED_FILE}.cpp)
 
 target_link_libraries(${TEST_FILE} PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
 

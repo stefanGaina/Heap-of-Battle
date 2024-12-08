@@ -1,0 +1,53 @@
+Usage: ./../../build/debug/bin/hob-log-test <file_path> (optional)
+Reading from "tests/smoke_input.txt"...
+
+$ is_initialized
+The logger is NOT initialized!
+
+$ get_default_sink_name
+Caught an exception! (message: The logger has NOT been initialized successfully!)
+
+$ initialize null
+The logger has been initialized successfully!
+
+$ is_initialized
+The logger is initialized!
+
+$ get_default_sink_name
+The default sink name is: ""
+
+$ set_default_sink_name default_test
+"default_test" has been set as default successfully!
+
+$ get_default_sink_name
+The default sink name is: "default_test"
+
+$ DEFAULT_FATAL "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ DEFAULT_ERROR "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ DEFAULT_WARN "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ DEFAULT_INFO "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ DEFAULT_DEBUG "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ DEFAULT_TRACE "test message"
+[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+
+$ deinitialize
+The logger has been deinitialized successfully!
+
+$ is_initialized
+The logger is NOT initialized!
+
+$ get_default_sink_name
+Caught an exception! (message: The logger has NOT been initialized successfully!)
+
+$ quit
+
