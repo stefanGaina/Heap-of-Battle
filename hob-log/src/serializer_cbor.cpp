@@ -18,11 +18,11 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file message_queue.cpp
+ * @file serialzied_cbor.cpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This file implements the class defined in message_queue.hpp.
- * @todo N/A.
+ * @date 12.12.2024
+ * @brief This file implements the class defined in serializer_cbor.hpp.
+ * @todo Implement this.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -30,8 +30,10 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include "message_queue.hpp"
-#include "utility.hpp"
+#include <stdexcept>
+#include <cassert>
+
+#include "serializer_cbor.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -40,62 +42,18 @@
 namespace hob::log
 {
 
-bool message_queue::is_empty(void) const noexcept
+serializer_cbor::serializer_cbor(const std::filesystem::path& configuration_file_path) noexcept(false)
+	: serializer{ configuration_file_path }
 {
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
-
-	assert(nullptr != this);
-	return queue.empty();
+	assert(true == configuration_file.is_open());
+	assert(true == configuration_file_path.extension().empty());
 }
 
-bool message_queue::emplace(const std::uint8_t severity_bit, std::string&& message) noexcept
+void serializer_cbor::serialize(const std::vector<std::shared_ptr<sink>>& sinks, const std::string_view default_sink_name) noexcept(false)
 {
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
-
 	assert(nullptr != this);
 
-	try
-	{
-		(void)queue.emplace(severity_bit, std::move(message));
-		condition_notifier.notify_one();
-
-		return true;
-	}
-	catch (const std::bad_alloc& exception)
-	{
-		DEBUG_PRINT("Caught std::bad_alloc while emplacing message into queue! (error message: \"{}\")", exception.what());
-		return false;
-	}
-}
-
-std::optional<message_queue::payload> message_queue::pop(void) noexcept
-{
-	payload						 message = { 0U, "" };
-	std::unique_lock<std::mutex> lock	 = std::unique_lock{ mutex };
-
-	assert(nullptr != this);
-
-	if (true == queue.empty())
-	{
-		condition_notifier.wait(lock);
-		if (true == queue.empty())
-		{
-			return std::nullopt;
-		}
-	}
-
-	message = queue.front();
-	queue.pop();
-
-	return message;
-}
-
-void message_queue::interrupt_wait(void) noexcept
-{
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
-
-	assert(nullptr != this);
-	condition_notifier.notify_one();
+	throw std::logic_error{ "Not yet implemented!" };
 }
 
 } /*< namespace hob::log */

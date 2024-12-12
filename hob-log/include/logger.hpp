@@ -217,7 +217,7 @@ HOB_LOG_API [[nodiscard]] extern bool is_initialized(void) noexcept;
  * @returns void
  * @throws TODO
  *****************************************************************************************************/
-HOB_LOG_API extern void initialize(std::string_view configuration_file_path) noexcept(false);
+HOB_LOG_API extern void initialize(std::string_view configuration_file_path = "") noexcept(false);
 
 /** ***************************************************************************************************
  * @brief Deinitializes the the logger library (safe to call even if not initialized) and saves the

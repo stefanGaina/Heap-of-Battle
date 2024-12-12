@@ -33,6 +33,11 @@
 #include "sink_manager.hpp"
 #include "sink_terminal.hpp"
 #include "sink_composed.hpp"
+#include "deserializer_json.hpp"
+#include "deserializer_cbor.hpp"
+#include "serializer_json.hpp"
+#include "serializer_cbor.hpp"
+#include "utility.hpp"
 
 /******************************************************************************************************
  * CONSTANTS
@@ -60,7 +65,7 @@ sink_manager::sink_manager(const std::string_view configuration_file_path) noexc
 		return;
 	}
 
-	// TODO: read from file
+	read_configuration();
 }
 
 sink_manager::~sink_manager(void) noexcept
@@ -70,7 +75,7 @@ sink_manager::~sink_manager(void) noexcept
 		return;
 	}
 
-	// TODO: write to file
+	write_configuration();
 }
 
 void sink_manager::add_sink(const std::string_view sink_name, const sink_terminal_configuration& configuration) noexcept(false)
@@ -154,6 +159,42 @@ const std::shared_ptr<sink>& sink_manager::get_sink(const std::string_view sink_
 
 	assert(nullptr != this);
 	return iterator != sinks.end() ? *iterator : throw std::invalid_argument{ INVALID_SINK_MESSAGE };
+}
+
+void sink_manager::read_configuration(void) noexcept(false)
+{
+	const std::unique_ptr<deserializer> reader =
+		".json" == configuration_file_path.extension() ? static_cast<std::unique_ptr<deserializer>>(std::make_unique<deserializer_json>(configuration_file_path))
+		: true == configuration_file_path.extension().empty()
+			? static_cast<std::unique_ptr<deserializer>>(std::make_unique<deserializer_cbor>(configuration_file_path))
+			: throw std::invalid_argument{ std::format("Configuration file has invalid extension! (file path: \"{}\")", configuration_file_path.string()) };
+
+	assert(nullptr != this);
+	assert(false == configuration_file_path.empty());
+
+	std::tie(sinks, default_sink_name) = reader->deserialize();
+}
+
+void sink_manager::write_configuration(void) noexcept
+{
+	std::unique_ptr<serializer> writer = nullptr;
+
+	assert(nullptr != this);
+	assert(false == configuration_file_path.empty());
+	assert(".json" == configuration_file_path.extension() || true == configuration_file_path.extension().empty());
+
+	try
+	{
+		writer = ".json" == configuration_file_path.extension()
+					 ? static_cast<std::unique_ptr<serializer>>(std::make_unique<serializer_json>(configuration_file_path))
+					 : static_cast<std::unique_ptr<serializer>>(std::make_unique<serializer_cbor>(configuration_file_path));
+
+		writer->serialize(sinks, default_sink_name);
+	}
+	catch (const std::exception& exception)
+	{
+		DEBUG_PRINT("Caught std::exception while writing configuration to \"{}\"! (error message: \"{}\")", configuration_file_path.string(), exception.what());
+	}
 }
 
 } /*< namespace hob::log */

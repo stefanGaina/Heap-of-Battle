@@ -5,6 +5,8 @@
 # Description: This CMake file is used to generate the logging library.
 #######################################################################################################
 
+find_package(nlohmann_json 3.10.0 REQUIRED)
+
 include_directories(
 	include
 	include/details
@@ -13,6 +15,7 @@ file(GLOB SOURCES "src/*.cpp")
 
 add_library(${HOB_LOG} SHARED ${SOURCES})
 target_compile_definitions(${HOB_LOG} PRIVATE HOB_LOG_BUILD)
+target_link_libraries(${HOB_LOG} PRIVATE nlohmann_json::nlohmann_json)
 
 target_include_directories(${HOB_LOG}
 	PUBLIC

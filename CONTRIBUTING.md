@@ -1,5 +1,5 @@
 Thank you for your interest in contributing to Heap of Battle! This is an open-source project with educational goals, suitable for any level of experience.
-The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS with g++14.2.0. Currently it supports POSIX platforms (feel free to change this if you are not on a such platform) with a C++ compiler that supports C++23 standard.
+The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS with g++14.2.0. Currently it supports POSIX platforms (feel free to change this if you are not on a such platform).
 
 ### How to submit changes
 
@@ -17,12 +17,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        ```bash
        sudo apt update
        sudo apt install git
-       ```
-
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install git # For Fedora
-       sudo yum install git # For RHEL/CentOS
        ```
 
      - **macOS**:
@@ -90,12 +84,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        sudo apt install cmake
        ```
 
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install cmake # For Fedora
-       sudo yum install cmake # For RHEL/CentOS
-       ```
-
      - **macOS**:
        ```bash
        brew install cmake
@@ -107,12 +95,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
      ```bash
      sudo apt update
      sudo apt install make
-     ```
-
-   - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-     ```bash
-     sudo dnf install make # For Fedora
-     sudo yum install make # For RHEL/CentOS
      ```
 
    - **macOS**:
@@ -128,18 +110,48 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
      sudo apt install clang-format
      ```
 
-   - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-     ```bash
-     sudo dnf install clang-format # For Fedora
-     sudo yum install clang-format # For RHEL/CentOS
-     ```
-
    - **macOS**:
      ```bash
      brew install clang-format
      ```
 
-5. **Compile the Project**: The following commands assume your terminal is in the root directory of the project.
+5. **Instal SFML**: You can skip this step if you already have **SFML** installed.
+
+   - **Option 1: Download SFML**: You can download the latest version from the official website:
+     [SFML Download](https://www.sfml-dev.org/download.php)
+
+   - **Option 2: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install libsfml-dev
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install sfml
+       ```
+
+6. **Instal nlohmann/json**: You can skip this step if you already have **nlohmann/json** installed.
+
+   - **Option 1: Download nlohmann/json**: You can download the latest version from the official GitHub repository:
+     [nlohmann/json GitHub](https://github.com/nlohmann/json)
+
+   - **Option 2: via package manager** (choose the appropriate method for your system):
+
+     - **Debian** (and other Debian-based distributions, like Ubuntu):
+       ```bash
+       sudo apt update
+       sudo apt install nlohmann-json3-dev
+       ```
+
+     - **macOS**:
+       ```bash
+       brew install nlohmann-json
+       ```
+
+7. **Compile the Project**: The following commands assume your terminal is in the root directory of the project.
 
    - **Release build**:
      ```bash
@@ -153,7 +165,7 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
      make debug
      ```
 
-4. **Run the sandbox**: For now a sandbox will be used to check out implementations.
+8. **Run the sandbox**: For now a sandbox will be used to check out implementations.
 
    - **Release build**:
      ```bash
@@ -175,12 +187,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        ```bash
        sudo apt update
        sudo apt install libgtest-dev libgmock-dev
-       ```
-
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install googletest # For Fedora
-       sudo yum install googletest # For RHEL/CentOS
        ```
 
      - **macOS**:
@@ -212,12 +218,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        sudo apt install perl
        ```
 
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install perl # For Fedora
-       sudo yum install perl # For RHEL/CentOS
-       ```
-
      - **macOS**:
        ```bash
        brew install perl
@@ -243,12 +243,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        sudo apt install python3
        ```
 
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install python3 # For Fedora
-       sudo yum install python3 # For RHEL/CentOS
-       ```
-
      - **macOS**:
        ```bash
        brew install python3
@@ -272,12 +266,6 @@ The following guide has been tested on GNU/Linux x86_64 with g++15.0.0 and MacOS
        ```bash
        sudo apt update
        sudo apt install doxygen
-       ```
-
-     - **Fedora/RHEL/CentOS** (Red Hat-based systems):
-       ```bash
-       sudo dnf install doxygen # For Fedora
-       sudo yum install doxygen # For RHEL/CentOS
        ```
 
      - **macOS**:

@@ -172,13 +172,13 @@ namespace hob::log::details
  *****************************************************************************************************/
 template<typename... args>
 HOB_LOG_API extern void
-log(std::string_view sink_name,
-	std::uint8_t	 severity_bit,
-	std::string_view tag,
-	std::string_view file_path,
-	std::string_view function_name,
-	std::int32_t	 line,
-	std::string_view format,
+log(std::string_view			sink_name,
+	std::uint8_t				severity_bit,
+	std::string_view			tag,
+	std::string_view			file_path,
+	std::string_view			function_name,
+	std::int32_t				line,
+	std::format_string<args...> format,
 	args&&... arguments) noexcept;
 
 /** ***********************************************************************************************
@@ -208,18 +208,18 @@ log(std::string_view sink_name,
  *****************************************************************************************************/
 
 template<typename... args>
-void log(std::string_view		sink_name,
-		 const std::uint8_t		severity_bit,
-		 const std::string_view tag,
-		 const std::string_view file_path,
-		 const std::string_view function_name,
-		 const std::int32_t		line,
-		 const std::string_view format,
+void log(std::string_view				   sink_name,
+		 const std::uint8_t				   severity_bit,
+		 const std::string_view			   tag,
+		 const std::string_view			   file_path,
+		 const std::string_view			   function_name,
+		 const std::int32_t				   line,
+		 const std::format_string<args...> format,
 		 args&&... arguments) noexcept
 {
 	try
 	{
-		log(sink_name, severity_bit, tag, file_path, function_name, line, std::vformat(format, std::make_format_args(std::forward<args>(arguments)...)));
+		log(sink_name, severity_bit, tag, file_path, function_name, line, std::vformat(format.get(), std::make_format_args(arguments...)));
 	}
 	catch (const std::exception& exception)
 	{

@@ -18,10 +18,10 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file message_queue.cpp
+ * @file deserialzied.cpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This file implements the class defined in message_queue.hpp.
+ * @date 12.12.2024
+ * @brief This file implements the class defined in deserializer.hpp.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
@@ -30,8 +30,9 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include "message_queue.hpp"
-#include "utility.hpp"
+#include <cassert>
+
+#include "deserializer.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -40,62 +41,15 @@
 namespace hob::log
 {
 
-bool message_queue::is_empty(void) const noexcept
+deserializer::deserializer(const std::filesystem::path& configuration_file_path) noexcept(false)
+	: configuration_file{}
 {
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
+	assert(false == configuration_file_path.empty());
 
-	assert(nullptr != this);
-	return queue.empty();
+	configuration_file.exceptions(configuration_file.exceptions() | std::ios::failbit | std::ios::badbit);
+	configuration_file.open(configuration_file_path);
 }
 
-bool message_queue::emplace(const std::uint8_t severity_bit, std::string&& message) noexcept
-{
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
-
-	assert(nullptr != this);
-
-	try
-	{
-		(void)queue.emplace(severity_bit, std::move(message));
-		condition_notifier.notify_one();
-
-		return true;
-	}
-	catch (const std::bad_alloc& exception)
-	{
-		DEBUG_PRINT("Caught std::bad_alloc while emplacing message into queue! (error message: \"{}\")", exception.what());
-		return false;
-	}
-}
-
-std::optional<message_queue::payload> message_queue::pop(void) noexcept
-{
-	payload						 message = { 0U, "" };
-	std::unique_lock<std::mutex> lock	 = std::unique_lock{ mutex };
-
-	assert(nullptr != this);
-
-	if (true == queue.empty())
-	{
-		condition_notifier.wait(lock);
-		if (true == queue.empty())
-		{
-			return std::nullopt;
-		}
-	}
-
-	message = queue.front();
-	queue.pop();
-
-	return message;
-}
-
-void message_queue::interrupt_wait(void) noexcept
-{
-	std::lock_guard<std::mutex> lock = std::lock_guard{ mutex };
-
-	assert(nullptr != this);
-	condition_notifier.notify_one();
-}
+deserializer::~deserializer(void) noexcept = default;
 
 } /*< namespace hob::log */
