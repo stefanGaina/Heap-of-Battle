@@ -37,6 +37,7 @@
 
 #include <string>
 #include <cstdio>
+#include <filesystem>
 
 #include "details/visibility.hpp"
 
@@ -66,6 +67,18 @@ struct HOB_LOG_API severity_level final
 	};
 };
 
+const std::string_view severity_to_string(std::uint8_t level) noexcept {
+    switch (level) {
+        case severity_level::FATAL: return "FATAL";
+        case severity_level::ERROR: return "ERROR";
+        case severity_level::WARN:  return "WARN";
+        case severity_level::INFO:  return "INFO";
+        case severity_level::DEBUG: return "DEBUG";
+        case severity_level::TRACE: return "TRACE";
+        default: return "UNKNOWN";
+    }
+}
+
 /** ***************************************************************************************************
  * @brief Defines the common configuration parameters for the sinks.
  *****************************************************************************************************/
@@ -85,6 +98,13 @@ struct HOB_LOG_API sink_terminal_configuration final
 	sink_base_configuration base;	/**< Common configuration parameters.													  */
 	FILE*					stream; /**< Stream which the messages will be printed to (only stdout and stderr are supported). */
 	bool					color;	/**< The messages are colored based on severity level.									  */
+};
+
+struct HOB_LOG_API sink_file_configuration final
+{
+	sink_base_configuration base;
+	std::filesystem::path   file_path;
+	bool                    append_mode;
 };
 
 } /*< namespace hob::log */
