@@ -74,6 +74,16 @@ inline constexpr std::string_view LOG_TAG_DEBUG = "debug";
  *****************************************************************************************************/
 inline constexpr std::string_view LOG_TAG_TRACE = "trace";
 
+/** ***************************************************************************************************
+ * @brief The tag that is attached to expect logs to be identified.
+ *****************************************************************************************************/
+inline constexpr std::string_view LOG_TAG_EXPECT = "expect";
+
+/** ***************************************************************************************************
+ * @brief The tag that is attached to assert logs to be identified.
+ *****************************************************************************************************/
+inline constexpr std::string_view LOG_TAG_ASSERT = "assert";
+
 } /*< namespace hob::log */
 
 #endif /*< HOB_LOG_STRIP_ALL */

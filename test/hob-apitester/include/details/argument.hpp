@@ -179,6 +179,7 @@ public:
 
 	friend bool operator==(const std::string& string, const argument& argument) noexcept;
 	friend bool operator==(const char* string, const argument& argument) noexcept;
+	friend bool operator==(bool boolean, const argument& argument) noexcept;
 
 	friend std::ostream& operator<<(std::ostream& ostream, const argument& argument) noexcept(false);
 

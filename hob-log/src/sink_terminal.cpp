@@ -31,6 +31,7 @@
  *****************************************************************************************************/
 
 #include <stdexcept>
+#include <iostream>
 
 #include "sink_terminal.hpp"
 #include "utility.hpp"
@@ -163,6 +164,7 @@ color::~color(void) noexcept
 	try
 	{
 		std::print("\033[1;0m");
+		std::cout.flush();
 	}
 	catch (const std::exception& exception)
 	{

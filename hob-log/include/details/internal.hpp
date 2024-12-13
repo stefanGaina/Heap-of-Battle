@@ -48,7 +48,7 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param severity_bit: Bit indicating the type of message that is being logged (see
  * hob::log::severity_level).
  * @param tag: Tag indicating the type of message.
@@ -57,7 +57,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS(sink_name, severity_bit, tag, format, ...)                                                                                                 \
+#define hob_log_details(sink_name, severity_bit, tag, format, ...)                                                                                                 \
 	hob::log::details::log(sink_name, severity_bit, tag, __FILE__, __FUNCTION__, __LINE__, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_ALL */
@@ -66,13 +66,13 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_FATAL(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::FATAL, hob::log::LOG_TAG_FATAL, format, ##__VA_ARGS__)
+#define hob_log_details_fatal(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::FATAL, hob::log::LOG_TAG_FATAL, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_FATAL */
 
@@ -80,13 +80,13 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_ERROR(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::ERROR, hob::log::LOG_TAG_ERROR, format, ##__VA_ARGS__)
+#define hob_log_details_error(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::ERROR, hob::log::LOG_TAG_ERROR, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_ERROR */
 
@@ -94,13 +94,13 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_WARN(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::WARN, hob::log::LOG_TAG_WARN, format, ##__VA_ARGS__)
+#define hob_log_details_warn(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::WARN, hob::log::LOG_TAG_WARN, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_WARN */
 
@@ -108,13 +108,13 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_INFO(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::INFO, hob::log::LOG_TAG_INFO, format, ##__VA_ARGS__)
+#define hob_log_details_info(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::INFO, hob::log::LOG_TAG_INFO, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_INFO */
 
@@ -122,13 +122,13 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_DEBUG(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::DEBUG, hob::log::LOG_TAG_DEBUG, format, ##__VA_ARGS__)
+#define hob_log_details_debug(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::DEBUG, hob::log::LOG_TAG_DEBUG, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_DEBUG */
 
@@ -136,15 +136,75 @@
 
 /** ***************************************************************************************************
  * @brief This macro is not meant to be called outside hob-log macros.
- * @param sink_name: The name of the name the message will be sent to.
+ * @param sink_name: The name of the sink the message will be sent to.
  * @param format: String that contains the text to be written.
  * @param VA_ARGS: Arguments to be formatted (optional).
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DETAILS_TRACE(sink_name, format, ...) HOB_LOG_DETAILS(sink_name, hob::log::severity_level::TRACE, hob::log::LOG_TAG_TRACE, format, ##__VA_ARGS__)
+#define hob_log_details_trace(sink_name, format, ...) hob_log_details(sink_name, hob::log::severity_level::TRACE, hob::log::LOG_TAG_TRACE, format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_TRACE */
+
+#ifndef HOB_LOG_STRIP_EXPECT
+
+/** ***************************************************************************************************
+ * @brief This macro is not meant to be called outside hob-log macros.
+ * @param sink_name: The name of the sink the message will be sent to.
+ * @param condition: The condition that is expected to be true.
+ * @param condition_string: The condition in string form.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_details_expect(sink_name, condition, condition_string)                                                                                             \
+	do                                                                                                                                                             \
+	{                                                                                                                                                              \
+		if (true == condition)                                                                                                                                     \
+		{                                                                                                                                                          \
+			continue;                                                                                                                                              \
+		}                                                                                                                                                          \
+		try                                                                                                                                                        \
+		{                                                                                                                                                          \
+			hob_log_details(sink_name, hob::log::severity_level::ERROR, hob::log::LOG_TAG_EXPECT, "\"{}\" failed", condition_string);                                              \
+		}                                                                                                                                                          \
+		catch (const std::exception& exception)                                                                                                                    \
+		{                                                                                                                                                          \
+		}                                                                                                                                                          \
+	}                                                                                                                                                              \
+	while (false)
+
+#endif /*< HOB_LOG_STRIP_EXPECT */
+
+#ifndef HOB_LOG_STRIP_ASSERT
+
+/** ***************************************************************************************************
+ * @brief This macro is not meant to be called outside hob-log macros.
+ * @param sink_name: The name of the sink the message will be sent to.
+ * @param condition: The condition that is asserted to be true.
+ * @param condition_string: The condition in string form.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_details_assert(sink_name, condition, condition_string)                                                                                             \
+	do                                                                                                                                                             \
+	{                                                                                                                                                              \
+		if (true == condition)                                                                                                                                     \
+		{                                                                                                                                                          \
+			continue;                                                                                                                                              \
+		}                                                                                                                                                          \
+		try                                                                                                                                                        \
+		{                                                                                                                                                          \
+			hob_log_details(sink_name, hob::log::severity_level::FATAL, hob::log::LOG_TAG_ASSERT, "{} failed ", condition_string);                                                 \
+			hob::log::deinitialize();                                                                                                                              \
+			abort();                                                                                                                                               \
+		}                                                                                                                                                          \
+		catch (const std::exception& exception)                                                                                                                    \
+		{                                                                                                                                                          \
+		}                                                                                                                                                          \
+	}                                                                                                                                                              \
+	while (false)
+
+#endif /*< HOB_LOG_STRIP_ASSERT */
 
 /******************************************************************************************************
  * FUNCTION PROTOTYPES

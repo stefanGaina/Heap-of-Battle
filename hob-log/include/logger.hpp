@@ -54,7 +54,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_FATAL(sink_name, format, ...) HOB_LOG_DETAILS_FATAL(sink_name, format, ##__VA_ARGS__)
+#define hob_log_fatal(sink_name, format, ...) hob_log_details_fatal(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs a fatal error message (system is unusable or application is crashing) to the default
@@ -64,7 +64,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_FATAL(format, ...) HOB_LOG_FATAL(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_fatal(format, ...) hob_log_fatal(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_FATAL */
 
@@ -79,7 +79,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_ERROR(sink_name, format, ...) HOB_LOG_DETAILS_ERROR(sink_name, format, ##__VA_ARGS__)
+#define hob_log_error(sink_name, format, ...) hob_log_details_error(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs a non-fatal error message (system or application is still usable) to the default sink
@@ -89,7 +89,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_ERROR(format, ...) HOB_LOG_ERROR(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_error(format, ...) hob_log_error(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_ERROR */
 
@@ -104,7 +104,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_WARN(sink_name, format, ...) HOB_LOG_DETAILS_WARN(sink_name, format, ##__VA_ARGS__)
+#define hob_log_warn(sink_name, format, ...) hob_log_details_warn(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs a warning message (something unusual that might require attention) to the default sink
@@ -114,7 +114,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_WARN(format, ...) HOB_LOG_WARN(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_warn(format, ...) hob_log_warn(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_WARN */
 
@@ -129,7 +129,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_INFO(sink_name, format, ...) HOB_LOG_DETAILS_INFO(sink_name, format, ##__VA_ARGS__)
+#define hob_log_info(sink_name, format, ...) hob_log_details_info(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs an information message to the default sink (does nothing if it was not set).
@@ -138,7 +138,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_INFO(format, ...) HOB_LOG_INFO(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_info(format, ...) hob_log_info(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_INFO */
 
@@ -153,7 +153,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEBUG(sink_name, format, ...) HOB_LOG_DETAILS_DEBUG(sink_name, format, ##__VA_ARGS__)
+#define hob_log_debug(sink_name, format, ...) hob_log_details_debug(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs a message for debugging purposes to the default sink (does nothing if it was not set).
@@ -162,7 +162,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_DEBUG(format, ...) HOB_LOG_DEBUG(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_debug(format, ...) hob_log_debug(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_DEBUG */
 
@@ -177,7 +177,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_TRACE(sink_name, format, ...) HOB_LOG_DETAILS_TRACE(sink_name, format, ##__VA_ARGS__)
+#define hob_log_trace(sink_name, format, ...) hob_log_details_trace(sink_name, format, ##__VA_ARGS__)
 
 /** ***************************************************************************************************
  * @brief Logs a message to show the path of the execution to the default sink (does nothing if it was
@@ -187,9 +187,70 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_TRACE(format, ...) HOB_LOG_TRACE(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
+#define hob_log_default_trace(format, ...) hob_log_trace(hob::log::get_default_sink_name(), format, ##__VA_ARGS__)
 
 #endif /*< HOB_LOG_STRIP_TRACE */
+
+#ifndef HOB_LOG_STRIP_EXPECT
+
+/** ***************************************************************************************************
+ * @brief Logs an error message if the condition is not met.
+ * @param sink_name: The name of the sink that the log will be redirected to (does nothing if it is
+ * incorrect).
+ * @param condition: The condition that is expected to be true.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_expect(sink_name, condition) hob_log_details_expect(sink_name, condition, #condition)
+
+/** ***************************************************************************************************
+ * @brief Logs an error message to the default sink if the condition is not met.
+ * @param condition: The condition that is expected to be true.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_expect(condition) hob_log_expect(hob::log::get_default_sink_name(), condition)
+
+#endif /*< HOB_LOG_STRIP_EXPECT */
+
+#ifndef HOB_LOG_STRIP_ASSERT
+
+/** ***************************************************************************************************
+ * @brief Logs a fatal message and aborts if the condition is not met.
+ * @param sink_name: The name of the sink that the log will be redirected to (does nothing if it is
+ * incorrect).
+ * @param condition: The condition that is asserted to be true.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_assert(sink_name, condition) hob_log_details_assert(sink_name, condition, #condition)
+
+/** ***************************************************************************************************
+ * @brief Logs a fatal message to the default sink and aborts if the condition is not met.
+ * @param condition: The condition that is asserted to be true.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_assert(condition) hob_log_assert(hob::log::get_default_sink_name(), condition)
+
+/** ***************************************************************************************************
+ * @brief Logs a fatal message and aborts.
+ * @param sink_name: The name of the sink that the log will be redirected to (does nothing if it is
+ * incorrect).
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_abort(sink_name) hob_log_details_assert(sink_name, false, "No condition")
+
+/** ***************************************************************************************************
+ * @brief Logs a fatal message to the default sink and aborts.
+ * @param void
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_abort() hob_log_abort(hob::log::get_default_sink_name())
+
+#endif /*< HOB_LOG_STRIP_ASSERT */
 
 /******************************************************************************************************
  * FUNCTION PROTOTYPES

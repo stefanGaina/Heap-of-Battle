@@ -36,40 +36,45 @@
 #ifdef HOB_LOG_STRIP_ALL
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_FATAL(), HOB_LOG_DEFAULT_FATAL() and HOB_LOG_TERMINAL_FATAL() calls from
- * compilation.
+ * @brief Strips hob_log_fatal() and hob_log_default_fatal() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_FATAL
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_ERROR(), HOB_LOG_DEFAULT_ERROR() and HOB_LOG_TERMINAL_ERROR() calls from
- * compilation.
+ * @brief Strips hob_log_error() and hob_log_default_error() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_ERROR
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_WARN(), HOB_LOG_DEFAULT_WARN() and HOB_LOG_TERMINAL_WARN() calls from
- * compilation.
+ * @brief Strips hob_log_warn() and hob_log_default_warn() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_WARN
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_INFO(), HOB_LOG_DEFAULT_INFO() and HOB_LOG_TERMINAL_INFO() calls from
- * compilation.
+ * @brief Strips hob_log_info() and hob_log_default_info() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_INFO
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_DEBUG(), HOB_LOG_DEFAULT_DEBUG() and HOB_LOG_TERMINAL_DEBUG() calls from
- * compilation.
+ * @brief Strips hob_log_debug() and hob_log_default_debug() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_DEBUG
 
 /** ***************************************************************************************************
- * @brief Strips HOB_LOG_TRACE(), HOB_LOG_DEFAULT_TRACE() and HOB_LOG_TERMINAL_TRACE() calls from
- * compilation.
+ * @brief Strips hob_log_trace() and hob_log_default_trace() calls from compilation.
  *****************************************************************************************************/
 #define HOB_LOG_STRIP_TRACE
+
+/** ***************************************************************************************************
+ * @brief Strips hob_log_expect() and hob_log_default_expect() calls from compilation.
+ *****************************************************************************************************/
+#define HOB_LOG_STRIP_EXPECT
+
+/** ***************************************************************************************************
+ * @brief Strips hob_log_assert(), hob_log_default_assert(), hob_log_abort() and
+ * hob_log_default_abort() calls from compilation.
+ *****************************************************************************************************/
+#define HOB_LOG_STRIP_ASSERT
 
 #endif /*< HOB_LOG_STRIP_ALL */
 
@@ -83,7 +88,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_FATAL(sink_name, format, ...) (void)0
+#define hob_log_fatal(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Fatal error messages are stripped from compilation.
@@ -92,7 +97,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_FATAL(format, ...) (void)0
+#define hob_log_default_fatal(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_FATAL */
 
@@ -106,7 +111,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_ERROR(sink_name, format, ...) (void)0
+#define hob_log_error(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Error messages are stripped from compilation.
@@ -115,7 +120,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_ERROR(format, ...) (void)0
+#define hob_log_default_error(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_ERROR */
 
@@ -129,7 +134,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_WARN(sink_name, format, ...) (void)0
+#define hob_log_warn(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Warning messages are stripped from compilation.
@@ -138,7 +143,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_WARN(format, ...) (void)0
+#define hob_log_default_warn(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_WARN */
 
@@ -152,7 +157,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_INFO(sink_name, format, ...) (void)0
+#define hob_log_info(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Information messages are stripped from compilation.
@@ -161,7 +166,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_INFO(format, ...) (void)0
+#define hob_log_default_info(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_INFO */
 
@@ -175,7 +180,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEBUG(sink_name, format, ...) (void)0
+#define hob_log_debug(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Debug messages are stripped from compilation.
@@ -184,7 +189,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_DEBUG(format, ...) (void)0
+#define hob_log_default_debug(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_DEBUG */
 
@@ -198,7 +203,7 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_TRACE(sink_name, format, ...) (void)0
+#define hob_log_trace(sink_name, format, ...) (void)0
 
 /** ***************************************************************************************************
  * @brief Trace messages are stripped from compilation.
@@ -207,8 +212,66 @@
  * @returns void
  * @throws N/A.
  *****************************************************************************************************/
-#define HOB_LOG_DEFAULT_TRACE(format, ...) (void)0
+#define hob_log_default_trace(format, ...) (void)0
 
 #endif /*< HOB_LOG_STRIP_TRACE */
+
+#ifdef HOB_LOG_STRIP_EXPECT
+
+/** ***************************************************************************************************
+ * @brief Expectations are stripped from compilation.
+ * @param sink_name: Does not matter.
+ * @param condition: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_expect(sink_name, condition) (void)0
+
+/** ***************************************************************************************************
+ * @brief Expectations are stripped from compilation.
+ * @param condition: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_expect(condition) (void)0
+
+#endif /*< HOB_LOG_STRIP_EXPECT */
+
+#ifdef HOB_LOG_STRIP_ASSERT
+
+/** ***************************************************************************************************
+ * @brief Assertions are stripped from compilation.
+ * @param sink_name: Does not matter.
+ * @param condition: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_assert(sink_name, condition) (void)0
+
+/** ***************************************************************************************************
+ * @brief Assertions are stripped from compilation.
+ * @param condition: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_assert(condition) (void)0
+
+/** ***************************************************************************************************
+ * @brief Assertions are stripped from compilation.
+ * @param sink_name: Does not matter.
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_abort(sink_name) (void)0
+
+/** ***************************************************************************************************
+ * @brief Assertions are stripped from compilation.
+ * @param void
+ * @returns void
+ * @throws N/A.
+ *****************************************************************************************************/
+#define hob_log_default_abort() (void)0
+
+#endif /*< HOB_LOG_STRIP_ASSERT */
 
 #endif /*< HOB_LOG_DETAILS_STRIP_HPP_ */

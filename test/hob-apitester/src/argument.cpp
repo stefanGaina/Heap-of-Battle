@@ -413,6 +413,11 @@ bool operator==(const char* const string, const argument& argument) noexcept
 	return argument == string;
 }
 
+bool operator==(const bool boolean, const argument& argument) noexcept
+{
+	return static_cast<bool>(argument) == boolean;
+}
+
 std::ostream& operator<<(std::ostream& ostream, const argument& argument) noexcept(false)
 {
 	ostream << static_cast<const std::string&>(argument);

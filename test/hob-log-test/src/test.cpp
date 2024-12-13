@@ -30,64 +30,94 @@
  * FUNCTION DEFINITIONS
  *****************************************************************************************************/
 
-HOB_APITEST(FATAL, sink_name, message)
+HOB_APITEST(fatal, sink_name, message)
 {
-	HOB_LOG_FATAL(sink_name, message);
+	hob_log_fatal(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_FATAL, message)
+HOB_APITEST(default_fatal, message)
 {
-	HOB_LOG_DEFAULT_FATAL(message);
+	hob_log_default_fatal(message);
 }
 
-HOB_APITEST(ERROR, sink_name, message)
+HOB_APITEST(error, sink_name, message)
 {
-	HOB_LOG_ERROR(sink_name, message);
+	hob_log_error(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_ERROR, message)
+HOB_APITEST(default_error, message)
 {
-	HOB_LOG_DEFAULT_ERROR(message);
+	hob_log_default_error(message);
 }
 
-HOB_APITEST(WARN, sink_name, message)
+HOB_APITEST(warn, sink_name, message)
 {
-	HOB_LOG_WARN(sink_name, message);
+	hob_log_warn(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_WARN, message)
+HOB_APITEST(default_warn, message)
 {
-	HOB_LOG_DEFAULT_WARN(message);
+	hob_log_default_warn(message);
 }
 
-HOB_APITEST(INFO, sink_name, message)
+HOB_APITEST(info, sink_name, message)
 {
-	HOB_LOG_INFO(sink_name, message);
+	hob_log_info(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_INFO, message)
+HOB_APITEST(default_info, message)
 {
-	HOB_LOG_DEFAULT_INFO(message);
+	hob_log_default_info(message);
 }
 
-HOB_APITEST(DEBUG, sink_name, message)
+HOB_APITEST(debug, sink_name, message)
 {
-	HOB_LOG_DEBUG(sink_name, message);
+	hob_log_debug(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_DEBUG, message)
+HOB_APITEST(default_debug, message)
 {
-	HOB_LOG_DEFAULT_DEBUG(message);
+	hob_log_default_debug(message);
 }
 
-HOB_APITEST(TRACE, sink_name, message)
+HOB_APITEST(trace, sink_name, message)
 {
-	HOB_LOG_TRACE(sink_name, message);
+	hob_log_trace(sink_name, message);
 }
 
-HOB_APITEST(DEFAULT_TRACE, message)
+HOB_APITEST(default_trace, message)
 {
-	HOB_LOG_DEFAULT_TRACE(message);
+	hob_log_default_trace(message);
+}
+
+HOB_APITEST(expect, sink_name, condition)
+{
+	hob_log_expect(sink_name, true == condition);
+}
+
+HOB_APITEST(default_expect, condition)
+{
+	hob_log_default_expect(true == condition);
+}
+
+HOB_APITEST(assert, sink_name, condition)
+{
+	hob_log_assert(sink_name, true == condition);
+}
+
+HOB_APITEST(default_assert, condition)
+{
+	hob_log_default_assert(true == condition);
+}
+
+HOB_APITEST(abort, sink_name)
+{
+	hob_log_abort(sink_name);
+}
+
+HOB_APITEST(default_abort)
+{
+	hob_log_default_abort();
 }
 
 HOB_APITEST(is_initialized)
