@@ -189,10 +189,6 @@ private:
 	 *************************************************************************************************/
 	[[nodiscard]] const std::shared_ptr<sink>& get_sink(std::string_view sink_name) const noexcept(false);
 
-	void read_configuration(void) noexcept(false);
-
-	void write_configuration(void) noexcept;
-
 private:
 	/** ***********************************************************************************************
 	 * @brief The path to the configuration file, this is needed in case an update of the

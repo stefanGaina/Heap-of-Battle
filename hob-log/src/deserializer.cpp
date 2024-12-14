@@ -22,7 +22,7 @@
  * @author Gaina Stefan
  * @date 12.12.2024
  * @brief This file implements the class defined in deserializer.hpp.
- * @todo N/A.
+ * @todo Add support for composed sink.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -30,9 +30,11 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
+#include <fstream>
 #include <cassert>
 
 #include "deserializer.hpp"
+#include "sink_terminal.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -41,15 +43,81 @@
 namespace hob::log
 {
 
-deserializer::deserializer(const std::filesystem::path& configuration_file_path) noexcept(false)
-	: configuration_file{}
+deserializer::data deserializer::deserialize(const std::filesystem::path& configuration_file_path) noexcept(false)
 {
-	assert(false == configuration_file_path.empty());
+	std::vector<std::shared_ptr<sink>> sinks			 = {};
+	std::string						   default_sink_name = "";
+	nlohmann::json					   parser			 = create_parser(configuration_file_path);
 
-	configuration_file.exceptions(configuration_file.exceptions() | std::ios::failbit | std::ios::badbit);
-	configuration_file.open(configuration_file_path);
+	for (const auto& item : parser.items())
+	{
+		for (const auto& property : item.value().items())
+		{
+			(void)property;
+			parse_property(sinks, default_sink_name, item.key(), item.value());
+		}
+	}
+
+	return { sinks, default_sink_name };
 }
 
-deserializer::~deserializer(void) noexcept = default;
+nlohmann::json deserializer::create_parser(const std::filesystem::path& configuration_file_path) noexcept(false)
+{
+	std::ifstream configuration_file = {};
+
+	assert(false == configuration_file_path.empty());
+	configuration_file.exceptions(configuration_file.exceptions() | std::ios::failbit | std::ios::badbit);
+
+#ifndef NDEBUG
+
+	if (".json" == configuration_file_path.extension())
+	{
+		configuration_file.open(configuration_file_path);
+		return nlohmann::json::parse(configuration_file);
+	}
+
+#endif /*< NDEBUG */
+
+	if (".cbor" != configuration_file_path.extension())
+	{
+		throw std::invalid_argument{ "The extension of the configuration file is not \".cbor\"!" };
+	}
+
+	configuration_file.open(configuration_file_path, std::ios::binary);
+	return nlohmann::json::from_cbor(std::vector<std::uint8_t>{ std::istreambuf_iterator<char>(configuration_file), std::istreambuf_iterator<char>() });
+}
+
+void deserializer::parse_property(std::vector<std::shared_ptr<sink>>& sinks,
+								  std::string&						  default_sink_name,
+								  const std::string_view			  key,
+								  const nlohmann::json&				  value) noexcept(false)
+{
+	if ("default" == key)
+	{
+		default_sink_name = value.get<std::string>();
+		return;
+	}
+
+	sinks.push_back(parse_sink(key, value));
+}
+
+std::shared_ptr<sink> deserializer::parse_sink(const std::string_view sink_name, const nlohmann::json& sink_configuration) noexcept(false)
+{
+	if ("terminal" == sink_configuration["type"])
+	{
+		return std::make_shared<sink_terminal>(
+			sink_name,
+			sink_terminal_configuration{
+				{ sink_configuration["format"].get<std::string>(), sink_configuration["time_format"].get<std::string>(),
+				  sink_configuration["severity_level"].get<std::uint8_t>(), sink_configuration["async_mode"].get<bool>() },
+				"stdout" == sink_configuration["stream"].get<std::string>() ? stdout
+				: "stderr" == sink_configuration["stream"].get<std::string>()
+					? stderr
+					: throw std::invalid_argument{ std::format("\"{}\" stream is invalid!)", sink_configuration["stream"].get<std::string>()) },
+				sink_configuration["color"].get<bool>() });
+	}
+
+	throw std::invalid_argument{ std::format("Invalid sink type! (type: \"{}\")", sink_configuration["type"].get<std::string>()) };
+}
 
 } /*< namespace hob::log */

@@ -14,6 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(HOB_DIRECTORY hob)
 set(HOB_ENGINE_DIRECTORY hob-engine)
 set(HOB_LOG_DIRECTORY hob-log)
+set(HOB_CONVERTER_DIRECTORY hob-converter)
+set(CONFIG_DIRECTORY config)
 set(TEST_DIRECTORY test)
 set(HOB_APITESTER_DIRECTORY hob-apitester)
 set(HOB_LOG_TEST_DIRECTORY hob-log-test)
@@ -23,6 +25,7 @@ if(NOT BUILD_UNIT_TESTS)
 	set(HOB heap-of-battle)
 	set(HOB_ENGINE hob-engine)
 	set(HOB_LOG hob-log)
+	set(HOB_CONVERTER hob-converter)
 	set(HOB_APITESTER hob-apitester)
 	set(HOB_LOG_TEST hob-log-test)
 	set(HOB_SANDBOX hob-sandbox)
@@ -34,13 +37,15 @@ if(NOT BUILD_UNIT_TESTS)
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/config/${HOB_CONVERTER_DIRECTORY}/include/*/*.hpp"
+		 "${CMAKE_SOURCE_DIR}/config/${HOB_CONVERTER_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_APITESTER_DIRECTORY}/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_APITESTER_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_LOG_TEST_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${TEST_DIRECTORY}/${HOB_SANDBOX_DIRECTORY}/src/*.cpp")
 
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall -Werror -DNDEBUG -flto")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall -Wno-parentheses -DNDEBUG -DHOB_LOG_STRIP_EXPECT -DHOB_LOG_STRIP_ASSERT -flto")
 
 	add_custom_target(clang-format
 					  COMMAND clang-format -i ${FORMAT_FILES})
@@ -48,9 +53,10 @@ if(NOT BUILD_UNIT_TESTS)
 	add_custom_target(pre-build ALL
 					  DEPENDS clang-format)
 
-	# add_subdirectory(${HOB_DIRECTORY})
-	# add_subdirectory(${HOB_ENGINE_DIRECTORY})
+	add_subdirectory(${HOB_ENGINE_DIRECTORY})
 	add_subdirectory(${HOB_LOG_DIRECTORY})
+	add_subdirectory(${HOB_DIRECTORY})
+	add_subdirectory(${CONFIG_DIRECTORY})
 	add_subdirectory(${TEST_DIRECTORY})
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -DUNIT_TEST -DNDEBUG -fpermissive -fno-inline -fprofile-arcs -ftest-coverage --coverage")

@@ -18,11 +18,11 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file serializer_json.cpp
+ * @file main.cpp
  * @author Gaina Stefan
- * @date 12.12.2024
- * @brief This file implements the class defined in serializer_json.hpp.
- * @todo Implement this.
+ * @date 14.12.2024
+ * @brief This file provides the entry point of the converter.
+ * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -30,30 +30,42 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <stdexcept>
 #include <cassert>
+#include <print>
 
-#include "serializer_json.hpp"
+#include "converter.hpp"
 
 /******************************************************************************************************
- * METHOD DEFINITIONS
+ * ENTRY POINT
  *****************************************************************************************************/
 
-namespace hob::log
+std::int32_t main(const std::int32_t arguments_count, char** const arguments) noexcept
 {
+	assert(0 < arguments_count);
+	assert(nullptr != arguments[0]);
 
-serializer_json::serializer_json(const std::filesystem::path& configuration_file_path) noexcept(false)
-	: serializer{ configuration_file_path }
-{
-	assert(true == configuration_file.is_open());
-	assert(".json" == configuration_file_path.extension());
+	if (3 > arguments_count)
+	{
+		std::println("Usage: {} <source_path: .json/.cbor> <destination_path: .cbor/.json>", arguments[0]);
+		return EXIT_FAILURE;
+	}
+
+	assert(nullptr != arguments[1]);
+	assert(nullptr != arguments[2]);
+
+	if (3 < arguments_count)
+	{
+		std::println("Extra parameters will be ignored!");
+	}
+
+	try
+	{
+		hob::converter::convert_files(arguments[1], arguments[2]);
+		return EXIT_SUCCESS;
+	}
+	catch (const std::exception& exception)
+	{
+		std::println("Caught an exception! (error message: {})", exception.what());
+		return EXIT_FAILURE;
+	}
 }
-
-void serializer_json::serialize(const std::vector<std::shared_ptr<sink>>& sinks, const std::string_view default_sink_name) noexcept(false)
-{
-	assert(nullptr != this);
-
-	throw std::logic_error{ "Not yet implemented!" };
-}
-
-} /*< namespace hob::log */

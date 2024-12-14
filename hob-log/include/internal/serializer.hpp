@@ -21,7 +21,7 @@
  * @file serializer.hpp
  * @author Gaina Stefan
  * @date 12.12.2024
- * @brief This header defines the serializer abstract class.
+ * @brief This header defines the serializer class.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
@@ -35,9 +35,9 @@
 
 #include <string_view>
 #include <vector>
-#include <fstream>
 #include <filesystem>
 #include <memory>
+#include <nlohmann/json.hpp>
 
 #include "details/visibility.hpp"
 
@@ -55,39 +55,43 @@ class sink;
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @brief This serves as an abstract base for serializing log configuration data to a file.
+ * @brief Serializer for configuration files in CBOR format (and JSON in debug mode).
  *****************************************************************************************************/
-class HOB_LOG_LOCAL serializer
+class HOB_LOG_LOCAL serializer final
 {
 public:
 	/** ***********************************************************************************************
-	 * @brief Opens the provided configuration file path for writing.
-	 * @param configuration_file_path: The path to the configuration file to be serialized.
-	 * @throws std::ios_base::failure: If the configuration file failed to be opened.
-	 *************************************************************************************************/
-	serializer(const std::filesystem::path& configuration_file_path) noexcept(false);
-
-	/** ***********************************************************************************************
-	 * @brief Virtual destructor to avoid polymorphically delete undefined behavior.
-	 * @param void
-	 * @throws N/A.
-	 *************************************************************************************************/
-	virtual ~serializer(void) noexcept;
-
-	/** ***********************************************************************************************
-	 * @brief This method should write the configuration file depending on its format.
+	 * @brief Writes the configuration to the file.
+	 * @param configuration_file_path: The path to the configuration file to be deserialized (CBOR
+	 * format and JSON in debug mode supported formats).
 	 * @param sinks: The sinks to be written.
 	 * @param default_sink_name: The default sink name to be written.
 	 * @returns void
-	 * @throws other: Exceptions defined by class implementing this in case of failure.
+	 * @throws std::ios_base::failure: If the configuration file failed to be opened.
+	 * @throws std::bad_alloc: If allocating memory for the writer's buffer fails.
 	 *************************************************************************************************/
-	virtual void serialize(const std::vector<std::shared_ptr<sink>>& sinks, std::string_view default_sink_name) noexcept(false) = 0;
+	static void serialize(const std::filesystem::path&				configuration_file_path,
+						  const std::vector<std::shared_ptr<sink>>& sinks,
+						  std::string_view							default_sink_name) noexcept(false);
 
-protected:
+private:
 	/** ***********************************************************************************************
-	 * @brief The output file stream used to write the configuration file.
+	 * @brief Writes the buffered configuration data to a file.
+	 * @param writer: The writer which collected the configuration.
+	 * @param configuration_file_path: The path to the file where the configuration will be written to.
+	 * @returns void
+	 * @throws std::ios_base::failure: If the configuration file failed to be opened.
 	 *************************************************************************************************/
-	std::ifstream configuration_file;
+	static void write_to_file(const nlohmann::json& writer, const std::filesystem::path& configuration_file_path) noexcept(false);
+
+	/** ***********************************************************************************************
+	 * @brief Puts the sink's configuration into writer's buffer.
+	 * @param writer: The writer which collects the configuration before writing to the file.
+	 * @param sink: The sink to be written.
+	 * @returns void
+	 * @throws std::bad_alloc: If allocating memory for the writer's buffer fails.
+	 *************************************************************************************************/
+	static void write_sink(nlohmann::json& writer, const std::shared_ptr<sink>& sink) noexcept(false);
 };
 
 } /*< namespace hob::log */

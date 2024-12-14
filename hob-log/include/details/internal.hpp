@@ -159,13 +159,13 @@
 #define hob_log_details_expect(sink_name, condition, condition_string)                                                                                             \
 	do                                                                                                                                                             \
 	{                                                                                                                                                              \
-		if (true == condition)                                                                                                                                     \
+		if (true == (condition))                                                                                                                                   \
 		{                                                                                                                                                          \
 			continue;                                                                                                                                              \
 		}                                                                                                                                                          \
 		try                                                                                                                                                        \
 		{                                                                                                                                                          \
-			hob_log_details(sink_name, hob::log::severity_level::ERROR, hob::log::LOG_TAG_EXPECT, "\"{}\" failed", condition_string);                                              \
+			hob_log_details(sink_name, hob::log::severity_level::ERROR, hob::log::LOG_TAG_EXPECT, "\"{}\" failed", condition_string);                              \
 		}                                                                                                                                                          \
 		catch (const std::exception& exception)                                                                                                                    \
 		{                                                                                                                                                          \
@@ -188,13 +188,13 @@
 #define hob_log_details_assert(sink_name, condition, condition_string)                                                                                             \
 	do                                                                                                                                                             \
 	{                                                                                                                                                              \
-		if (true == condition)                                                                                                                                     \
+		if (true == (condition))                                                                                                                                   \
 		{                                                                                                                                                          \
 			continue;                                                                                                                                              \
 		}                                                                                                                                                          \
 		try                                                                                                                                                        \
 		{                                                                                                                                                          \
-			hob_log_details(sink_name, hob::log::severity_level::FATAL, hob::log::LOG_TAG_ASSERT, "{} failed ", condition_string);                                                 \
+			hob_log_details(sink_name, hob::log::severity_level::FATAL, hob::log::LOG_TAG_ASSERT, "{} failed ", condition_string);                                 \
 			hob::log::deinitialize();                                                                                                                              \
 			abort();                                                                                                                                               \
 		}                                                                                                                                                          \

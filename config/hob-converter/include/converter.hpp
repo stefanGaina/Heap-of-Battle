@@ -18,16 +18,16 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file deserializer_cbor.hpp
+ * @file converter.hpp
  * @author Gaina Stefan
- * @date 12.12.2024
- * @brief This header defines the deserializer_cbor class.
- * @todo Implement this.
+ * @date 14.12.2024
+ * @brief This header defines the converter class.
+ * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_LOG_INTERNAL_DESERIALIZER_CBOR_HPP_
-#define HOB_LOG_INTERNAL_DESERIALIZER_CBOR_HPP_
+#ifndef HOB_CONVERTER_CONVERTER_HPP_
+#define HOB_CONVERTER_CONVERTER_HPP_
 
 /******************************************************************************************************
  * HEADER FILE INCLUDES
@@ -35,37 +35,56 @@
 
 #include <filesystem>
 
-#include "deserializer.hpp"
-
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
 
-namespace hob::log
+namespace hob
 {
 
 /** ***************************************************************************************************
- * @brief Deserializer for configuration files in CBOR format.
+ * @brief Converter class for JSON and CBOR files.
  *****************************************************************************************************/
-class HOB_LOG_LOCAL deserializer_cbor final : public deserializer
+class converter final
 {
 public:
 	/** ***********************************************************************************************
-	 * @brief Opens the provided configuration file path for reading.
-	 * @param configuration_file_path:
-	 * @throws std::ios_base::failure: If the configuration file failed to be opened.
+	 * @brief Converts a file from JSON to CBOR or from CBOR to JSON.
+	 * @param source_file_path: The path to the source file to be converted.
+	 * @param destination_file_path: The path to the destination file where the converted content will
+	 * be written.
+	 * @returns void
+	 * @throws std::invalid_argument: If the file extensions do not match the expected types (i.e.
+	 * JSON → CBOR or CBOR → JSON).
+	 * @throws std::ios_base::failure If a file cannot be read or written.
+	 * @throws std::bad_alloc If memory allocation for buffers fail.
 	 *************************************************************************************************/
-	deserializer_cbor(const std::filesystem::path& configuration_file_path) noexcept(false);
+	static void convert_files(const std::filesystem::path& source_file_path, const std::filesystem::path& destination_file_path) noexcept(false);
+
+private:
+	/** ***********************************************************************************************
+	 * @brief Converts a JSON file to CBOR format.
+	 * @param source_json_file_path: The path to the JSON source file to be converted.
+	 * @param destination_cbor_file_path: The path to the CBOR destination file where the converted
+	 * content will be written.
+	 * @returns void
+	 * @throws std::ios_base::failure If a file cannot be read or written.
+	 * @throws std::bad_alloc If memory allocation for buffers fail.
+	 *************************************************************************************************/
+	static void json_to_cbor(const std::filesystem::path& source_json_file_path, const std::filesystem::path& destination_cbor_file_path) noexcept(false);
 
 	/** ***********************************************************************************************
-	 * @brief Parses the CBOR file for the logging configuration.
-	 * @param void
-	 * @returns Deserialized log configuration containing the sinks and the default sink name.
-	 * @throws std::exception: This is not yet implemented.
+	 * @brief Converts a CBOR file to JSON format.
+	 * @param source_cbor_file_path: The path to the CBOR source file to be converted.
+	 * @param destination_json_file_path: The path to the JSON destination file where the converted
+	 * content will be written.
+	 * @returns void
+	 * @throws std::ios_base::failure If a file cannot be read or written.
+	 * @throws std::bad_alloc If memory allocation for buffers fail.
 	 *************************************************************************************************/
-	[[nodiscard]] deserializer::data deserialize(void) noexcept(false) override;
+	static void cbor_to_json(const std::filesystem::path& source_cbor_file_path, const std::filesystem::path& destination_json_file_path) noexcept(false);
 };
 
-} /*< namespace hob::log */
+} /*< namespace hob */
 
-#endif /*< HOB_LOG_INTERNAL_DESERIALIZER_CBOR_HPP_ */
+#endif /*< HOB_CONVERTER_CONVERTER_HPP_ */

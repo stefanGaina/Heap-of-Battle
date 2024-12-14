@@ -29,11 +29,11 @@
 #ifndef HOB_LOG_CONFIGURATION_HPP_
 #define HOB_LOG_CONFIGURATION_HPP_
 
+#ifndef HOB_LOG_STRIP_ALL
+
 /******************************************************************************************************
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
-
-#ifndef HOB_LOG_STRIP_ALL
 
 #include <string_view>
 
