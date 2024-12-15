@@ -22,7 +22,7 @@
  * @author Gaina Stefan
  * @date 18.11.2024
  * @brief This file implements the class defined in sink_manager.hpp.
- * @todo Read the logger configuration from file and update it in case of runtime changes.
+ * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
@@ -98,7 +98,7 @@ void sink_manager::add_sink(const std::string_view sink_name, const std::list<st
 	assert(nullptr != this);
 	throw_if_sink_name_invalid(sink_name);
 
-	for (const auto& sink_to_compose : sink_names)
+	for (const std::string& sink_to_compose : sink_names)
 	{
 		sinks.push_back(get_sink(sink_to_compose));
 	}

@@ -31,6 +31,14 @@ debug:
 	$(CMAKE_TIME) $(CMAKE_BUILD) $(BUILD_DIRECTORY)/$(DEBUG_DIRECTORY) --verbose $(CMAKE_BUILD_FLAGS)
 .PHONY: debug
 
+install:
+# TODO
+.PHONY: install
+
+install-debug:
+# TODO
+.PHONY: install-debug
+
 cmake:
 	mkdir -p $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY)
 	$(CMAKE_TIME) cmake -DCMAKE_BUILD_TYPE=Release -S . -B $(BUILD_DIRECTORY)/$(RELEASE_DIRECTORY)

@@ -18,7 +18,7 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file deserialzied.cpp
+ * @file deserialzier.cpp
  * @author Gaina Stefan
  * @date 12.12.2024
  * @brief This file implements the class defined in deserializer.hpp.
