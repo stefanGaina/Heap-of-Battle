@@ -17,7 +17,6 @@
  * OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *****************************************************************************************************/
 
-
 /** ***************************************************************************************************
  * @file main.cpp
  * @author Gaina Stefan
@@ -68,7 +67,7 @@ std::int32_t main(const std::int32_t arguments_count, char** const arguments) no
 	{
 		if (true == hob::log::is_initialized())
 		{
-			hob_log_fatal("Caught an exception! (error message: \"{}\")", exception.what());
+			hob_log_default_fatal("Caught an exception! (error message: \"{}\")", exception.what());
 			return EXIT_FAILURE;
 		}
 

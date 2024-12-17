@@ -90,26 +90,9 @@ private:
 	[[nodiscard]] static nlohmann::json create_parser(const std::filesystem::path& configuration_file_path) noexcept(false);
 
 	/** ***********************************************************************************************
-	 * @brief Processes key-value pairs in the configuration file to update sinks and the default
-	 * sink name.
-	 * @param sinks: The sinks where the newly configured sink is to be added.
-	 * @param default_sink_name: The name of of the default sink to be updated.
-	 * @param key: The key of the JSON property being parsed.
-	 * @param value: The JSON value corresponding to the key.
-	 * @returns void
-	 * @throws std::invalid_argument: If the key or value is invalid or missing required properties.
-	 * @throws std::bad_alloc: If memory allocation for sinks or sink name fails.
-	 * @throws nlohmann::json::type_error: If the value has an unexpected type.
-	 *************************************************************************************************/
-	static void parse_property(std::vector<std::shared_ptr<sink>>& sinks,
-							   std::string&						   default_sink_name,
-							   const std::string_view			   key,
-							   const nlohmann::json&			   value) noexcept(false);
-
-	/** ***********************************************************************************************
 	 * @brief Parses and creates a sink from the JSON configuration.
-	 * @param sink_name The name of the sink to be parsed.
-	 * @param sink_configuration The JSON object containing the sink configuration.
+	 * @param sink_name: The name of the sink to be parsed.
+	 * @param sink_configuration: The JSON object containing the sink configuration.
 	 * @returns The newly created sink.
 	 * @throws std::invalid_argument: If the sink type is unsupported or configuration is invalid.
 	 * @throws std::bad_alloc: If memory allocation fails during sink creation.

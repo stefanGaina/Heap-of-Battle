@@ -1,0 +1,15 @@
+{
+    "window": {
+        "width": 1280,
+        "height": 720,
+        "title": "heap-of-battle",
+        "style": 5,
+        "vertical_sync": true,
+        "cursor_visible": false
+    },
+    "hob-main-menu": {
+        "plugin_path": "../lib",
+        "configuration": "../../../config/json/main_menu.json"
+    },
+    "starting_scene": "hob-main-menu"
+}

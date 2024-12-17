@@ -18,7 +18,7 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file deserialzier.cpp
+ * @file deserializer.cpp
  * @author Gaina Stefan
  * @date 12.12.2024
  * @brief This file implements the class defined in deserializer.hpp.
@@ -51,11 +51,13 @@ deserializer::data deserializer::deserialize(const std::filesystem::path& config
 
 	for (const auto& item : parser.items())
 	{
-		for (const auto& property : item.value().items())
+		if ("default" == item.key())
 		{
-			(void)property;
-			parse_property(sinks, default_sink_name, item.key(), item.value());
+			default_sink_name = item.value().get<std::string>();
+			continue;
 		}
+
+		sinks.push_back(parse_sink(item.key(), item.value()));
 	}
 
 	return { sinks, default_sink_name };
@@ -87,20 +89,6 @@ nlohmann::json deserializer::create_parser(const std::filesystem::path& configur
 	return nlohmann::json::from_cbor(std::vector<std::uint8_t>{ std::istreambuf_iterator<char>(configuration_file), std::istreambuf_iterator<char>() });
 }
 
-void deserializer::parse_property(std::vector<std::shared_ptr<sink>>& sinks,
-								  std::string&						  default_sink_name,
-								  const std::string_view			  key,
-								  const nlohmann::json&				  value) noexcept(false)
-{
-	if ("default" == key)
-	{
-		default_sink_name = value.get<std::string>();
-		return;
-	}
-
-	sinks.push_back(parse_sink(key, value));
-}
-
 std::shared_ptr<sink> deserializer::parse_sink(const std::string_view sink_name, const nlohmann::json& sink_configuration) noexcept(false)
 {
 	if ("terminal" == sink_configuration["type"])
@@ -108,13 +96,13 @@ std::shared_ptr<sink> deserializer::parse_sink(const std::string_view sink_name,
 		return std::make_shared<sink_terminal>(
 			sink_name,
 			sink_terminal_configuration{
-				{ sink_configuration["format"].get<std::string>(), sink_configuration["time_format"].get<std::string>(),
-				  sink_configuration["severity_level"].get<std::uint8_t>(), sink_configuration["async_mode"].get<bool>() },
-				"stdout" == sink_configuration["stream"].get<std::string>() ? stdout
-				: "stderr" == sink_configuration["stream"].get<std::string>()
+				{ sink_configuration["format"].get<std::string>(), sink_configuration["time_format"].get<std::string>(), sink_configuration["severity_level"],
+				  sink_configuration["async_mode"] },
+				"stdout" == sink_configuration["stream"] ? stdout
+				: "stderr" == sink_configuration["stream"]
 					? stderr
 					: throw std::invalid_argument{ std::format("\"{}\" stream is invalid!)", sink_configuration["stream"].get<std::string>()) },
-				sink_configuration["color"].get<bool>() });
+				sink_configuration["color"] });
 	}
 
 	throw std::invalid_argument{ std::format("Invalid sink type! (type: \"{}\")", sink_configuration["type"].get<std::string>()) };

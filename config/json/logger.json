@@ -1,12 +1,12 @@
 {
+    "default": "terminal",
     "terminal": {
-        "type": "terminal",
-        "severity_level": 63,
         "async_mode": false,
-        "time_format": "{YEAR}-{MONTH:numeric}-{DAY_MONTH} {HOUR:24}:{MINUTE}:{SECOND}.{MILLISECOND}",
+        "color": true,
         "format": "[{TIME}] [{FILE:short}] [{FUNCTION}:{LINE}] [{TAG}] {MESSAGE}",
+        "severity_level": 31,
         "stream": "stdout",
-        "color": true
-    },
-    "default": "terminal"
+        "time_format": "{YEAR}-{MONTH:numeric}-{DAY_MONTH} {HOUR:24}:{MINUTE}:{SECOND}.{MILLISECOND}",
+        "type": "terminal"
+    }
 }

@@ -1,0 +1,308 @@
+{
+	"textures": [
+		{
+			"index": 0,
+			"path": "assets/textures/cursor/alliance_idle.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 1,
+			"path": "assets/textures/main_menu/background.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 2,
+			"path": "assets/textures/main_menu/logo.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 3,
+			"path": "assets/textures/main_menu/heap_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 4,
+			"path": "assets/textures/main_menu/of_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 5,
+			"path": "assets/textures/main_menu/battle_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 6,
+			"path": "assets/textures/main_menu/1_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 7,
+			"path": "assets/textures/main_menu/button_idle.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 8,
+			"path": "assets/textures/main_menu/button_active.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 9,
+			"path": "assets/textures/main_menu/button_pressed.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 10,
+			"path": "assets/textures/main_menu/start_game_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 11,
+			"path": "assets/textures/main_menu/settings_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		},
+		{
+			"index": 12,
+			"path": "assets/textures/main_menu/exit_text.png",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
+			}
+		}
+	],
+	"fonts": [
+		{
+			"index": 0,
+			"path": "assets/fonts/Aller_Rg.ttf"
+		}
+	],
+	"drawables": [
+		{
+			"index": 0,
+			"type": "sprite",
+			"texture": 1,
+			"destination": {
+				"x": 0,
+				"y": 0,
+				"width": 1280,
+				"height": 720
+			}
+		},
+		{
+			"index": 1,
+			"type": "sprite",
+			"texture": 2,
+			"destination": {
+				"x": 320,
+				"y": 0,
+				"width": 640,
+				"height": 320
+			}
+		},
+		{
+			"index": 2,
+			"type": "sprite",
+			"texture": 3,
+			"destination": {
+				"x": 380,
+				"y": 120,
+				"width": 240,
+				"height": 120
+			}
+		},
+		{
+			"index": 3,
+			"type": "sprite",
+			"texture": 4,
+			"destination": {
+				"x": 600,
+				"y": 160,
+				"width": 80,
+				"height": 120
+			}
+		},
+		{
+			"index": 4,
+			"type": "sprite",
+			"texture": 5,
+			"destination": {
+				"x": 666,
+				"y": 120,
+				"width": 240,
+				"height": 120
+			}
+		},
+		{
+			"index": 5,
+			"type": "sprite",
+			"texture": 6,
+			"destination": {
+				"x": 598,
+				"y": 32,
+				"width": 80,
+				"height": 120
+			}
+		},
+		{
+			"index": 6,
+			"type": "sprite",
+			"texture": 7,
+			"destination": {
+				"x": 495,
+				"y": 325,
+				"width": 290,
+				"height": 70
+			}
+		},
+		{
+			"index": 7,
+			"type": "sprite",
+			"texture": 7,
+			"destination": {
+				"x": 495,
+				"y": 431,
+				"width": 290,
+				"height": 70
+			}
+		},
+		{
+			"index": 8,
+			"type": "sprite",
+			"texture": 7,
+			"destination": {
+				"x": 495,
+				"y": 538,
+				"width": 290,
+				"height": 70
+			}
+		},
+		{
+			"index": 9,
+			"type": "sprite",
+			"texture": 10,
+			"destination": {
+				"x": 560,
+				"y": 340,
+				"width": 160,
+				"height": 40
+			}
+		},
+		{
+			"index": 10,
+			"type": "sprite",
+			"texture": 11,
+			"destination": {
+				"x": 560,
+				"y": 446,
+				"width": 160,
+				"height": 40
+			}
+		},
+		{
+			"index": 11,
+			"type": "sprite",
+			"texture": 12,
+			"destination": {
+				"x": 600,
+				"y": 553,
+				"width": 80,
+				"height": 40
+			}
+		},
+		{
+			"index": 12,
+			"type": "text",
+			"font": 0,
+			"string": "version 0.0.0",
+			"color": {
+				"red": 0,
+				"green": 0,
+				"blue": 0,
+				"opacity": 255
+			},
+			"position": {
+				"x": 575,
+				"y": 260
+			},
+			"character_size": 25
+		},
+		{
+			"index": 13,
+			"type": "sprite",
+			"texture": 0,
+			"destination": {
+				"x": 0,
+				"y": 0,
+				"width": 32,
+				"height": 32
+			}
+		}
+	],
+	"music": [
+		{
+			"index": 0,
+			"path": "assets/music/main_menu.ogg"
+		}
+	]
+}

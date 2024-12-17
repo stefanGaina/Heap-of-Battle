@@ -45,13 +45,10 @@ namespace hob
 void game::run(const std::string_view game_configuration, const std::string_view logger_configuration) noexcept(false)
 {
 	log::initialize(logger_configuration);
-	hob_log_default_info("Logger has been initialized successfully!");
+	hob_log_default_info("Logger has been initialized successfully! (configuration path: \"{}\")", logger_configuration);
 
 	std::make_unique<engine::application>(game_configuration)->run();
-
-#ifndef NDEBUG
-	hob_log_default_info("Lost logs: {}", log::get_lost_logs(log::get_default_sink_name()));
-#endif /*< NDEBUG */
+	hob_log_default_info("Lost logs: \'{}\'", log::get_lost_logs(log::get_default_sink_name()));
 }
 
 } /*< namespace hob */

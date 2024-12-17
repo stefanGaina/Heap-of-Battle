@@ -15,7 +15,7 @@ file(GLOB SOURCES "src/*.cpp")
 
 add_library(${HOB_ENGINE} SHARED ${SOURCES})
 target_compile_definitions(${HOB_ENGINE} PRIVATE HOB_ENGINE_BUILD)
-target_link_libraries(${HOB_ENGINE} ${HOB_LOG} sfml-window sfml-graphics)
+target_link_libraries(${HOB_ENGINE} ${HOB_LOG} sfml-window sfml-graphics sfml-audio)
 
 target_include_directories(${HOB_ENGINE}
 	PUBLIC
