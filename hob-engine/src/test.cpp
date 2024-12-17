@@ -58,7 +58,7 @@ static std::unique_ptr<test> test_object = nullptr;
 void test::initialize(const std::filesystem::path& file_path) noexcept(false)
 {
 	hob_log_default_assert(nullptr == test_object);
-	hob_log_default_trace("Test is being initialized.");
+	hob_log_default_trace("Test is being initialized. (file path: \"{}\")", file_path.string());
 
 	test_object = std::make_unique<test>(file_path);
 }
@@ -70,7 +70,7 @@ test::test(const std::filesystem::path& file_path) noexcept(false)
 	, queue{}
 {
 	hob_log_default_assert(false == file_path.empty());
-	hob_log_default_trace("Test is being constructed.");
+	hob_log_default_trace("Test is being constructed. (file path: \"{}\")", file_path.string());
 
 	file.exceptions(std::ifstream::failbit | std::ifstream::badbit | std::ifstream::eofbit);
 	file.open(file_path, std::ios::in);
@@ -80,7 +80,7 @@ test::test(const std::filesystem::path& file_path) noexcept(false)
 
 test::~test(void) noexcept
 {
-	hob_log_default_trace("Test is being destructed.");
+	hob_log_default_trace("Test is being destructed. (this: \'{:p}\')", reinterpret_cast<void*>(this));
 
 	if (true == thread.joinable())
 	{
@@ -131,7 +131,7 @@ void test::parse_commands(void) noexcept
 	}
 	catch (std::exception& exception)
 	{
-		hob_log_default_error("Caught std::exception during parsing \"{}\"! (error message: {})", line, exception.what());
+		hob_log_default_error("Caught \'std::exception\' during parsing \"{}\"! (error message: \"{}\")", line, exception.what());
 	}
 }
 
@@ -158,7 +158,7 @@ void test::parse_command(const std::string& line) noexcept(false)
 		return;
 	}
 
-	hob_log_default_error("Invalid command! (command: {})", line);
+	hob_log_default_error("Invalid command! (command: \"{}\")", line);
 }
 
 } /*< namespace hob::engine */

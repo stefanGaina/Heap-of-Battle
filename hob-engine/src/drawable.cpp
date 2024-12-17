@@ -18,10 +18,10 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file shared_library.cpp
+ * @file drawable.cpp
  * @author Gaina Stefan
  * @date 17.12.2024
- * @brief This file implements the class defined in shared_library.hpp.
+ * @brief This file implements the class defined in drawable.hpp.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
@@ -30,12 +30,9 @@
  * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#include <stdexcept>
-#include <format>
-#include <dlfcn.h>
 #include <logger.hpp>
 
-#include "shared_library.hpp"
+#include "details/drawable.hpp"
 
 /******************************************************************************************************
  * METHOD DEFINITIONS
@@ -44,43 +41,13 @@
 namespace hob::engine
 {
 
-shared_library::shared_library(const std::filesystem::path& library_path) noexcept(false)
-	: handle{ false == library_path.empty() ? load_library(library_path) : throw std::invalid_argument{ "Scene name is empty!" } }
+const std::vector<std::shared_ptr<sf::Drawable>>& drawable::get_drawables(void) const noexcept
 {
-	hob_log_default_assert(nullptr != handle);
-	hob_log_default_trace("Shared library is being constructed. (library path: \"{}\") (handle: \'{:p}\')", library_path.string(), handle);
-}
-
-shared_library::~shared_library(void) noexcept
-{
-	hob_log_default_assert(nullptr != handle);
-	hob_log_default_trace("Shared library is being destructed. (handle: \'{:p})\'", handle);
-
-	if (0 != dlclose(handle))
-	{
-		hob_log_default_warn("Failed to close opened shared library! (error message: \"{}\")", dlerror());
-	}
-}
-
-void* shared_library::get_symbol(const std::string_view symbol_name) const noexcept(false)
-{
-	void* const symbol = dlsym(handle, symbol_name.data());
-
 	hob_log_default_assert(nullptr != this);
-	hob_log_default_assert(nullptr != handle);
-	hob_log_default_assert(false == symbol_name.empty());
+	hob_log_default_expect(false == drawables.empty());
+	hob_log_default_trace("Drawables are being got.");
 
-	return nullptr != symbol ? symbol : throw std::runtime_error{ std::format("Failed to load \"{}\" symbol! (error message: \"{}\")", symbol_name, dlerror()) };
-}
-
-void* shared_library::load_library(const std::filesystem::path& library_path) noexcept(false)
-{
-	void* const handle = dlopen(library_path.string().c_str(), RTLD_LAZY);
-
-	hob_log_default_trace("Library is being loaded. (library path: \"{}\")", library_path.string());
-	return nullptr != handle
-			   ? handle
-			   : throw std::runtime_error{ std::format("Failed to open \"{}\" shared library! (error message: \"{}\")", library_path.string(), dlerror()) };
+	return drawables;
 }
 
 } /*< namespace hob::engine */

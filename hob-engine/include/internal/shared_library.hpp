@@ -37,6 +37,8 @@
 #include <vector>
 #include <filesystem>
 
+#include "details/visibility.hpp"
+
 /******************************************************************************************************
  * TYPE DEFINITIONS
  *****************************************************************************************************/
@@ -49,7 +51,7 @@ namespace hob::engine
  * @details This class relies on the default copy constructor so in case a copy is done the handle and
  * the returned symbols will be dangling.
  *****************************************************************************************************/
-class shared_library final
+class HOB_LOG_LOCAL shared_library final
 {
 public:
 	/** ***********************************************************************************************

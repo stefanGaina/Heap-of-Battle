@@ -42,6 +42,8 @@
 #include <filesystem>
 #include <SFML/Graphics.hpp>
 
+#include "details/visibility.hpp"
+
 #endif /*< NDEBUG */
 
 /******************************************************************************************************
@@ -89,7 +91,7 @@ namespace hob::engine
  * - wait <milliseconds>: Pauses the execution for the specified number of milliseconds.
  * - quit: Simulates the closure of the window by injecting an sf::Event::Closed event.
  *****************************************************************************************************/
-class test final
+class HOB_LOG_LOCAL test final
 {
 public:
 	/** ***********************************************************************************************
