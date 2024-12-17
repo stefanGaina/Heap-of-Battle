@@ -5,7 +5,7 @@ $ is_initialized
 The logger is NOT initialized!
 
 $ get_default_sink_name
-Caught an exception! (message: The logger has NOT been initialized successfully!)
+Caught 'std::exception'! (message: "The logger has NOT been initialized successfully!")
 
 $ initialize null
 The logger has been initialized successfully!
@@ -22,23 +22,23 @@ $ set_default_sink_name default_test
 $ get_default_sink_name
 The default sink name is: "default_test"
 
-$ DEFAULT_FATAL "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_fatal "test message"
+[hob-log] Caught 'std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
-$ DEFAULT_ERROR "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_error "test message"
+[hob-log] Caught 'std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
-$ DEFAULT_WARN "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_warn "test message"
+[hob-log] Caught 'std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
-$ DEFAULT_INFO "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_info "test message"
+[hob-log] Caught 'std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
-$ DEFAULT_DEBUG "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_debug "test message"
+[hob-log] Caught 'std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
-$ DEFAULT_TRACE "test message"
-[hob-log] Caught std::invalid_argument sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
+$ default_trace "test message"
+[hob-log] 'Caught std::invalid_argument' sending message to a sink! (error message: "Invalid sink name or the sink has not been added successfully!")
 
 $ deinitialize
 The logger has been deinitialized successfully!
@@ -47,7 +47,7 @@ $ is_initialized
 The logger is NOT initialized!
 
 $ get_default_sink_name
-Caught an exception! (message: The logger has NOT been initialized successfully!)
+Caught 'std::exception'! (message: The logger has NOT been initialized successfully!)
 
 $ quit
 

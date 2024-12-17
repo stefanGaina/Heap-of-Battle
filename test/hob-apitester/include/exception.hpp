@@ -44,7 +44,7 @@ namespace hob::apitester
 
 /** ***************************************************************************************************
  * @brief This class defines the interface for custom exceptions.
- * @details This is necessary so they can be caught togheter and allow the user to handle the
+ * @details This is necessary so they can be caught together and allow the user to handle the
  * exceptions from standard library if needed.
  *****************************************************************************************************/
 class exception

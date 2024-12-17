@@ -9,7 +9,6 @@ find_package(nlohmann_json 3.10.0 REQUIRED)
 
 include_directories(
 	include
-	include/details
 	include/internal)
 file(GLOB SOURCES "src/*.cpp")
 

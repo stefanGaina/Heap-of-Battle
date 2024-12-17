@@ -97,7 +97,7 @@ void sink_base::log(const std::uint8_t	   severity_bit,
 	}
 	catch (const std::bad_alloc& exception)
 	{
-		DEBUG_PRINT("Caught std::bad_alloc while formatting message! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::bad_alloc\' while formatting message! (error message: \"{}\")", exception.what());
 		lost_logs_count += UINT64_MAX > lost_logs_count ? 1UL : 0UL;
 		return;
 	}

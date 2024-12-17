@@ -63,7 +63,7 @@ bool message_queue::emplace(const std::uint8_t severity_bit, std::string&& messa
 	}
 	catch (const std::bad_alloc& exception)
 	{
-		DEBUG_PRINT("Caught std::bad_alloc while emplacing message into queue! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::bad_alloc\' while emplacing message into queue! (error message: \"{}\")", exception.what());
 		return false;
 	}
 }

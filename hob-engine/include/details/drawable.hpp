@@ -18,53 +18,56 @@
  *****************************************************************************************************/
 
 /** ***************************************************************************************************
- * @file visibility.hpp
+ * @file drawable.hpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This header defines the visibility attribute when compiling hob-log.
+ * @date 17.12.2024
+ * @brief This header defines the drawable class.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_LOG_DETAILS_VISIBILITY_HPP_
-#define HOB_LOG_DETAILS_VISIBILITY_HPP_
+#ifndef HOB_ENGINE_DETAILS_DRAWABLE_HPP_
+#define HOB_ENGINE_DETAILS_DRAWABLE_HPP_
 
 /******************************************************************************************************
- * MACROS
+ * HEADER FILE INCLUDES
  *****************************************************************************************************/
 
-#ifdef HOB_LOG_BUILD
+#include <vector>
+#include <memory>
+#include <SFML/Graphics/Drawable.hpp>
 
-#ifdef __GNUC__
+#include "details/visibility.hpp"
+
+/******************************************************************************************************
+ * TYPE DEFINITIONS
+ *****************************************************************************************************/
+
+namespace hob::engine
+{
 
 /** ***************************************************************************************************
- * @brief Defines the visibility attribute for exported symbols.
+ * @brief Class providing the interface for the engine to draw the object to the window.
  *****************************************************************************************************/
-#define HOB_LOG_API __attribute__((visibility("default")))
+class HOB_ENGINE_API drawable
+{
+public:
+	/** ***********************************************************************************************
+	 * @brief Gets the objects that can be drawn. It is thread-safe.
+	 * @param void
+	 * @returns The drawable objects.
+	 * @throws N/A.
+	 *************************************************************************************************/
+	const std::vector<std::shared_ptr<sf::Drawable>>& get_drawables(void) const noexcept;
 
-/** ***************************************************************************************************
- * @brief Defines the visibility attribute for hidden symbols.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL __attribute__((visibility("hidden")))
+protected:
+	/** ***********************************************************************************************
+	 * @brief Collection of drawables (sprites, text, etc.) that are meant to be used by the inheriting
+	 * class.
+	 *************************************************************************************************/
+	std::vector<std::shared_ptr<sf::Drawable>> drawables;
+};
 
-#else
+} /*< namespace hob::engine */
 
-#error "hob-log requires g++ to be compiled."
-
-#endif /*< __GNUC__ */
-
-#else
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_API
-
-/** ***************************************************************************************************
- * @brief The logging library is not being built.
- *****************************************************************************************************/
-#define HOB_LOG_LOCAL
-
-#endif /*< HOB_LOG_BUILD */
-
-#endif /*< HOB_LOG_DETAILS_VISIBILITY_HPP_ */
+#endif /*< HOB_ENGINE_DRAWABLE_HPP_ */

@@ -104,7 +104,7 @@ void remove_sink(const std::string_view sink_name) noexcept
 	}
 	catch (const std::logic_error& exception)
 	{
-		DEBUG_PRINT("Caught std::logic_error while removing sink! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::logic_error\' while removing sink! (error message: \"{}\")", exception.what());
 	}
 }
 
@@ -212,11 +212,11 @@ void log(const std::string_view sink_name,
 	}
 	catch (const std::invalid_argument& exception)
 	{
-		DEBUG_PRINT("Caught std::invalid_argument sending message to a sink! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::invalid_argument\' sending message to a sink! (error message: \"{}\")", exception.what());
 	}
 	catch (const std::logic_error& exception)
 	{
-		DEBUG_PRINT("Caught std::logic_error while sending message to the logger! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::logic_error\' while sending message to the logger! (error message: \"{}\")", exception.what());
 	}
 }
 

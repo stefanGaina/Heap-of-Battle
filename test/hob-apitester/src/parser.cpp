@@ -180,11 +180,11 @@ void parser::handle_command(const std::string& command) noexcept(false)
 	}
 	catch (const invalid_argument& exception)
 	{
-		std::println("Invalid argument! {}", exception.what());
+		std::println("Invalid argument! \"{}\"", exception.what());
 	}
 	catch (const out_of_range& exception)
 	{
-		std::println("Out of range! {}", exception.what());
+		std::println("Out of range! \"{}\"", exception.what());
 	}
 	catch (const std::bad_alloc& exception)
 	{
@@ -192,7 +192,7 @@ void parser::handle_command(const std::string& command) noexcept(false)
 	}
 	catch (const std::exception& exception)
 	{
-		std::println("Caught an exception! (message: {})", exception.what());
+		std::println("Caught \'std::exception\'! (message: \"{}\")", exception.what());
 	}
 	catch (...)
 	{

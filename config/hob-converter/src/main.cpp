@@ -65,7 +65,7 @@ std::int32_t main(const std::int32_t arguments_count, char** const arguments) no
 	}
 	catch (const std::exception& exception)
 	{
-		std::println("Caught an exception! (error message: {})", exception.what());
+		std::println("Caught \'std::exception\' during conversion! (error message: \"{}\")", exception.what());
 		return EXIT_FAILURE;
 	}
 }

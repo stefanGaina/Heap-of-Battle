@@ -94,7 +94,7 @@ bool sink_terminal::log(const std::uint8_t severity_bit, const std::string_view 
 	}
 	catch (const std::exception& exception)
 	{
-		DEBUG_PRINT("Caught std::exception while printing to the terminal! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::exception\' while printing to the terminal! (error message: \"{}\")", exception.what());
 		return false;
 	}
 }
@@ -150,7 +150,7 @@ color::color(const bool color_enabled, const std::uint8_t severity_bit) noexcept
 	}
 	catch (const std::exception& exception)
 	{
-		DEBUG_PRINT("Caught std::exception while changing the terminal color! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::exception\' while changing the terminal color! (error message: \"{}\")", exception.what());
 	}
 }
 
@@ -168,7 +168,7 @@ color::~color(void) noexcept
 	}
 	catch (const std::exception& exception)
 	{
-		DEBUG_PRINT("Caught std::exception while restoring the terminal color! (error message: \"{}\")", exception.what());
+		DEBUG_PRINT("Caught \'std::exception\' while restoring the terminal color! (error message: \"{}\")", exception.what());
 	}
 }
 

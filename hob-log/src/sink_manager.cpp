@@ -79,7 +79,7 @@ sink_manager::~sink_manager(void) noexcept
 	}
 	catch (const std::exception& exception)
 	{
-		DEBUG_PRINT("Caught std::exception while writing configuration to \"{}\"! (error message: \"{}\")", configuration_file_path.string(), exception.what());
+		DEBUG_PRINT("Caught \'std::exception\' while writing configuration to \"{}\"! (error message: \"{}\")", configuration_file_path.string(), exception.what());
 	}
 }
 

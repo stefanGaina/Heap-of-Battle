@@ -31,8 +31,10 @@ if(NOT BUILD_UNIT_TESTS)
 	set(HOB_SANDBOX hob-sandbox)
 
 	file(GLOB_RECURSE FORMAT_FILES
-		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/src/*.cpp"
-		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/include/*/*.hpp"
+		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/game/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/game/include/*/*.hpp"
+		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/main_menu/src/*.cpp"
+		 "${CMAKE_SOURCE_DIR}/${HOB_DIRECTORY}/main_menu/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/include/*/*.hpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_ENGINE_DIRECTORY}/src/*.cpp"
 		 "${CMAKE_SOURCE_DIR}/${HOB_LOG_DIRECTORY}/include/*/*.hpp"

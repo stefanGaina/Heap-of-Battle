@@ -20,51 +20,51 @@
 /** ***************************************************************************************************
  * @file visibility.hpp
  * @author Gaina Stefan
- * @date 17.11.2024
- * @brief This header defines the visibility attribute when compiling hob-log.
+ * @date 17.12.2024
+ * @brief This header defines the visibility attribute when compiling hob-engine.
  * @todo N/A.
  * @bug No known bugs.
  *****************************************************************************************************/
 
-#ifndef HOB_LOG_DETAILS_VISIBILITY_HPP_
-#define HOB_LOG_DETAILS_VISIBILITY_HPP_
+#ifndef HOB_ENGINE_DETAILS_VISIBILITY_HPP_
+#define HOB_ENGINE_DETAILS_VISIBILITY_HPP_
 
 /******************************************************************************************************
  * MACROS
  *****************************************************************************************************/
 
-#ifdef HOB_LOG_BUILD
+#ifdef HOB_ENGINE_BUILD
 
 #ifdef __GNUC__
 
 /** ***************************************************************************************************
  * @brief Defines the visibility attribute for exported symbols.
  *****************************************************************************************************/
-#define HOB_LOG_API __attribute__((visibility("default")))
+#define HOB_ENGINE_API __attribute__((visibility("default")))
 
 /** ***************************************************************************************************
  * @brief Defines the visibility attribute for hidden symbols.
  *****************************************************************************************************/
-#define HOB_LOG_LOCAL __attribute__((visibility("hidden")))
+#define HOB_ENGINE_LOCAL __attribute__((visibility("hidden")))
 
 #else
 
-#error "hob-log requires g++ to be compiled."
+#error "hob-engine requires g++ to be compiled."
 
 #endif /*< __GNUC__ */
 
 #else
 
 /** ***************************************************************************************************
- * @brief The logging library is not being built.
+ * @brief The engine is not being built.
  *****************************************************************************************************/
-#define HOB_LOG_API
+#define HOB_ENGINE_API
 
 /** ***************************************************************************************************
- * @brief The logging library is not being built.
+ * @brief The engine is not being built.
  *****************************************************************************************************/
-#define HOB_LOG_LOCAL
+#define HOB_ENGINE_LOCAL
 
-#endif /*< HOB_LOG_BUILD */
+#endif /*< HOB_ENGINE_BUILD */
 
-#endif /*< HOB_LOG_DETAILS_VISIBILITY_HPP_ */
+#endif /*< HOB_ENGINE_DETAILS_VISIBILITY_HPP_ */
