@@ -189,7 +189,7 @@ bool sink_base::get_async_mode(void) const noexcept
 std::string sink_base::get_host_name(void) noexcept(false)
 {
 #ifdef _WIN32
-	return "TOOD_WINDOWS";
+	return "TODO_WINDOWS";
 #else
 	std::array<char, 256UL> hostname = {};
 	return 0 == gethostname(hostname.data(), hostname.size()) ? hostname.data() : "Unknown";
