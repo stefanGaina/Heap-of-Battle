@@ -9,7 +9,6 @@ find_package(SFML 2.5 REQUIRED window graphics)
 
 include_directories(
 	include
-	include/details
 	include/internal)
 file(GLOB SOURCES "src/*.cpp")
 
